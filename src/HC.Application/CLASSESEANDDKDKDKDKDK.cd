@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HC.Application.Services.StoryPageService" BaseTypeListCollapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAIIAAAQAAAAAAAA=</HashCode>
+      <FileName>Services\StoryPageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.Services.StoryService" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IBAAAACICEAAAABIAEQBRAAQAUhAQAAAAAQAgFBAAAA=</HashCode>
+      <FileName>Services\StoryService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.Services.UserService" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>WAAAAAAoQAIEAAAAgQAAEAQAApAAAAAAAAYAAEEICAE=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.Common.Extentions.DynExtentions">
+    <Position X="10.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Extentions\DynExtentions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.Common.Extentions.IEnumerableExtentions">
+    <Position X="10.25" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Common\Extentions\IEnumerableExtentions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.Common.Extentions.JwtServicesConfiguration">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Extentions\JwtServicesConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.Common.Extentions.ServicesConfiguration">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Extentions\ServicesConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.BookmarkStoryDto" Collapsed="true">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\BookmarkStoryDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.CreateCommentDto" Collapsed="true">
+    <Position X="8.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\CreateCommentDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.GetUserInfoDto" Collapsed="true">
+    <Position X="10.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\GetUserInfoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.PublishReviewDto" Collapsed="true">
+    <Position X="10.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEIAAAAAA=</HashCode>
+      <FileName>DTOs\PublishReviewDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.ReadStoryDto" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAA=</HashCode>
+      <FileName>DTOs\ReadStoryDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.ScoreStoryDto" Collapsed="true">
+    <Position X="10.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\ScoreStoryDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.StoryCreateDto" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAhAGAAGAAAAAQAAAAAAAIAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\StoryCreateDto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.DTOs.StoryPageCreateDto" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgARAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\StoryPageCreateDto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.DTOs.StoryPageReadDto" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgARAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\StoryPageReadDto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.DTOs.StoryPagesCreateDto" Collapsed="true">
+    <Position X="10.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DTOs\StoryPagesCreateDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.StoryReadDto" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAAhAGAAGEIAACYQAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\StoryReadDto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.DTOs.UpdateUserDataUpdateDto" Collapsed="true">
+    <Position X="6.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAgQAABAAAAQAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>DTOs\UpdateUserDataUpdateDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.UserCreateDto" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABAAAAAQAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\UserCreateDto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HC.Application.DTOs.UserLoginDto" Collapsed="true">
+    <Position X="5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\UserLoginDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HC.Application.DTOs.UserReadDto" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACABAAQAEUEAACQAAAAAAgAAAAIAAAAAAAA=</HashCode>
+      <FileName>DTOs\UserReadDto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="HC.Application.Interface.IStoryPageService">
+    <Position X="5" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAIIAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\Service\IStoryPageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HC.Application.Interface.IStoryService">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IBAAAAAICEAAAABIAEQARAAQAEhAQAAAAAAAgFBAAAA=</HashCode>
+      <FileName>Interface\Service\IStoryService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HC.Application.Interface.IUserService">
+    <Position X="8.5" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>WAAAAAAIQAAAAAAAgQAAEAAAABAAAAAAAAAAAEEIAAE=</HashCode>
+      <FileName>Interface\Service\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
