@@ -1,9 +1,9 @@
 ﻿using HC.Domain.Users;
 using System;
 
-namespace HC.Domain.Stories.Comments;
+namespace HC.Domain.Stories;
 
-public class Comment : Entity<CommentId>
+public sealed class Comment : Entity<CommentId>
 {
     private Comment(
         CommentId id,

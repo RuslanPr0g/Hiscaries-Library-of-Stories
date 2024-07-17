@@ -1,11 +1,8 @@
-﻿namespace HC.Domain;
+﻿using System;
 
-public interface IIdentity
+namespace HC.Domain;
+public record Identity(Guid Value)
 {
-};
-
-public record Identity<T>(T Value) : IIdentity where T : struct
-{
-    public static implicit operator Identity<T>(T identity) => new Identity<T>(identity);
-    public static implicit operator T(Identity<T> identity) => identity.Value;
+    public static implicit operator Identity(Guid identity) => new(identity);
+    public static implicit operator Guid(Identity identity) => identity.Value;
 }

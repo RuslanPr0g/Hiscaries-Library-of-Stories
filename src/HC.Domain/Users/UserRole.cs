@@ -1,24 +1,21 @@
 ﻿using System;
+using static HC.Domain.Users.UserRole;
 
 namespace HC.Domain.Users;
 
-public sealed record class UserRole
+public sealed record class UserRole : IValueObject<UserRoleEnum>
 {
-    public UserRole(int id, User user, UserRoleEnum role)
+    public UserRole(UserRoleEnum role)
     {
         if (!Enum.IsDefined(role))
         {
             throw new ArgumentException($"Role is invalid. The provided value is {role}");
         }
 
-        Id = id;
-        User = user;
-        Role = role;
+        Value = role;
     }
 
-    public int Id { get; init; }
-    public User User { get; init; }
-    public UserRoleEnum Role { get; init; }
+    public UserRoleEnum Value { get; init; }
 
     private UserRole()
     {

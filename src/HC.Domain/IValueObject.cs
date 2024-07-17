@@ -1,5 +1,6 @@
 ﻿namespace HC.Domain;
 
-public interface IValueObject
+public interface IValueObject<T>
 {
+    T Value { get; }
 }

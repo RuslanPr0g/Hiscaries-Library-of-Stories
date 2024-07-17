@@ -1,18 +1,21 @@
 ﻿namespace HC.Domain.Stories;
 
-public sealed record class StoryPage
+public sealed class StoryPage
 {
-    public StoryPage(int id, Story story, int page, string content)
+    public StoryPage(
+        StoryId storyId,
+        int page,
+        string content)
     {
-        Id = id;
-        Story = story;
+        StoryId = storyId;
         Page = page;
         Content = content;
     }
 
-    public int Id { get; init; }
-    public Story Story { get; init; }
+    // TODO: THESE TWO ARE PRIMARY KEYS
+    public StoryId StoryId { get; init; }
     public int Page { get; init; }
+
     public string Content { get; init; }
 
     private StoryPage()

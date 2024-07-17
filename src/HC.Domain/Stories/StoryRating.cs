@@ -1,19 +1,24 @@
-﻿namespace HC.Domain.Stories;
+﻿using HC.Domain.Users;
 
-public sealed record class StoryRating
+namespace HC.Domain.Stories;
+
+public sealed class StoryRating : Entity<StoryRatingId>
 {
-    public StoryRating(int id, Story story, User user, int score)
+    public StoryRating(
+        StoryRatingId id,
+        StoryId story,
+        UserId user,
+        int score) : base(id)
     {
         Id = id;
-        Story = story;
-        User = user;
+        StoryId = story;
+        UserId = user;
         Score = score;
     }
 
-    public int Id { get; init; }
-    public Story Story { get; init; }
-    public User User { get; init; }
-    public int Score { get; init; } // TODO max 5 min 1
+    public StoryId StoryId { get; init; }
+    public UserId UserId { get; init; }
+    public int Score { get; init; } // TODO: max 5 min 1
 
     private StoryRating()
     {

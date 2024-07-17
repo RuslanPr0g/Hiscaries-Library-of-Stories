@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HC.Domain.Stories;
+namespace HC.Domain.Users;
 
-public class StoryReadHistoryProgress
+public class UserReadHistoryProgress
 {
     public int StoryId { get; init; }
     public int PublisherId { get; init; }

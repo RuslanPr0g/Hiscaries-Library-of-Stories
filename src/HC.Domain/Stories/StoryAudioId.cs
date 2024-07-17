@@ -2,4 +2,4 @@
 
 namespace HC.Domain.Stories;
 
-public record StoryAudioId(Guid Value) : Identity<Guid>(Value);
+public record StoryAudioId(Guid Value) : Identity(Value);

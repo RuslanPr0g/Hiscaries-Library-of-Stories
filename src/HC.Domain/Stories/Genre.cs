@@ -1,17 +1,25 @@
 ﻿using System;
 
-namespace HC.Domain.Genres;
+namespace HC.Domain.Stories;
 
-public class Genre : Entity<GenreId>
+public sealed class Genre : Entity<GenreId>
 {
-    private Genre(GenreId id, string name, string description, byte[] imagePreview) : base(id)
+    private Genre(
+        GenreId id,
+        string name,
+        string description,
+        byte[] imagePreview) : base(id)
     {
         Name = name;
         Description = description;
         ImagePreview = imagePreview;
     }
 
-    public static Genre Create(Guid id, string name, string description, byte[] imagePreview) =>
+    public static Genre Create(
+        Guid id,
+        string name,
+        string description,
+        byte[] imagePreview) =>
         new Genre(new GenreId(id), name, description, imagePreview);
 
     public string Name { get; init; }

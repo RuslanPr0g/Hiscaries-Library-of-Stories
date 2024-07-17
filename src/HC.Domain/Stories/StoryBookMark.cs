@@ -1,20 +1,24 @@
-﻿using System;
+﻿using HC.Domain.Users;
+using System;
 
 namespace HC.Domain.Stories;
 
-public sealed record class StoryBookMark
+public sealed class StoryBookMark : Entity<StoryBookMarkId>
 {
-    public StoryBookMark(int id, User user, Story story, DateTime dateAdded)
+    public StoryBookMark(
+        StoryBookMarkId id,
+        UserId user,
+        StoryId story,
+        DateTime dateAdded) : base(id)
     {
         Id = id;
-        User = user;
-        Story = story;
+        UserId = user;
+        StoryId = story;
         DateAdded = dateAdded;
     }
 
-    public int Id { get; init; }
-    public User User { get; init; }
-    public Story Story { get; init; }
+    public UserId UserId { get; init; }
+    public StoryId StoryId { get; init; }
     public DateTime DateAdded { get; init; }
 
     private StoryBookMark()

@@ -1,18 +1,20 @@
 ﻿namespace HC.Domain.Users;
 
-public sealed record class Review : IAggregateRoot
+public sealed class Review : Entity<ReviewId>
 {
-    public Review(int id, User publisher, User reviewer, string message,
-        string username)
+    public Review(
+        ReviewId id,
+        User publisher,
+        User reviewer,
+        string message,
+        string username) : base(id)
     {
-        Id = id;
         Publisher = publisher;
         Reviewer = reviewer;
         Message = message;
         Username = username;
     }
 
-    public int Id { get; init; }
     public User Publisher { get; init; }
     public User Reviewer { get; init; }
     public string Message { get; init; }

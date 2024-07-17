@@ -1,29 +1,28 @@
-﻿using HC.Domain.Genres;
-using HC.Domain.Stories.Comments;
+﻿using Enterprise.Domain;
 using HC.Domain.Users;
 using System;
 using System.Collections.Generic;
 
 namespace HC.Domain.Stories;
 
-public class Story : Entity<StoryId>, IAggregateRoot
+public sealed class Story : AggregateRoot<StoryId>
 {
     private Story(
         StoryId id,
-        User publisher,
+        UserId publisherId,
         string title,
         string description,
         string authorName,
-        List<Genre> genres,
-        List<Comment> comments,
-        List<StoryPage> storyPages,
+        ICollection<Genre> genres,
+        ICollection<Comment> comments,
+        ICollection<StoryPage> storyPages,
         int ageLimit,
         byte[] imagePreview,
         DateTime datePublished,
         DateTime dateWritten) : base(id)
     {
         Id = id;
-        Publisher = publisher;
+        PublisherId = publisherId;
         Title = title;
         Description = description;
         AuthorName = authorName;
@@ -42,9 +41,9 @@ public class Story : Entity<StoryId>, IAggregateRoot
         string title,
         string description,
         string authorName,
-        List<Genre> genres,
-        List<Comment> comments,
-        List<StoryPage> storyPages,
+        ICollection<Genre> genres,
+        ICollection<Comment> comments,
+        ICollection<StoryPage> storyPages,
         int ageLimit,
         byte[] imagePreview,
         DateTime datePublished,
@@ -64,9 +63,9 @@ public class Story : Entity<StoryId>, IAggregateRoot
 
     public UserId PublisherId { get; init; }
     public User Publisher { get; init; }
-    public List<Genre> Genres { get; init; }
-    public List<StoryPage> StoryPages { get; init; }
-    public List<Comment> Comments { get; init; }
+    public ICollection<Genre> Genres { get; init; }
+    public ICollection<StoryPage> StoryPages { get; init; }
+    public ICollection<Comment> Comments { get; init; }
 
     public string Title { get; init; }
     public string Description { get; init; }
