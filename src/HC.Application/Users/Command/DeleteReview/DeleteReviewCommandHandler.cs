@@ -8,9 +8,9 @@ namespace HC.Application.Users.Command;
 
 public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand, int>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public DeleteReviewCommandHandler(IUserService userService)
+    public DeleteReviewCommandHandler(IUserWriteService userService)
     {
         _userService = userService;
     }

@@ -10,10 +10,10 @@ namespace HC.Application.Stories.Command;
 
 public class CreateStoryCommandHandler : IRequestHandler<CreateStoryCommand, PublishStoryResult>
 {
-    private readonly IStoryService _storyService;
-    private readonly IUserService _userService;
+    private readonly IStoryWriteService _storyService;
+    private readonly IUserWriteService _userService;
 
-    public CreateStoryCommandHandler(IStoryService storyService, IUserService userService)
+    public CreateStoryCommandHandler(IStoryWriteService storyService, IUserWriteService userService)
     {
         _storyService = storyService;
         _userService = userService;

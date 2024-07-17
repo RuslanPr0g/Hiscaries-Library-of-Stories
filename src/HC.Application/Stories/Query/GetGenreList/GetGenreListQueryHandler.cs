@@ -9,9 +9,9 @@ namespace HC.Application.Stories.Query.GetGenreList;
 
 public class GetGenreListQueryHandler : IRequestHandler<GetGenreListQuery, List<Genre>>
 {
-    private readonly IStoryService _storySevice;
+    private readonly IStoryWriteService _storySevice;
 
-    public GetGenreListQueryHandler(IStoryService storyService)
+    public GetGenreListQueryHandler(IStoryWriteService storyService)
     {
         _storySevice = storyService;
     }

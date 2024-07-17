@@ -37,7 +37,7 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public static Story Create(
         Guid id,
-        User publisher,
+        UserId publisher,
         string title,
         string description,
         string authorName,
@@ -66,6 +66,7 @@ public sealed class Story : AggregateRoot<StoryId>
     public ICollection<Genre> Genres { get; init; }
     public ICollection<StoryPage> StoryPages { get; init; }
     public ICollection<Comment> Comments { get; init; }
+    public ICollection<StoryAudio> Audios { get; init; }
 
     public string Title { get; init; }
     public string Description { get; init; }

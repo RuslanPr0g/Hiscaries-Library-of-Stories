@@ -9,9 +9,9 @@ namespace HC.Application.Stories.Query;
 
 public class StoryScoreQueryHandler : IRequestHandler<StoryScoreQuery, List<StoryRating>>
 {
-    private readonly IStoryService _storySevice;
+    private readonly IStoryWriteService _storySevice;
 
-    public StoryScoreQueryHandler(IStoryService storyService)
+    public StoryScoreQueryHandler(IStoryWriteService storyService)
     {
         _storySevice = storyService;
     }

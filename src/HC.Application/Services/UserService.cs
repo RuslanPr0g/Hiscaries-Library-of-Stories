@@ -15,19 +15,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace HC.Application.Services;
 
-public class UserService : IUserService
+public class UserService : IUserWriteService
 {
     private readonly DbConnectionRoleCreator _dbConnectionRoleCreator;
     private readonly IEncryptor _encryptor;
     private readonly JwtSettings _jwtSettings;
-    private readonly IStoryRepository _storyRepository;
+    private readonly IStoryWriteRepository _storyRepository;
     private readonly TokenValidationParameters _tokenValidationParameters;
-    private readonly IUserRepository _userRepository;
+    private readonly IUserWriteRepository _userRepository;
 
-    public UserService(IUserRepository userRepository, JwtSettings jwtSettings,
+    public UserService(IUserWriteRepository userRepository, JwtSettings jwtSettings,
         TokenValidationParameters tokenValidationParameters,
         IOptionsSnapshot<DbConnectionRoleCreator> connection, IEncryptor encryptor,
-        IStoryRepository storyRepository)
+        IStoryWriteRepository storyRepository)
     {
         _userRepository = userRepository;
         _jwtSettings = jwtSettings;

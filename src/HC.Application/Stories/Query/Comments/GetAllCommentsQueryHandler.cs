@@ -9,9 +9,9 @@ namespace HC.Application.Stories.Query.Comments;
 
 internal class GetAllCommentsQueryHandler : IRequestHandler<GetAllCommentsQuery, List<Comment>>
 {
-    private readonly IStoryService _storySevice;
+    private readonly IStoryWriteService _storySevice;
 
-    public GetAllCommentsQueryHandler(IStoryService storyService)
+    public GetAllCommentsQueryHandler(IStoryWriteService storyService)
     {
         _storySevice = storyService;
     }

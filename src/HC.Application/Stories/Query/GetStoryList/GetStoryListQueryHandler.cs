@@ -11,9 +11,9 @@ namespace HC.Application.Stories.Query;
 
 public class GetStoryListQueryHandler : IRequestHandler<GetStoryListQuery, List<StoryReadDto>>
 {
-    private readonly IStoryService _storySevice;
+    private readonly IStoryWriteService _storySevice;
 
-    public GetStoryListQueryHandler(IStoryService storyService)
+    public GetStoryListQueryHandler(IStoryWriteService storyService)
     {
         _storySevice = storyService;
     }

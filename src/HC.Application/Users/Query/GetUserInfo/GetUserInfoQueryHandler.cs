@@ -11,9 +11,9 @@ namespace HC.Application.Users.Query;
 public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, UserReadDto>
 {
     private readonly IMapper _mapper;
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public GetUserInfoQueryHandler(IUserService userService, IMapper mapper)
+    public GetUserInfoQueryHandler(IUserWriteService userService, IMapper mapper)
     {
         _userService = userService;
         _mapper = mapper;

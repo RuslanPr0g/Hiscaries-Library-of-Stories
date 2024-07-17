@@ -12,10 +12,10 @@ namespace HC.Application.Stories.Command;
 
 public class StoryScoreCommandHandler : IRequestHandler<StoryScoreCommand, int>
 {
-    private readonly IStoryService _storyService;
-    private readonly IUserService _userService;
+    private readonly IStoryWriteService _storyService;
+    private readonly IUserWriteService _userService;
 
-    public StoryScoreCommandHandler(IStoryService storyService, IUserService userService)
+    public StoryScoreCommandHandler(IStoryWriteService storyService, IUserWriteService userService)
     {
         _storyService = storyService;
         _userService = userService;

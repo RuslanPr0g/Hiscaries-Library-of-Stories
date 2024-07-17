@@ -9,9 +9,9 @@ namespace HC.Application.Stories.Query.History;
 
 public class HistoryQueryHandler : IRequestHandler<HistoryQuery, List<StoryReadHistoryProgress>>
 {
-    private readonly IStoryService _storySevice;
+    private readonly IStoryWriteService _storySevice;
 
-    public HistoryQueryHandler(IStoryService storyService)
+    public HistoryQueryHandler(IStoryWriteService storyService)
     {
         _storySevice = storyService;
     }

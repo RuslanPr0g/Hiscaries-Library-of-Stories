@@ -10,9 +10,9 @@ namespace HC.Application.Stories.Command.UpdateStory;
 
 public class UpdateStoryCommandHandler : IRequestHandler<UpdateStoryCommand, PublishStoryResult>
 {
-    private readonly IStoryService _storyService;
+    private readonly IStoryWriteService _storyService;
 
-    public UpdateStoryCommandHandler(IStoryService storyService)
+    public UpdateStoryCommandHandler(IStoryWriteService storyService)
     {
         _storyService = storyService;
     }

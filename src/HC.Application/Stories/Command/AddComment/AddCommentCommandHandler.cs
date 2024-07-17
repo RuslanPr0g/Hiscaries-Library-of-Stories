@@ -7,9 +7,9 @@ namespace HC.Application.Stories.Command.AddComment;
 
 public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, int>
 {
-    private readonly IStoryService _storyService;
+    private readonly IStoryWriteService _storyService;
 
-    public AddCommentCommandHandler(IStoryService storyService)
+    public AddCommentCommandHandler(IStoryWriteService storyService)
     {
         _storyService = storyService;
     }

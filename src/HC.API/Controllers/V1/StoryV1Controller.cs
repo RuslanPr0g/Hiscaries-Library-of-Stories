@@ -44,10 +44,10 @@ public class StoryV1Controller : ControllerBase
     private readonly IHashids _hashids;
     private readonly ILogger<StoryV1Controller> _logger;
     private readonly IMediator _mediator;
-    private readonly IStoryRepository _storyRepository;
+    private readonly IStoryWriteRepository _storyRepository;
 
     public StoryV1Controller(IMediator mediator, ILogger<StoryV1Controller> logger, IEncryptor encryptor,
-        IStoryRepository storyRepository, IHashids hashids)
+        IStoryWriteRepository storyRepository, IHashids hashids)
     {
         _mediator = mediator;
         _logger = logger;

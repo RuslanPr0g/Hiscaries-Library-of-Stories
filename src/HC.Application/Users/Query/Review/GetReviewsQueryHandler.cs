@@ -9,9 +9,9 @@ namespace HC.Application.Users.Query;
 
 public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, List<Review>>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public GetReviewsQueryHandler(IUserService userService)
+    public GetReviewsQueryHandler(IUserWriteService userService)
     {
         _userService = userService;
     }

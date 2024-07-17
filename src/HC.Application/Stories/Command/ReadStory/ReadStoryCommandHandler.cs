@@ -10,10 +10,10 @@ namespace HC.Application.Stories.Command.ReadStory;
 
 internal class ReadStoryCommandHandler : IRequestHandler<ReadStoryCommand, int>
 {
-    private readonly IStoryService _storyService;
-    private readonly IUserService _userService;
+    private readonly IStoryWriteService _storyService;
+    private readonly IUserWriteService _userService;
 
-    public ReadStoryCommandHandler(IStoryService storyService, IUserService userService)
+    public ReadStoryCommandHandler(IStoryWriteService storyService, IUserWriteService userService)
     {
         _storyService = storyService;
         _userService = userService;

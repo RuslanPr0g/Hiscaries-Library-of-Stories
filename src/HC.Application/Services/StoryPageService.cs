@@ -8,9 +8,9 @@ namespace HC.Application.Services;
 
 public class StoryPageService : IStoryPageService
 {
-    private readonly IStoryRepository _storyRepository;
+    private readonly IStoryWriteRepository _storyRepository;
 
-    public StoryPageService(IStoryRepository storyRepository)
+    public StoryPageService(IStoryWriteRepository storyRepository)
     {
         _storyRepository = storyRepository;
     }

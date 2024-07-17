@@ -15,7 +15,7 @@ using Npgsql;
 
 namespace HC.Infrastructure.Repository;
 
-public class PostgresStoryRepository : IStoryRepository
+public class PostgresStoryRepository : IStoryWriteRepository
 {
     private readonly DbConnectionStrings _connection;
 

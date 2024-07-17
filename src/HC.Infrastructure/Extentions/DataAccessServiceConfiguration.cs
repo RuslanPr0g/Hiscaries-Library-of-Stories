@@ -12,7 +12,7 @@ public static class DataAccessServiceConfiguration
     public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration connection)
     {
         services.AddScoped<IUserRepository, EFUserRepository>();
-        services.AddScoped<IStoryRepository, EFStoryRepository>();
+        services.AddScoped<IStoryWriteRepository, EFStoryRepository>();
 
         string mainConnectionString = connection.GetConnectionString("PostgresEF");
         services.AddDbContext<HiscaryContext>(options =>

@@ -11,9 +11,9 @@ namespace HC.Application.Users.Command;
 
 public class UpdateUserDataCommandHandler : IRequestHandler<UpdateUserDataCommand, UpdateUserDataResult>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public UpdateUserDataCommandHandler(IUserService userService)
+    public UpdateUserDataCommandHandler(IUserWriteService userService)
     {
         _userService = userService;
     }

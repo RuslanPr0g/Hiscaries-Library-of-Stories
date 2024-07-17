@@ -4,7 +4,7 @@ using MediatR;
 
 namespace HC.Application.Users.Command;
 
-public class CreateUserCommand : IRequest<RegisterUserResult>
+public class RegisterUserCommand : IRequest<RegisterUserResult>
 {
     public string Username { get; set; }
 

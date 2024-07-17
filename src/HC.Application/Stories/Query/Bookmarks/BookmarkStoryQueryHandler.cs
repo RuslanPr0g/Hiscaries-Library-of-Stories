@@ -9,9 +9,9 @@ namespace HC.Application.Stories.Query.Bookmarks;
 
 public class BookmarkStoryQueryHandler : IRequestHandler<BookmarkStoryQuery, List<Story>>
 {
-    private readonly IStoryService _storySevice;
+    private readonly IStoryWriteService _storySevice;
 
-    public BookmarkStoryQueryHandler(IStoryService storyService)
+    public BookmarkStoryQueryHandler(IStoryWriteService storyService)
     {
         _storySevice = storyService;
     }

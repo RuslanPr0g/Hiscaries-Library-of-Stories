@@ -9,7 +9,8 @@ namespace HC.Application.Common.Extentions;
 
 public static class JwtServicesConfiguration
 {
-    public static IServiceCollection AddJwtBearerBasedSwaggerSupport(this IServiceCollection services,
+    public static IServiceCollection AddJwtBearerBasedSwaggerSupport(
+        this IServiceCollection services,
         JwtSettings jwtSettings)
     {
         services.AddJwtSupport(jwtSettings);

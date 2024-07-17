@@ -9,7 +9,7 @@ using HC.Domain.Story.Comment;
 
 namespace HC.Infrastructure.Repository
 {
-    public class EFStoryRepository : IStoryRepository
+    public class EFStoryRepository : IStoryWriteRepository
     {
         private readonly HiscaryContext _context;
 

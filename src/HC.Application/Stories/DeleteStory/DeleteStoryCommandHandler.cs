@@ -8,9 +8,9 @@ namespace HC.Application.Stories.DeleteStory;
 
 public class DeleteStoryCommandHandler : IRequestHandler<DeleteStoryCommand, int>
 {
-    private readonly IStoryService _storyService;
+    private readonly IStoryWriteService _storyService;
 
-    public DeleteStoryCommandHandler(IStoryService storyService)
+    public DeleteStoryCommandHandler(IStoryWriteService storyService)
     {
         _storyService = storyService;
     }

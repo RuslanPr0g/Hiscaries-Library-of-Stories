@@ -8,9 +8,9 @@ namespace HC.Application.Users.Command.RefreshToken;
 
 public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public RefreshTokenCommandHandler(IUserService userService)
+    public RefreshTokenCommandHandler(IUserWriteService userService)
     {
         _userService = userService;
     }

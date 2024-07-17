@@ -8,16 +8,16 @@ using MediatR;
 
 namespace HC.Application.Users.Command.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, RegisterUserResult>
+public class CreateUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserResult>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public CreateUserCommandHandler(IUserService userService)
+    public CreateUserCommandHandler(IUserWriteService userService)
     {
         _userService = userService;
     }
 
-    public async Task<RegisterUserResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<RegisterUserResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         User user = new User
         {

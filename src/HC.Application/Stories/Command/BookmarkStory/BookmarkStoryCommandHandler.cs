@@ -10,10 +10,10 @@ namespace HC.Application.Stories.Command.BookmarkStory;
 
 internal class BookmarkStoryCommandHandler : IRequestHandler<BookmarkStoryCommand, PublishStoryResult>
 {
-    private readonly IStoryService _storyService;
-    private readonly IUserService _userService;
+    private readonly IStoryWriteService _storyService;
+    private readonly IUserWriteService _userService;
 
-    public BookmarkStoryCommandHandler(IStoryService storyService, IUserService userService)
+    public BookmarkStoryCommandHandler(IStoryWriteService storyService, IUserWriteService userService)
     {
         _storyService = storyService;
         _userService = userService;

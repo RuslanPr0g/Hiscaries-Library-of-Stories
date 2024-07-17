@@ -9,9 +9,9 @@ namespace HC.Application.Users.Query.BecomePublisher;
 public class BecomePublisherQueryHandler : IRequestHandler<BecomePublisherQuery, string>
 {
     private readonly IMapper _mapper;
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public BecomePublisherQueryHandler(IUserService userService, IMapper mapper)
+    public BecomePublisherQueryHandler(IUserWriteService userService, IMapper mapper)
     {
         _userService = userService;
         _mapper = mapper;

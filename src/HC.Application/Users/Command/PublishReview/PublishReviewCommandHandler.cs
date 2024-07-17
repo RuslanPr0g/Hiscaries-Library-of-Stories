@@ -8,9 +8,9 @@ namespace HC.Application.Users.Command.PublishReview;
 
 public class PublishReviewCommandHandler : IRequestHandler<PublishReviewCommand, int>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public PublishReviewCommandHandler(IUserService userService)
+    public PublishReviewCommandHandler(IUserWriteService userService)
     {
         _userService = userService;
     }

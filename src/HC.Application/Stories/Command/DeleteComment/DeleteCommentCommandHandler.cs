@@ -8,9 +8,9 @@ namespace HC.Application.Stories.Command.DeleteComment;
 
 internal class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand, int>
 {
-    private readonly IStoryService _storyService;
+    private readonly IStoryWriteService _storyService;
 
-    public DeleteCommentCommandHandler(IStoryService storyService)
+    public DeleteCommentCommandHandler(IStoryWriteService storyService)
     {
         _storyService = storyService;
     }

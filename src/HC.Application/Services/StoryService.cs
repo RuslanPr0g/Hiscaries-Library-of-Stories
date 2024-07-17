@@ -12,12 +12,12 @@ using HC.Domain.Story.Comment;
 
 namespace HC.Application.Services;
 
-public class StoryService : IStoryService
+public class StoryService : IStoryWriteService
 {
     private readonly IMapper _mapper;
-    private readonly IStoryRepository _storyRepository;
+    private readonly IStoryWriteRepository _storyRepository;
 
-    public StoryService(IStoryRepository storyRepository, IMapper mapper)
+    public StoryService(IStoryWriteRepository storyRepository, IMapper mapper)
     {
         _storyRepository = storyRepository;
         _mapper = mapper;

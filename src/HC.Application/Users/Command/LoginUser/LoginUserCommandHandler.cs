@@ -8,9 +8,9 @@ namespace HC.Application.Users.Command.LoginUser;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserResult>
 {
-    private readonly IUserService _userService;
+    private readonly IUserWriteService _userService;
 
-    public LoginUserCommandHandler(IUserService userService)
+    public LoginUserCommandHandler(IUserWriteService userService)
     {
         _userService = userService;
     }

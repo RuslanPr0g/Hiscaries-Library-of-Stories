@@ -35,7 +35,7 @@ public class Startup
 
         services.AddDataAccess(Configuration);
 
-        services.AddLogicServices();
+        services.AddServicesServices();
 
         services.AddAutoMapper(config =>
         {

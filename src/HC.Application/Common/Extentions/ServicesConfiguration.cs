@@ -6,10 +6,10 @@ namespace HC.Application.Common.Extentions;
 
 public static class ServicesConfiguration
 {
-    public static IServiceCollection AddLogicServices(this IServiceCollection services)
+    public static IServiceCollection AddServicesServices(this IServiceCollection services)
     {
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IStoryService, StoryService>();
+        services.AddScoped<IUserWriteService, UserService>();
+        services.AddScoped<IStoryWriteService, StoryService>();
         services.AddScoped<IStoryPageService, StoryPageService>();
         return services;
     }
