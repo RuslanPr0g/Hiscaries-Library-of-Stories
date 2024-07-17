@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using HashidsNet;
+﻿using HashidsNet;
 using HC.API.RequestQuery;
 using HC.Application.Common.Extentions;
 using HC.Application.DTOs;
 using HC.Application.Encryption;
-using HC.Application.Interface;
-using HC.Application.Models.Connection;
 using HC.Application.Models.Response;
 using HC.Application.Stories.Command;
 using HC.Application.Stories.Command.ReadStory;
@@ -23,13 +15,16 @@ using HC.Application.Stories.Query.History;
 using HC.Application.StoryPages.Command;
 using HC.Application.StoryPages.Command.CreateStoryPages;
 using HC.Application.StoryPages.Query;
-
-using HC.Domain.Story;
-using HC.Domain.Story.Comment;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace HC.API.Controllers;
 
@@ -44,10 +39,12 @@ public class StoryV1Controller : ControllerBase
     private readonly IHashids _hashids;
     private readonly ILogger<StoryV1Controller> _logger;
     private readonly IMediator _mediator;
-    private readonly IStoryWriteRepository _storyRepository;
 
-    public StoryV1Controller(IMediator mediator, ILogger<StoryV1Controller> logger, IEncryptor encryptor,
-        IStoryWriteRepository storyRepository, IHashids hashids)
+    public StoryV1Controller(
+        IMediator mediator,
+        ILogger<StoryV1Controller> logger,
+        IEncryptor encryptor,
+        IHashids hashids)
     {
         _mediator = mediator;
         _logger = logger;

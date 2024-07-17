@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using HashidsNet;
-using HC.Application.Common.Extentions;
+﻿using HashidsNet;
 using HC.Application.DTOs;
 using HC.Application.Encryption;
-using HC.Application.Interface;
-using HC.Application.Models.Connection;
 using HC.Application.Models.Response;
 using HC.Application.Users.Command;
 using HC.Application.Users.Command.LoginUser;
@@ -16,12 +8,16 @@ using HC.Application.Users.Command.PublishReview;
 using HC.Application.Users.Command.RefreshToken;
 using HC.Application.Users.Query;
 using HC.Application.Users.Query.BecomePublisher;
-using HC.Domain.User;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace HC.API.Controllers;
 
@@ -37,20 +33,19 @@ public class UserV1Controller : ControllerBase
     private readonly ILogger<UserV1Controller> _logger;
     private readonly IMediator _mediator;
     private readonly TokenValidationParameters _tokenValidationParameters;
-    private readonly IUserRepository _userRepository;
-    private readonly IUserService _userService;
 
-    public UserV1Controller(IMediator mediator, IUserRepository ur, ILogger<UserV1Controller> logger,
-        TokenValidationParameters tokenValidationParameters, IEncryptor encryptor, IUserService userService,
+    public UserV1Controller(
+        IMediator mediator,
+        ILogger<UserV1Controller> logger,
+        TokenValidationParameters tokenValidationParameters,
+        IEncryptor encryptor,
         IHashids hashids)
     {
         _mediator = mediator;
         _logger = logger;
         _tokenValidationParameters = tokenValidationParameters;
         _encryptor = encryptor;
-        _userService = userService;
         _hashids = hashids;
-        _userRepository = ur;
     }
 
     [AllowAnonymous]
