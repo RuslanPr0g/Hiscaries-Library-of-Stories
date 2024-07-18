@@ -1,17 +1,56 @@
-# This repository is dedicated to one of my projects. This project (further referenced as application) will be refactored using every best practice known to mankind.
-## This & FRONTEND https://github.com/RuslanPr0g/Hiscary-WebsiteClient apps would be refactored to align with the latest coding standards, such as DDD, clean architecture, CQS & CQRS, etc.
+# Hiscaries Library of Stories
+This repository is dedicated to one of my projects. This project (further referenced as application) will be refactored using every best practice known to mankind.
 
-# Refactoring plan
-- refactor domain to include domain methods
-- refactor API controllers to use only mediator LOGIC
-- refactor mediator commands and queries to use service interfaces properly
-- refactor application layer, separate it into read and write, where read would be dapper with read models (views in the db), and write as EF CORE with change tracker and strict transactional bound within one aggregate root.
-- implement the application read and write layers for all the interface contacts
-- refactor auth logic (add oauth, etc.)
-- refactor API level to use all the best practices regarding REST, etc.
-- refactor persistence level to use ef core for write and dapper for read logic
-- add view sql generation into the migrations feature of ef core
-- .... todo: other points
-- add docker to have it all in one place
-- add optimistic concurrency
-- populate this readme with how to run information
+### Refactoring Plan for the Server
+The following steps are outlined for refactoring the server:
+
+* Refactor domain to include domain methods
+* Refactor API controllers to use only mediator LOGIC
+* Add entity configuration for persistence layer EF core
+* Refactor mediator commands and queries to use service interfaces properly
+* Simplify read dto as much as possible, it carries too much info
+* Refactor application layer, separate it into read and write, where read would be dapper with read models (views in the db), and write as EF CORE with change tracker and strict transactional bound within one aggregate root.
+* Implement the application read and write layers for all the interface contacts
+* Refactor auth logic (add oauth, etc.)
+* Refactor API level to use all the best practices regarding REST, etc.
+* Refactor persistence level to use ef core for write and dapper for read logic
+* Add view sql generation into the migrations feature of ef core
+* Add global exception handling
+* Add logging for the system
+* Add auth checks for user roles, etc, such as user should be able to delete only its own comment, story, etc. only admin can delete all ,etc.
+* Add docker to have it all in one place
+* Add optimistic concurrency
+* Add audit (created at, updated at, etc) for Entity<>
+* Populate this readme with how to run information
+* Add unit tests
+* Add integration tests
+* Add specification pattern to the repositories
+* Add domain events, etc.
+* Fix TODOs
+
+### In the Future
+Create a separate module/system/microservice that will be using an ML/AI to generate stories, not only that, but also
+AI will simulate user activity in the entire system, such that we can improve upon logging, metrics, etc.
+
+### Refactoring Plan for the Client
+The following steps are outlined for refactoring the client:
+
+* Separate into different components
+* Add store https://ngrx.io/guide/store
+
+### Configuration Settings
+Please, also set keys in your preferred config file as follows:
+```json
+{
+  "Kestrel:Certificates:Development:Password": "***",
+  "JwtSettings:Key": "***",
+  "JwtSettings:Issuer": "***",
+  "JwtSettings:Audience": "***",
+  "SaltSettings:StoredSalt": "***",
+  "ConnectionStrings:PostgresEF": "Server=postgresdb;Port=5432;User Id=postgres;Password=***;Database=hiscarydbef;Include Error Detail=true;"
+}
+```
+.env file should contain the following:
+```
+POSTGRES_PASSWORD=***
+```

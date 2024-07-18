@@ -1,0 +1,5 @@
+<header class="glass-header" *ngIf="userService.isAuthenticated()">
+    <button (click)="home()" class="header-link">Home</button>
+    <button (click)="navigateToPublishStory()" class="header-link">Publish Story</button>
+    <button (click)="logOut()" class="header-link">Log Out</button>
+</header>

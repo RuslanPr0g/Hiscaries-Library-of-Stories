@@ -1,0 +1,27 @@
+<div class="signin">
+    @if (isLoginState) {
+    <app-auth-form [formGroup]="formlogin" (submitForm)="logIn()">
+        <app-auth-input formControlName="Username" type="username" placeholder="Username"></app-auth-input>
+        <app-auth-input formControlName="Password" type="password" placeholder="Password"></app-auth-input>
+        <app-auth-button type="submit">Log In</app-auth-button>
+        <app-auth-button type="button" (click)="changeState()">I need an account</app-auth-button>
+    </app-auth-form>
+    } @else {
+    <app-auth-form [formGroup]="formregister" (submitForm)="signUp()">
+        <app-auth-input formControlName="Username" type="username" placeholder="Username"></app-auth-input>
+        <app-auth-input formControlName="Email" type="email" placeholder="Email"></app-auth-input>
+        <app-auth-input formControlName="Dob" type="date" placeholder="Date of Birth"></app-auth-input>
+        <app-auth-input formControlName="Password" type="password" placeholder="Password"></app-auth-input>
+        <app-auth-button type="submit">Sign Up</app-auth-button>
+        <app-auth-button type="button" (click)="changeState()">I have an account</app-auth-button>
+    </app-auth-form>
+    }
+    @if (errorMessage) {
+        <div class="error">
+            <p>{{ errorMessage }}</p>
+        </div>
+    }
+    <div class="signin_mode">
+        {{ isLoginState ? 'Log in' : 'Sign up' }}
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.publish-story-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: #3e3e3e;
+
+  .full-width-form {
+    width: 100%;
+
+    ::ng-deep {
+      app-form-input,
+      app-form-textarea,
+      app-form-button {
+        display: flex;
+        width: 100%;
+        margin-bottom: 1rem;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.publish-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}

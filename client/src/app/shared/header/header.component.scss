@@ -1,0 +1,28 @@
+.glass-header {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    .header-link {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: color 0.3s;
+
+        &:hover {
+            color: #ff4081;
+        }
+    }
+}

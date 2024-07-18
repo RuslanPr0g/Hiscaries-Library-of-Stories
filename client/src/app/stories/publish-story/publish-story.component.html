@@ -1,0 +1,28 @@
+<div class="publish-story-container">
+  <h2>Publish New Story</h2>
+  
+  <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
+    <div class="publish-form full-width-form">
+      <app-form-input
+        [formGroup]="publishForm"
+        controlName="Title"
+        label="Title"
+        errorMessage="Title is required"
+      ></app-form-input>
+
+      <app-form-textarea
+        [formGroup]="publishForm"
+        controlName="Description"
+        label="Description"
+        errorMessage="Description is required"
+        [rows]="4"
+      ></app-form-textarea>
+
+      <app-form-button
+        label="Publish Story"
+        [disabled]="publishForm.invalid"
+        (onClick)="onSubmit()"
+      ></app-form-button>
+    </div>
+  </form>
+</div>
