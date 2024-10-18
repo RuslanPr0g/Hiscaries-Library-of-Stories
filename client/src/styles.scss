@@ -7,7 +7,11 @@
   box-sizing: border-box;
 }
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: #1E1E1E;
   color: #fff;
@@ -38,6 +42,16 @@ label {
   font-size: 1.5em;
 }
 
+.custom-form-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5em;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
 // add new styles here...
 
 // SIGN IN FUNCTIONALITY ****************************
@@ -52,9 +66,11 @@ label {
   padding: 64px 15px 24px;
   margin: 0 auto;
 }
+
 .form .control {
   margin: 0 0 24px;
 }
+
 .form .control input {
   width: 100%;
   padding: 14px 16px;
@@ -65,11 +81,13 @@ label {
   letter-spacing: 0.05em;
   font-size: 16px;
 }
+
 .form .control input:hover,
 .form .control input:focus {
   outline: none;
   border: 0;
 }
+
 .form .btn {
   width: 100%;
   display: block;
@@ -87,6 +105,7 @@ label {
 .block-cube {
   position: relative;
 }
+
 .block-cube .bg-top {
   position: absolute;
   height: 10px;
@@ -98,9 +117,11 @@ label {
   transform: skew(-45deg, 0);
   margin: 0;
 }
+
 .block-cube .bg-top .bg-inner {
   bottom: 0;
 }
+
 .block-cube .bg {
   position: absolute;
   left: 0;
@@ -110,6 +131,7 @@ label {
   background: #020024;
   background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
 }
+
 .block-cube .bg-right {
   position: absolute;
   background: #020024;
@@ -121,12 +143,15 @@ label {
   left: 100%;
   transform: skew(0, -45deg);
 }
+
 .block-cube .bg-right .bg-inner {
   left: 0;
 }
+
 .block-cube .bg .bg-inner {
   transition: all 0.2s ease-in-out;
 }
+
 .block-cube .bg-inner {
   background: #212121;
   position: absolute;
@@ -135,30 +160,36 @@ label {
   right: 2px;
   bottom: 2px;
 }
+
 .block-cube .text {
   position: relative;
   z-index: 2;
 }
+
 .block-cube.block-input input {
   position: relative;
   z-index: 2;
 }
-.block-cube.block-input input:focus ~ .bg-right .bg-inner,
-.block-cube.block-input input:focus ~ .bg-top .bg-inner,
-.block-cube.block-input input:focus ~ .bg-inner .bg-inner {
+
+.block-cube.block-input input:focus~.bg-right .bg-inner,
+.block-cube.block-input input:focus~.bg-top .bg-inner,
+.block-cube.block-input input:focus~.bg-inner .bg-inner {
   top: 100%;
   background: rgba(255, 255, 255, 0.5);
 }
+
 .block-cube.block-input .bg-top,
 .block-cube.block-input .bg-right,
 .block-cube.block-input .bg {
   background: rgba(255, 255, 255, 0.5);
   transition: background 0.2s ease-in-out;
 }
+
 .block-cube.block-input .bg-right .bg-inner,
 .block-cube.block-input .bg-top .bg-inner {
   transition: all 0.2s ease-in-out;
 }
+
 .block-cube.block-input:focus .bg-top,
 .block-cube.block-input:focus .bg-right,
 .block-cube.block-input:focus .bg,
@@ -167,6 +198,7 @@ label {
 .block-cube.block-input:hover .bg {
   background: rgba(255, 255, 255, 0.8);
 }
+
 .block-cube.block-cube-hover:focus .bg .bg-inner,
 .block-cube.block-cube-hover:hover .bg .bg-inner {
   top: 100%;
@@ -180,12 +212,14 @@ label {
   width: 100%;
   z-index: 111;
 }
+
 .credits a {
   opacity: 0.6;
   color: #fff;
   font-size: 11px;
   text-decoration: none;
 }
+
 .credits a:hover {
   opacity: 1;
 }

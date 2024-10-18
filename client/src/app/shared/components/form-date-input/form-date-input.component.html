@@ -1,11 +1,11 @@
-<div [formGroup]="formGroup" class="form-field">
+<div [formGroup]="formGroup" class="custom-form-field">
   <label [for]="controlName">{{ label }}</label>
   <p-calendar
     [formControlName]="controlName"
     [showIcon]="true"
     dateFormat="yy-mm-dd"
+    [iconDisplay]="'input'" 
   ></p-calendar>
-  <small class="error-message" *ngIf="formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched">
-    {{ errorMessage }}
-  </small>
+  <p-message severity="error" [text]="errorMessage"
+    *ngIf="formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched"></p-message>
 </div>

@@ -2,7 +2,7 @@
   <h2>Publish New Story</h2>
   
   <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
-    <div class="publish-form half-width-form">
+    <div class="form-controls half-width-form">
       <app-form-input
         [formGroup]="publishForm"
         controlName="Title"
@@ -25,22 +25,24 @@
         errorMessage="Author Name is required"
       ></app-form-input>
 
-      <app-number-limit-control
-        [formGroup]="publishForm"
-        controlName="AgeLimit"
-        label="Age Limit"
-        errorMessage="Age Limit is required and must be between 0 and 18"
-        [min]="0"
-        [max]="18"
-        [step]="1"
-      ></app-number-limit-control>
+      <div class="form-controls__same-line">
+        <app-number-limit-control
+          [formGroup]="publishForm"
+          controlName="AgeLimit"
+          label="Age Limit"
+          errorMessage="Age Limit is required and must be between 0 and 18"
+          [min]="0"
+          [max]="18"
+          [step]="1"
+        ></app-number-limit-control>
 
-      <!-- <app-form-date-input
-        [formGroup]="publishForm"
-        controlName="DateWritten"
-        label="Date Written"
-        errorMessage="Date Written is required"
-      ></app-form-date-input> -->
+        <app-form-date-input
+          [formGroup]="publishForm"
+          controlName="DateWritten"
+          label="Date Written"
+          errorMessage="Date Written is required"
+        ></app-form-date-input>
+      </div>
 
       <p-divider layout="horizontal" />
 

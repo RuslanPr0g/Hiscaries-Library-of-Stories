@@ -39,10 +39,16 @@ h2 {
   letter-spacing: 0.5px;
 }
 
-.publish-form {
+.form-controls {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
+
+  &__same-line {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
 }
