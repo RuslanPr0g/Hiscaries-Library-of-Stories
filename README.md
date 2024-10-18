@@ -50,7 +50,7 @@ Please, also set keys in your preferred config file as follows:
   "ConnectionStrings:PostgresEF": "Server=postgresdb;Port=5432;User Id=postgres;Password=***;Database=hiscarydbef;Include Error Detail=true;"
 }
 ```
-.env file should contain the following:
+.env file should contain the following (the file itself should be next to the docker-compose.yml file):
 ```
 POSTGRES_PASSWORD=***
 ```
