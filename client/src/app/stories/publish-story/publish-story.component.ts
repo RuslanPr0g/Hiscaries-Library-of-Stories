@@ -33,6 +33,9 @@ export class PublishStoryComponent implements OnInit {
   publishForm: FormGroup;
   genres: GenreModel[] = [];
 
+  selectedFile: any;
+  base64Image: string | ArrayBuffer | null = null;
+
   constructor(
     private fb: FormBuilder,
     private storyService: StoryService) {
@@ -56,6 +59,27 @@ export class PublishStoryComponent implements OnInit {
     if (this.publishForm.valid) {
       console.log(this.publishForm.value);
       // Implement your submit logic here
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        // The result is the base64 string
+        this.base64Image = reader.result;
+        
+        // Patch the base64Image to the form
+        this.publishForm.patchValue({
+          Image: this.base64Image
+        });
+      };
+
+      reader.readAsDataURL(this.selectedFile);  // Convert to base64
     }
   }
 }

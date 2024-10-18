@@ -1,4 +1,4 @@
-<div class="publish-story-container">
+<div class="publish-story-container" [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }">
   <h2>Publish New Story</h2>
   
   <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
@@ -54,7 +54,8 @@
           [filter]="true"
         ></p-multiSelect>
 
-        <!-- IMAGE PREVIEW -->
+        <label for="imageUpload">Upload Image</label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" />
       </div>
 
       <p-divider layout="horizontal" />
