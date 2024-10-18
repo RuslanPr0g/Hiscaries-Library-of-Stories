@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace HC.API.Requests;
 
-public class StoryPublishInfoRequest
+public class PublishStoryRequest
 {
-    public Guid? StoryId { get; set; }
-
     public string Title { get; set; }
 
     public string Description { get; set; }
@@ -17,7 +15,7 @@ public class StoryPublishInfoRequest
 
     public int AgeLimit { get; set; }
 
-    public DateTime DateWritten { get; set; }
-
     public string ImagePreview { get; set; }
+
+    public DateTime DateWritten { get; set; }
 }

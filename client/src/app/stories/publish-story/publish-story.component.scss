@@ -1,15 +1,17 @@
 .publish-story-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 1500px;
   margin: 2rem auto;
   padding: 2.5rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   background-color: #3e3e3e;
 
-  .full-width-form {
-    width: 100%;
-
+  .half-width-form {
     ::ng-deep {
       app-form-input,
       app-form-textarea,
@@ -21,6 +23,10 @@
         align-items: center;
       }
     }
+  }
+
+  form {
+    width: 50%;
   }
 }
 

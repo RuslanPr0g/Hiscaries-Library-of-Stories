@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of, tap } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { environment } from '../../../environments/environment';
 import { RegisterUserRequest } from "../models/requests/register-user.model";
 import { UserWithTokenResponse } from "../models/response/user-with-token.model";
@@ -10,7 +10,7 @@ import { LoginUserRequest } from "../models/requests/login-user.model";
   providedIn: 'root',
 })
 export class UserService {
-  private APIUrl: string = environment.apiUrl;
+  private apiUrl: string = `${environment.apiUrl}/users`;
   private access_token_local_storage_key: string = environment.localStorageKeys.ACCESS_TOKEN_KEY;
   private refresh_token_local_storage_key: string = environment.localStorageKeys.REFRESH_TOKEN_KEY;
 
@@ -21,7 +21,7 @@ export class UserService {
   }
 
   register(request: RegisterUserRequest): Observable<UserWithTokenResponse> {
-    return this.http.post(this.APIUrl + "/user/register", request)
+    return this.http.post(this.apiUrl + "/register", request)
       .pipe(
         tap((tokenData: any) => {
           localStorage.setItem(this.access_token_local_storage_key, tokenData.Token);
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   login(request: LoginUserRequest): Observable<UserWithTokenResponse> {
-    return this.http.post(this.APIUrl + "/user/login", request)
+    return this.http.post(this.apiUrl + "/login", request)
       .pipe(
         tap((tokenData: any) => {
           console.warn(tokenData);

@@ -54,12 +54,12 @@ public static class StoryEndpoints
             .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/addnew", AddStory)
+        group.MapPost("/publish", PublishStory)
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPatch("/", UpdateStoryInfo)
+        group.MapPatch("/", UpdateStoryInformation)
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
@@ -187,7 +187,7 @@ public static class StoryEndpoints
         return Results.Ok(response);
     }
 
-    private static async Task<IResult> AddStory(StoryPublishInfoRequest request, IMediator mediator)
+    private static async Task<IResult> PublishStory(PublishStoryRequest request, IMediator mediator, HttpContext httpContext)
     {
         byte[] imageInBytes = null;
         if (request.ImagePreview != null)
@@ -196,8 +196,15 @@ public static class StoryEndpoints
             imageInBytes = Convert.FromBase64String(request.ImagePreview[offset..]);
         }
 
+        var publisherIdClaim = httpContext.User.FindFirst("id");
+        if (publisherIdClaim == null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
+        {
+            return Results.BadRequest("Invalid or missing publisher ID in the token.");
+        }
+
         var command = new CreateStoryCommand
         {
+            PublisherId = publisherId,
             Title = request.Title,
             Description = request.Description,
             AuthorName = request.AuthorName,
@@ -222,7 +229,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> UpdateStoryInfo(StoryUpdateInfoRequest request, IMediator mediator)
+    private static async Task<IResult> UpdateStoryInformation(StoryUpdateInfoRequest request, IMediator mediator)
     {
         byte[] imageInBytes = null;
         if (request.ImagePreview != null)
