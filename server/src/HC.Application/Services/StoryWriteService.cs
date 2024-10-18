@@ -2,10 +2,10 @@
 using HC.Application.Interface;
 using HC.Application.Interface.Generators;
 using HC.Application.Models.Response;
+using HC.Application.ResultModels.Response;
 using HC.Application.Stories.Command;
 using HC.Application.Stories.Command.DeleteStory;
 using HC.Application.Stories.Command.ScoreStory;
-using HC.Application.StoryPages.Command.CreateStoryPages;
 using HC.Domain.Stories;
 using Microsoft.Extensions.Logging;
 using System;
@@ -130,7 +130,7 @@ public sealed class StoryWriteService : IStoryWriteService
         await _repository.AddStory(story);
         _logger.LogInformation("Story published with ID {StoryId}", storyId);
 
-        return OperationResult<EntityIdResponse>.CreateSuccess(story.Id);
+        return OperationResult<EntityIdResponse>.CreateSuccess(new EntityIdResponse { Id = story.Id });
     }
 
     public async Task<OperationResult> UpdateStory(UpdateStoryCommand command)
@@ -155,23 +155,6 @@ public sealed class StoryWriteService : IStoryWriteService
             command.DateWritten);
 
         _logger.LogInformation("Story {StoryId} updated successfully", command.StoryId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> UpdatePages(UpdateStoryPagesCommand command)
-    {
-        _logger.LogInformation("Updating pages for story {StoryId}", command.StoryId);
-        var story = await _repository.GetStory(command.StoryId);
-
-        if (story is null)
-        {
-            _logger.LogWarning("Story {StoryId} not found when updating pages", command.StoryId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
-        }
-
-        story.SetContents(command.Contents, DateTime.UtcNow);
-        _logger.LogInformation("Pages updated for story {StoryId}", command.StoryId);
-
         return OperationResult.CreateSuccess();
     }
 

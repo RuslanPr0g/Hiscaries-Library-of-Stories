@@ -4,6 +4,7 @@ using HC.Application.Interface.Generators;
 using HC.Application.Interface.JWT;
 using HC.Application.Models.Response;
 using HC.Application.Options;
+using HC.Application.ResultModels.Response;
 using HC.Application.Stories.Command;
 using HC.Application.Stories.Command.ReadStory;
 using HC.Application.Users.Command;
@@ -11,10 +12,10 @@ using HC.Application.Users.Command.LoginUser;
 using HC.Application.Users.Command.PublishReview;
 using HC.Application.Users.Command.RefreshToken;
 using HC.Domain.Users;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace HC.Application.Services;
 
@@ -189,7 +190,7 @@ public sealed class UserWriteService : IUserWriteService
         if (user is null)
         {
             _logger.LogWarning("Login attempt failed: User {Username} not found", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserIsNotFound);
+            return OperationResult<UserWithTokenResponse>.CreateNotFound(UserFriendlyMessages.UserIsNotFound);
         }
 
         var passwordMatch = HashPassword(command.Password, _saltSettings.StoredSalt) == user.Password;
@@ -197,13 +198,13 @@ public sealed class UserWriteService : IUserWriteService
         if (passwordMatch is false)
         {
             _logger.LogWarning("Login attempt failed: Password mismatch for user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.PasswordMismatch);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.PasswordMismatch);
         }
 
         if (user.Banned)
         {
             _logger.LogWarning("Login attempt failed: User {Username} is banned", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserIsBanned);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.UserIsBanned);
         }
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
@@ -212,7 +213,7 @@ public sealed class UserWriteService : IUserWriteService
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
             _logger.LogError("Failed to generate JWT token for user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.TryAgainLater);
+            return OperationResult<UserWithTokenResponse>.CreateServerSideError(UserFriendlyMessages.TryAgainLater);
         }
 
         user.UpdateRefreshToken(
@@ -220,7 +221,11 @@ public sealed class UserWriteService : IUserWriteService
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
 
         _logger.LogInformation("User {Username} successfully logged in", command.Username);
-        return OperationResult<UserWithTokenResponse>.CreateSuccess(generatedToken, generatedRefreshToken.Token);
+        return OperationResult<UserWithTokenResponse>.CreateSuccess(new UserWithTokenResponse
+        {
+            Token = generatedToken,
+            RefreshToken = generatedRefreshToken.Token
+        });
     }
 
     public async Task<OperationResult<UserWithTokenResponse>> RegisterUser(RegisterUserCommand command)
@@ -232,7 +237,7 @@ public sealed class UserWriteService : IUserWriteService
         if (existingUser is not null)
         {
             _logger.LogWarning("Registration failed: Username {Username} already exists", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserWithUsernameExists);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.UserWithUsernameExists);
         }
 
         var exists = await _repository.IsUserExistByEmail(command.Email);
@@ -240,7 +245,7 @@ public sealed class UserWriteService : IUserWriteService
         if (exists)
         {
             _logger.LogWarning("Registration failed: Email {Email} already in use", command.Email);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserWithEmailExists);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.UserWithEmailExists);
         }
 
         string encryptedpassword = HashPassword(command.Password, _saltSettings.StoredSalt);
@@ -261,7 +266,7 @@ public sealed class UserWriteService : IUserWriteService
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
             _logger.LogError("Failed to generate JWT token for new user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.TryAgainLater);
+            return OperationResult<UserWithTokenResponse>.CreateServerSideError(UserFriendlyMessages.TryAgainLater);
         }
 
         createdUser.UpdateRefreshToken(
@@ -271,7 +276,11 @@ public sealed class UserWriteService : IUserWriteService
         await _repository.AddUser(createdUser);
 
         _logger.LogInformation("Successfully registered new user {Username} with ID {UserId}", command.Username, userId);
-        return OperationResult<UserWithTokenResponse>.CreateSuccess(generatedToken, generatedRefreshToken.Token);
+        return OperationResult<UserWithTokenResponse>.CreateSuccess(new UserWithTokenResponse
+        {
+            Token = generatedToken,
+            RefreshToken = generatedRefreshToken.Token
+        });
     }
 
     public async Task<OperationResult<UserWithTokenResponse>> RefreshToken(RefreshTokenCommand command)
@@ -282,7 +291,7 @@ public sealed class UserWriteService : IUserWriteService
         if (user is null)
         {
             _logger.LogWarning("Token refresh failed: User {Username} not found", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserIsNotFound);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.UserIsNotFound);
         }
 
         var validatedToken = _tokenHandler.GetTokenWithClaims(command.Token, _tokenValidationParameters);
@@ -290,13 +299,13 @@ public sealed class UserWriteService : IUserWriteService
         if (validatedToken is null)
         {
             _logger.LogWarning("Token refresh failed: Invalid token for user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.PleaseRelogin);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.PleaseRelogin);
         }
 
         if (validatedToken.ExpiryDate > DateTime.UtcNow)
         {
             _logger.LogWarning("Token refresh failed: Token not expired for user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.RefreshTokenIsNotExpired);
+            return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.RefreshTokenIsNotExpired);
         }
 
         bool validated = user.ValidateRefreshToken(validatedToken.JTI);
@@ -304,7 +313,7 @@ public sealed class UserWriteService : IUserWriteService
         if (!validated)
         {
             _logger.LogWarning("Token refresh failed: Invalid refresh token for user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.RefreshTokenIsExpired);
+            return OperationResult<UserWithTokenResponse>.CreateClientSideError(UserFriendlyMessages.RefreshTokenIsExpired);
         }
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
@@ -313,7 +322,7 @@ public sealed class UserWriteService : IUserWriteService
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
             _logger.LogError("Failed to generate new JWT token for user {Username}", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.TryAgainLater);
+            return OperationResult<UserWithTokenResponse>.CreateServerSideError(UserFriendlyMessages.TryAgainLater);
         }
 
         user.UpdateRefreshToken(
@@ -321,7 +330,11 @@ public sealed class UserWriteService : IUserWriteService
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
 
         _logger.LogInformation("Successfully refreshed token for user {Username}", command.Username);
-        return new OperationResult<UserWithTokenResponse>(ResultStatus.Success, string.Empty, generatedToken, generatedRefreshToken.Token);
+        return OperationResult<UserWithTokenResponse>.CreateSuccess(new UserWithTokenResponse
+        {
+            Token = generatedToken,
+            RefreshToken = generatedRefreshToken.Token
+        });
     }
 
     public async Task<OperationResult> UpdateUserData(UpdateUserDataCommand command)
@@ -332,7 +345,7 @@ public sealed class UserWriteService : IUserWriteService
         if (user is null)
         {
             _logger.LogWarning("Update user data failed: User {Username} not found", command.Username);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserIsNotFound);
+            return OperationResult.CreateValidationsError(UserFriendlyMessages.UserIsNotFound);
         }
 
         if (!string.IsNullOrEmpty(command.UpdatedUsername))
@@ -343,7 +356,7 @@ public sealed class UserWriteService : IUserWriteService
             if (newUsernameUser is not null)
             {
                 _logger.LogWarning("Update user data failed: New username {UpdatedUsername} already exists", command.UpdatedUsername);
-                return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserWithUsernameExists);
+                return OperationResult.CreateValidationsError(UserFriendlyMessages.UserWithUsernameExists);
             }
         }
 
@@ -352,7 +365,7 @@ public sealed class UserWriteService : IUserWriteService
         if (existsWithEmail)
         {
             _logger.LogWarning("Update user data failed: Email {Email} already in use", command.Email);
-            return OperationResult<UserWithTokenResponse>.CreateFail(UserFriendlyMessages.UserWithEmailExists);
+            return OperationResult.CreateValidationsError(UserFriendlyMessages.UserWithEmailExists);
         }
 
         if (!string.IsNullOrEmpty(command.NewPassword))

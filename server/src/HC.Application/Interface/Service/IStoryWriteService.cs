@@ -1,9 +1,8 @@
 ﻿using HC.Application.Models.Response;
+using HC.Application.ResultModels.Response;
 using HC.Application.Stories.Command;
 using HC.Application.Stories.Command.DeleteStory;
-using HC.Application.Stories.Command.ReadStory;
 using HC.Application.Stories.Command.ScoreStory;
-using HC.Application.StoryPages.Command.CreateStoryPages;
 using System.Threading.Tasks;
 
 namespace HC.Application.Interface;
@@ -22,5 +21,4 @@ public interface IStoryWriteService
     Task<OperationResult> DeleteGenre(DeleteGenreCommand request);
     Task<OperationResult> DeleteAudio(DeleteStoryAudioCommand request);
     Task<OperationResult> UpdateAudio(UpdateStoryAudioCommand request);
-    Task<OperationResult> UpdatePages(UpdateStoryPagesCommand request);
 }
