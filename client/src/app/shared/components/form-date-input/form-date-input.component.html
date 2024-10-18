@@ -1,7 +1,6 @@
-<div class="form-field">
+<div [formGroup]="formGroup" class="form-field">
   <label [for]="controlName">{{ label }}</label>
   <p-calendar
-    [formGroup]="formGroup"
     [formControlName]="controlName"
     [showIcon]="true"
     dateFormat="yy-mm-dd"

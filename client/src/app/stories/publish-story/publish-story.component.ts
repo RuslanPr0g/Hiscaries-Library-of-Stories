@@ -31,8 +31,8 @@ export class PublishStoryComponent implements OnInit {
     this.publishForm = this.fb.group({
       Title: ['', Validators.required],
       Description: ['', Validators.required],
-      AuthorName: ['Unknown'],
-      AgeLimit: [null, [Validators.required, Validators.min(0), Validators.max(18)]],
+      AuthorName: [''],
+      AgeLimit: [0, [Validators.required, Validators.min(0), Validators.max(18)]],
       DateWritten: [null]
     });
   }

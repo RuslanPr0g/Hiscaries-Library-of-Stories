@@ -1,7 +1,6 @@
-<div class="form-field">
+<div [formGroup]="formGroup" class="form-field">
   <label [for]="controlName">{{ label }}</label>
   <p-inputNumber
-    [formGroup]="formGroup"
     [formControlName]="controlName"
     [showButtons]="true"
     buttonLayout="horizontal"
@@ -14,7 +13,6 @@
     incrementButtonIcon="pi pi-plus"
     decrementButtonIcon="pi pi-minus"
   ></p-inputNumber>
-  <small class="error-message" *ngIf="formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched">
-    {{ errorMessage }}
-  </small>
+  <p-message severity="error" [text]="errorMessage"
+    *ngIf="formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched"></p-message>
 </div>

@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-number-limit-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputNumberModule],
+  imports: [CommonModule, ReactiveFormsModule, InputNumberModule, MessageModule],
   templateUrl: './number-limit-control.component.html',
   styleUrls: ['./number-limit-control.component.scss']
 })
