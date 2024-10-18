@@ -10,6 +10,7 @@ using HC.Application.Users.Query.BecomePublisher;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Threading.Tasks;
@@ -42,7 +43,8 @@ public static class UserEndpoints
         group.MapPost("/login", LoginUser)
             .AllowAnonymous()
             .Produces<UserWithTokenResponse>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status401Unauthorized);
+            .Produces(StatusCodes.Status401Unauthorized)
+            .WithName("UserLogin");
 
         group.MapPost("/refresh-token", RefreshToken)
             .Produces<UserWithTokenResponse>(StatusCodes.Status200OK)
@@ -74,7 +76,7 @@ public static class UserEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
     }
 
-    private static async Task<IResult> RegisterUser(RegisterUserRequest request, IMediator mediator)
+    private static async Task<IResult> RegisterUser([FromBody] RegisterUserRequest request, [FromServices] IMediator mediator)
     {
         var command = new RegisterUserCommand
         {
@@ -88,7 +90,7 @@ public static class UserEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> LoginUser(UserLoginRequest request, IMediator mediator)
+    private static async Task<IResult> LoginUser([FromBody] UserLoginRequest request, [FromServices]  IMediator mediator)
     {
         var command = new LoginUserCommand
         {
@@ -100,7 +102,7 @@ public static class UserEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> RefreshToken(RefreshTokenRequest request, IMediator mediator)
+    private static async Task<IResult> RefreshToken([FromBody] RefreshTokenRequest request, [FromServices] IMediator mediator)
     {
         var command = new RefreshTokenCommand
         {
@@ -112,28 +114,28 @@ public static class UserEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> GetCurrentUser(HttpContext context, IMediator mediator)
+    private static async Task<IResult> GetCurrentUser(HttpContext context, [FromServices] IMediator mediator)
     {
         var query = new GetUserInfoQuery { Username = context.User.GetUsername() };
         var result = await mediator.Send(query);
         return result.ToResult();
     }
 
-    private static async Task<IResult> GetUserInfo(string username, IMediator mediator)
+    private static async Task<IResult> GetUserInfo(string username, [FromServices] IMediator mediator)
     {
         var query = new GetUserInfoQuery { Username = username };
         var result = await mediator.Send(query);
         return result.ToResult();
     }
 
-    private static async Task<IResult> BecomePublisher(HttpContext context, IMediator mediator)
+    private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)
     {
         var command = new BecomePublisherCommand { Username = context.User.GetUsername() };
         var result = await mediator.Send(command);
         return result.ToResult();
     }
 
-    private static async Task<IResult> PublishReview(PublishReviewRequest request, IMediator mediator)
+    private static async Task<IResult> PublishReview([FromBody] PublishReviewRequest request, [FromServices] IMediator mediator)
     {
         var command = new PublishReviewCommand
         {
@@ -146,14 +148,14 @@ public static class UserEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> DeleteReview(Guid id, IMediator mediator)
+    private static async Task<IResult> DeleteReview(Guid id, [FromServices] IMediator mediator)
     {
         var command = new DeleteReviewCommand { ReviewId = id };
         var result = await mediator.Send(command);
         return result.ToResult();
     }
 
-    private static async Task<IResult> UpdateUserData(UpdateUserDataRequest request, HttpContext context, IMediator mediator)
+    private static async Task<IResult> UpdateUserData([FromBody] UpdateUserDataRequest request, HttpContext context, [FromServices] IMediator mediator)
     {
         var command = new UpdateUserDataCommand
         {

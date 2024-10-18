@@ -1,9 +1,9 @@
 ﻿using HC.Application.Interface;
 using HC.Domain.Stories;
 using HC.Infrastructure.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 

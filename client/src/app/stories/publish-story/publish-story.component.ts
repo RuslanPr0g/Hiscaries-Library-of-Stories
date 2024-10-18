@@ -7,6 +7,10 @@ import { FormButtonComponent } from '../../shared/components/form-button/form-bu
 import { NumberLimitControlComponent } from '../../shared/components/number-limit-control/number-limit-control.component';
 import { FormDateInputComponent } from '../../shared/components/form-date-input/form-date-input.component';
 import { DividerModule } from 'primeng/divider';
+import { GenreModel } from '../models/domain/genre.model';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { StoryService } from '../services/story.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-publish-story',
@@ -19,26 +23,33 @@ import { DividerModule } from 'primeng/divider';
     FormButtonComponent,
     FormDateInputComponent,
     NumberLimitControlComponent,
-    DividerModule
+    DividerModule,
+    MultiSelectModule
   ],
   templateUrl: './publish-story.component.html',
   styleUrls: ['./publish-story.component.scss']
 })
 export class PublishStoryComponent implements OnInit {
   publishForm: FormGroup;
+  genres: GenreModel[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private storyService: StoryService) {
     this.publishForm = this.fb.group({
       Title: ['', Validators.required],
       Description: ['', Validators.required],
       AuthorName: [''],
+      Genres: ['', Validators.required],
       AgeLimit: [0, [Validators.required, Validators.min(0), Validators.max(18)]],
       DateWritten: [null]
     });
   }
 
   ngOnInit() {
-    // If you need to perform any additional initialization, you can do it here
+    this.storyService.genreList().pipe(take(1)).subscribe((genres: GenreModel[]) => {
+      this.genres = genres;
+    });
   }
 
   onSubmit() {

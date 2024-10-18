@@ -7,18 +7,8 @@ import { HeaderComponent } from './shared/header/header.component';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'hiscaries-client';
-  isDarkTheme = true;
-
-  toggleTheme() {
-    this.isDarkTheme = !this.isDarkTheme;
-    if (this.isDarkTheme) {
-      document.body.classList.remove('light-theme');
-    } else {
-      document.body.classList.add('light-theme');
-    }
-  }
 }

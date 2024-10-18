@@ -35,16 +35,6 @@ input {
   color: #fff;
 }
 
-.p-datepicker, .p-datepicker-header {
-  background-color: #2e2e2e !important;
-  border: 1px solid #4e4e4e !important;
-  color: #fff !important;
-
-  & button {
-    color: #fff !important;
-  }
-}
-
 .error-message {
   color: red;
 }
@@ -69,6 +59,43 @@ input {
 }
 
 // add new styles here...
+
+// PRIME NG OVERRIDE ********************
+
+.p-datepicker,
+.p-datepicker-header,
+.p-dropdown-trigger,
+.p-dropdown,
+.p-dropdown span, 
+.p-dropdown-header,
+.p-dropdown-items,
+.p-dropdown-items li {
+  background-color: #2e2e2e !important;
+  border: 1px solid #4e4e4e !important;
+  color: #fff !important;
+
+  & button {
+    color: #fff !important;
+  }
+}
+
+.p-dropdown {
+  min-width: 230px;
+}
+
+p-dropdown {
+  width: 100%;
+}
+
+.p-dropdown-items li span {
+  padding: 0.6rem;
+}
+
+.p-multiselect {
+  min-width: 230px;
+}
+
+// PRIME NG OVERRIDE ********************
 
 // SIGN IN FUNCTIONALITY ****************************
 

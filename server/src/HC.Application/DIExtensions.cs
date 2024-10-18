@@ -10,7 +10,7 @@ namespace HC.Application;
 
 public static class DIExtensions
 {
-    public static IServiceCollection AddServicesServices(this IServiceCollection services)
+    public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddSingleton<IIdGenerator, IdGenerator>();
 

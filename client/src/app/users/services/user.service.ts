@@ -34,7 +34,6 @@ export class UserService {
     return this.http.post(this.apiUrl + "/login", request)
       .pipe(
         tap((tokenData: any) => {
-          console.warn(tokenData);
           localStorage.setItem(this.access_token_local_storage_key, tokenData.Token);
           localStorage.setItem(this.refresh_token_local_storage_key, tokenData.RefreshToken);
         })

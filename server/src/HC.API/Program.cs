@@ -16,7 +16,7 @@ using HC.API.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDataAccess(builder.Configuration);
-builder.Services.AddServicesServices();
+builder.Services.AddServices();
 builder.Services.AddSerilog();
 
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(SaveChangesPipelineBehavior<,>));
@@ -36,6 +36,12 @@ builder.Services
         jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = null;
+    options.SerializerOptions.DictionaryKeyPolicy = null;
+});
+
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 builder.Services.AddCors(options =>
@@ -47,8 +53,6 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
-
-builder.Services.AddApiVersioning(options => { options.AssumeDefaultVersionWhenUnspecified = true; });
 
 builder.Services.AddOptions<DbConnectionStrings>()
     .Bind(builder.Configuration.GetSection("ConnectionStrings"));
@@ -85,8 +89,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
-
 app.MapUserEndpoints();
+
+app.MapStoryEndpoints();
 
 app.Run();

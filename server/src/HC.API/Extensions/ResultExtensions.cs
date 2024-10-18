@@ -12,11 +12,11 @@ namespace HC.API.Extensions
             return result.ResultStatus switch
             {
                 ResultStatus.Success => Results.Ok(),
-                ResultStatus.NotFound => Results.NotFound(),
+                ResultStatus.NotFound => Results.NotFound(new { result.Message }),
                 ResultStatus.Unauthorized => Results.Unauthorized(),
                 ResultStatus.Forbidden => Results.StatusCode(StatusCodes.Status403Forbidden),
-                ResultStatus.ValidationError => Results.BadRequest(result.Message),
-                ResultStatus.ClientSideError => Results.BadRequest(result.Message),
+                ResultStatus.ValidationError => Results.BadRequest(new { result.Message }),
+                ResultStatus.ClientSideError => Results.BadRequest(new { result.Message }),
                 ResultStatus.InternalServerError => Results.StatusCode(StatusCodes.Status500InternalServerError),
                 _ => Results.StatusCode(StatusCodes.Status500InternalServerError)
             };
@@ -27,11 +27,11 @@ namespace HC.API.Extensions
             return result.ResultStatus switch
             {
                 ResultStatus.Success => Results.Ok(result.Value),
-                ResultStatus.NotFound => Results.NotFound(),
+                ResultStatus.NotFound => Results.NotFound(new { result.Message }),
                 ResultStatus.Unauthorized => Results.Unauthorized(),
                 ResultStatus.Forbidden => Results.StatusCode(StatusCodes.Status403Forbidden),
-                ResultStatus.ValidationError => Results.BadRequest(result.Message),
-                ResultStatus.ClientSideError => Results.BadRequest(result.Message),
+                ResultStatus.ValidationError => Results.BadRequest(new { result.Message }),
+                ResultStatus.ClientSideError => Results.BadRequest(new { result.Message }),
                 ResultStatus.InternalServerError => Results.StatusCode(StatusCodes.Status500InternalServerError),
                 _ => Results.StatusCode(StatusCodes.Status500InternalServerError)
             };

@@ -11,6 +11,7 @@ using HC.Application.Stories.Query.GetGenreList;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,9 @@ public static class StoryEndpoints
     public static void MapStoryEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/v1/stories")
-            .WithTags("Stories")
-            .RequireAuthorization();
+            .WithTags("Stories");
+            // TODO: enable auth
+            //.RequireAuthorization();
 
         group.MapPost("/", GetStories)
             .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
@@ -115,7 +117,7 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
     }
 
-    private static async Task<IResult> GetStories(GetStoryListRequest request, IMediator mediator)
+    private static async Task<IResult> GetStories([FromBody] GetStoryListRequest request, [FromServices]  IMediator mediator)
     {
         var query = new GetStoryListQuery
         {
@@ -128,7 +130,7 @@ public static class StoryEndpoints
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> AddGenre(CreateGenreRequest request, IMediator mediator)
+    private static async Task<IResult> AddGenre([FromBody] CreateGenreRequest request, [FromServices] IMediator mediator)
     {
         var command = new CreateGenreCommand
         {
@@ -141,7 +143,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> EditGenre(UpdateGenreRequest request, IMediator mediator)
+    private static async Task<IResult> EditGenre([FromBody] UpdateGenreRequest request, [FromServices] IMediator mediator)
     {
         var command = new UpdateGenreCommand
         {
@@ -155,7 +157,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> DeleteGenre(DeleteGenreRequest request, IMediator mediator)
+    private static async Task<IResult> DeleteGenre([FromBody] DeleteGenreRequest request, [FromServices] IMediator mediator)
     {
         var command = new DeleteGenreCommand
         {
@@ -166,14 +168,14 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> GetGenres(IMediator mediator)
+    private static async Task<IResult> GetGenres([FromServices] IMediator mediator)
     {
         var query = new GetGenreListQuery();
         var result = await mediator.Send(query);
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> BestToRead(IMediator mediator)
+    private static async Task<IResult> BestToRead([FromServices] IMediator mediator)
     {
         var query = new GetStoryRecommendationsQuery
         {
@@ -187,7 +189,7 @@ public static class StoryEndpoints
         return Results.Ok(response);
     }
 
-    private static async Task<IResult> PublishStory(PublishStoryRequest request, IMediator mediator, HttpContext httpContext)
+    private static async Task<IResult> PublishStory([FromBody] PublishStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
         byte[] imageInBytes = null;
         if (request.ImagePreview != null)
@@ -218,7 +220,7 @@ public static class StoryEndpoints
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> DeleteAudioForStory(Guid storyId, IMediator mediator)
+    private static async Task<IResult> DeleteAudioForStory(Guid storyId, [FromServices] IMediator mediator)
     {
         var command = new DeleteStoryAudioCommand
         {
@@ -229,7 +231,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> UpdateStoryInformation(StoryUpdateInfoRequest request, IMediator mediator)
+    private static async Task<IResult> UpdateStoryInformation([FromBody] StoryUpdateInfoRequest request, [FromServices] IMediator mediator)
     {
         byte[] imageInBytes = null;
         if (request.ImagePreview != null)
@@ -254,7 +256,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> ReadStory(ReadStoryRequest request, IMediator mediator)
+    private static async Task<IResult> ReadStory([FromBody] ReadStoryRequest request, [FromServices] IMediator mediator)
     {
         var command = new ReadStoryCommand
         {
@@ -267,7 +269,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> BookmarkStory(BookmarkStoryRequest request, IMediator mediator)
+    private static async Task<IResult> BookmarkStory([FromBody] BookmarkStoryRequest request, [FromServices] IMediator mediator)
     {
         var command = new BookmarkStoryCommand
         {
@@ -279,7 +281,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> AddComment(CreateCommentRequest request, IMediator mediator)
+    private static async Task<IResult> AddComment([FromBody] CreateCommentRequest request, [FromServices] IMediator mediator)
     {
         var command = new AddCommentCommand
         {
@@ -292,7 +294,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> ScoreStory(ScoreStoryRequest request, IMediator mediator)
+    private static async Task<IResult> ScoreStory([FromBody] ScoreStoryRequest request, [FromServices] IMediator mediator)
     {
         var command = new StoryScoreCommand
         {
@@ -305,7 +307,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> DeleteComment(Guid commentId, IMediator mediator)
+    private static async Task<IResult> DeleteComment(Guid commentId, [FromServices] IMediator mediator)
     {
         var command = new DeleteCommentCommand
         {
@@ -316,7 +318,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> DeleteStory(Guid storyId, IMediator mediator)
+    private static async Task<IResult> DeleteStory(Guid storyId, [FromServices] IMediator mediator)
     {
         var command = new DeleteStoryCommand
         {
@@ -327,7 +329,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> UpdateComment(UpdateCommentRequest request, IMediator mediator)
+    private static async Task<IResult> UpdateComment([FromBody] UpdateCommentRequest request, [FromServices] IMediator mediator)
     {
         var command = new UpdateCommentCommand
         {
@@ -340,7 +342,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> AddAudioForStory(UpdateAudioRequest request, IMediator mediator)
+    private static async Task<IResult> AddAudioForStory([FromBody] UpdateAudioRequest request, [FromServices] IMediator mediator)
     {
         var command = new UpdateStoryAudioCommand
         {
@@ -353,7 +355,7 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> ChangeAudioForStory(UpdateAudioRequest request, IMediator mediator)
+    private static async Task<IResult> ChangeAudioForStory([FromBody] UpdateAudioRequest request, [FromServices] IMediator mediator)
     {
         var command = new UpdateStoryAudioCommand
         {

@@ -91,6 +91,6 @@ export class LoginComponent implements OnInit {
   }
 
   private handleError(error: any): void {
-    this.errorMessage = error.error?.FailReason || 'An unexpected error occurred';
+    this.errorMessage = error.error?.Message || 'An unexpected error occurred';
   }
 }
