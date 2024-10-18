@@ -29,6 +29,22 @@ label {
   color: #fff;
 }
 
+input {
+  background-color: #2e2e2e !important;
+  border: 1px solid #4e4e4e !important;
+  color: #fff;
+}
+
+.p-datepicker, .p-datepicker-header {
+  background-color: #2e2e2e !important;
+  border: 1px solid #4e4e4e !important;
+  color: #fff !important;
+
+  & button {
+    color: #fff !important;
+  }
+}
+
 .error-message {
   color: red;
 }
