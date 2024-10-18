@@ -25,6 +25,10 @@ label {
   color: #fff;
 }
 
+.error-message {
+  color: red;
+}
+
 .error {
   display: flex;
   justify-content: center;
@@ -33,6 +37,10 @@ label {
   color: red;
   font-size: 1.5em;
 }
+
+// add new styles here...
+
+// SIGN IN FUNCTIONALITY ****************************
 
 .signin {
   display: flex;
@@ -181,3 +189,5 @@ label {
 .credits a:hover {
   opacity: 1;
 }
+
+// SIGN IN FUNCTIONALITY ****************************

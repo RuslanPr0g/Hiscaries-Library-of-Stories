@@ -18,6 +18,32 @@
         [rows]="4"
       ></app-form-textarea>
 
+      <app-form-input
+        [formGroup]="publishForm"
+        controlName="AuthorName"
+        label="Author Name"
+        errorMessage="Author Name is required"
+      ></app-form-input>
+<!-- 
+      <app-number-limit-control
+        [formGroup]="publishForm"
+        controlName="AgeLimit"
+        label="Age Limit"
+        errorMessage="Age Limit is required and must be between 0 and 18"
+        [min]="0"
+        [max]="18"
+        [step]="1"
+      ></app-number-limit-control>
+
+      <app-form-date-input
+        [formGroup]="publishForm"
+        controlName="DateWritten"
+        label="Date Written"
+        errorMessage="Date Written is required"
+      ></app-form-date-input> -->
+
+      <p-divider layout="horizontal" />
+
       <app-form-button
         label="Publish Story"
         [disabled]="publishForm.invalid"
