@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
-import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule, UploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-upload-file-control',
@@ -12,8 +12,16 @@ import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
   styleUrls: ['./upload-file-control.component.scss']
 })
 export class UploadFileControlComponent {
+  @ViewChild('fileUpload') fileUpload!: FileUpload
+
   @Input() control: AbstractControl<any, any> | null;
   @Input() centered: boolean = false;
+
+  maxFileSize: number = 1048576;
+
+  get hasImageSelected(): boolean {
+    return !!this.control?.value;
+  }
 
   onSelect(event: any) {
     if (!this.control) {
@@ -22,6 +30,12 @@ export class UploadFileControlComponent {
     }
 
     const file = event.files[0];
+
+    if (file.size > this.maxFileSize) {
+      console.error(`File size exceeds the maximum limit of ${this.maxFileSize} bytes.`);
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       this.updateControlValue(reader);
@@ -33,7 +47,12 @@ export class UploadFileControlComponent {
    this.onSelect(event);
   }
 
+  clearSelection(): void {
+    this.control?.setValue(null);
+  }
+
   private updateControlValue(reader: FileReader): void {
     this.control?.patchValue(reader.result);
+    this.fileUpload?.clear();
   }
 }

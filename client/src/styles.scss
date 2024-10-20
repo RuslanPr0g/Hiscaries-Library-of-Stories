@@ -108,6 +108,12 @@ p-dropdown {
   max-width: 180px !important;
 }
 
+.p-fileupload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 // PRIME NG OVERRIDE ********************
 
 // SIGN IN FUNCTIONALITY ****************************

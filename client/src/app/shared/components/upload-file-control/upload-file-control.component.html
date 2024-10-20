@@ -1,12 +1,13 @@
 <div class="custom-form-field" [ngClass]="{ 'custom-form-field-centered': centered }">
-  <p-fileUpload 
+  <p-fileUpload
+    #fileUpload
     mode="basic" 
-    chooseLabel="Story preview image" 
+    chooseLabel="Select preview image" 
     chooseIcon="pi pi-upload"
     name="demo[]" 
-    url="https://www.primefaces.org/cdn/api/upload.php" 
     accept="image/*" 
-    maxFileSize="1000000" 
+    [maxFileSize]="maxFileSize" 
     [auto]="true"
-    (onUpload)="onUpload($event)" />
+    (onSelect)="onSelect($event)" />
+    <p-button (click)="clearSelection()" icon="pi pi-times" [text]="true" severity="danger" *ngIf="hasImageSelected"/>
 </div>

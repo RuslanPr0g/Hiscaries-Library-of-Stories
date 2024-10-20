@@ -46,19 +46,17 @@
           ></app-form-date-input>
       </div>
 
-      <div class="form-controls__same-line">
-        <app-form-multiselect
-          [centered]="true"
-          [formGroup]="publishForm"
-          [items]="genres"
-          controlName="Genres"
-        ></app-form-multiselect>
+      <app-form-multiselect
+        [centered]="true"
+        [formGroup]="publishForm"
+        [items]="genres"
+        controlName="Genres"
+      ></app-form-multiselect>
 
-        <app-upload-file-control
-          [centered]="true"
-          [control]="imageControl"
-        ></app-upload-file-control>
-      </div>
+      <app-upload-file-control
+        [centered]="true"
+        [control]="imageControl"
+      ></app-upload-file-control>
 
       <p-divider layout="horizontal" />
 
