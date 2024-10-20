@@ -4,7 +4,7 @@ public static class UserFriendlyMessages
     public static string UsernameEmpty = "The username field cannot be empty. Please provide a valid username.";
     public static string ReviewMessageCannotBeEmpty = "Your review cannot be blank. Please write a message before submitting.";
     public static string UserIsNotFound = "We couldn't find a user with the provided details. Please check your information and try again.";
-    public static string PasswordMismatch = "The passwords you entered do not match. Please ensure both passwords are the same.";
+    public static string PasswordMismatch = "The passwords you entered do not match.";
     public static string UserIsBanned = "Your account has been banned. Please contact support for further assistance.";
     public static string TryAgainLater = "Something went wrong. Please try again later.";
     public static string UserWithUsernameExists = "A user with this username already exists. Please choose a different username.";

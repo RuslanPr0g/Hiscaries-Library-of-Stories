@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { RegisterUserRequest } from "../models/requests/register-user.model";
 import { UserWithTokenResponse } from "../models/response/user-with-token.model";
 import { LoginUserRequest } from "../models/requests/login-user.model";
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    // private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService
   ) {
   }
 
@@ -47,8 +48,8 @@ export class UserService {
 
   isAuthenticated(): boolean {
     let token = localStorage.getItem(this.access_token_local_storage_key);
-    let authenticated = token != null //&& !this.jwtHelper.isTokenExpired(token);
-    if (authenticated == false) {
+    let authenticated = token != null && !this.jwtHelper.isTokenExpired(token);
+    if (!authenticated) {
       this.logOut();
       return false;
     }

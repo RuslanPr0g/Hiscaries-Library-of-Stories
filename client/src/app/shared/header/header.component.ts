@@ -22,7 +22,7 @@ export class HeaderComponent {
 
   logOut(): void {
     this.userService.logOut();
-    window.location.reload();
+    this.router.navigate(['/login']);
   }
 
   navigateToPublishStory(): void {

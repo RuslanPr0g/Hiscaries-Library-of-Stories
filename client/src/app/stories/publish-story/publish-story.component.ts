@@ -58,7 +58,6 @@ export class PublishStoryComponent implements OnInit {
   onSubmit() {
     if (this.publishForm.valid) {
       console.log(this.publishForm.value);
-      // Implement your submit logic here
     }
   }
 
@@ -70,16 +69,14 @@ export class PublishStoryComponent implements OnInit {
 
       const reader = new FileReader();
       reader.onload = () => {
-        // The result is the base64 string
         this.base64Image = reader.result;
-        
-        // Patch the base64Image to the form
+
         this.publishForm.patchValue({
           Image: this.base64Image
         });
       };
 
-      reader.readAsDataURL(this.selectedFile);  // Convert to base64
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 }

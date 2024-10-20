@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
 
   username: string;
 
+  submitted: boolean = false;
+
   constructor(
     private service: UserService,
     private router: Router) {
@@ -57,17 +59,14 @@ export class LoginComponent implements OnInit {
       this.errorMessage = "All fields are required!";
       return;
     }
-    this.errorMessage = null;
 
+    this.submit();
     this.service.login(this.formlogin?.value)
     .pipe(take(1))
     .subscribe(
       {
-        next: (res: UserWithTokenResponse) => {
-          this.router.navigateByUrl('/');
-          this.errorMessage = null;
-        },
-        error: error => this.handleError(error)
+        next: () => this.processAuth(),
+        error: error => this.processError(error)
       }
     );
   }
@@ -78,19 +77,41 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.errorMessage = null;
+    this.submit();
     this.service.register(this.formregister?.value).subscribe(
       {
-        next: (res: UserWithTokenResponse) => {
-          this.router.navigateByUrl('/');
-          this.errorMessage = null;
-        },
-        error: error => this.handleError(error)
+        next: () => this.processAuth(),
+        error: error => this.processError(error)
       }
     );
   }
 
+  private processAuth(): void {
+    this.router.navigateByUrl('/')
+    .then(() => {
+      this.processed();
+    })
+    .catch(() => {
+      this.processed();
+    });
+  }
+
+  private processError(error: any): void {
+    this.handleError(error);
+    this.processed();
+  }
+
   private handleError(error: any): void {
     this.errorMessage = error.error?.Message || 'An unexpected error occurred';
+  }
+
+  private submit(): void {
+    this.errorMessage = null;
+    this.submitted = true;
+  }
+
+  private processed(): void {
+    this.errorMessage = null;
+    this.submitted = false;
   }
 }

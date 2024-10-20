@@ -1,20 +1,34 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideState, provideStore } from '@ngrx/store';
 import { userFeatureKey, userReducer } from './users/store/user.reducer';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { authInterceptor } from './shared/interceptors/auth.interceptor';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
+
+export function tokenGetter() {
+  return localStorage.getItem(environment.localStorageKeys.ACCESS_TOKEN_KEY);
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore(),
-    provideHttpClient(
-      withInterceptors([authInterceptor])
+    importProvidersFrom(
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+          allowedDomains: [environment.apiDomain],
+          disallowedRoutes: [`${environment.apiDomain}/login`, `${environment.apiDomain}/register`],
+        },
+      }),
     ),
-    provideState({ name: userFeatureKey, reducer: userReducer }), provideAnimationsAsync()],
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
+    provideState({ name: userFeatureKey, reducer: userReducer }),
+    provideAnimationsAsync()],
 };
