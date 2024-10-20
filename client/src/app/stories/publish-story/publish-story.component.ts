@@ -15,6 +15,7 @@ import { FormMultiselectComponent } from '../../shared/components/form-multisele
 import { PublishFormModel } from '../models/form/publish-story-form.model';
 import { PublishStoryRequest } from '../models/requests/publish-story.model';
 import { MessageModule } from 'primeng/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-publish-story',
@@ -43,7 +44,8 @@ export class PublishStoryComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private storyService: StoryService) {
+    private storyService: StoryService,
+    private router: Router) {
     this.publishForm = this.fb.group<PublishFormModel>({
       Title: this.fb.control<string | null>(null, Validators.required),
       Description: this.fb.control<string | null>(null, Validators.required),
@@ -93,6 +95,7 @@ export class PublishStoryComponent implements OnInit {
   
           // TODO: temporarily redirect to the home page to show "best to read stories" to see how it looks like
           // in the future we need to redirect a user to the update story page, where they would add content pages to the story
+          this.router.navigateByUrl('/');
         },
         error: (error) => {
           if (error) {

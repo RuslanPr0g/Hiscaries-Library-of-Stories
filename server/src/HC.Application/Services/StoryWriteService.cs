@@ -115,13 +115,16 @@ public sealed class StoryWriteService : IStoryWriteService
     {
         _logger.LogInformation("Publishing new story: {StoryTitle} by {AuthorName}", command.Title, command.AuthorName);
         var storyId = _idGenerator.Generate((id) => new StoryId(id));
+
+        var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
+        
         var story = Story.Create(
             storyId,
             command.PublisherId,
             command.Title,
             command.Description,
             command.AuthorName,
-            command.GenreIds.Select(id => Genre.Create(id)).ToList(),
+            existingGenres,
             command.AgeLimit,
             command.ImagePreview,
             DateTime.UtcNow,

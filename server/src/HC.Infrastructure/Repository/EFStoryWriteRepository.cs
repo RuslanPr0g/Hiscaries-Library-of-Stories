@@ -2,6 +2,9 @@
 using HC.Domain.Stories;
 using HC.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HC.Infrastructure.Repository;
@@ -30,4 +33,7 @@ public sealed class EFStoryWriteRepository : IStoryWriteRepository
 
     public async Task<Story?> GetStory(StoryId storyId) =>
         await _context.Stories.FirstOrDefaultAsync(x => x.Id == storyId);
+
+    public async Task<ICollection<Genre>> GetGenresByIds(Guid[] genreIds) =>
+        await _context.Genres.Where(g => genreIds.Contains(g.Id)).ToListAsync();
 }
