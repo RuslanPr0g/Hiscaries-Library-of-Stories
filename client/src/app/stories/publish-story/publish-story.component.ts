@@ -12,6 +12,9 @@ import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { UploadFileControlComponent } from "../../shared/components/upload-file-control/upload-file-control.component";
 import { FormMultiselectComponent } from '../../shared/components/form-multiselect/form-multiselect.component';
+import { PublishFormModel } from '../models/form/publish-story-form.model';
+import { PublishStoryRequest } from '../models/requests/publish-story.model';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-publish-story',
@@ -26,26 +29,29 @@ import { FormMultiselectComponent } from '../../shared/components/form-multisele
     NumberLimitControlComponent,
     DividerModule,
     UploadFileControlComponent,
-    FormMultiselectComponent
-],
+    FormMultiselectComponent,
+    MessageModule
+  ],
   templateUrl: './publish-story.component.html',
   styleUrls: ['./publish-story.component.scss']
 })
 export class PublishStoryComponent implements OnInit {
-  publishForm: FormGroup;
+  publishForm: FormGroup<PublishFormModel>;
   genres: GenreModel[] = [];
+  submitted: boolean = false;
+  globalError: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private storyService: StoryService) {
-    this.publishForm = this.fb.group({
-      Title: ['', Validators.required],
-      Description: ['', Validators.required],
-      AuthorName: [''],
-      Image: [null],
-      Genres: ['', Validators.required],
-      AgeLimit: [0, [Validators.required, Validators.min(0), Validators.max(18)]],
-      DateWritten: [null]
+    this.publishForm = this.fb.group<PublishFormModel>({
+      Title: this.fb.control<string | null>(null, Validators.required),
+      Description: this.fb.control<string | null>(null, Validators.required),
+      AuthorName: this.fb.control<string | null>(null),
+      Image: this.fb.control<string | null>(null),
+      Genres: this.fb.control<GenreModel[] | null>(null),
+      AgeLimit: this.fb.control<number | null>(null, [Validators.required, Validators.min(0), Validators.max(18)]),
+      DateWritten: this.fb.control<Date | null>(null)
     });
   }
 
@@ -64,8 +70,37 @@ export class PublishStoryComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.publishForm.valid) {
-      console.log(this.publishForm.value);
+    if (!this.publishForm.valid) {
+      return;
     }
+
+    this.submitted = true;
+
+    const formModel = this.publishForm.value;
+
+    // TODO: this mapping will be useful when updating the story info, find a better place for this logic
+    const request: PublishStoryRequest = {
+      ...formModel,
+      GenreIds: formModel.Genres?.map(g => g.Id),
+      ImagePreview: formModel.Image
+    };
+
+    this.storyService.publish(request)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.submitted = false;
+  
+          // TODO: temporarily redirect to the home page to show "best to read stories" to see how it looks like
+          // in the future we need to redirect a user to the update story page, where they would add content pages to the story
+        },
+        error: (error) => {
+          if (error) {
+            this.globalError = 'Error occured while publishing the story, please try again later';
+          }
+
+          this.submitted = false;
+        }
+      });
   }
 }

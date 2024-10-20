@@ -97,8 +97,8 @@ export class LoginComponent implements OnInit {
   }
 
   private processError(error: any): void {
-    this.handleError(error);
     this.processed();
+    this.handleError(error);
   }
 
   private handleError(error: any): void {

@@ -26,6 +26,8 @@ The following steps are outlined for refactoring the server:
 * Add integration tests
 * Add specification pattern to the repositories
 * Add domain events, etc.
+* when uploading any image (such as story preview image), do not save the whole file blob to DB, save the file locally or on the cloud
+* ALSO when you need to show the image to a client, send a url to access this image on the cloud
 * Fix TODOs
 
 ### In the Future
@@ -37,6 +39,7 @@ The following steps are outlined for refactoring the client:
 
 * Separate into different components
 * Add store https://ngrx.io/guide/store
+* add mobile view support (mobile responsiveness)
 
 ### Configuration Settings
 Please, also set keys in your preferred config file as follows:

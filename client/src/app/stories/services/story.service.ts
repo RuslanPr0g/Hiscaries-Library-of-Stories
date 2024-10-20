@@ -19,6 +19,6 @@ export class StoryService {
   }
 
   publish(request: PublishStoryRequest): Observable<BaseIdModel> {
-    return this.http.post<BaseIdModel>(this.apiUrl, request);
+    return this.http.post<BaseIdModel>(`${this.apiUrl}/publish`, request);
   }
 }

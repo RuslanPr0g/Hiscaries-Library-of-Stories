@@ -172,7 +172,7 @@ public static class StoryEndpoints
     {
         var query = new GetGenreListQuery();
         var result = await mediator.Send(query);
-        return Results.Ok(result);
+        return result.ToResult();
     }
 
     private static async Task<IResult> BestToRead([FromServices] IMediator mediator)
@@ -199,7 +199,7 @@ public static class StoryEndpoints
         }
 
         var publisherIdClaim = httpContext.User.FindFirst("id");
-        if (publisherIdClaim == null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
+        if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
         {
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
@@ -217,7 +217,7 @@ public static class StoryEndpoints
         };
 
         var result = await mediator.Send(command);
-        return Results.Ok(result);
+        return result.ToResult();
     }
 
     private static async Task<IResult> DeleteAudioForStory(Guid storyId, [FromServices] IMediator mediator)

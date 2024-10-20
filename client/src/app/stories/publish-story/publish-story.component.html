@@ -48,11 +48,13 @@
           ></app-form-date-input>
       </div>
 
-      <app-form-multiselect
-        [formGroup]="publishForm"
-        [items]="genres"
-        controlName="Genres"
-      ></app-form-multiselect>
+      <ng-container *ngIf="genres && genres.length > 0">
+        <app-form-multiselect
+          [formGroup]="publishForm"
+          [items]="genres"
+          controlName="Genres"
+        ></app-form-multiselect>
+      </ng-container>
 
       <app-upload-file-control
         [control]="imageControl"
@@ -60,9 +62,13 @@
 
       <p-divider layout="horizontal" />
 
+      <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
+
+      <p-divider layout="horizontal" *ngIf="globalError" />
+
       <app-form-button
         label="Publish Story"
-        [disabled]="publishForm.invalid"
+        [disabled]="publishForm.invalid || submitted"
         (onClick)="onSubmit()"
       ></app-form-button>
     </div>

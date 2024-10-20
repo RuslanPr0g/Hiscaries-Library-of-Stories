@@ -39,7 +39,7 @@ namespace HC.API.Extensions
 
         public static IResult ToResult<T>(this T? result) where T : class
         {
-            return result == null ? Results.NotFound() : Results.Ok(result);
+            return result is null ? Results.NotFound() : Results.Ok(result);
         }
     }
 }
