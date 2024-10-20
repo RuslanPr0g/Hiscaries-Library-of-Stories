@@ -51,7 +51,7 @@ public static class StoryEndpoints
             .Produces<IEnumerable<GenreReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapGet("/shuffle", BestToRead)
+        group.MapGet("/recommendations", BestToRead)
             .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 

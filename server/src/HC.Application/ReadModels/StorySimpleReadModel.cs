@@ -25,7 +25,7 @@ public sealed class StorySimpleReadModel
             ImagePreview = story.ImagePreview,
             DatePublished = story.DatePublished,
             DateWritten = story.DateWritten,
-            Publisher = story.Publisher.Username,
+            Publisher = story.Publisher?.Username,
         };
     }
 }

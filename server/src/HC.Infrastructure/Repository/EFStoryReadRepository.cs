@@ -42,6 +42,10 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     {
         // TODO: make it less dumb
 
+        return await _context.Stories
+            .Select(story => StorySimpleReadModel.FromDomainModel(story))
+            .ToListAsync();
+
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
         var historyOfTheUser = user.ReadHistory;

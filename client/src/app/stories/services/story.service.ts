@@ -21,4 +21,8 @@ export class StoryService {
   publish(request: PublishStoryRequest): Observable<BaseIdModel> {
     return this.http.post<BaseIdModel>(`${this.apiUrl}/publish`, request);
   }
+
+  recommendations(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/recommendations`);
+  }
 }
