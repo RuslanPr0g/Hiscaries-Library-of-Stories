@@ -1,4 +1,6 @@
 <div class="publish-story-container" [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }">
+  <div class="overlay" *ngIf="base64Image"></div>
+  
   <h2>Publish New Story</h2>
   
   <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
@@ -47,14 +49,12 @@
       </div>
 
       <app-form-multiselect
-        [centered]="true"
         [formGroup]="publishForm"
         [items]="genres"
         controlName="Genres"
       ></app-form-multiselect>
 
       <app-upload-file-control
-        [centered]="true"
         [control]="imageControl"
       ></app-upload-file-control>
 
