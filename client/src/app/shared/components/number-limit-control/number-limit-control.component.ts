@@ -19,4 +19,5 @@ export class NumberLimitControlComponent {
   @Input() min: number = 0;
   @Input() max: number = 100;
   @Input() step: number = 1;
+  @Input() centered: boolean = false;
 }

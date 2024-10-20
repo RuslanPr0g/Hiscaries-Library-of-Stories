@@ -34,6 +34,7 @@
           [min]="0"
           [max]="18"
           [step]="1"
+          [centered]="true"
         ></app-number-limit-control>
 
         <app-form-date-input
@@ -41,21 +42,22 @@
           controlName="DateWritten"
           label="Date Written"
           errorMessage="Date Written is required"
-        ></app-form-date-input>
+          [centered]="true"
+          ></app-form-date-input>
       </div>
 
       <div class="form-controls__same-line">
-        <p-multiSelect
-          [options]="genres"
-          formControlName="Genres"
-          placeholder="Select Genres"
-          optionLabel="Name"
-          filterBy="Name"
-          [filter]="true"
-        ></p-multiSelect>
+        <app-form-multiselect
+          [centered]="true"
+          [formGroup]="publishForm"
+          [items]="genres"
+          controlName="Genres"
+        ></app-form-multiselect>
 
-        <label for="imageUpload">Upload Image</label>
-        <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <app-upload-file-control
+          [centered]="true"
+          [control]="imageControl"
+        ></app-upload-file-control>
       </div>
 
       <p-divider layout="horizontal" />

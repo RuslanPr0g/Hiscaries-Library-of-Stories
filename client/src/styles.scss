@@ -56,6 +56,11 @@ input {
   gap: 0.5em;
   margin-bottom: 1rem;
   width: 100%;
+
+  &-centered {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 // add new styles here...
@@ -93,6 +98,14 @@ p-dropdown {
 
 .p-multiselect {
   min-width: 230px;
+}
+
+.p-inputnumber input {
+  max-width: 130px !important;
+}
+
+.p-multiselect-label {
+  max-width: 180px !important;
 }
 
 // PRIME NG OVERRIDE ********************

@@ -1,0 +1,12 @@
+<div class="custom-form-field" [ngClass]="{ 'custom-form-field-centered': centered }">
+  <p-fileUpload 
+    mode="basic" 
+    chooseLabel="Story preview image" 
+    chooseIcon="pi pi-upload"
+    name="demo[]" 
+    url="https://www.primefaces.org/cdn/api/upload.php" 
+    accept="image/*" 
+    maxFileSize="1000000" 
+    [auto]="true"
+    (onUpload)="onUpload($event)" />
+</div>

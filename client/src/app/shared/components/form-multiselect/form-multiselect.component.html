@@ -1,0 +1,10 @@
+<div [formGroup]="formGroup" class="custom-form-field" [ngClass]="{ 'custom-form-field-centered': true }">
+    <p-multiSelect
+        [options]="items"
+        [formControlName]="controlName"
+        [placeholder]="placeholder"
+        optionLabel="Name"
+        filterBy="Name"
+        [filter]="true"
+    ></p-multiSelect>
+</div>
