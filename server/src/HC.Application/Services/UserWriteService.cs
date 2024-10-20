@@ -208,7 +208,7 @@ public sealed class UserWriteService : IUserWriteService
         }
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
-            await _tokenHandler.GenerateJwtToken(user, _jwtSettings.Key, _jwtSettings.TokenLifeTime);
+            await _tokenHandler.GenerateJwtToken(user, _jwtSettings);
 
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
@@ -261,7 +261,7 @@ public sealed class UserWriteService : IUserWriteService
             );
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
-            await _tokenHandler.GenerateJwtToken(createdUser, _jwtSettings.Key, _jwtSettings.TokenLifeTime);
+            await _tokenHandler.GenerateJwtToken(createdUser, _jwtSettings);
 
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
@@ -317,7 +317,7 @@ public sealed class UserWriteService : IUserWriteService
         }
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
-            await _tokenHandler.GenerateJwtToken(user, _jwtSettings.Key, _jwtSettings.TokenLifeTime);
+            await _tokenHandler.GenerateJwtToken(user, _jwtSettings);
 
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {

@@ -1,4 +1,5 @@
 ﻿using HC.Application.Interface.JWT;
+using HC.Application.Options;
 using HC.Application.Services;
 using HC.Domain.Users;
 using Microsoft.IdentityModel.Tokens;
@@ -29,10 +30,10 @@ public sealed class JWTTokenHandler : IJWTTokenHandler
         }
     }
 
-    public Task<(string AccessKey, RefreshTokenDescriptor ReshreshToken)> GenerateJwtToken(User user, string key, TimeSpan lifetime)
+    public Task<(string AccessKey, RefreshTokenDescriptor ReshreshToken)> GenerateJwtToken(User user, JwtSettings settings)
     {
         JwtSecurityTokenHandler tokenHandler = new();
-        byte[] keyInBytes = Encoding.ASCII.GetBytes(key);
+        byte[] keyInBytes = Encoding.ASCII.GetBytes(settings.Key);
         string jti = Guid.NewGuid().ToString();
         SecurityTokenDescriptor tokenDescriptor = new()
         {
@@ -42,10 +43,13 @@ public sealed class JWTTokenHandler : IJWTTokenHandler
                     new Claim(JwtRegisteredClaimNames.Jti, jti),
                     new Claim(JwtRegisteredClaimNames.Email, user.Username),
                     new Claim("id", user.Id.Value.ToString()),
-                    new Claim("username", user.Username)
+                    new Claim("username", user.Username),
+                    new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Aud, settings.Audience),
+                    new Claim(JwtRegisteredClaimNames.Iss, settings.Issuer),
                 }),
             NotBefore = DateTime.UtcNow,
-            Expires = DateTime.UtcNow.Add(lifetime),
+            Expires = DateTime.UtcNow.Add(settings.TokenLifeTime),
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(keyInBytes), SecurityAlgorithms.HmacSha256Signature)
         };

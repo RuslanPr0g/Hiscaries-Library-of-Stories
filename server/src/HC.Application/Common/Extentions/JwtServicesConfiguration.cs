@@ -1,9 +1,12 @@
-﻿using System.Text;
-using HC.Application.Options;
+﻿using HC.Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HC.Application.Common.Extentions;
 
@@ -39,27 +42,41 @@ public static class JwtServicesConfiguration
 
         TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
         {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            RequireExpirationTime = false,
-            ValidateLifetime = true
+            ClockSkew = TimeSpan.Zero
         };
 
         services.AddSingleton(tokenValidationParameters);
 
-        services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.SaveToken = true;
-                x.TokenValidationParameters = tokenValidationParameters;
-            });
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         .AddJwtBearer(options =>
+         {
+             options.RequireHttpsMetadata = false;
+             options.TokenValidationParameters = tokenValidationParameters;
+
+             var loggerFactory = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
+             var logger = loggerFactory.CreateLogger<JwtBearerEvents>();
+
+             options.Events = new JwtBearerEvents
+             {
+                 OnAuthenticationFailed = context =>
+                 {
+                     logger.LogError("Authentication failed: {Message}", context.Exception.Message);
+                     return Task.CompletedTask;
+                 },
+                 OnTokenValidated = context =>
+                 {
+                     logger.LogInformation("Token validated successfully.");
+                     return Task.CompletedTask;
+                 }
+             };
+         });
 
         return services;
     }

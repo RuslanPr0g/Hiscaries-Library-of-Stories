@@ -26,6 +26,7 @@ The following steps are outlined for refactoring the server:
 * Add integration tests
 * Add specification pattern to the repositories
 * Add domain events, etc.
+* Extract the jwt token generation to a separate service or identity provider
 * when uploading any image (such as story preview image), do not save the whole file blob to DB, save the file locally or on the cloud
 * ALSO when you need to show the image to a client, send a url to access this image on the cloud
 * Fix TODOs

@@ -25,9 +25,8 @@ public static class StoryEndpoints
     public static void MapStoryEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/v1/stories")
-            .WithTags("Stories");
-            // TODO: enable auth
-            //.RequireAuthorization();
+            .WithTags("Stories")
+            .RequireAuthorization();
 
         group.MapPost("/", GetStories)
             .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
