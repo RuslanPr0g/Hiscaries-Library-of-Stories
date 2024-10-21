@@ -11,4 +11,13 @@ import { StoryModel } from '../models/domain/story-model';
 })
 export class SearchStoryItemComponent {
   @Input() story: StoryModel;
+
+  ngOnInit(): void {
+  this.story.Description = `fdsdf
+  dfasf dfasf dfasfdfasfdfasf dfasf dfg oskdfgosdk fiogks dfogk fsdsdfg,.g sdm,fgoskio0fg hkm f,gso dfkgisk dfogkfis fgoaskdkfiadskdfo
+  dfasf dfasf dfasfdfasfdfasf dfasf dfg oskdfgosdk fiogks dfogk fsdsdfg,.g sdm,fgoskio0fg hkm f,gso dfkgisk dfogkfis fgoaskdkfiadskdfo
+  dfasf dfasf dfasfdfasfdfasf dfasf dfg oskdfgosdk fiogks dfogk fsdsdfg,.g sdm,fgoskio0fg hkm f,gso dfkgisk dfogkfis fgoaskdkfiadskdfo
+  dfasf dfasf dfasfdfasfdfasf dfasf dfg oskdfgosdk fiogks dfogk fsdsdfg,.g sdm,fgoskio0fg hkm f,gso dfkgisk dfogkfis fgoaskdkfiadskdfo
+  dfasf dfasf dfasfdfasfdfasf dfasf dfg oskdfgosdk fiogks dfogk fsdsdfg,.g sdm,fgoskio0fg hkm f,gso dfkgisk dfogkfis fgoaskdkfiadskdfo`
+  }
 }
