@@ -1,0 +1,20 @@
+<div class="story-card">
+    <div class="story-thumbnail">
+        <img [src]="story.ImagePreview" alt="{{ story.Title }}" class="story-image" />
+    </div>
+    <div class="story-details">
+        <h3 class="story-title">{{ story.Title }}</h3>
+        <p class="story-description">{{ story.Description | slice: 0:100 }}...</p>
+        <div class="story-info">
+            <div class="story-author">
+                <i class="fas fa-user"></i> {{ story.AuthorName }}
+            </div>
+            <div class="story-age-limit">
+                <i class="fas fa-exclamation-circle"></i> {{ story.AgeLimit }}
+            </div>
+            <div class="story-published">
+                <i class="fas fa-calendar-alt"></i> {{ story.DatePublished | date }}
+            </div>
+        </div>
+    </div>
+</div>

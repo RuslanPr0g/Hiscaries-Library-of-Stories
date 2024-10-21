@@ -3,11 +3,12 @@ import { Component, Input } from '@angular/core';
 import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { StoryModel } from '../models/domain/story-model';
+import { SearchStoryItemComponent } from '../story-search-item/story-search-item.component';
 
 @Component({
   selector: 'app-search-story-results',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SearchStoryItemComponent],
   templateUrl: './search-story-results.component.html',
   styleUrl: './search-story-results.component.scss'
 })

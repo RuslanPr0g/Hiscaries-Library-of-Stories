@@ -1,11 +1,5 @@
 <div class="story-list">
-    <div class="story-card" *ngFor="let story of stories"
-        [ngStyle]="{ 'background-image': story.ImagePreview ? 'url(' + story.ImagePreview + ')' : 'none' }">
-        <img alt="{{ story.Title }}" class="story-image" />
-        <h2>{{ story.Title }}</h2>
-        <p>{{ story.Description }}</p>
-        <p><strong>Author:</strong> {{ story.AuthorName }}</p>
-        <p><strong>Age Limit:</strong> {{ story.AgeLimit }}</p>
-        <p><strong>Published:</strong> {{ story.DatePublished | date }}</p>
-    </div>
+    <ng-container *ngFor="let story of stories">
+        <app-story-search-item [story]="story"></app-story-search-item>
+    </ng-container>
 </div>
