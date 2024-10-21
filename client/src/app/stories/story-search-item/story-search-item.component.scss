@@ -131,20 +131,20 @@ $border-color: #444;
     }
 }
 
-@media (max-width: 1200px) {
-    .story-card {
+@media (max-width: 1500px) {
+    :host, .story-card {
         flex: 1 1 calc(33.33% - 32px); // 3 cards per row
     }
 }
 
-@media (max-width: 900px) {
-    .story-card {
+@media (max-width: 1200px) {
+    :host, .story-card {
         flex: 1 1 calc(50% - 32px); // 2 cards per row
     }
 }
 
-@media (max-width: 600px) {
-    .story-card {
+@media (max-width: 900px) {
+    :host, .story-card {
         flex: 1 1 100%; // 1 card per row
     }
 }

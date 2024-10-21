@@ -11,3 +11,19 @@ main {
         width: 85%;
     }
 }
+
+@media (max-width: 1400px) {
+    main {
+        flex-direction: column;
+
+        & .left-panel {
+            width: 100%;
+            height: 10%;
+        }
+    
+        & .right-panel {
+            width: 100%;
+            height: 90%;
+        }
+    }
+}
