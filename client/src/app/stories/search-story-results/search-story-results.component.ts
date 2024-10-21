@@ -4,11 +4,12 @@ import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryItemComponent } from '../story-search-item/story-search-item.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-search-story-results',
   standalone: true,
-  imports: [CommonModule, SearchStoryItemComponent],
+  imports: [CommonModule, SearchStoryItemComponent, SkeletonModule],
   templateUrl: './search-story-results.component.html',
   styleUrl: './search-story-results.component.scss'
 })
