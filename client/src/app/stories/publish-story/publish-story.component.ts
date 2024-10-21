@@ -16,6 +16,7 @@ import { PublishFormModel } from '../models/form/publish-story-form.model';
 import { PublishStoryRequest } from '../models/requests/publish-story.model';
 import { MessageModule } from 'primeng/message';
 import { Router } from '@angular/router';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-publish-story',
@@ -31,7 +32,8 @@ import { Router } from '@angular/router';
     DividerModule,
     UploadFileControlComponent,
     FormMultiselectComponent,
-    MessageModule
+    MessageModule,
+    ProgressSpinnerModule
   ],
   templateUrl: './publish-story.component.html',
   styleUrls: ['./publish-story.component.scss']

@@ -66,11 +66,19 @@
 
       <p-divider layout="horizontal" *ngIf="globalError" />
 
-      <app-form-button
-        label="Publish Story"
-        [disabled]="publishForm.invalid || submitted"
-        (onClick)="onSubmit()"
-      ></app-form-button>
+      <ng-container *ngIf="submitted; else submit">
+        <p-progressSpinner 
+          styleClass="w-4rem h-4rem"
+          strokeWidth="8" 
+          animationDuration=".5s" />
+      </ng-container>
+      <ng-template #submit>
+        <app-form-button
+          label="Publish Story"
+          [disabled]="publishForm.invalid || submitted"
+          (onClick)="onSubmit()"
+        ></app-form-button>
+      </ng-template>
     </div>
   </form>
 </div>

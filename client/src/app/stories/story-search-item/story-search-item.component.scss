@@ -2,7 +2,7 @@ $primary-color: #222;
 $secondary-color: #333;
 $text-color: #e0e0e0;
 $accent-color: #007bff;
-$hover-box-shadow: rgba(255, 255, 255, 0.2);
+$hover-box-shadow: #a78bfa;
 $border-color: #444;
 
 :host, .story-card {
@@ -94,7 +94,7 @@ $border-color: #444;
             display: flex;
             align-items: center;
             font-size: 1.5rem;
-            color: rgb(228, 78, 78);
+            color: #a78bfa;
             font-weight: 600;
     
             i {
