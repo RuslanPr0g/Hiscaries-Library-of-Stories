@@ -5,6 +5,7 @@ import { authGuard } from './shared/auth/guards/auth.guard';
 import { provideState } from '@ngrx/store';
 import { userFeatureKey, userReducer } from './users/store/user.reducer';
 import { PublishStoryComponent } from './stories/publish-story/publish-story.component';
+import { PreviewStoryComponent } from './stories/preview-story/preview-story.component';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,12 @@ export const routes: Routes = [
         path: 'publish-story',
         title: 'Publish Story',
         component: PublishStoryComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'preview-story/:id',
+        title: 'Preview Story',
+        component: PreviewStoryComponent,
         canActivate: [authGuard]
     },
     { path: '**', redirectTo: '', pathMatch: 'full' }

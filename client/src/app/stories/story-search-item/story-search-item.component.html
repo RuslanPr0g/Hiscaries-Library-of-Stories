@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="story-hover-details">
+    <div class="story-hover-details" (click)="previewStory(story)">
         <h3 class="story-title">{{ story.Title | slice: 0:100 }}{{ story.Title.length > 100 ? '...' : '' }}</h3>
         <p class="full-description">{{ story.Description | slice: 0:300 }}{{ story.Description.length > 300 ? '...' : ''
             }}</p>
