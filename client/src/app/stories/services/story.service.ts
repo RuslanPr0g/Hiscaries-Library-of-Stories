@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { PublishStoryRequest } from '../models/requests/publish-story.model';
 import { BaseIdModel } from '../../shared/models/base-id.model';
 import { GenreModel } from '../models/domain/genre.model';
+import { StoryModel } from '../models/domain/story-model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class StoryService {
     return this.http.post<BaseIdModel>(`${this.apiUrl}/publish`, request);
   }
 
-  recommendations(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/recommendations`);
+  recommendations(): Observable<StoryModel[]> {
+    return this.http.get<StoryModel[]>(`${this.apiUrl}/recommendations`);
   }
 }

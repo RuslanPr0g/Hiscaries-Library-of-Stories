@@ -1,0 +1,55 @@
+.story-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+}
+
+.story-card {
+    flex: 1 1 calc(25% - 32px);
+    /* 4 cards per row on large screens */
+    max-width: 300px;
+    min-width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* Responsive hover effect */
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.story-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Responsive design for different screen sizes */
+@media (max-width: 1200px) {
+    .story-card {
+        flex: 1 1 calc(33.33% - 32px);
+        /* 3 cards per row */
+    }
+}
+
+@media (max-width: 900px) {
+    .story-card {
+        flex: 1 1 calc(50% - 32px);
+        /* 2 cards per row */
+    }
+}
+
+@media (max-width: 600px) {
+    .story-card {
+        flex: 1 1 100%;
+        /* 1 card per row */
+    }
+}
