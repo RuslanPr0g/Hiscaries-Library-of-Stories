@@ -116,13 +116,16 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
     }
 
-    private static async Task<IResult> GetStories([FromBody] GetStoryListRequest request, [FromServices]  IMediator mediator)
+    private static async Task<IResult> GetStories([FromBody] GetStoryListRequest request, [FromServices] IMediator mediator, HttpContext context)
     {
+        string? requesterUsername = context.User.GetUsername();
+
         var query = new GetStoryListQuery
         {
             Id = request.Id,
             SearchTerm = request.SearchTerm,
-            Genre = request.Genre
+            Genre = request.Genre,
+            RequesterUsername = requesterUsername
         };
 
         var result = await mediator.Send(query);

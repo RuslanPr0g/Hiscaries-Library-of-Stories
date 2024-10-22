@@ -19,7 +19,7 @@
             &#x2022;
             <span class="story-date">{{ story.DatePublished | date: 'longDate' }}</span>
         </div>
-    
+
         <div class="story-main">
             <div class="story-details">
                 <p class="story-description">{{ story.Description }}</p>
@@ -27,16 +27,9 @@
         </div>
     </div>
     <div class="bottom">
-        <app-form-button
-            label="Read"
-            (onClick)="readStory()"
-        ></app-form-button>
-
-        <app-form-button
-            label="Modify"
-            severity="warning"
-            (onClick)="modifyStory()"
-        ></app-form-button>
+        <app-form-button label="Read" (onClick)="readStory()"></app-form-button>
+        <app-form-button *ngIf="isEditable" label="Modify" severity="warning"
+            (onClick)="modifyStory()"></app-form-button>
     </div>
 </div>
 

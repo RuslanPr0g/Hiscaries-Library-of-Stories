@@ -32,7 +32,7 @@ public sealed class StoryReadService : IStoryReadService
     {
         if (request.Id.HasValue)
         {
-            var foundStory = await _repository.GetStorySimpleInfo(request.Id.Value);
+            var foundStory = await _repository.GetStorySimpleInfo(request.Id.Value, request.RequesterUsername);
             return foundStory is null ? [] : [foundStory];
         }
 

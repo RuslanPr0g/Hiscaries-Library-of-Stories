@@ -11,5 +11,5 @@ public interface IStoryReadRepository
     Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(string username);
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
     Task<StoryReadModel?> GetStory(StoryId storyId);
-    Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId);
+    Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, string? requesterUsername);
 }

@@ -27,7 +27,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         story.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
         story.Genres.Any(genre => genre.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
         story.Genres.Any(genre => genre.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)))
-        .Select(story => StorySimpleReadModel.FromDomainModel(story))
+        .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
         .ToListAsync();
 
     public async Task<StoryReadModel?> GetStory(StoryId storyId)
@@ -39,12 +39,12 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         .Select(story => StoryReadModel.FromDomainModel(story, totalReadCount)).FirstOrDefaultAsync();
     }
 
-    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId)
+    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, string? requesterUsername)
     {
         return await _context.Stories.AsNoTracking()
         .Include(x => x.Publisher)
         .Where(story => story.Id == storyId)
-        .Select(story => StorySimpleReadModel.FromDomainModel(story)).FirstOrDefaultAsync();
+        .Select(story => StorySimpleReadModel.FromDomainModel(story, requesterUsername)).FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(string username)
@@ -52,7 +52,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         // TODO: make it less dumb
 
         return await _context.Stories
-            .Select(story => StorySimpleReadModel.FromDomainModel(story))
+            .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
             .ToListAsync();
 
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
