@@ -11,7 +11,6 @@ The following steps are outlined for refactoring the server:
 * Simplify read dto as much as possible, it carries too much info
 * Refactor application layer, separate it into read and write, where read would be dapper with read models (views in the db), and write as EF CORE with change tracker and strict transactional bound within one aggregate root.
 * Implement the application read and write layers for all the interface contacts
-* Refactor auth logic (add oauth, etc.)
 * Refactor API level to use all the best practices regarding REST, etc.
 * Refactor persistence level to use ef core for write and dapper for read logic
 * Add view sql generation into the migrations feature of ef core
