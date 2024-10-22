@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { StoryModel } from '../models/domain/story-model';
+import { StoryService } from '../services/story.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-preview-story',
@@ -9,13 +12,32 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './preview-story.component.scss'
 })
 export class PreviewStoryComponent implements OnInit {
-  storyId: string | null = null;
+  private storyId: string | null = null;
 
-  constructor(private route: ActivatedRoute) { }
-  
+  story: StoryModel | null = null;
+  storyNotFound: boolean = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private storyService: StoryService
+  ) { }
+
   ngOnInit(): void {
     this.storyId = this.route.snapshot.paramMap.get('id');
 
-    console.warn(this.storyId);
+    this.storyService.searchStory({
+      Id: this.storyId
+    })
+      .pipe(take(1))
+      .subscribe(stories => {
+        const story = stories[0];
+        if (!story) {
+          this.storyNotFound = true;
+        } else {
+          this.story = story;
+        }
+
+        console.warn(stories, story);
+      });
   }
 }

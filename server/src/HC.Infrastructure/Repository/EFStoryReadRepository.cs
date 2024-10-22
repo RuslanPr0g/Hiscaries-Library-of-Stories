@@ -30,12 +30,21 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         .Select(story => StorySimpleReadModel.FromDomainModel(story))
         .ToListAsync();
 
-    public async Task<StoryReadModel> GetStory(StoryId storyId)
+    public async Task<StoryReadModel?> GetStory(StoryId storyId)
     {
         int totalReadCount = await _context.ReadHistory.CountAsync(x => x.StoryId == storyId);
         return await _context.Stories.AsNoTracking()
+        .Include(x => x.Publisher)
         .Where(story => story.Id == storyId)
         .Select(story => StoryReadModel.FromDomainModel(story, totalReadCount)).FirstOrDefaultAsync();
+    }
+
+    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId)
+    {
+        return await _context.Stories.AsNoTracking()
+        .Include(x => x.Publisher)
+        .Where(story => story.Id == storyId)
+        .Select(story => StorySimpleReadModel.FromDomainModel(story)).FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(string username)

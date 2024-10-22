@@ -126,6 +126,15 @@ $border-color: #444;
         font-weight: 600;
     }
 
+    .story-author {
+        font-size: 0.8rem;
+        font-weight: 400;
+
+        & span {
+            color: $hover-box-shadow;
+        }
+    }
+
     .full-description {
         font-size: 1rem;
     }

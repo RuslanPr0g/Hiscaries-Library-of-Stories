@@ -121,7 +121,7 @@ public static class StoryEndpoints
         var query = new GetStoryListQuery
         {
             Id = request.Id,
-            SearchTerm = request.Search,
+            SearchTerm = request.SearchTerm,
             Genre = request.Genre
         };
 

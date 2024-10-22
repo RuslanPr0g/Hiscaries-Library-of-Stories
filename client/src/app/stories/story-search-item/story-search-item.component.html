@@ -20,5 +20,6 @@
         <h3 class="story-title">{{ story.Title | slice: 0:100 }}{{ story.Title.length > 100 ? '...' : '' }}</h3>
         <p class="full-description">{{ story.Description | slice: 0:300 }}{{ story.Description.length > 300 ? '...' : ''
             }}</p>
+        <h3 class="story-author">By <span>{{ story.AuthorName | slice: 0:100 }}{{ story.AuthorName.length > 100 ? '...' : '' }}</span></h3>
     </div>
 </div>

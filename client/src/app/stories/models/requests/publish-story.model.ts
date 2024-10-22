@@ -1,5 +1,3 @@
-import { GenreModel } from "../domain/genre.model";
-
 export interface PublishStoryRequest {
     Title?: string | null;
     Description?: string | null;

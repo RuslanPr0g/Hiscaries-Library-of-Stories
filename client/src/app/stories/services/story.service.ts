@@ -6,6 +6,7 @@ import { PublishStoryRequest } from '../models/requests/publish-story.model';
 import { BaseIdModel } from '../../shared/models/base-id.model';
 import { GenreModel } from '../models/domain/genre.model';
 import { StoryModel } from '../models/domain/story-model';
+import { SearchStoryRequest } from '../models/requests/search-story.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class StoryService {
 
   recommendations(): Observable<StoryModel[]> {
     return this.http.get<StoryModel[]>(`${this.apiUrl}/recommendations`);
+  }
+
+  searchStory(searchStoryRequest: SearchStoryRequest): Observable<StoryModel[]> {
+    return this.http.post<StoryModel[]>(`${this.apiUrl}`, searchStoryRequest);
   }
 }

@@ -28,8 +28,16 @@ public sealed class StoryReadService : IStoryReadService
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request) =>
         await _repository.GetStoryRecommendations(request.Username);
 
-    public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request) =>
-        await _repository.GetStoriesBy(request.SearchTerm, request.Genre);
+    public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request)
+    {
+        if (request.Id.HasValue)
+        {
+            var foundStory = await _repository.GetStorySimpleInfo(request.Id.Value);
+            return foundStory is null ? [] : [foundStory];
+        }
+
+        return await _repository.GetStoriesBy(request.SearchTerm, request.Genre);
+    }
 
     private async Task SetAudioForStory(StoryReadModel story)
     {
