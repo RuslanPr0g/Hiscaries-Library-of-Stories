@@ -1,1 +1,46 @@
-<p>preview-story works!</p>
+<div class="preview-story-page background-image-configuration" *ngIf="story && !storyNotFound"
+    [ngStyle]="{ 'background-image': story.ImagePreview ? 'url(' + story.ImagePreview + ')' : 'none' }">
+    <div class="overlay" *ngIf="story.ImagePreview"></div>
+    <div class="top">
+        <div class="story-info">
+            <div class="story-info-item">
+                Date Written: {{ story.DateWritten | date }}
+            </div>
+            <div class="story-info-item">
+                {{ story.AgeLimit }}+
+            </div>
+            <div class="story-info-item">
+                Publisher: {{ story.Publisher }}
+            </div>
+        </div>
+        <div class="story-header">
+            <h1>{{ story.Title }}</h1>
+            <span class="story-author">By {{ story.AuthorName ?? story.Publisher }}</span>
+            &#x2022;
+            <span class="story-date">{{ story.DatePublished | date: 'longDate' }}</span>
+        </div>
+    
+        <div class="story-main">
+            <div class="story-details">
+                <p class="story-description">{{ story.Description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <app-form-button
+            label="Read"
+            (onClick)="readStory()"
+        ></app-form-button>
+
+        <app-form-button
+            label="Modify"
+            severity="warning"
+            (onClick)="modifyStory()"
+        ></app-form-button>
+    </div>
+</div>
+
+<div *ngIf="storyNotFound" class="error-message">
+    <h2>Story not found</h2>
+    <p>Sorry, we couldn't find the story you're looking for.</p>
+</div>

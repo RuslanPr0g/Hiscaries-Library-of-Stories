@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class FormButtonComponent {
   @Input() label!: string;
+  @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined = null;
   @Input() disabled: boolean = false;
   @Output() onClick = new EventEmitter<void>();
 

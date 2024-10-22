@@ -44,6 +44,24 @@ input {
   color: red;
 }
 
+.overlay {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1 !important;
+}
+
+.background-image-configuration {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  transition: all .5s ease;
+  transition: background-image 0.5s ease;
+}
+
 .error {
   display: flex;
   justify-content: center;

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoryModel } from '../models/domain/story-model';
 import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { convertToBase64 } from '../../shared/helpers/image.helper';
+import { FormButtonComponent } from '../../shared/components/form-button/form-button.component';
 
 @Component({
   selector: 'app-preview-story',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormButtonComponent],
   templateUrl: './preview-story.component.html',
   styleUrl: './preview-story.component.scss'
 })
@@ -19,6 +22,7 @@ export class PreviewStoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private storyService: StoryService
   ) { }
 
@@ -34,10 +38,23 @@ export class PreviewStoryComponent implements OnInit {
         if (!story) {
           this.storyNotFound = true;
         } else {
-          this.story = story;
+          this.story = {
+            ...story,
+            ImagePreview: convertToBase64(story.ImagePreview)
+          };
         }
-
-        console.warn(stories, story);
       });
+  }
+
+  get isEditable(): boolean {
+    return this.story?.IsEditable ?? false;
+  }
+
+  readStory(): void {
+    console.log('User wants to read story...');
+  }
+
+  modifyStory(): void {
+    this.router.navigateByUrl(`/edit/${this.storyId}`);
   }
 }

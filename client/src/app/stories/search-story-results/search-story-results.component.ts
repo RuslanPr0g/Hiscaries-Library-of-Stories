@@ -6,6 +6,7 @@ import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryItemComponent } from '../story-search-item/story-search-item.component';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CarouselModule } from 'primeng/carousel';
+import { convertToBase64 } from '../../shared/helpers/image.helper';
 
 @Component({
   selector: 'app-search-story-results',
@@ -31,7 +32,7 @@ export class SearchStoryResultsComponent {
         .subscribe(stories => {
           this.stories = stories.map(s => ({
             ...s,
-            ImagePreview: this.convertToBase64(s.ImagePreview)
+            ImagePreview: convertToBase64(s.ImagePreview)
           }));
         });
     }
@@ -53,9 +54,5 @@ export class SearchStoryResultsComponent {
         numScroll: 1
       }
     ];
-  }
-
-  private convertToBase64(byteArray: any): string {
-    return 'data:image/jpeg;base64,' + byteArray;
   }
 }
