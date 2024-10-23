@@ -10,12 +10,12 @@
                 {{ story.AgeLimit }}+
             </div>
             <div class="story-info-item">
-                Publisher: {{ story.Publisher }}
+                Publisher: {{ story.Publisher?.Username }}
             </div>
         </div>
         <div class="story-header">
             <h1>{{ story.Title }}</h1>
-            <span class="story-author">By {{ story.AuthorName ?? story.Publisher }}</span>
+            <span class="story-author">By {{ story.AuthorName ?? story.Publisher?.Username }}</span>
             &#x2022;
             <span class="story-date">{{ story.DatePublished | date: 'longDate' }}</span>
         </div>

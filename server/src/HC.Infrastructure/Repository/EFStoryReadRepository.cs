@@ -51,6 +51,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         // TODO: make it less dumb
 
         return await _context.Stories
+            .Include(x => x.Publisher)
             .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
             .ToListAsync();
 
