@@ -20,6 +20,7 @@ import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { StoryModelWithContents } from '../models/domain/story-model';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { NavigationConst } from '../../shared/constants/navigation.const';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
   selector: 'app-modify-story',
@@ -56,6 +57,7 @@ export class ModifyStoryComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private storyService: StoryService,
+    private userService: UserService,
     private router: Router) {
     this.modifyForm = this.fb.group<ModifyFormModel>({
       Title: this.fb.control<string | null>(null, Validators.required),
@@ -91,12 +93,20 @@ export class ModifyStoryComponent implements OnInit {
         next: story => {
           if (!story) {
             this.storyNotFound = true;
-          } else {
-            this.story = {
-              ...story,
-              ImagePreview: convertToBase64(story.ImagePreview)
-            };
+            return;
           }
+
+          if (!this.userService.isTokenOwner(story.Publisher?.Id)) {
+            this.storyNotFound = true;
+            console.warn('User is not a publisher of this story.');
+            this.router.navigate([NavigationConst.Home]);
+            return;
+          }
+
+          this.story = {
+            ...story,
+            ImagePreview: convertToBase64(story.ImagePreview)
+          };
 
           this.populateFormWithValue();
         },

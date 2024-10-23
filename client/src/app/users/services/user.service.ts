@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { RegisterUserRequest } from "../models/requests/register-user.model";
 import { UserWithTokenResponse } from "../models/response/user-with-token.model";
 import { LoginUserRequest } from "../models/requests/login-user.model";
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +55,19 @@ export class UserService {
     }
 
     return true;
+  }
+
+  isTokenOwner(userId?: string): boolean {
+    const token = localStorage.getItem(this.access_token_local_storage_key);
+
+    if (!token) {
+      return false;
+    }
+
+    const decodedToken = this.jwtHelper.decodeToken(token);
+
+    const id = decodedToken?.id;
+
+    return id === userId;
   }
 }

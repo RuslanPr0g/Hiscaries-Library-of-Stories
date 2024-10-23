@@ -7,7 +7,7 @@ namespace HC.Application.Stories.Command;
 
 public class UpdateStoryCommand : IRequest<OperationResult>
 {
-    public Guid PublisherId { get; set; }
+    public Guid CurrentUserId { get; set; }
 
     public Guid StoryId { get; set; }
 

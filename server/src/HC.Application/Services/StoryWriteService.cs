@@ -147,10 +147,10 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
-        if (story.PublisherId.Value != command.PublisherId)
+        if (story.PublisherId.Value != command.CurrentUserId)
         {
             _logger.LogWarning("Story {StoryId} can only be updated by its publisher or an administrator, user {UserId} tried to update not his story.", 
-                command.StoryId, command.PublisherId);
+                command.StoryId, command.CurrentUserId);
             return OperationResult.CreateUnauthorizedError(UserFriendlyMessages.NoRights);
         }
 

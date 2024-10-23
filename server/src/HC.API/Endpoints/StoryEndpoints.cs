@@ -241,8 +241,8 @@ public static class StoryEndpoints
             return Results.BadRequest("No story ID was provided.");
         }
 
-        var publisherIdClaim = httpContext.User.FindFirst("id");
-        if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid _))
+        var userIdClaim = httpContext.User.FindFirst("id");
+        if (userIdClaim is null || !Guid.TryParse(userIdClaim.Value, out Guid userId))
         {
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
@@ -251,6 +251,7 @@ public static class StoryEndpoints
 
         var command = new UpdateStoryCommand
         {
+            CurrentUserId = userId,
             StoryId = request.StoryId.Value,
             Title = request.Title,
             Description = request.Description,
