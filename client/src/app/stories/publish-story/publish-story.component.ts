@@ -51,11 +51,11 @@ export class PublishStoryComponent implements OnInit {
     this.publishForm = this.fb.group<PublishFormModel>({
       Title: this.fb.control<string | null>(null, Validators.required),
       Description: this.fb.control<string | null>(null, Validators.required),
-      AuthorName: this.fb.control<string | null>(null),
-      Image: this.fb.control<string | null>(null),
-      Genres: this.fb.control<GenreModel[] | null>(null),
+      AuthorName: this.fb.control<string | null>(null, Validators.required),
+      Image: this.fb.control<string | null>(null, Validators.required),
+      Genres: this.fb.control<GenreModel[] | null>(null, Validators.required),
       AgeLimit: this.fb.control<number | null>(null, [Validators.required, Validators.min(0), Validators.max(18)]),
-      DateWritten: this.fb.control<Date | null>(null)
+      DateWritten: this.fb.control<Date | null>(null, Validators.required)
     });
   }
 
@@ -75,6 +75,7 @@ export class PublishStoryComponent implements OnInit {
 
   onSubmit() {
     if (!this.publishForm.valid) {
+      this.publishForm.markAllAsTouched();
       return;
     }
 

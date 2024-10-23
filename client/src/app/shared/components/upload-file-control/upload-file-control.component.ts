@@ -17,10 +17,12 @@ export class UploadFileControlComponent {
   @Input() control: AbstractControl<any, any> | null;
   @Input() centered: boolean = false;
 
+  requiredErrorMessage: string = 'Image is required.';
+
   maxFileSize: number = 1048576;
 
   get hasImageSelected(): boolean {
-    return !!this.control?.value;
+    return !!this.control?.value ?? false;
   }
 
   onSelect(event: any) {

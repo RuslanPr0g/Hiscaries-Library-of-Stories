@@ -18,6 +18,8 @@ export class FormMultiselectComponent {
   @Input() centered: boolean = false;
   @Input() items: BaseOptionModel[] = [];
 
+  errorMessage: string = 'At least one item should be selected from the list.'
+
   get placeholder(): string {
     return `Select ${this.controlName}`;
   }

@@ -75,7 +75,6 @@
       <ng-template #submit>
         <app-form-button
           label="Publish Story"
-          [disabled]="publishForm.invalid || submitted"
           (onClick)="onSubmit()"
         ></app-form-button>
       </ng-template>
