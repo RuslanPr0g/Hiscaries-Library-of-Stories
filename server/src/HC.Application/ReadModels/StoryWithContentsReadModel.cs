@@ -6,7 +6,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
 {
     public byte[] Audio { get; set; }
     public IEnumerable<GenreReadModel> Genres { get; set; }
-    public IEnumerable<StoryPageReadModel> Pages { get; set; }
+    public IEnumerable<StoryPageReadModel> Contents { get; set; }
 
     public static StoryWithContentsReadModel FromDomainModel(Story story)
     {
@@ -22,7 +22,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             DateWritten = story.DateWritten,
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),
-            Pages = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
+            Contents = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
         };
     }
 }
