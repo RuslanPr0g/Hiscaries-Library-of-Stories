@@ -34,6 +34,9 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     {
         return await _context.Stories.AsNoTracking()
         .Include(x => x.Publisher)
+        .Include(x => x.Genres)
+        .Include(x => x.Comments)
+        .Include(x => x.Contents)
         .Where(story => story.Id == storyId)
         .Select(story => StoryWithContentsReadModel.FromDomainModel(story)).FirstOrDefaultAsync();
     }

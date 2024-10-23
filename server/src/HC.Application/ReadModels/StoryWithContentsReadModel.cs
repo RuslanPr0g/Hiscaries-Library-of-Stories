@@ -21,8 +21,8 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             DatePublished = story.DatePublished,
             DateWritten = story.DateWritten,
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
-            Genres = story.Genres.Select(GenreReadModel.FromDomainModel),
-            Pages = story.Contents.Select(StoryPageReadModel.FromDomainModel),
+            Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),
+            Pages = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
         };
     }
 }

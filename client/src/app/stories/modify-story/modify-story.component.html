@@ -1,8 +1,8 @@
 <ng-container *ngIf="!storyNotFound; else emptyStory">
-  <div class="modify-story-container" [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }">
+  <div class="modify-story-container" [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }" *ngIf="story">
     <div class="overlay" *ngIf="base64Image"></div>
     
-    <h2>Modify New Story</h2>
+    <h2>Modify Story</h2>
     
     <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
       <div class="form-controls half-width-form">
@@ -82,6 +82,14 @@
       </div>
     </form>
   </div>
+  <ng-container *ngIf="!story">
+    <div class="loading">
+      <p-progressSpinner 
+        styleClass="w-4rem h-4rem"
+        strokeWidth="8" 
+        animationDuration=".5s" />
+    </div>
+  </ng-container>
 </ng-container>
 <ng-template #emptyStory>
   <div class="error-message">

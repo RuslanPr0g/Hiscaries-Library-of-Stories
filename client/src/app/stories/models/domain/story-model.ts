@@ -16,5 +16,10 @@ export interface StoryModel {
 
 export interface StoryModelWithContents extends StoryModel {
     Genres: GenreModel[];
-    Contents: string[];
+    Contents: StoryPageModel[];
+}
+
+export interface StoryPageModel {
+    Page: number;
+    Content: string;
 }
