@@ -171,7 +171,7 @@ export class ModifyStoryComponent implements OnInit {
         Image: this.story.ImagePreview,
         Genres: this.story.Genres,
         AgeLimit: this.story.AgeLimit,
-        DateWritten: this.story.DateWritten,
+        DateWritten: new Date(this.story.DateWritten),
         Contents: this.story.Contents.map(x => x.Content),
       });
     }
