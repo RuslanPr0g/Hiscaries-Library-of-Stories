@@ -1,6 +1,8 @@
 @import "primeng/resources/themes/lara-dark-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
 
 *,
 ::after,
@@ -8,15 +10,9 @@
   box-sizing: border-box;
 }
 
-html,
 body {
-  height: 100%;
-}
-
-body {
-  // background-color: #1E1E1E;
   background-image: linear-gradient(to top, rgba(0, 0, 0, .6), #1E1E1E);
-  background-size: 100vw 100vh;
+  background-size: 100% 100%;
   color: #fff;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 0.05em;

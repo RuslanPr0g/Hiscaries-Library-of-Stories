@@ -66,6 +66,27 @@
         <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
   
         <p-divider layout="horizontal" *ngIf="globalError" />
+
+        <!-- TODO: EXTRACT THIS TO A SEPARATE COMPONENT AND ALSO MAKE IT PAGINATED -->
+        <ng-container formArrayName="Contents">
+          <div *ngFor="let content of contents.controls; let i = index">
+            <app-text-editor 
+              [control]="getContentControlByIndex(i)"
+              [label]="'Content Page ' + (i + 1)"
+              [errorMessage]="'Content is required'"
+            ></app-text-editor>
+            <app-form-button
+              label="Remove Page"
+              (onClick)="removeContent(i)"
+            ></app-form-button>
+          </div>
+        </ng-container>
+        <app-form-button
+          label="Add Page"
+          (onClick)="addContent()"
+        ></app-form-button>
+
+        <p-divider layout="horizontal" />
   
         <ng-container *ngIf="submitted; else submit">
           <p-progressSpinner 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormInputComponent } from '../../shared/components/form-input/form-input.component';
 import { FormTextareaComponent } from '../../shared/components/form-textarea/form-textarea.component';
@@ -21,6 +21,7 @@ import { StoryModelWithContents } from '../models/domain/story-model';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../../users/services/user.service';
+import { TextEditorComponent } from '../../shared/components/text-editor/text-editor.component';
 
 @Component({
   selector: 'app-modify-story',
@@ -37,7 +38,8 @@ import { UserService } from '../../users/services/user.service';
     UploadFileControlComponent,
     FormMultiselectComponent,
     MessageModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    TextEditorComponent
   ],
   templateUrl: './modify-story.component.html',
   styleUrls: ['./modify-story.component.scss']
@@ -67,7 +69,7 @@ export class ModifyStoryComponent implements OnInit {
       Genres: this.fb.control<GenreModel[] | null>(null, Validators.required),
       AgeLimit: this.fb.control<number | null>(null, [Validators.required, Validators.min(0), Validators.max(18)]),
       DateWritten: this.fb.control<Date | null>(null, Validators.required),
-      Contents: this.fb.control<string[] | null>(null, Validators.required)
+      Contents: this.fb.array<string[]>([], Validators.required)
     });
 
     this.storyId = this.route.snapshot.paramMap.get('id');
@@ -122,7 +124,27 @@ export class ModifyStoryComponent implements OnInit {
     return this.imageControl?.value;
   }
 
+  get contents(): FormArray {
+    return this.modifyForm.get('Contents') as FormArray;
+  }
+
+  addContent() {
+    const contentsArray = this.modifyForm.get('Contents') as FormArray;
+    contentsArray.push(this.fb.control(''));
+  }
+  
+  removeContent(index: number) {
+    const contentsArray = this.modifyForm.get('Contents') as FormArray;
+    contentsArray.removeAt(index);
+  }
+  
+  updateContent(index: number, value: string) {
+    const contentsArray = this.modifyForm.get('Contents') as FormArray;
+    contentsArray.at(index).setValue(value);
+  }
+
   onSubmit() {
+    console.warn(this.modifyForm.controls['Contents'].value);
     if (!this.storyId) {
       this.storyNotFound = true;
       return;
@@ -161,8 +183,11 @@ export class ModifyStoryComponent implements OnInit {
       });
   }
 
+  getContentControlByIndex(index: number): AbstractControl<string> {
+    return this.contents.at(index);
+  }
+
   private populateFormWithValue(): void {
-    console.warn(this.story);
     if (this.story) {
       this.modifyForm.patchValue({
         Title: this.story.Title,
@@ -171,8 +196,12 @@ export class ModifyStoryComponent implements OnInit {
         Image: this.story.ImagePreview,
         Genres: this.story.Genres,
         AgeLimit: this.story.AgeLimit,
-        DateWritten: new Date(this.story.DateWritten),
-        Contents: this.story.Contents.map(x => x.Content),
+        DateWritten: new Date(this.story.DateWritten)
+      });
+
+      const contentsArray = this.modifyForm.get('Contents') as FormArray;
+      this.story.Contents.forEach(x => {
+        contentsArray.push(this.fb.control(x.Content));
       });
     }
   }

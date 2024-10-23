@@ -1,4 +1,4 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, FormArray } from "@angular/forms";
 import { GenreModel } from "../domain/genre.model";
 
 export interface ModifyFormModel {
@@ -9,5 +9,5 @@ export interface ModifyFormModel {
   Genres: AbstractControl<GenreModel[] | null>;
   AgeLimit: AbstractControl<number | null>;
   DateWritten: AbstractControl<Date | null>;
-  Contents: AbstractControl<string[] | null>;
+  Contents: FormArray;
 }
