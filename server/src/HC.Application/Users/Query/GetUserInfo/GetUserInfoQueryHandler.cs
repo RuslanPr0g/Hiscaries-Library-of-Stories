@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HC.Application.Users.Query;
 
-public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, UserAccountOwnerReadModel>
+public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, UserSimpleReadModel?>
 {
     private readonly IUserReadService _userService;
 
@@ -14,7 +14,7 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, UserAcc
         _userService = userService;
     }
 
-    public async Task<UserAccountOwnerReadModel> Handle(GetUserInfoQuery request, CancellationToken cancellationToken)
+    public async Task<UserSimpleReadModel?> Handle(GetUserInfoQuery request, CancellationToken cancellationToken)
     {
         return await _userService.GetUserByUsername(request.Username);
     }

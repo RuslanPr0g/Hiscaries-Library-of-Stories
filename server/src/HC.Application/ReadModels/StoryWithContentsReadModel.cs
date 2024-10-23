@@ -20,7 +20,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             ImagePreview = story.ImagePreview,
             DatePublished = story.DatePublished,
             DateWritten = story.DateWritten,
-            Publisher = UserAccountOwnerReadModel.FromDomainModel(story.Publisher),
+            Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             Genres = story.Genres.Select(GenreReadModel.FromDomainModel),
             Pages = story.Contents.Select(StoryPageReadModel.FromDomainModel),
         };

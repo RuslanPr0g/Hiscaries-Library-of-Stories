@@ -2,7 +2,7 @@
 
 namespace HC.Application.Users.Query;
 
-public sealed class GetUserInfoQuery : IRequest<UserAccountOwnerReadModel>
+public sealed class GetUserInfoQuery : IRequest<UserSimpleReadModel?>
 {
     public string Username { get; set; }
 }

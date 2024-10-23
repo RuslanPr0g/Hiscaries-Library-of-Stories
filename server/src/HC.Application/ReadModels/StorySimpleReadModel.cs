@@ -11,7 +11,7 @@ public class StorySimpleReadModel
     public byte[] ImagePreview { get; set; }
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
-    public UserAccountOwnerReadModel Publisher { get; set; }
+    public UserSimpleReadModel Publisher { get; set; }
     public bool IsEditable { get; set; } = false;
 
     public static StorySimpleReadModel FromDomainModel(Story story, string? requesterUsername = null)
@@ -26,7 +26,7 @@ public class StorySimpleReadModel
             ImagePreview = story.ImagePreview,
             DatePublished = story.DatePublished,
             DateWritten = story.DateWritten,
-            Publisher = UserAccountOwnerReadModel.FromDomainModel(story.Publisher),
+            Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             IsEditable = story.Publisher?.Username == requesterUsername,
         };
     }

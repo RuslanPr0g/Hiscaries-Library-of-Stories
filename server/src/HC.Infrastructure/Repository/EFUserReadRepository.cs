@@ -23,11 +23,11 @@ public class EFUserReadRepository : IUserReadRepository
             .Select(user => UserAccountOwnerReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 
-    public async Task<UserAccountOwnerReadModel?> GetUserByUsername(string username) =>
+    public async Task<UserSimpleReadModel?> GetUserByUsername(string username) =>
         await _context.Users
             .AsNoTracking()
             .Where(x => x.Username == username)
-            .Select(user => UserAccountOwnerReadModel.FromDomainModel(user))
+            .Select(user => UserSimpleReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 }
 
