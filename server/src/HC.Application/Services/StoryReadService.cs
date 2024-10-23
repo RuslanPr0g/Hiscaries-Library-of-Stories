@@ -1,6 +1,6 @@
 ﻿using HC.Application.Interface;
 using HC.Application.Stories.Query;
-using HC.Domain.Stories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +15,7 @@ public sealed class StoryReadService : IStoryReadService
 
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() => await _repository.GetAllGenres();
 
-    public async Task<StoryWithContentsReadModel?> GetStoryById(StoryId storyId) => await _repository.GetStory(storyId);
+    public async Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId) => await _repository.GetStory(storyId);
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request) =>
         await _repository.GetStoryRecommendations(request.Username);
