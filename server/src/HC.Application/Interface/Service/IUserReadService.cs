@@ -6,6 +6,6 @@ namespace HC.Application.Interface;
 
 public interface IUserReadService
 {
-    Task<UserReadModel> GetUserById(UserId userId);
-    Task<UserReadModel> GetUserByUsername(string username);
+    Task<UserAccountOwnerReadModel> GetUserById(UserId userId);
+    Task<UserAccountOwnerReadModel> GetUserByUsername(string username);
 }

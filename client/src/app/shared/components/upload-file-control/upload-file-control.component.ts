@@ -22,7 +22,7 @@ export class UploadFileControlComponent {
   maxFileSize: number = 1048576;
 
   get hasImageSelected(): boolean {
-    return !!this.control?.value ?? false;
+    return !!this.control?.value;
   }
 
   onSelect(event: any) {

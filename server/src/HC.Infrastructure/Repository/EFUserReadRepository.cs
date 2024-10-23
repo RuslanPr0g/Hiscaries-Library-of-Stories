@@ -16,18 +16,18 @@ public class EFUserReadRepository : IUserReadRepository
         _context = context;
     }
 
-    public async Task<UserReadModel?> GetUserById(Guid userId) =>
+    public async Task<UserAccountOwnerReadModel?> GetUserById(Guid userId) =>
         await _context.Users
             .AsNoTracking()
             .Where(x => x.Id.Value == userId)
-            .Select(user => UserReadModel.FromDomainModel(user))
+            .Select(user => UserAccountOwnerReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 
-    public async Task<UserReadModel?> GetUserByUsername(string username) =>
+    public async Task<UserAccountOwnerReadModel?> GetUserByUsername(string username) =>
         await _context.Users
             .AsNoTracking()
             .Where(x => x.Username == username)
-            .Select(user => UserReadModel.FromDomainModel(user))
+            .Select(user => UserAccountOwnerReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 }
 

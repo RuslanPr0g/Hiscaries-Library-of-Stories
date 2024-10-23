@@ -20,6 +20,8 @@ using System.Threading.Tasks;
 
 namespace HC.API.Controllers;
 
+#nullable enable
+
 public static class StoryEndpoints
 {
     public static void MapStoryEndpoints(this IEndpointRouteBuilder app)
@@ -29,7 +31,11 @@ public static class StoryEndpoints
             .RequireAuthorization();
 
         group.MapPost("/search", GetStories)
-            .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
+            .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/by-id-with-contents", GetByIdWithContents)
+            .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapPost("/genres", AddGenre)
@@ -52,7 +58,7 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapGet("/recommendations", BestToRead)
-            .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
+            .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapPost("/", PublishStory)
@@ -126,6 +132,17 @@ public static class StoryEndpoints
             SearchTerm = request.SearchTerm,
             Genre = request.Genre,
             RequesterUsername = requesterUsername
+        };
+
+        var result = await mediator.Send(query);
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> GetByIdWithContents([FromBody] GetStoryWithContentsRequest request, [FromServices] IMediator mediator)
+    {
+        var query = new GetStoryWithContentsQuery
+        {
+            Id = request.Id,
         };
 
         var result = await mediator.Send(query);
@@ -219,8 +236,13 @@ public static class StoryEndpoints
 
     private static async Task<IResult> UpdateStoryInformation([FromBody] StoryUpdateInfoRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
+        if (!request.StoryId.HasValue)
+        {
+            return Results.BadRequest("No story ID was provided.");
+        }
+
         var publisherIdClaim = httpContext.User.FindFirst("id");
-        if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
+        if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid _))
         {
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
@@ -229,15 +251,15 @@ public static class StoryEndpoints
 
         var command = new UpdateStoryCommand
         {
+            StoryId = request.StoryId.Value,
             Title = request.Title,
             Description = request.Description,
             AuthorName = request.AuthorName,
             GenreIds = request.GenreIds,
             AgeLimit = request.AgeLimit,
             ImagePreview = imageInBytes,
-            StoryId = request.StoryId.Value,
+            DateWritten = request.DateWritten,
             Contents = request.Contents,
-            DateWritten = request.DateWritten
         };
 
         var result = await mediator.Send(command);

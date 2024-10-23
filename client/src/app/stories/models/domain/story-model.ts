@@ -1,3 +1,6 @@
+import { UserModel } from "../../../users/models/domain/user.model";
+import { GenreModel } from "./genre.model";
+
 export interface StoryModel {
     Id: string;
     Title: string;
@@ -7,10 +10,11 @@ export interface StoryModel {
     ImagePreview: string;
     DatePublished: Date;
     DateWritten: Date;
-    Publisher?: string;
+    Publisher?: UserModel;
     IsEditable: boolean;
 }
 
 export interface StoryModelWithContents extends StoryModel {
-    
+    Genres: GenreModel[];
+    Contents: string[];
 }

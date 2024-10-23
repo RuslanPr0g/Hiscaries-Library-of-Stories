@@ -31,6 +31,7 @@ The following steps are outlined for refactoring the server:
 * when uploading any image (such as story preview image), do not save the whole file blob to DB, save the file locally or on the cloud
 * ALSO when you need to show the image to a client, send a url to access this image on the cloud
 * Add pagination to search page or smth
+* Add cache at all levels, front end, http, api, redis, db, etc.
 * Fix TODOs
 
 ### In the Future

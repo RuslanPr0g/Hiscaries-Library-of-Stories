@@ -26,18 +26,18 @@ public static class UserEndpoints
 
         group.MapGet("/", GetCurrentUser)
             .RequireAuthorization()
-            .Produces<UserReadModel>(StatusCodes.Status200OK)
+            .Produces<UserAccountOwnerReadModel>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapGet("/{username}", GetUserInfo)
             .RequireAuthorization()
-            .Produces<UserReadModel>(StatusCodes.Status200OK)
+            .Produces<UserAccountOwnerReadModel>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapPost("/register", RegisterUser)
             .AllowAnonymous()
-            .Produces<UserReadModel>(StatusCodes.Status201Created)
+            .Produces<UserAccountOwnerReadModel>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
 
         group.MapPost("/login", LoginUser)

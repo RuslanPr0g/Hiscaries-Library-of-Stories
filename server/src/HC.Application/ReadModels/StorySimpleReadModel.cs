@@ -1,7 +1,7 @@
 ﻿using HC.Domain.Stories;
 using System;
 
-public sealed class StorySimpleReadModel
+public class StorySimpleReadModel
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
@@ -11,7 +11,7 @@ public sealed class StorySimpleReadModel
     public byte[] ImagePreview { get; set; }
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
-    public string? Publisher { get; set; }
+    public UserAccountOwnerReadModel Publisher { get; set; }
     public bool IsEditable { get; set; } = false;
 
     public static StorySimpleReadModel FromDomainModel(Story story, string? requesterUsername = null)
@@ -26,8 +26,8 @@ public sealed class StorySimpleReadModel
             ImagePreview = story.ImagePreview,
             DatePublished = story.DatePublished,
             DateWritten = story.DateWritten,
-            Publisher = story.Publisher?.Username,
-            IsEditable = story.Publisher?.Username == requesterUsername
+            Publisher = UserAccountOwnerReadModel.FromDomainModel(story.Publisher),
+            IsEditable = story.Publisher?.Username == requesterUsername,
         };
     }
 }
