@@ -17,6 +17,7 @@ import { PublishStoryRequest } from '../models/requests/publish-story.model';
 import { MessageModule } from 'primeng/message';
 import { Router } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { BaseIdModel } from '../../shared/models/base-id.model';
 
 @Component({
   selector: 'app-publish-story',
@@ -83,7 +84,6 @@ export class PublishStoryComponent implements OnInit {
 
     const formModel = this.publishForm.value;
 
-    // TODO: this mapping will be useful when updating the story info, find a better place for this logic
     const request: PublishStoryRequest = {
       ...formModel,
       GenreIds: formModel.Genres?.map(g => g.Id),
@@ -93,12 +93,8 @@ export class PublishStoryComponent implements OnInit {
     this.storyService.publish(request)
       .pipe(take(1))
       .subscribe({
-        next: () => {
-          this.submitted = false;
-  
-          // TODO: temporarily redirect to the home page to show "best to read stories" to see how it looks like
-          // in the future we need to redirect a user to the update story page, where they would add content pages to the story
-          this.router.navigateByUrl('/');
+        next: (story: BaseIdModel) => {
+          this.router.navigateByUrl(`/edit/${story.Id}`);
         },
         error: (error) => {
           if (error) {

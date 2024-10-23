@@ -7,6 +7,7 @@ import { BaseIdModel } from '../../shared/models/base-id.model';
 import { GenreModel } from '../models/domain/genre.model';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryRequest } from '../models/requests/search-story.model';
+import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,10 @@ import { SearchStoryRequest } from '../models/requests/search-story.model';
 export class StoryService {
   private apiUrl = `${environment.apiUrl}/stories`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   genreList(): Observable<GenreModel[]> {
     return this.http.get<GenreModel[]>(`${this.apiUrl}/genres`);
-  }
-
-  publish(request: PublishStoryRequest): Observable<BaseIdModel> {
-    return this.http.post<BaseIdModel>(`${this.apiUrl}/publish`, request);
   }
 
   recommendations(): Observable<StoryModel[]> {
@@ -29,6 +26,14 @@ export class StoryService {
   }
 
   searchStory(searchStoryRequest: SearchStoryRequest): Observable<StoryModel[]> {
-    return this.http.post<StoryModel[]>(`${this.apiUrl}`, searchStoryRequest);
+    return this.http.post<StoryModel[]>(`${this.apiUrl}/search`, searchStoryRequest);
+  }
+
+  publish(request: PublishStoryRequest): Observable<BaseIdModel> {
+    return this.http.post<BaseIdModel>(`${this.apiUrl}`, request);
+  }
+
+  modify(request: ModifyStoryRequest): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}`, request);
   }
 }

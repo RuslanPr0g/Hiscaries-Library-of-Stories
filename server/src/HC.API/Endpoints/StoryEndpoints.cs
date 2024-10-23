@@ -28,7 +28,7 @@ public static class StoryEndpoints
             .WithTags("Stories")
             .RequireAuthorization();
 
-        group.MapPost("/", GetStories)
+        group.MapPost("/search", GetStories)
             .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
@@ -55,7 +55,7 @@ public static class StoryEndpoints
             .Produces<IEnumerable<StoryReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/publish", PublishStory)
+        group.MapPost("/", PublishStory)
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);

@@ -9,8 +9,8 @@
   margin: 2rem auto;
   padding: 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background-color: #3e3e3e;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #1e1e1e;
 
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -20,6 +20,7 @@
 
   .half-width-form {
     ::ng-deep {
+
       app-form-input,
       app-form-textarea,
       app-form-button {
@@ -41,7 +42,7 @@
   border-radius: 16px;
 }
 
-.publish-story-container > * {
+.publish-story-container>* {
   position: relative;
   z-index: 2;
 }

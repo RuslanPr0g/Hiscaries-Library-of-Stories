@@ -14,7 +14,9 @@ body {
 }
 
 body {
-  background-color: #1E1E1E;
+  // background-color: #1E1E1E;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, .6), #1E1E1E);
+  background-size: 100vw 100vh;
   color: #fff;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 0.05em;
@@ -94,7 +96,7 @@ input {
 .p-datepicker-header,
 .p-dropdown-trigger,
 .p-dropdown,
-.p-dropdown span, 
+.p-dropdown span,
 .p-dropdown-header,
 .p-dropdown-items,
 .p-dropdown-items li {
@@ -188,7 +190,7 @@ p-dropdown {
 
   &:disabled {
     cursor: not-allowed !important;
-    opacity: 0.5; 
+    opacity: 0.5;
     pointer-events: none;
     color: gray;
   }
