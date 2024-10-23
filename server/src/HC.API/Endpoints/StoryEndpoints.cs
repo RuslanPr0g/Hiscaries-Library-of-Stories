@@ -193,20 +193,15 @@ public static class StoryEndpoints
 
     private static async Task<IResult> PublishStory([FromBody] PublishStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
-        byte[] imageInBytes = null;
-        if (request.ImagePreview != null)
-        {
-            int offset = request.ImagePreview.IndexOf(',') + 1;
-            imageInBytes = Convert.FromBase64String(request.ImagePreview[offset..]);
-        }
-
         var publisherIdClaim = httpContext.User.FindFirst("id");
         if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
         {
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        var command = new CreateStoryCommand
+        byte[] imageInBytes = GetImageBytes(request.ImagePreview);
+
+        var command = new PublishStoryCommand
         {
             PublisherId = publisherId,
             Title = request.Title,
@@ -222,27 +217,16 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> DeleteAudioForStory(Guid storyId, [FromServices] IMediator mediator)
+    private static async Task<IResult> UpdateStoryInformation([FromBody] StoryUpdateInfoRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
-        var command = new DeleteStoryAudioCommand
+        var publisherIdClaim = httpContext.User.FindFirst("id");
+        if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
         {
-            StoryId = storyId
-        };
-
-        var result = await mediator.Send(command);
-        return result.ToResult();
-    }
-
-    private static async Task<IResult> UpdateStoryInformation([FromBody] StoryUpdateInfoRequest request, [FromServices] IMediator mediator)
-    {
-        byte[] imageInBytes = null;
-        if (request.ImagePreview != null)
-        {
-            int offset = request.ImagePreview.IndexOf(',') + 1;
-            imageInBytes = Convert.FromBase64String(request.ImagePreview[offset..]);
+            return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        // TODO: Add ability to set pages content
+        byte[] imageInBytes = GetImageBytes(request.ImagePreview);
+
         var command = new UpdateStoryCommand
         {
             Title = request.Title,
@@ -251,7 +235,9 @@ public static class StoryEndpoints
             GenreIds = request.GenreIds,
             AgeLimit = request.AgeLimit,
             ImagePreview = imageInBytes,
-            StoryId = request.StoryId.Value
+            StoryId = request.StoryId.Value,
+            Contents = request.Contents,
+            DateWritten = request.DateWritten
         };
 
         var result = await mediator.Send(command);
@@ -368,5 +354,27 @@ public static class StoryEndpoints
 
         var result = await mediator.Send(command);
         return result.ToResult();
+    }
+
+    private static async Task<IResult> DeleteAudioForStory(Guid storyId, [FromServices] IMediator mediator)
+    {
+        var command = new DeleteStoryAudioCommand
+        {
+            StoryId = storyId
+        };
+
+        var result = await mediator.Send(command);
+        return result.ToResult();
+    }
+
+    private static byte[] GetImageBytes(string image)
+    {
+        byte[] imageInBytes = null;
+        if (image is not null)
+        {
+            int offset = image.IndexOf(',') + 1;
+            imageInBytes = Convert.FromBase64String(image[offset..]);
+        }
+        return imageInBytes;
     }
 }

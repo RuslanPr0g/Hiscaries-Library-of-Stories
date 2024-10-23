@@ -111,7 +111,7 @@ public sealed class StoryWriteService : IStoryWriteService
         return OperationResult.CreateSuccess();
     }
 
-    public async Task<OperationResult<EntityIdResponse>> PublishStory(CreateStoryCommand command)
+    public async Task<OperationResult<EntityIdResponse>> PublishStory(PublishStoryCommand command)
     {
         _logger.LogInformation("Publishing new story: {StoryTitle} by {AuthorName}", command.Title, command.AuthorName);
         var storyId = _idGenerator.Generate((id) => new StoryId(id));
@@ -147,6 +147,13 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
+        if (story.PublisherId.Value != command.PublisherId)
+        {
+            _logger.LogWarning("Story {StoryId} can only be updated by its publisher or an administrator, user {UserId} tried to update not his story.", 
+                command.StoryId, command.PublisherId);
+            return OperationResult.CreateUnauthorizedError(UserFriendlyMessages.NoRights);
+        }
+
         story.UpdateInformation(
             command.Title,
             command.Description,
@@ -156,6 +163,13 @@ public sealed class StoryWriteService : IStoryWriteService
             command.ImagePreview,
             DateTime.UtcNow,
             command.DateWritten);
+
+        if (command.Contents is not null && command.Contents.Any())
+        {
+            // TODO: add wrapper around datetime.
+            var editedAt = DateTime.Now;
+            story.ModifyContents(command.Contents, editedAt);
+        }
 
         _logger.LogInformation("Story {StoryId} updated successfully", command.StoryId);
         return OperationResult.CreateSuccess();

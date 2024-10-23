@@ -26,6 +26,11 @@ public record OperationResult(ResultStatus ResultStatus, string? Message = null)
     {
         return new OperationResult(ResultStatus.ValidationError, message);
     }
+
+    public static OperationResult CreateUnauthorizedError(string message)
+    {
+        return new OperationResult(ResultStatus.Unauthorized, message);
+    }
 }
 
 public record OperationResult<T>(ResultStatus ResultStatus, T? Value, string? Message = null)

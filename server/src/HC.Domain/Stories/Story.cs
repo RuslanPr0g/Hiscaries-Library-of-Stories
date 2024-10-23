@@ -58,7 +58,7 @@ public sealed class Story : AggregateRoot<StoryId>
     public UserId PublisherId { get; init; }
     public User Publisher { get; init; }
     public ICollection<Genre> Genres { get; init; }
-    public ICollection<StoryPage> Contents { get; init; }
+    public List<StoryPage> Contents { get; private set; }
     public ICollection<Comment> Comments { get; init; }
     public ICollection<StoryAudio> Audios { get; init; }
     public ICollection<StoryRating> Ratings { get; init; }
@@ -137,16 +137,39 @@ public sealed class Story : AggregateRoot<StoryId>
         }
     }
 
-    public void SetContents(IEnumerable<string> contents, DateTime editedAt)
+    public void ModifyContents(IEnumerable<string> newContents, DateTime editedAt)
     {
-        Contents.Clear();
-
-        int pageIndex = 0;
-
-        foreach (var content in contents)
+        if (Contents is null || Contents.Count == 0)
         {
-            Contents.Add(new StoryPage(Id, pageIndex, content));
-            pageIndex++;
+            Contents = [.. newContents.Select((content, index) => new StoryPage(Id, index, content))];
+            DateEdited = editedAt;
+            return;
+        }
+
+        int currentIndex = 0;
+
+        foreach (var newContent in newContents)
+        {
+            if (currentIndex < Contents.Count)
+            {
+                var existingPage = Contents[currentIndex];
+
+                if (existingPage.Content != newContent)
+                {
+                    Contents[currentIndex] = new StoryPage(Id, currentIndex, newContent);
+                }
+            }
+            else
+            {
+                Contents.Add(new StoryPage(Id, currentIndex, newContent));
+            }
+
+            currentIndex++;
+        }
+
+        if (currentIndex < Contents.Count)
+        {
+            Contents.RemoveRange(currentIndex, Contents.Count - currentIndex);
         }
 
         DateEdited = editedAt;
@@ -171,7 +194,7 @@ public sealed class Story : AggregateRoot<StoryId>
         {
             audio.UpdateInformation(fileId, name, updatedAt);
         }
-         else
+        else
         {
             Audios.Add(StoryAudio.Create(storyAudioId, updatedAt, name));
         }

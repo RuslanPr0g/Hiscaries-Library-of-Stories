@@ -14,4 +14,6 @@ public static class UserFriendlyMessages
     public static string RefreshTokenIsExpired = "Your session has expired. Please refresh your token or log in again.";
     public static string StoryWasNotFound = "The requested story could not be found. It may have been removed or does not exist.";
     public static string GenreWasNotFound = "The selected genre could not be found. Please choose a valid genre.";
+
+    public static string NoRights = "You have no rights to do that.";
 }

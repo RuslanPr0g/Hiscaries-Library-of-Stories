@@ -12,7 +12,6 @@ public sealed class StoryPage
         Content = content;
     }
 
-    // TODO: THESE TWO ARE PRIMARY KEYS
     public StoryId StoryId { get; init; }
     public int Page { get; init; }
 

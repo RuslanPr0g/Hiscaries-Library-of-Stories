@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HC.Application.Stories.Command;
 
-public class CreateStoryCommandHandler : IRequestHandler<CreateStoryCommand, OperationResult<EntityIdResponse>>
+public class CreateStoryCommandHandler : IRequestHandler<PublishStoryCommand, OperationResult<EntityIdResponse>>
 {
     private readonly IStoryWriteService _storyService;
 
@@ -16,7 +16,7 @@ public class CreateStoryCommandHandler : IRequestHandler<CreateStoryCommand, Ope
         _storyService = storyService;
     }
 
-    public async Task<OperationResult<EntityIdResponse>> Handle(CreateStoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<EntityIdResponse>> Handle(PublishStoryCommand request, CancellationToken cancellationToken)
     {
         return await _storyService.PublishStory(request);
     }

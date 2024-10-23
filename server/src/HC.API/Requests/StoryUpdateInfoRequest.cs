@@ -17,7 +17,9 @@ public class StoryUpdateInfoRequest
 
     public int AgeLimit { get; set; }
 
+    public string ImagePreview { get; set; }
+
     public DateTime DateWritten { get; set; }
 
-    public string ImagePreview { get; set; }
+    public IEnumerable<string> Contents { get; set; }
 }

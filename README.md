@@ -11,7 +11,8 @@ The following steps are outlined for refactoring the server:
 * Simplify read dto as much as possible, it carries too much info
 * Refactor application layer, separate it into read and write, where read would be dapper with read models (views in the db), and write as EF CORE with change tracker and strict transactional bound within one aggregate root.
 * Implement the application read and write layers for all the interface contacts
-* Refactor API level to use all the best practices regarding REST, etc.
+* Refactor API level to use all the best practices regarding REST, etc. (all the rest practices)
+* also how to secure api in terms of roles, etc. so that only authorized user can perform certain action
 * Refactor persistence level to use ef core for write and dapper for read logic
 * Add view sql generation into the migrations feature of ef core
 * Add global exception handling
@@ -22,12 +23,14 @@ The following steps are outlined for refactoring the server:
 * Add audit (created at, updated at, etc) for Entity<>
 * Populate this readme with how to run information
 * Add unit tests
+* Add wrapper around datetime, etc.
 * Add integration tests
 * Add specification pattern to the repositories
 * Add domain events, etc.
 * Extract the jwt token generation to a separate service or identity provider
 * when uploading any image (such as story preview image), do not save the whole file blob to DB, save the file locally or on the cloud
 * ALSO when you need to show the image to a client, send a url to access this image on the cloud
+* Add pagination to search page or smth
 * Fix TODOs
 
 ### In the Future

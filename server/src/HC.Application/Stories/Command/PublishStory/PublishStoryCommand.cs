@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace HC.Application.Stories.Command;
 
-public class CreateStoryCommand : IRequest<OperationResult<EntityIdResponse>>
+public class PublishStoryCommand : IRequest<OperationResult<EntityIdResponse>>
 {
     public Guid PublisherId { get; set; }
 
