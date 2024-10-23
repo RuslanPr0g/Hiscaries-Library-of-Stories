@@ -6,7 +6,7 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
 import { AuthInputComponent } from './auth-input/auth-input.component';
 import { UserService } from '../services/user.service';
 import { take } from 'rxjs';
-import { UserWithTokenResponse } from '../models/response/user-with-token.model';
+import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
   standalone: true,
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.service.isAuthenticated()) {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl(NavigationConst.Home);
     }
   }
 
@@ -62,13 +62,13 @@ export class LoginComponent implements OnInit {
 
     this.submit();
     this.service.login(this.formlogin?.value)
-    .pipe(take(1))
-    .subscribe(
-      {
-        next: () => this.processAuth(),
-        error: error => this.processError(error)
-      }
-    );
+      .pipe(take(1))
+      .subscribe(
+        {
+          next: () => this.processAuth(),
+          error: error => this.processError(error)
+        }
+      );
   }
 
   signUp(): void {
@@ -87,13 +87,13 @@ export class LoginComponent implements OnInit {
   }
 
   private processAuth(): void {
-    this.router.navigateByUrl('/')
-    .then(() => {
-      this.processed();
-    })
-    .catch(() => {
-      this.processed();
-    });
+    this.router.navigateByUrl(NavigationConst.Home)
+      .then(() => {
+        this.processed();
+      })
+      .catch(() => {
+        this.processed();
+      });
   }
 
   private processError(error: any): void {

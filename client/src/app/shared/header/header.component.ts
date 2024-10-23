@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
+import { NavigationConst } from '../constants/navigation.const';
 
 @Component({
   selector: 'app-header',
@@ -45,15 +46,15 @@ export class HeaderComponent {
   }
 
   home(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate([NavigationConst.Home]);
   }
 
   logOut(): void {
     this.userService.logOut();
-    this.router.navigate(['/login']);
+    this.router.navigate([NavigationConst.Login]);
   }
 
   navigateToPublishStory(): void {
-    this.router.navigate(['/publish-story']);
+    this.router.navigate([NavigationConst.PublishStory]);
   }
 }

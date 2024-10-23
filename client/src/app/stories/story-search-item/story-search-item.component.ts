@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { StoryModel } from '../models/domain/story-model';
 import { Router } from '@angular/router';
+import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
   selector: 'app-story-search-item',
@@ -19,6 +20,6 @@ export class SearchStoryItemComponent {
   }
 
   previewStory(story: StoryModel): void {
-    this.router.navigateByUrl(`/preview-story/${story.Id}`);
+    this.router.navigate([NavigationConst.PreviewStory(story.Id)]);
   }
 }

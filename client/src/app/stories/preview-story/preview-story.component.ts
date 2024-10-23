@@ -6,6 +6,7 @@ import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { FormButtonComponent } from '../../shared/components/form-button/form-button.component';
+import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
   selector: 'app-preview-story',
@@ -55,6 +56,6 @@ export class PreviewStoryComponent implements OnInit {
   }
 
   modifyStory(): void {
-    this.router.navigateByUrl(`/edit/${this.storyId}`);
+    this.router.navigate([NavigationConst.ModifyStory(this.storyId!)]);
   }
 }

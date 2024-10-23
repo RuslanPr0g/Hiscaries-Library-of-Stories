@@ -18,6 +18,7 @@ import { MessageModule } from 'primeng/message';
 import { Router } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BaseIdModel } from '../../shared/models/base-id.model';
+import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
   selector: 'app-publish-story',
@@ -94,7 +95,7 @@ export class PublishStoryComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (story: BaseIdModel) => {
-          this.router.navigateByUrl(`/edit/${story.Id}`);
+          this.router.navigate([NavigationConst.ModifyStory(story.Id)]);
         },
         error: (error) => {
           if (error) {

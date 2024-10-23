@@ -6,6 +6,7 @@ import { provideState } from '@ngrx/store';
 import { userFeatureKey, userReducer } from './users/store/user.reducer';
 import { PublishStoryComponent } from './stories/publish-story/publish-story.component';
 import { PreviewStoryComponent } from './stories/preview-story/preview-story.component';
+import { ModifyStoryComponent } from './stories/modify-story/modify-story.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,12 @@ export const routes: Routes = [
         path: 'publish-story',
         title: 'Publish Story',
         component: PublishStoryComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'modify-story',
+        title: 'Modify Story',
+        component: ModifyStoryComponent,
         canActivate: [authGuard]
     },
     {

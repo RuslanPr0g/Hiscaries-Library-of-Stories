@@ -19,6 +19,7 @@ import { ModifyFormModel } from '../models/form/modify-story-form.model';
 import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { StoryModelWithContents } from '../models/domain/story-model';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
+import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
   selector: 'app-modify-story',
@@ -112,6 +113,11 @@ export class ModifyStoryComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.storyId) {
+      this.storyNotFound = true;
+      return;
+    }
+
     if (!this.modifyForm.valid) {
       this.modifyForm.markAllAsTouched();
       return;
@@ -132,7 +138,7 @@ export class ModifyStoryComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: () => {
-          this.router.navigateByUrl(`/preview-story/${this.storyId}`);
+          this.router.navigate([NavigationConst.PreviewStory(this.storyId!)]);
         },
         error: (error) => {
           if (error) {
