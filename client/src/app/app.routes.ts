@@ -30,7 +30,7 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: 'modify-story',
+        path: 'modify-story/:id',
         title: 'Modify Story',
         component: ModifyStoryComponent,
         canActivate: [authGuard]

@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { FormButtonComponent } from '../../shared/components/form-button/form-button.component';
 import { NavigationConst } from '../../shared/constants/navigation.const';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-preview-story',
   standalone: true,
-  imports: [CommonModule, FormButtonComponent],
+  imports: [CommonModule, FormButtonComponent, ProgressSpinnerModule],
   templateUrl: './preview-story.component.html',
   styleUrl: './preview-story.component.scss'
 })
