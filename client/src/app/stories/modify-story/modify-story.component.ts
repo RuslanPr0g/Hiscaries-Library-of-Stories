@@ -141,6 +141,7 @@ export class ModifyStoryComponent implements OnInit {
       ...formModel,
       GenreIds: formModel.Genres?.map(g => g.Id),
       ImagePreview: formModel.Image,
+      StoryId: this.storyId,
       Contents: formModel.Contents ?? []
     };
 
