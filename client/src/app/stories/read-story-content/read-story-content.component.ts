@@ -7,11 +7,12 @@ import { take } from 'rxjs';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { IteratorService } from '../../shared/services/iterator.service';
 import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-read-story-content',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, ProgressSpinnerModule],
   providers: [IteratorService],
   templateUrl: './read-story-content.component.html',
   styleUrl: './read-story-content.component.scss'
@@ -22,6 +23,8 @@ export class ReadStoryContentComponent implements OnInit {
   globalError: string | null = null;
   story: StoryModelWithContents | null = null;
   storyNotFound: boolean = false;
+
+  maximized: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -94,5 +97,13 @@ export class ReadStoryContentComponent implements OnInit {
 
   movePrev(): boolean {
     return this.iterator.movePrev();
+  }
+
+  maximize(): void {
+    this.maximized = true;
+  }
+
+  minimize(): void {
+    this.maximized = false;
   }
 }
