@@ -1,53 +1,117 @@
-# Hiscaries Library of Stories
-This repository is dedicated to one of my projects. This project (further referenced as application) will be refactored using every best practice known to mankind.
+# 📚 Hiscaries Library of Stories
+Welcome to the **Hiscary Library of Stories** repository! This project (referred to as *application*) is undergoing a complete refactor, following the best practices known to date. 🛠️
 
-### Refactoring Plan for the Server
-The following steps are outlined for refactoring the server:
+## 🚀 Refactoring Plan for the Server
+The following steps outline the server refactoring process:
 
-* Refactor domain to include domain methods
-* Refactor API controllers to use only mediator LOGIC
-* Add entity configuration for persistence layer EF core
-* Refactor mediator commands and queries to use service interfaces properly
-* Simplify read dto as much as possible, it carries too much info
-* Refactor application layer, separate it into read and write, where read would be dapper with read models (views in the db), and write as EF CORE with change tracker and strict transactional bound within one aggregate root.
-* Implement the application read and write layers for all the interface contacts
-* Refactor API level to use all the best practices regarding REST, etc. (all the rest practices)
-* also how to secure api in terms of roles, etc. so that only authorized user can perform certain action
-* Refactor persistence level to use ef core for write and dapper for read logic
-* Add view sql generation into the migrations feature of ef core
-* Add global exception handling
-* Add logging for the system
-* Add auth checks for user roles, etc, such as user should be able to delete only its own comment, story, etc. only admin can delete all ,etc.
-* Add docker to have it all in one place
-* Add optimistic concurrency
-* Add audit (created at, updated at, etc) for Entity<>
-* Populate this readme with how to run information
-* Add unit tests
-* Add wrapper around datetime, etc.
-* Add integration tests
-* Add specification pattern to the repositories
-* Add domain events, etc.
-* Extract the jwt token generation to a separate service or identity provider
-* when uploading any image (such as story preview image), do not save the whole file blob to DB, save the file locally or on the cloud
-* ALSO when you need to show the image to a client, send a url to access this image on the cloud
-* Add pagination to search page or smth
-* Add cache at all levels, front end, http, api, redis, db, etc.
-* Fix TODOs
-* Dev test everything trying to break things, when adding contents while modifying story, or click a lot of times, etc.
+1. **Domain Layer**  
+   - Refactor domain entities to include domain-specific methods.
+  
+2. **API Controllers**  
+   - Ensure API controllers handle only Mediator logic and nothing else.
+  
+3. **Entity Framework Core (EF Core) Configuration**  
+   - Add entity configurations for the persistence layer.
+  
+4. **Mediator Commands & Queries**  
+   - Refactor Mediator commands and queries to properly use service interfaces.
+  
+5. **DTO Optimization**  
+   - Simplify Read DTOs, ensuring they only carry necessary data.
+  
+6. **Application Layer**  
+   - Split the application layer into *Read* and *Write*:  
+     - **Read**: Utilize Dapper with Read Models (DB Views).  
+     - **Write**: Use EF Core with Change Tracking and strict transactional boundaries within one aggregate root.
+  
+7. **Service Layer Implementation**  
+   - Implement the application’s Read and Write services for all interface contracts.
+  
+8. **REST API Best Practices**  
+   - Refactor API to adhere to the latest REST best practices.  
+   - Implement security roles to restrict access to authorized users for specific actions.
 
-### In the Future
-Create a separate module/system/microservice that will be using an ML/AI to generate stories, not only that, but also
-AI will simulate user activity in the entire system, such that we can improve upon logging, metrics, etc.
+9. **Persistence Layer**  
+   - Refactor persistence logic to use EF Core for writing and Dapper for reading.
 
-### Refactoring Plan for the Client
-The following steps are outlined for refactoring the client:
+10. **SQL Views & Migrations**  
+    - Add view SQL generation as part of EF Core migrations.
 
-* Separate into different components
-* Add store https://ngrx.io/guide/store
-* add mobile view support (mobile responsiveness)
+11. **Global Exception Handling**  
+    - Implement global exception handling.
 
-### Configuration Settings
-Please, also set keys in your preferred config file as follows:
+12. **Logging**  
+    - Add comprehensive system logging.
+
+13. **Authorization & Role Checks**  
+    - Ensure proper authorization so that users can only delete their own content, while admins have broader rights (e.g., delete all stories or comments).
+
+14. **Docker**  
+    - Add Docker to encapsulate the entire system for easy deployment.
+
+15. **Optimistic Concurrency**  
+    - Implement optimistic concurrency control.
+
+16. **Audit Fields**  
+    - Add audit fields (e.g., `CreatedAt`, `UpdatedAt`) for all entities.
+
+17. **Image Storage**  
+    - For image uploads (e.g., story preview images):  
+      - Store images locally or on the cloud, not in the DB as blobs.  
+      - Return URLs for image access when delivering to the client.
+
+18. **Pagination**  
+    - Add pagination for large datasets (e.g., search results).
+
+19. **Caching**  
+    - Implement caching at all levels: frontend, HTTP, API, Redis, DB, etc.
+
+20. **TODO Fixes**  
+    - Address all existing TODOs.
+
+21. **Dev Testing**  
+    - Perform thorough testing to ensure the system is robust, especially in scenarios involving high interaction (e.g., adding content while editing stories or performing repeated actions).
+
+22. **Unit & Integration Tests**  
+    - Add unit tests and integration tests for full coverage.
+
+23. **Specification Pattern**  
+    - Introduce the specification pattern to repositories.
+
+24. **Domain Events**  
+    - Implement domain events.
+
+25. **JWT Service**  
+    - Extract JWT token generation into a separate service or utilize an identity provider.
+
+## 🌟 Future Improvements & Features
+1. **AI/ML Integration**  
+   - Create a separate microservice that uses AI/ML to generate stories.  
+   - Simulate user activity with AI to enhance logging, metrics, and system performance insights.
+
+2. **User-Uploaded PDFs**  
+   - Allow users to upload their own PDF files (pending admin approval due to copyright).
+
+3. **Private Stories**  
+   - Add an option for private stories that can only be shared via one-time links or similar mechanisms.
+
+---
+
+## 🎨 Refactoring Plan for the Client
+1. **Component Separation**  
+   - Split the frontend into reusable components.
+
+2. **State Management**  
+   - Integrate NgRx for state management. Learn more [here](https://ngrx.io/guide/store).
+
+3. **Mobile Support**  
+   - Ensure the app is mobile-responsive.
+
+---
+
+## 🛠️ Configuration Settings
+Configure your settings in your chosen config file as follows:
+
 ```json
 {
   "Kestrel:Certificates:Development:Password": "***",
@@ -58,7 +122,13 @@ Please, also set keys in your preferred config file as follows:
   "ConnectionStrings:PostgresEF": "Server=postgresdb;Port=5432;User Id=postgres;Password=***;Database=hiscarydbef;Include Error Detail=true;"
 }
 ```
-.env file should contain the following (the file itself should be next to the docker-compose.yml file):
+
+In your `.env` file (to be located next to `docker-compose.yml`), include the following:
 ```
 POSTGRES_PASSWORD=***
 ```
+
+---
+
+🎉 **Thank you for visiting the repository!**  
+Feel free to contribute or raise any issues to improve the application!

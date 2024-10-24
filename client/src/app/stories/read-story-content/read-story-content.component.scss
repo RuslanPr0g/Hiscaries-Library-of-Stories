@@ -3,9 +3,11 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
     &__content {
-        min-height: 80vh;
+        min-height: 70vh;
+        max-height: 75vh;
         width: 100%;
-        padding: 2rem;
+        padding: 0.5rem 2rem;
+        overflow-y: auto;
     }
 
     &__navigation {
