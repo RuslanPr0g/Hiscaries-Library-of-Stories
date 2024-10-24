@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoryModelWithContents } from '../models/domain/story-model';
 import { CommonModule } from '@angular/common';
@@ -57,6 +57,15 @@ export class ReadStoryContentComponent implements OnInit {
         },
         error: () => this.storyNotFound = true
       });
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter') {
+      this.moveNext();
+    } else if (event.key === 'Backspace' || event.key === 'ArrowLeft') {
+      this.movePrev();
+    }
   }
 
   get currentIndex(): number {
