@@ -17,11 +17,6 @@ export class TextEditorComponent {
   @Input() errorMessage!: string;
 
   set text(value: string) {
-    console.warn('text updated: ', value);
     this.control.setValue(value);
-  }
-
-  ngOnInit(): void {
-    console.warn(this.control);
   }
 }

@@ -5,102 +5,92 @@
     <h2>Modify Story</h2>
     
     <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
-      <div class="form-controls half-width-form">
-        <app-form-input
-          [formGroup]="modifyForm"
-          controlName="Title"
-          label="Title"
-          errorMessage="Title is required"
-        ></app-form-input>
-  
-        <app-form-textarea
-          [formGroup]="modifyForm"
-          controlName="Description"
-          label="Description"
-          errorMessage="Description is required"
-          [rows]="4"
-        ></app-form-textarea>
-  
-        <app-form-input
-          [formGroup]="modifyForm"
-          controlName="AuthorName"
-          label="Author Name"
-          errorMessage="Author Name is required"
-        ></app-form-input>
-  
-        <div class="form-controls__same-line">
-          <app-number-limit-control
-            [formGroup]="modifyForm"
-            controlName="AgeLimit"
-            label="Age Limit"
-            errorMessage="Age Limit is required and must be between 0 and 18"
-            [min]="0"
-            [max]="18"
-            [step]="1"
-            [centered]="true"
-          ></app-number-limit-control>
-  
-          <app-form-date-input
-            [formGroup]="modifyForm"
-            controlName="DateWritten"
-            label="Date Written"
-            errorMessage="Date Written is required"
-            [centered]="true"
-            ></app-form-date-input>
-        </div>
-  
-        <ng-container *ngIf="genres && genres.length > 0">
-          <app-form-multiselect
-            [formGroup]="modifyForm"
-            [items]="genres"
-            controlName="Genres"
-          ></app-form-multiselect>
-        </ng-container>
-  
-        <app-upload-file-control
-          [control]="imageControl"
-        ></app-upload-file-control>
-  
-        <p-divider layout="horizontal" />
-  
-        <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
-  
-        <p-divider layout="horizontal" *ngIf="globalError" />
-
-        <!-- TODO: EXTRACT THIS TO A SEPARATE COMPONENT AND ALSO MAKE IT PAGINATED -->
-        <ng-container formArrayName="Contents">
-          <div *ngFor="let content of contents.controls; let i = index">
-            <app-text-editor 
-              [control]="getContentControlByIndex(i)"
-              [label]="'Content Page ' + (i + 1)"
-              [errorMessage]="'Content is required'"
-            ></app-text-editor>
-            <app-form-button
-              label="Remove Page"
-              (onClick)="removeContent(i)"
-            ></app-form-button>
-          </div>
-        </ng-container>
-        <app-form-button
-          label="Add Page"
-          (onClick)="addContent()"
-        ></app-form-button>
-
-        <p-divider layout="horizontal" />
-  
-        <ng-container *ngIf="submitted; else submit">
-          <p-progressSpinner 
-            styleClass="w-4rem h-4rem"
-            strokeWidth="8" 
-            animationDuration=".5s" />
-        </ng-container>
-        <ng-template #submit>
-          <app-form-button
-            label="Apply changes"
-            (onClick)="onSubmit()"
-          ></app-form-button>
-        </ng-template>
-      </div>
+      <p-accordion [activeIndex]="1" >
+          <p-accordionTab header="General Information">
+            <div class="form-controls half-width-form">
+              <app-form-input
+                [formGroup]="modifyForm"
+                controlName="Title"
+                label="Title"
+                errorMessage="Title is required"
+              ></app-form-input>
+        
+              <app-form-textarea
+                [formGroup]="modifyForm"
+                controlName="Description"
+                label="Description"
+                errorMessage="Description is required"
+                [rows]="4"
+              ></app-form-textarea>
+        
+              <app-form-input
+                [formGroup]="modifyForm"
+                controlName="AuthorName"
+                label="Author Name"
+                errorMessage="Author Name is required"
+              ></app-form-input>
+        
+              <div class="form-controls__same-line">
+                <app-number-limit-control
+                  [formGroup]="modifyForm"
+                  controlName="AgeLimit"
+                  label="Age Limit"
+                  errorMessage="Age Limit is required and must be between 0 and 18"
+                  [min]="0"
+                  [max]="18"
+                  [step]="1"
+                  [centered]="true"
+                ></app-number-limit-control>
+        
+                <app-form-date-input
+                  [formGroup]="modifyForm"
+                  controlName="DateWritten"
+                  label="Date Written"
+                  errorMessage="Date Written is required"
+                  [centered]="true"
+                  ></app-form-date-input>
+              </div>
+        
+              <ng-container *ngIf="genres && genres.length > 0">
+                <app-form-multiselect
+                  [formGroup]="modifyForm"
+                  [items]="genres"
+                  controlName="Genres"
+                ></app-form-multiselect>
+              </ng-container>
+        
+              <app-upload-file-control
+                [control]="imageControl"
+              ></app-upload-file-control>
+        
+              <p-divider layout="horizontal" />
+        
+              <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
+        
+              <p-divider layout="horizontal" *ngIf="globalError" />
+      
+              <ng-container *ngIf="submitted; else submit">
+                <p-progressSpinner 
+                  styleClass="w-4rem h-4rem"
+                  strokeWidth="8" 
+                  animationDuration=".5s" />
+              </ng-container>
+              <ng-template #submit>
+                <app-form-button
+                  label="Apply changes"
+                  (onClick)="onSubmit()"
+                ></app-form-button>
+              </ng-template>
+            </div>
+          </p-accordionTab>
+          <p-accordionTab header="Contents">
+            <app-content-builder
+              [formGroup]="modifyForm"
+              formArrayName="Contents"
+              [contents]="contents"
+            ></app-content-builder>
+          </p-accordionTab>
+      </p-accordion>
     </form>
   </div>
   <ng-container *ngIf="!story">

@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
   max-width: 1500px;
   margin: 2rem auto;
@@ -17,6 +17,8 @@
   background-size: cover;
   transition: all .5s ease;
   transition: background-image 0.5s ease;
+
+  min-height: 90vh;
 
   .half-width-form {
     ::ng-deep {
@@ -34,8 +36,13 @@
   }
 
   form {
-    width: 50%;
+    width: 70%;
   }
+}
+
+::ng-deep .p-accordion .p-accordion-content {
+  padding: 2.5rem;
+  background-color: transparent;
 }
 
 .overlay {

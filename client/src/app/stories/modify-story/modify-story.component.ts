@@ -21,7 +21,8 @@ import { StoryModelWithContents } from '../models/domain/story-model';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../../users/services/user.service';
-import { TextEditorComponent } from '../../shared/components/text-editor/text-editor.component';
+import { ContentBuilderComponent } from "./content-builder/content-builder.component";
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-modify-story',
@@ -39,8 +40,9 @@ import { TextEditorComponent } from '../../shared/components/text-editor/text-ed
     FormMultiselectComponent,
     MessageModule,
     ProgressSpinnerModule,
-    TextEditorComponent
-  ],
+    ContentBuilderComponent,
+    AccordionModule
+],
   templateUrl: './modify-story.component.html',
   styleUrls: ['./modify-story.component.scss']
 })
@@ -127,16 +129,6 @@ export class ModifyStoryComponent implements OnInit {
   get contents(): FormArray {
     return this.modifyForm.get('Contents') as FormArray;
   }
-
-  addContent() {
-    const contentsArray = this.modifyForm.get('Contents') as FormArray;
-    contentsArray.push(this.fb.control(''));
-  }
-  
-  removeContent(index: number) {
-    const contentsArray = this.modifyForm.get('Contents') as FormArray;
-    contentsArray.removeAt(index);
-  }
   
   updateContent(index: number, value: string) {
     const contentsArray = this.modifyForm.get('Contents') as FormArray;
@@ -181,10 +173,6 @@ export class ModifyStoryComponent implements OnInit {
           this.submitted = false;
         }
       });
-  }
-
-  getContentControlByIndex(index: number): AbstractControl<string> {
-    return this.contents.at(index);
   }
 
   private populateFormWithValue(): void {
