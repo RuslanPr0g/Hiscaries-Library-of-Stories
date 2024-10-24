@@ -7,6 +7,17 @@
         width: 100%;
         padding: 2rem;
     }
+
+    &__navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.2rem;
+
+        & .message {
+            margin: auto 16px;
+        }
+    }
 }
 
 @media (max-width: 900px) {
