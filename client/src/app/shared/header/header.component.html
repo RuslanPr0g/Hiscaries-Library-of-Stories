@@ -1,4 +1,9 @@
-<header class="glass-header" *ngIf="userService.isAuthenticated()">
-    <p-menu #menu [model]="items" [popup]="true" />
-    <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
+<header class="header">
+    <ng-container *ngFor="let item of items">
+        <div class="header__option">
+            <button (click)="callItemCommand(item)">
+                {{ item.Label }}
+            </button>
+        </div>
+    </ng-container>
 </header>

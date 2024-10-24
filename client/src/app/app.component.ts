@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
+import { UserService } from './users/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent {
   sidebarVisible: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    public userService: UserService
   ) {
   }
 

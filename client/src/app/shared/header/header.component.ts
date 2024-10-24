@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../users/services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
-import { MenuItem } from 'primeng/api';
 import { NavigationConst } from '../constants/navigation.const';
+
+export interface MenuItem {
+  Label: string;
+  Command: () => void
+}
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MenuModule, ButtonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   items: MenuItem[];
+
+  @Output() commandExecuted = new EventEmitter<void>();
 
   constructor(
     public userService: UserService,
@@ -23,26 +28,23 @@ export class HeaderComponent {
   ) {
     this.items = [
       {
-          label: 'Actions',
-          items: [
-              {
-                  label: 'Home',
-                  icon: 'pi pi-sparkles',
-                  command: () => this.home(),
-              },
-              {
-                  label: 'Publish story',
-                  icon: 'pi pi-upload',
-                  command: () => this.navigateToPublishStory(),
-              },
-              {
-                label: 'Sign out',
-                icon: 'pi pi-sign-out',
-                command: () => this.logOut(),
-              }
-          ]
+        Label: 'Home',
+        Command: () => this.home(),
+      },
+      {
+        Label: 'Publish story',
+        Command: () => this.navigateToPublishStory(),
+      },
+      {
+        Label: 'Sign out',
+        Command: () => this.logOut(),
       }
-  ];
+    ];
+  }
+
+  callItemCommand(item: MenuItem): void {
+    item?.Command();
+    this.commandExecuted?.emit();
   }
 
   home(): void {
