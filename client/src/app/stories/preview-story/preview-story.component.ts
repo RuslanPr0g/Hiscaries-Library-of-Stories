@@ -53,7 +53,7 @@ export class PreviewStoryComponent implements OnInit {
   }
 
   readStory(): void {
-    console.log('User wants to read story...');
+    this.router.navigate([NavigationConst.ReadStory(this.storyId!)]);
   }
 
   modifyStory(): void {
