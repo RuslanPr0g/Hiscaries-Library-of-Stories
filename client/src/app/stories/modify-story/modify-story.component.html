@@ -62,25 +62,6 @@
               <app-upload-file-control
                 [control]="imageControl"
               ></app-upload-file-control>
-        
-              <p-divider layout="horizontal" />
-        
-              <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
-        
-              <p-divider layout="horizontal" *ngIf="globalError" />
-      
-              <ng-container *ngIf="submitted; else submit">
-                <p-progressSpinner 
-                  styleClass="w-4rem h-4rem"
-                  strokeWidth="8" 
-                  animationDuration=".5s" />
-              </ng-container>
-              <ng-template #submit>
-                <app-form-button
-                  label="Apply changes"
-                  (onClick)="onSubmit()"
-                ></app-form-button>
-              </ng-template>
             </div>
           </p-accordionTab>
           <p-accordionTab header="Contents">
@@ -91,6 +72,26 @@
             ></app-content-builder>
           </p-accordionTab>
       </p-accordion>
+      <div class="error-block">
+        <p-divider layout="horizontal" />
+        
+        <p-message severity="error" [text]="globalError" *ngIf="globalError" class="error-message"></p-message>
+  
+        <p-divider layout="horizontal" *ngIf="globalError" />
+  
+        <ng-container *ngIf="submitted; else submit">
+          <p-progressSpinner 
+            styleClass="w-4rem h-4rem"
+            strokeWidth="8" 
+            animationDuration=".5s" />
+        </ng-container>
+        <ng-template #submit>
+          <app-form-button
+            label="Apply changes"
+            (onClick)="onSubmit()"
+          ></app-form-button>
+        </ng-template>
+      </div>
     </form>
   </div>
   <ng-container *ngIf="!story">
