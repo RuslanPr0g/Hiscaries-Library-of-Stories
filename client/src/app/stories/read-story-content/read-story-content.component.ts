@@ -64,10 +64,14 @@ export class ReadStoryContentComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter') {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'Enter') {
       this.moveNext();
-    } else if (event.key === 'Backspace' || event.key === 'ArrowLeft') {
+    } else if (event.key === 'Backspace' || event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
       this.movePrev();
+    } else if (event.key === ' ') {
+      this.maximize();
+    } else if (event.key === 'Escape') {
+      this.minimize();
     }
   }
 
