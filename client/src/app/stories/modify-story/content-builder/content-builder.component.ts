@@ -5,11 +5,12 @@ import { MessageModule } from 'primeng/message';
 import { EditorModule } from 'primeng/editor';
 import { TextEditorComponent } from '../../../shared/components/text-editor/text-editor.component';
 import { FormButtonComponent } from '../../../shared/components/form-button/form-button.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-content-builder',
   standalone: true,
-  imports: [CommonModule, EditorModule, ReactiveFormsModule, MessageModule, FormsModule, TextEditorComponent, FormButtonComponent],
+  imports: [CommonModule, EditorModule, ButtonModule, ReactiveFormsModule, MessageModule, FormsModule, TextEditorComponent, FormButtonComponent],
   templateUrl: './content-builder.component.html',
   styleUrls: ['./content-builder.component.scss']
 })

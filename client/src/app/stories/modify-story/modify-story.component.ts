@@ -22,7 +22,7 @@ import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../../users/services/user.service';
 import { ContentBuilderComponent } from "./content-builder/content-builder.component";
-import { AccordionModule } from 'primeng/accordion';
+import { TabViewModule } from 'primeng/tabview';
 
 @Component({
   selector: 'app-modify-story',
@@ -41,7 +41,7 @@ import { AccordionModule } from 'primeng/accordion';
     MessageModule,
     ProgressSpinnerModule,
     ContentBuilderComponent,
-    AccordionModule
+    TabViewModule
 ],
   templateUrl: './modify-story.component.html',
   styleUrls: ['./modify-story.component.scss']

@@ -5,8 +5,8 @@
     <h2>Modify Story</h2>
     
     <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
-      <p-accordion [activeIndex]="1" >
-          <p-accordionTab header="General Information">
+      <p-tabView [activeIndex]="1" >
+          <p-tabPanel header="General Information">
             <div class="form-controls half-width-form">
               <app-form-input
                 [formGroup]="modifyForm"
@@ -63,15 +63,15 @@
                 [control]="imageControl"
               ></app-upload-file-control>
             </div>
-          </p-accordionTab>
-          <p-accordionTab header="Contents">
+          </p-tabPanel>
+          <p-tabPanel header="Contents">
             <app-content-builder
               [formGroup]="modifyForm"
               formArrayName="Contents"
               [contents]="contents"
             ></app-content-builder>
-          </p-accordionTab>
-      </p-accordion>
+          </p-tabPanel>
+      </p-tabView>
       <div class="error-block">
         <p-divider layout="horizontal" />
         

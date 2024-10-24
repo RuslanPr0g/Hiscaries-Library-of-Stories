@@ -36,13 +36,26 @@
   }
 
   form {
-    width: 70%;
+    width: 95%;
+
+    & .form-controls {
+      width: 60%;
+      margin: 1% auto;
+    }
   }
 }
 
-::ng-deep .p-accordion .p-accordion-content {
-  padding: 2.5rem;
+::ng-deep .p-tabview .p-tabview-panels {
+  padding: 2rem;
   background-color: transparent;
+}
+
+::ng-deep .p-tabview-nav {
+  border: none;
+  
+  & li {
+    margin-right: 20px;
+  }
 }
 
 .overlay {

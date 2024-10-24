@@ -4,9 +4,11 @@
     </ng-container>
     <div class="controls">
         <app-form-button severity="danger" label="Remove Page" (onClick)="removeContent()"></app-form-button>
-        <i class="pi pi-angle-left"></i>
-        <div>{{ currentPageLabel }}</div>
-        <i class="pi pi-angle-right"></i>
+        <div class="pagination">
+            <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" severity="secondary" (onClick)="movePrev()"/>
+            <span class="message">{{ currentPageLabel }}</span>
+            <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" severity="secondary" (onClick)="moveNext()"/>
+        </div>
         <app-form-button severity="success" label="Add Page" (onClick)="addContent()"></app-form-button>
     </div>
 </div>
