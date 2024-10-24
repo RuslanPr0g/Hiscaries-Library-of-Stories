@@ -14,3 +14,9 @@ main {
         margin: 0px auto;
     }
 }
+
+@media (max-width: 900px) {
+    .right-panel {
+        width: 100% !important;
+    }
+}

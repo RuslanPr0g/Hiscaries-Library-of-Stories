@@ -56,6 +56,10 @@ input {
   margin: 0px 20px;
 }
 
+.text-main {
+  color: #a78bfa;
+}
+
 .fs-3rem {
   font-size: 3rem;
 }
@@ -337,3 +341,27 @@ p-dropdown {
 }
 
 // SIGN IN FUNCTIONALITY ****************************
+
+// PAGE CONTENT STYLES **************************************
+
+.content {
+  font-size: 1.3rem;
+  line-height: 30px;
+  font-family: 'Helvetica';
+  color: #E0E0E0;
+}
+
+@media (max-width: 900px) {
+  .content {
+    font-size: 1rem;
+    line-height: 20px;
+  }
+}
+
+// PAGE CONTENT STYLES **************************************
+
+@media (max-width: 900px) {
+  .fs-3rem {
+    font-size: 2rem;
+  }
+}

@@ -5,11 +5,14 @@ import { CommonModule } from '@angular/common';
 import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
+import { IteratorService } from '../../shared/services/iterator.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-read-story-content',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
+  providers: [IteratorService],
   templateUrl: './read-story-content.component.html',
   styleUrl: './read-story-content.component.scss'
 })
@@ -23,6 +26,7 @@ export class ReadStoryContentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private storyService: StoryService,
+    private iterator: IteratorService
   ) {
     this.storyId = this.route.snapshot.paramMap.get('id');
   }
@@ -48,9 +52,15 @@ export class ReadStoryContentComponent implements OnInit {
             ...story,
             ImagePreview: convertToBase64(story.ImagePreview)
           };
+
+          this.iterator.upperBoundary = story.Contents.length - 1;
         },
         error: () => this.storyNotFound = true
       });
+  }
+
+  get currentIndex(): number {
+    return this.iterator.currentIndex;
   }
 
   get base64Image(): any {
@@ -59,5 +69,21 @@ export class ReadStoryContentComponent implements OnInit {
 
   get contents(): string[] {
     return this.story?.Contents?.map(contentModel => contentModel.Content) ?? [];
+  }
+
+  get currentPageContent(): string {
+    return this.contents.at(this.currentIndex) ?? 'Page is empty';
+  }
+
+  get currentPageLabel(): string {
+    return `Page: ${(this.currentIndex + 1)} / ${this.contents.length}`;
+  }
+
+  moveNext(): boolean {
+    return this.iterator.moveNext();
+  }
+
+  movePrev(): boolean {
+    return this.iterator.movePrev();
   }
 }

@@ -1,0 +1,16 @@
+.read-story-container {
+    background-color: rgba(20, 20, 20, 0.95);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    &__content {
+        min-height: 80vh;
+        width: 100%;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .text-main {
+        display: none;
+    }
+}

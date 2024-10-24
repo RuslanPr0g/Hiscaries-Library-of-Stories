@@ -87,7 +87,8 @@
         }
     }
 
-    & .top, .bottom {
+    & .top,
+    .bottom {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -106,5 +107,27 @@
         & app-form-button {
             margin: 24px;
         }
+    }
+}
+
+@media (max-width: 900px) {
+    .preview-story-page {
+        min-width: 100%;
+        max-width: 100%;
+        padding: 1rem 0.5rem;
+
+        & .story-header h1 {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .story-info-item span {
+        display: none;
+    }
+
+    .story-main {
+        max-width: 95% !important;
     }
 }

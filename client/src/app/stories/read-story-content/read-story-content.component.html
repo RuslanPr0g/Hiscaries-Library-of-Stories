@@ -1,9 +1,11 @@
-<div class="read-story-container"
-    [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }" *ngIf="story">
+<h2 *ngIf="story"><span class="text-main">{{ story.Title }}</span> &#x2022; <i>{{ currentPageLabel }}</i></h2>
+
+<div class="read-story-container" *ngIf="story">
     <div class="read-story-container__content">
-        
+        <div [innerHTML]="currentPageContent" class="content"></div>
     </div>
     <div class="read-story-container__navigation">
-
+        <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" severity="secondary" (onClick)="movePrev()" />
+        <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" severity="secondary" (onClick)="moveNext()" />
     </div>
 </div>

@@ -4,13 +4,13 @@
     <div class="top">
         <div class="story-info">
             <div class="story-info-item">
-                Date Written: {{ story.DateWritten | date }}
+                <span>Date Written:</span> {{ story.DateWritten | date }}
             </div>
             <div class="story-info-item">
                 {{ story.AgeLimit }}+
             </div>
             <div class="story-info-item">
-                Publisher: {{ story.Publisher?.Username }}
+                <span>Publisher:</span> {{ story.Publisher?.Username }}
             </div>
         </div>
         <div class="story-header">
