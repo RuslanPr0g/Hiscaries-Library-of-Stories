@@ -20,7 +20,7 @@ export class TextEditorComponent {
     this.control.setValue(value);
   }
 
-  get text(): string {
-    return this.control.value;
+  get text(): string | null {
+    return this.control?.value;
   }
 }

@@ -155,7 +155,7 @@ export class ModifyStoryComponent implements OnInit {
       GenreIds: formModel.Genres?.map(g => g.Id),
       ImagePreview: formModel.Image,
       StoryId: this.storyId,
-      Contents: formModel.Contents ?? []
+      Contents: formModel.Contents?.filter((c: string) => !!c) ?? []
     };
 
     this.storyService.modify(request)
