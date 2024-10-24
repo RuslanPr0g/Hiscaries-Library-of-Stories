@@ -159,6 +159,9 @@ export class ModifyStoryComponent implements OnInit {
       Contents: formModel.Contents ?? []
     };
 
+    this.submitted = false;
+    return;
+
     this.storyService.modify(request)
       .pipe(take(1))
       .subscribe({

@@ -19,4 +19,8 @@ export class TextEditorComponent {
   set text(value: string) {
     this.control.setValue(value);
   }
+
+  get text(): string {
+    return this.control.value;
+  }
 }
