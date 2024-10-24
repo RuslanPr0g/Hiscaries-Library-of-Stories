@@ -36,6 +36,26 @@ input {
   color: #fff;
 }
 
+.logo {
+  font-family: monospace, serif;
+  font-size: large;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid #a78bfa;
+  border-radius: 5px;
+  color: #a78bfa;
+
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  height: 45px;
+  margin: 0px 20px;
+}
+
 .fs-3rem {
   font-size: 3rem;
 }
