@@ -154,20 +154,22 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateUnauthorizedError(UserFriendlyMessages.NoRights);
         }
 
+        var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
+
         story.UpdateInformation(
             command.Title,
             command.Description,
             command.AuthorName,
-            command.GenreIds.Select(id => Genre.Create(id)).ToList(),
+            existingGenres,
             command.AgeLimit,
             command.ImagePreview,
             DateTime.UtcNow,
-            command.DateWritten);
+            DateTime.SpecifyKind(command.DateWritten, DateTimeKind.Utc));
 
         if (command.Contents is not null && command.Contents.Any())
         {
             // TODO: add wrapper around datetime.
-            var editedAt = DateTime.Now;
+            var editedAt = DateTime.UtcNow;
             story.ModifyContents(command.Contents, editedAt);
         }
 

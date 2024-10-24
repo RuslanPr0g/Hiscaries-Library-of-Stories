@@ -136,7 +136,6 @@ export class ModifyStoryComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.modifyForm.controls['Contents'].value);
     if (!this.storyId) {
       this.storyNotFound = true;
       return;
@@ -158,9 +157,6 @@ export class ModifyStoryComponent implements OnInit {
       StoryId: this.storyId,
       Contents: formModel.Contents ?? []
     };
-
-    this.submitted = false;
-    return;
 
     this.storyService.modify(request)
       .pipe(take(1))

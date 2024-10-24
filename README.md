@@ -33,6 +33,7 @@ The following steps are outlined for refactoring the server:
 * Add pagination to search page or smth
 * Add cache at all levels, front end, http, api, redis, db, etc.
 * Fix TODOs
+* Dev test everything trying to break things, when adding contents while modifying story, or click a lot of times, etc.
 
 ### In the Future
 Create a separate module/system/microservice that will be using an ML/AI to generate stories, not only that, but also
