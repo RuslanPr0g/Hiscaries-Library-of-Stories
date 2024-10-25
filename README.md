@@ -6,16 +6,7 @@ The following steps outline the server refactoring process:
 
 1. **Domain Layer**  
    - Refactor domain entities to include domain-specific methods.
-  
-2. **API Controllers**  
-   - Ensure API controllers handle only Mediator logic and nothing else.
-  
-3. **Entity Framework Core (EF Core) Configuration**  
-   - Add entity configurations for the persistence layer.
-  
-4. **Mediator Commands & Queries**  
-   - Refactor Mediator commands and queries to properly use service interfaces.
-  
+
 5. **DTO Optimization**  
    - Simplify Read DTOs, ensuring they only carry necessary data.
   
@@ -24,8 +15,8 @@ The following steps outline the server refactoring process:
      - **Read**: Utilize Dapper with Read Models (DB Views).  
      - **Write**: Use EF Core with Change Tracking and strict transactional boundaries within one aggregate root.
   
-7. **Service Layer Implementation**  
-   - Implement the application’s Read and Write services for all interface contracts.
+7. **Pagination Implementation**  
+   - Implement pagination when fetching data
   
 8. **REST API Best Practices**  
    - Refactor API to adhere to the latest REST best practices.  
