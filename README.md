@@ -10,6 +10,8 @@ The following steps outline the server refactoring process:
 2. **Performance**  
    - Address all the performance bottlenecks! especially the one when returning a list of stories, 10 stories is like 12MB THAT'S CRAZY!.
    - Also add image compression so that it has smaller size!
+   (1. resize the image to be different sizes, for small resolution, medium, and large
+    2. think of progressive jpeg)
 
 5. **DTO Optimization**  
    - Simplify Read DTOs, ensuring they only carry necessary data.
