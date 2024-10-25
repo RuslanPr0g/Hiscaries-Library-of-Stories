@@ -127,7 +127,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
 
-        string imagePreviewUrl = await UploadStoryPreviewAndReturnUrlToIt(storyId, command.ImagePreview);
+        string? imagePreviewUrl = await UploadStoryPreviewAndReturnUrlToIt(storyId, command.ImagePreview);
         
         var story = Story.Create(
             storyId,
@@ -167,7 +167,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
 
-        string imagePreviewUrl = await UploadStoryPreviewAndReturnUrlToIt(command.StoryId, command.ImagePreview);
+        string? imagePreviewUrl = await UploadStoryPreviewAndReturnUrlToIt(command.StoryId, command.ImagePreview);
 
         story.UpdateInformation(
             command.Title,
@@ -315,8 +315,13 @@ public sealed class StoryWriteService : IStoryWriteService
         writer.Write(data);
     }
 
-    private async Task<string> UploadStoryPreviewAndReturnUrlToIt(StoryId storyId, byte[] imagePreview)
+    private async Task<string?> UploadStoryPreviewAndReturnUrlToIt(StoryId storyId, byte[] imagePreview)
     {
+        if (imagePreview.Length == 0)
+        {
+            return null;
+        }
+
         string fileName = await UploadImage(storyId, imagePreview);
         return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -216,7 +217,7 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        byte[] imageInBytes = GetImageBytes(request.ImagePreview);
+        byte[]? imageInBytes = GetImageBytes(request.ImagePreview);
 
         var command = new PublishStoryCommand
         {
@@ -227,7 +228,7 @@ public static class StoryEndpoints
             GenreIds = request.GenreIds,
             AgeLimit = request.AgeLimit,
             DateWritten = request.DateWritten,
-            ImagePreview = imageInBytes
+            ImagePreview = imageInBytes ?? []
         };
 
         var result = await mediator.Send(command);
@@ -247,7 +248,7 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        byte[] imageInBytes = GetImageBytes(request.ImagePreview);
+        byte[]? imageInBytes = GetImageBytes(request.ImagePreview);
 
         var command = new UpdateStoryCommand
         {
@@ -258,7 +259,7 @@ public static class StoryEndpoints
             AuthorName = request.AuthorName,
             GenreIds = request.GenreIds,
             AgeLimit = request.AgeLimit,
-            ImagePreview = imageInBytes,
+            ImagePreview = imageInBytes ?? [],
             DateWritten = request.DateWritten,
             Contents = request.Contents,
         };
@@ -390,10 +391,10 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static byte[] GetImageBytes(string image)
+    private static byte[]? GetImageBytes(string image)
     {
-        byte[] imageInBytes = null;
-        if (image is not null)
+        byte[]? imageInBytes = null;
+        if (image is not null && Base64.IsValid(image))
         {
             int offset = image.IndexOf(',') + 1;
             imageInBytes = Convert.FromBase64String(image[offset..]);
