@@ -217,7 +217,9 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        byte[]? imageInBytes = GetImageBytes(request.ImagePreview);
+        byte[] imageInBytes = GetImageBytes(request.ImagePreview) ?? [];
+        bool imageWasRemoved = (!request.ImagePreview.Contains("http") && imageInBytes.Length == 0);
+        bool isImageUpdated = imageInBytes.Length > 0 || imageWasRemoved;
 
         var command = new PublishStoryCommand
         {
@@ -228,7 +230,8 @@ public static class StoryEndpoints
             GenreIds = request.GenreIds,
             AgeLimit = request.AgeLimit,
             DateWritten = request.DateWritten,
-            ImagePreview = imageInBytes ?? []
+            ImagePreview = imageInBytes,
+            ShouldUpdateImage = isImageUpdated
         };
 
         var result = await mediator.Send(command);
@@ -248,7 +251,9 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        byte[]? imageInBytes = GetImageBytes(request.ImagePreview);
+        byte[] imageInBytes = GetImageBytes(request.ImagePreview) ?? [];
+        bool imageWasRemoved = (!request.ImagePreview.Contains("http") && imageInBytes.Length == 0);
+        bool isImageUpdated = imageInBytes.Length > 0 || imageWasRemoved;
 
         var command = new UpdateStoryCommand
         {
@@ -259,7 +264,8 @@ public static class StoryEndpoints
             AuthorName = request.AuthorName,
             GenreIds = request.GenreIds,
             AgeLimit = request.AgeLimit,
-            ImagePreview = imageInBytes ?? [],
+            ImagePreview = imageInBytes,
+            ShouldUpdateImage = isImageUpdated,
             DateWritten = request.DateWritten,
             Contents = request.Contents,
         };

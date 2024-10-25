@@ -22,5 +22,7 @@ public class PublishStoryCommand : IRequest<OperationResult<EntityIdResponse>>
 
     public byte[] ImagePreview { get; set; }
 
+    public bool ShouldUpdateImage { get; set; }
+
     public DateTime DateWritten { get; set; }
 }

@@ -23,6 +23,8 @@ public class UpdateStoryCommand : IRequest<OperationResult>
 
     public byte[] ImagePreview { get; set; }
 
+    public bool ShouldUpdateImage { get; set; }
+
     public DateTime DateWritten { get; set; }
 
     public IEnumerable<string> Contents { get; set; }

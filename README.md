@@ -6,6 +6,7 @@ The following steps outline the server refactoring process:
 
 1. **Domain Layer**  
    - Refactor domain entities to include domain-specific methods.
+   - Add domain services
 
 2. **Performance**  
    - Address all the performance bottlenecks! especially the one when returning a list of stories, 10 stories is like 12MB THAT'S CRAZY!.

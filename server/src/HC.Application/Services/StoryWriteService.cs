@@ -167,7 +167,9 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
 
-        string? imagePreviewUrl = await UploadStoryPreviewAndReturnUrlToIt(command.StoryId, command.ImagePreview);
+        string? imagePreviewUrl = command.ShouldUpdateImage ?
+            await UploadStoryPreviewAndReturnUrlToIt(command.StoryId, command.ImagePreview) : 
+            story.ImagePreviewUrl;
 
         story.UpdateInformation(
             command.Title,
