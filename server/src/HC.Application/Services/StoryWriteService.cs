@@ -16,15 +16,18 @@ using System.Threading.Tasks;
 public sealed class StoryWriteService : IStoryWriteService
 {
     private readonly IStoryWriteRepository _repository;
+    private readonly IResourceUrlGeneratorService _urlGeneratorService;
     private readonly IIdGenerator _idGenerator;
     private readonly ILogger<StoryWriteService> _logger;
 
     public StoryWriteService(
         IStoryWriteRepository storyWriteRepository,
+        IResourceUrlGeneratorService urlGeneratorService,
         IIdGenerator idGenerator,
         ILogger<StoryWriteService> logger)
     {
         _repository = storyWriteRepository;
+        _urlGeneratorService = urlGeneratorService;
         _idGenerator = idGenerator;
         _logger = logger;
     }
@@ -117,6 +120,8 @@ public sealed class StoryWriteService : IStoryWriteService
         var storyId = _idGenerator.Generate((id) => new StoryId(id));
 
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
+
+        string imagePreviewUrl = UploadStoryPreviewAndReturnUrlToIt(storyId, command.ImagePreview);
         
         var story = Story.Create(
             storyId,
@@ -124,9 +129,9 @@ public sealed class StoryWriteService : IStoryWriteService
             command.Title,
             command.Description,
             command.AuthorName,
+            imagePreviewUrl,
             existingGenres,
             command.AgeLimit,
-            command.ImagePreview,
             DateTime.UtcNow,
             command.DateWritten);
 
@@ -156,13 +161,15 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
 
+        string imagePreviewUrl = UploadStoryPreviewAndReturnUrlToIt(command.StoryId, command.ImagePreview);
+
         story.UpdateInformation(
             command.Title,
             command.Description,
             command.AuthorName,
+            imagePreviewUrl,
             existingGenres,
             command.AgeLimit,
-            command.ImagePreview,
             DateTime.UtcNow,
             DateTime.SpecifyKind(command.DateWritten, DateTimeKind.Utc));
 
@@ -300,5 +307,34 @@ public sealed class StoryWriteService : IStoryWriteService
     {
         using BinaryWriter writer = new(File.OpenWrite(filePath));
         writer.Write(data);
+    }
+
+    private string UploadStoryPreviewAndReturnUrlToIt(StoryId storyId, byte[] imagePreview)
+    {
+        string fileName = UploadImage(storyId, imagePreview);
+        return BuildImagePreviewUrl(fileName);
+    }
+
+    private static string UploadImage(StoryId storyId, byte[] imagePreview, string extension = "jpg")
+    {
+        // TODO: add compression of the image
+
+        var directoryPath = Path.Combine("wwwroot", "images");
+        var fileName = $"{storyId.Value}.{extension}";
+        var filePath = Path.Combine(directoryPath, fileName);
+
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        File.WriteAllBytes(filePath, imagePreview);
+
+        return fileName;
+    }
+
+    private string BuildImagePreviewUrl(string fileName)
+    {
+        return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
 }

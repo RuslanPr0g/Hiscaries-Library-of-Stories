@@ -8,7 +8,7 @@ public class StorySimpleReadModel
     public string Description { get; set; }
     public string AuthorName { get; set; }
     public int AgeLimit { get; set; }
-    public byte[] ImagePreview { get; set; }
+    public string? ImagePreviewUrl { get; protected set; }
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
     public UserSimpleReadModel Publisher { get; set; }
@@ -23,11 +23,11 @@ public class StorySimpleReadModel
             Description = story.Description,
             AuthorName = story.AuthorName,
             AgeLimit = story.AgeLimit,
-            ImagePreview = story.ImagePreview,
             DatePublished = story.DatePublished,
             DateWritten = story.DateWritten,
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             IsEditable = story.Publisher?.Username == requesterUsername,
+            ImagePreviewUrl = story.ImagePreviewUrl
         };
     }
 }

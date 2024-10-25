@@ -4,6 +4,7 @@ using HC.Domain.Users;
 using HC.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HC.Infrastructure.Migrations
 {
     [DbContext(typeof(HiscaryContext))]
-    partial class HiscaryContextModelSnapshot : ModelSnapshot
+    [Migration("20241025112645_AddImagePreviewUrlToStory")]
+    partial class AddImagePreviewUrlToStory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -14,9 +14,9 @@ public sealed class Story : AggregateRoot<StoryId>
         string title,
         string description,
         string authorName,
+        string imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
-        byte[] imagePreview,
         DateTime datePublished,
         DateTime dateWritten) : base(id)
     {
@@ -27,10 +27,11 @@ public sealed class Story : AggregateRoot<StoryId>
         AuthorName = authorName;
         Genres = genres;
         AgeLimit = ageLimit;
-        ImagePreview = imagePreview;
         DatePublished = datePublished;
         DateEdited = datePublished;
         DateWritten = dateWritten;
+
+        ImagePreviewUrl = imagePreviewUrl;
     }
 
     public static Story Create(
@@ -39,9 +40,9 @@ public sealed class Story : AggregateRoot<StoryId>
         string title,
         string description,
         string authorName,
+        string imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
-        byte[] imagePreview,
         DateTime datePublished,
         DateTime dateWritten) => new Story(
             id,
@@ -49,9 +50,9 @@ public sealed class Story : AggregateRoot<StoryId>
             title,
             description,
             authorName,
+            imagePreviewUrl,
             genres,
             ageLimit,
-            imagePreview,
             datePublished,
             dateWritten);
 
@@ -67,10 +68,11 @@ public sealed class Story : AggregateRoot<StoryId>
     public string Description { get; private set; }
     public string AuthorName { get; private set; }
     public int AgeLimit { get; private set; }
-    public byte[] ImagePreview { get; private set; }
     public DateTime DatePublished { get; private set; }
     public DateTime DateEdited { get; private set; }
     public DateTime DateWritten { get; private set; }
+
+    public string? ImagePreviewUrl { get; private set; }
 
     public void AddComment(CommentId commentId, UserId userId, string content, int score, DateTime commentedAt)
     {
@@ -115,9 +117,9 @@ public sealed class Story : AggregateRoot<StoryId>
         string title,
         string description,
         string authorName,
+        string imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
-        byte[] imagePreview,
         DateTime dateEdited,
         DateTime dateWritten)
     {
@@ -125,9 +127,10 @@ public sealed class Story : AggregateRoot<StoryId>
         Description = description;
         AuthorName = authorName;
         AgeLimit = ageLimit;
-        ImagePreview = imagePreview;
         DateEdited = dateEdited;
         DateWritten = dateWritten;
+
+        ImagePreviewUrl = imagePreviewUrl;
 
         Genres.Clear();
 
@@ -200,7 +203,9 @@ public sealed class Story : AggregateRoot<StoryId>
         }
     }
 
+#pragma warning disable CS0628 // New protected member declared in sealed type
     protected Story()
+#pragma warning restore CS0628 // New protected member declared in sealed type
     {
     }
 }

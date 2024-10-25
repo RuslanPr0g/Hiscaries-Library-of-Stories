@@ -20,6 +20,9 @@ public static class DIExtensions
         services.AddScoped<IStoryReadService, StoryReadService>();
         services.AddScoped<IJWTTokenHandler, JWTTokenHandler>();
 
+        services.AddHttpContextAccessor();
+        services.AddScoped<IResourceUrlGeneratorService, ResourceUrlGeneratorService>();
+
         return services;
     }
 }
