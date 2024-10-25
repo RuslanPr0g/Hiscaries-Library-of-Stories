@@ -1,4 +1,5 @@
-﻿using HC.Application.Generators;
+﻿using HC.Application.FileStorage;
+using HC.Application.Generators;
 using HC.Application.Interface;
 using HC.Application.Interface.Generators;
 using HC.Application.Interface.JWT;
@@ -22,6 +23,7 @@ public static class DIExtensions
 
         services.AddHttpContextAccessor();
         services.AddScoped<IResourceUrlGeneratorService, ResourceUrlGeneratorService>();
+        services.AddSingleton<IFileStorageService>(new LocalFileStorageService("wwwroot"));
 
         return services;
     }
