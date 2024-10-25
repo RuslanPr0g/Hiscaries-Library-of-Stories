@@ -107,10 +107,7 @@ export class ModifyStoryComponent implements OnInit {
             return;
           }
 
-          this.story = {
-            ...story,
-            ImagePreview: convertToBase64(story.ImagePreview)
-          };
+          this.story = story;
 
           this.populateFormWithValue();
         },
@@ -180,7 +177,7 @@ export class ModifyStoryComponent implements OnInit {
         Title: this.story.Title,
         Description: this.story.Description,
         AuthorName: this.story.AuthorName,
-        Image: this.story.ImagePreview,
+        Image: this.story.ImagePreviewUrl,
         Genres: this.story.Genres,
         AgeLimit: this.story.AgeLimit,
         DateWritten: new Date(this.story.DateWritten)

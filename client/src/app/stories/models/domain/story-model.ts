@@ -7,7 +7,7 @@ export interface StoryModel {
     Description: string;
     AuthorName?: string;
     AgeLimit: number;
-    ImagePreview: string;
+    ImagePreviewUrl: string;
     DatePublished: Date;
     DateWritten: Date;
     Publisher?: UserModel;

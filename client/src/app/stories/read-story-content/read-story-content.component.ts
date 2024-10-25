@@ -53,7 +53,7 @@ export class ReadStoryContentComponent implements OnInit {
 
           this.story = {
             ...story,
-            ImagePreview: convertToBase64(story.ImagePreview)
+            ImagePreviewUrl: convertToBase64(story.ImagePreviewUrl)
           };
 
           this.iterator.upperBoundary = story.Contents.length - 1;
@@ -80,7 +80,7 @@ export class ReadStoryContentComponent implements OnInit {
   }
 
   get base64Image(): any {
-    return this.story?.ImagePreview;
+    return this.story?.ImagePreviewUrl;
   }
 
   get contents(): string[] {

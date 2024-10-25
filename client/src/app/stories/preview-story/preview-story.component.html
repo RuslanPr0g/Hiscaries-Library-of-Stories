@@ -1,6 +1,6 @@
 <div class="preview-story-page background-image-configuration" *ngIf="story && !storyNotFound"
-    [ngStyle]="{ 'background-image': story.ImagePreview ? 'url(' + story.ImagePreview + ')' : 'none' }">
-    <div class="overlay" *ngIf="story.ImagePreview"></div>
+    [ngStyle]="{ 'background-image': backgroundImageUrl ? 'url(' + backgroundImageUrl + ')' : 'none' }">
+    <div class="overlay" *ngIf="backgroundImageUrl"></div>
     <div class="top">
         <div class="story-info">
             <div class="story-info-item">

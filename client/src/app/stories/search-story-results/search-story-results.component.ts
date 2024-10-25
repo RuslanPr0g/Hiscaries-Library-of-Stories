@@ -30,10 +30,7 @@ export class SearchStoryResultsComponent {
       this.storyService.recommendations()
         .pipe(take(1))
         .subscribe(stories => {
-          this.stories = stories.map(s => ({
-            ...s,
-            ImagePreview: convertToBase64(s.ImagePreview)
-          }));
+          this.stories = stories;
         });
     }
 

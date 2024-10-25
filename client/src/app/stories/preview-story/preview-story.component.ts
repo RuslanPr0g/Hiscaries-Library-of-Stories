@@ -4,7 +4,6 @@ import { StoryModel } from '../models/domain/story-model';
 import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { FormButtonComponent } from '../../shared/components/form-button/form-button.component';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -40,12 +39,13 @@ export class PreviewStoryComponent implements OnInit {
         if (!story) {
           this.storyNotFound = true;
         } else {
-          this.story = {
-            ...story,
-            ImagePreview: convertToBase64(story.ImagePreview)
-          };
+          this.story = story;
         }
       });
+  }
+
+  get backgroundImageUrl(): string | undefined {
+    return this.story?.ImagePreviewUrl;
   }
 
   get isEditable(): boolean {
