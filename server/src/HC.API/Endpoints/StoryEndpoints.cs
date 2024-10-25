@@ -217,8 +217,10 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        byte[] imageInBytes = GetImageBytes(request.ImagePreview) ?? [];
-        bool imageWasRemoved = (!request.ImagePreview.Contains("http") && imageInBytes.Length == 0);
+        // TODO: I do not like this logic here
+        bool isImageAlreadyUrl = request.ImagePreview.Contains("http");
+        byte[] imageInBytes = isImageAlreadyUrl ? [] : GetImageBytes(request.ImagePreview) ?? [];
+        bool imageWasRemoved = (!isImageAlreadyUrl && imageInBytes.Length == 0);
         bool isImageUpdated = imageInBytes.Length > 0 || imageWasRemoved;
 
         var command = new PublishStoryCommand
@@ -251,8 +253,10 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing publisher ID in the token.");
         }
 
-        byte[] imageInBytes = GetImageBytes(request.ImagePreview) ?? [];
-        bool imageWasRemoved = (!request.ImagePreview.Contains("http") && imageInBytes.Length == 0);
+        // TODO: I do not like this logic here
+        bool isImageAlreadyUrl = request.ImagePreview.Contains("http");
+        byte[] imageInBytes = isImageAlreadyUrl ? [] : GetImageBytes(request.ImagePreview) ?? [];
+        bool imageWasRemoved = (!isImageAlreadyUrl && imageInBytes.Length == 0);
         bool isImageUpdated = imageInBytes.Length > 0 || imageWasRemoved;
 
         var command = new UpdateStoryCommand
@@ -400,7 +404,7 @@ public static class StoryEndpoints
     private static byte[]? GetImageBytes(string image)
     {
         byte[]? imageInBytes = null;
-        if (image is not null && Base64.IsValid(image))
+        if (image is not null)
         {
             int offset = image.IndexOf(',') + 1;
             imageInBytes = Convert.FromBase64String(image[offset..]);
