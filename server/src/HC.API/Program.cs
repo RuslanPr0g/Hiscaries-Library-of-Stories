@@ -1,7 +1,7 @@
 using FluentValidation.AspNetCore;
 using HC.API.Controllers;
 using HC.Application;
-using HC.Application.Common.Extentions;
+using HC.Application.Extentions;
 using HC.Application.Filters;
 using HC.Application.Options;
 using HC.Application.Users.Command.CreateUser;
@@ -64,7 +64,7 @@ var saltSettings = new SaltSettings();
 builder.Configuration.Bind(nameof(saltSettings), saltSettings);
 builder.Services.AddSingleton(saltSettings);
 
-builder.Services.AddJwtBearerBasedSwaggerSupport(jwtSettings);
+builder.Services.AddJwtBearerSupportAlongWithSwaggerSupport(jwtSettings);
 
 builder.Services.AddHttpContextAccessor();
 

@@ -22,9 +22,9 @@ public class StoryTests
             _fixture.Create<string>(),
             _fixture.Create<string>(),
             _fixture.Create<string>(),
+            _fixture.Create<string>(),
             _fixture.Create<List<Genre>>(),
             _fixture.Create<int>(),
-            _fixture.Create<byte[]>(),
             _fixture.Create<DateTime>(),
             _fixture.Create<DateTime>()
         );

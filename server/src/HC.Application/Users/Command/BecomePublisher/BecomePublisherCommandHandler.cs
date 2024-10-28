@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using HC.Application.Common.Constants;
-using HC.Application.Interface;
+using HC.Application.Constants;
 using HC.Application.Models.Response;
+using HC.Application.Services.Users;
 using MediatR;
 
 namespace HC.Application.Users.Query.BecomePublisher;

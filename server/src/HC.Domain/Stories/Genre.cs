@@ -1,5 +1,6 @@
 ﻿namespace HC.Domain.Stories;
 
+// TODO: Maybe genre is a separate aggregate root?
 public sealed class Genre : Entity<GenreId>
 {
     private Genre(

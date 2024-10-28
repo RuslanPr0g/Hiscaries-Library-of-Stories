@@ -1,5 +1,7 @@
 ﻿namespace HC.Application.Models.Response;
 
+// TODO: is it too bad? maybe look up for best practices?
+
 public record OperationResult(ResultStatus ResultStatus, string? Message = null)
 {
     public static OperationResult CreateSuccess()

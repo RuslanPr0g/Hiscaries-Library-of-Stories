@@ -1,5 +1,4 @@
-﻿using HC.Application.Interface;
-using HC.Application.Interface.DataAccess;
+﻿using HC.Application.DataAccess;
 using HC.Infrastructure.DataAccess;
 using HC.Infrastructure.Repository;
 using HC.Infrastructure.UnitOfWorks;

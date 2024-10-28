@@ -1,5 +1,5 @@
-﻿using HC.Application.Interface;
-using HC.Application.Models.Response;
+﻿using HC.Application.Models.Response;
+using HC.Application.Services.Stories;
 using HC.Application.Stories.Command.ScoreStory;
 using MediatR;
 using System.Threading;

@@ -1,5 +1,4 @@
-﻿using HC.Application.Interface;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 
 namespace HC.Application.FileStorage;

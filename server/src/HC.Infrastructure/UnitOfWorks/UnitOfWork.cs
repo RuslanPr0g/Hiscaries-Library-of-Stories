@@ -1,4 +1,4 @@
-﻿using HC.Application.Interface.DataAccess;
+﻿using HC.Application.DataAccess;
 using HC.Infrastructure.DataAccess;
 using System.Threading.Tasks;
 

@@ -1,5 +1,4 @@
-﻿using HC.Application.Interface.Generators;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace HC.Application.Generators;
 

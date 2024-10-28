@@ -2,7 +2,7 @@
 using HC.API.Requests;
 using HC.API.Requests.Comments;
 using HC.API.Requests.Stories;
-using HC.Application.Common.Extentions;
+using HC.Application.Extentions;
 using HC.Application.Stories.Command;
 using HC.Application.Stories.Command.DeleteStory;
 using HC.Application.Stories.Command.ReadStory;

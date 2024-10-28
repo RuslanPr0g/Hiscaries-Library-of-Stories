@@ -1,5 +1,4 @@
-﻿using HC.Application.Interface.JWT;
-using HC.Application.Options;
+﻿using HC.Application.Options;
 using HC.Application.Services;
 using HC.Domain.Users;
 using Microsoft.IdentityModel.Tokens;

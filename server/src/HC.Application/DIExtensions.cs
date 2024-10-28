@@ -1,8 +1,5 @@
 ﻿using HC.Application.FileStorage;
 using HC.Application.Generators;
-using HC.Application.Interface;
-using HC.Application.Interface.Generators;
-using HC.Application.Interface.JWT;
 using HC.Application.JWT;
 using HC.Application.Services;
 using Microsoft.Extensions.DependencyInjection;

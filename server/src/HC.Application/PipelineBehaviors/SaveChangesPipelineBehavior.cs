@@ -1,4 +1,4 @@
-﻿using HC.Application.Interface.DataAccess;
+﻿using HC.Application.DataAccess;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Threading;

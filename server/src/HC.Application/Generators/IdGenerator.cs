@@ -1,5 +1,4 @@
-﻿using HC.Application.Interface.Generators;
-using HC.Domain;
+﻿using HC.Domain;
 using System;
 
 namespace HC.Application.Generators;

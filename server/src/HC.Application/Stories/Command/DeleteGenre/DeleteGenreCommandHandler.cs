@@ -1,5 +1,5 @@
-﻿using HC.Application.Interface;
-using HC.Application.Models.Response;
+﻿using HC.Application.Models.Response;
+using HC.Application.Services.Stories;
 using HC.Application.Stories.Command;
 using MediatR;
 using System.Threading;
