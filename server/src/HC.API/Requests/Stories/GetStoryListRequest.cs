@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HC.API.Request;
+namespace HC.API.Requests;
 
 public sealed class GetStoryListRequest
 {

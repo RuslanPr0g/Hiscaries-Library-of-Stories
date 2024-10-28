@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace HC.API.Requests;
+
 public class ScoreStoryRequest
 {
     public Guid StoryId { get; set; }

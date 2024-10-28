@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace HC.API.Requests;
+
 public class RegisterUserRequest
 {
     public string Username { get; set; }

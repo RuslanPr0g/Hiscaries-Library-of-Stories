@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace HC.API.Requests;
+
 public class UpdateUserDataRequest
 {
     public string UpdatedUsername { get; set; }

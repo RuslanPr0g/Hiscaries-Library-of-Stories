@@ -1,5 +1,5 @@
 ﻿using HC.API.Extensions;
-using HC.API.Requests;
+using HC.API.Requests.Reviews;
 using HC.Application.ResultModels.Response;
 using HC.Application.Users.Command;
 using HC.Application.Users.Command.LoginUser;
