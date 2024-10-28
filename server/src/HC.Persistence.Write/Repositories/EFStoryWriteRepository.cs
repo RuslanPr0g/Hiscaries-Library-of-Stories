@@ -1,11 +1,7 @@
-﻿using HC.Application.Stories.DataAccess;
+﻿using HC.Application.Write.Stories.DataAccess;
 using HC.Domain.Stories;
-using HC.Persistence.Write.DataAccess;
+using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HC.Persistence.Write.Repositories;
 

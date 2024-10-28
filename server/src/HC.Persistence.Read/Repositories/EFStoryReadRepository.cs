@@ -1,11 +1,11 @@
-﻿using HC.Application.Genres.ReadModels;
-using HC.Application.Stories.DataAccess;
-using HC.Application.Stories.ReadModels;
+﻿using HC.Application.Read.Genres.ReadModels;
+using HC.Application.Read.Stories.DataAccess;
+using HC.Application.Read.Stories.ReadModels;
 using HC.Domain.Stories;
-using HC.Persistence.Write.DataAccess;
+using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Write.Repositories;
+namespace HC.Persistence.Read.Repositories;
 
 public sealed class EFStoryReadRepository : IStoryReadRepository
 {

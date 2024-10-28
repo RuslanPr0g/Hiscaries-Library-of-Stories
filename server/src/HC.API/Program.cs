@@ -1,35 +1,35 @@
 using FluentValidation.AspNetCore;
 using HC.API.ApiEndpoints;
-using HC.Application;
-using HC.Application.Extensions;
+using HC.Application.Common;
 using HC.Application.Filters;
-using HC.Application.Options;
 using HC.Application.Users.Command;
-using HC.Persistence.Read.Extensions;
-using HC.Persistence.Write.Extensions;
+using HC.Application.Users.Queries;
+using HC.Persistence.Read;
+using HC.Persistence.Write;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddApplicationCommonLayer();
+builder.Services.AddApplicationReadLayer();
+builder.Services.AddApplicationWriteLayer();
+builder.Services.AddPersistenceContext();
 builder.Services.AddPersistenceWriteLayer(builder.Configuration);
 builder.Services.AddPersistenceReadLayer(builder.Configuration);
-builder.Services.AddServices();
 builder.Services.AddSerilog();
-
-builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(SaveChangesPipelineBehavior<,>));
+builder.Services.AddLogging();
 
 builder.Services.AddMediatR(cfg =>
 {
-    // TODO: it takes multiple assemblies, maybe separate read and write projects into two?
     cfg.RegisterServicesFromAssemblies(typeof(RegisterUserCommandHandler).Assembly);
+    cfg.RegisterServicesFromAssemblies(typeof(GetUserInfoQueryHandler).Assembly);
 });
 
-builder.Services.AddLogging();
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(SaveChangesPipelineBehavior<,>));
 
 builder.Services
     .AddControllers(options => { options.Filters.Add<ValidationFilter>(); })
@@ -55,20 +55,6 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
-
-builder.Services.AddOptions<DbConnectionStrings>()
-    .Bind(builder.Configuration.GetSection("ConnectionStrings"));
-
-var jwtSettings = new JwtSettings();
-builder.Configuration.Bind(nameof(jwtSettings), jwtSettings);
-
-var saltSettings = new SaltSettings();
-builder.Configuration.Bind(nameof(saltSettings), saltSettings);
-builder.Services.AddSingleton(saltSettings);
-
-builder.Services.AddJwtBearerSupportAlongWithSwaggerSupport(jwtSettings);
-
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

@@ -1,12 +1,9 @@
-﻿using HC.Application.Users.DataAccess;
-using HC.Application.Users.ReadModels;
-using HC.Persistence.Write.DataAccess;
+﻿using HC.Application.Read.Users.DataAccess;
+using HC.Application.Read.Users.ReadModels;
+using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace HC.Persistence.Write.Repositories;
+namespace HC.Persistence.Read.Repositories;
 
 public class EFUserReadRepository : IUserReadRepository
 {

@@ -1,8 +1,7 @@
-﻿using HC.Application.Users.DataAccess;
+﻿using HC.Application.Write.Users.DataAccess;
 using HC.Domain.Users;
-using HC.Persistence.Write.DataAccess;
+using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace HC.Persistence.Write.Repositories;
 

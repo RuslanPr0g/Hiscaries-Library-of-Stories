@@ -2,11 +2,11 @@
 using HC.API.Requests.Comments;
 using HC.API.Requests.Genres;
 using HC.API.Requests.Stories;
-using HC.Application.Extensions;
-using HC.Application.Genres.ReadModels;
-using HC.Application.Stories.Command;
-using HC.Application.Stories.Query;
-using HC.Application.Stories.ReadModels;
+using HC.Application.Read.Extensions;
+using HC.Application.Read.Genres.ReadModels;
+using HC.Application.Read.Stories.Queries;
+using HC.Application.Read.Stories.ReadModels;
+using HC.Application.Write.Stories.Command;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

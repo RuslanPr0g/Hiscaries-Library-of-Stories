@@ -1,10 +1,10 @@
 ﻿using HC.API.Extensions;
 using HC.API.Requests.Reviews;
 using HC.API.Requests.Users;
-using HC.Application.ResultModels.Response;
-using HC.Application.Users.Command;
-using HC.Application.Users.Query;
-using HC.Application.Users.ReadModels;
+using HC.Application.Read.Users.Queries;
+using HC.Application.Read.Users.ReadModels;
+using HC.Application.Write.ResultModels.Response;
+using HC.Application.Write.Users.Command;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

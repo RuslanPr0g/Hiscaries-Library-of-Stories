@@ -1,6 +1,5 @@
-﻿using HC.Application.DataAccess;
-using HC.Persistence.Write.DataAccess;
-using System.Threading.Tasks;
+﻿using HC.Application.Write.DataAccess;
+using HC.Persistence.Context;
 
 namespace HC.Persistence.Write.UnitOfWorks;
 
