@@ -1,5 +1,5 @@
-﻿using HC.Application.Write.Options;
-using HC.Application.Write.Tokens;
+﻿using HC.Application.Options;
+using HC.Application.Tokens;
 using HC.Domain.Users;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

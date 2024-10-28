@@ -2,7 +2,7 @@
 using HC.Application.Read.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HC.Application.Read.Common;
+namespace HC.Application.Read;
 
 public static class DIExtensions
 {

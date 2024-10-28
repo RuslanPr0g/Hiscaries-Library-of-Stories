@@ -6,9 +6,9 @@ namespace HC.Persistence.Context;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddPersistenceContext(this IServiceCollection services, IConfiguration connection)
+    public static IServiceCollection AddPersistenceContext(this IServiceCollection services, IConfiguration configuration)
     {
-        var mainConnectionString = connection.GetConnectionString("PostgresEF");
+        var mainConnectionString = configuration.GetConnectionString("PostgresEF");
         services.AddDbContext<HiscaryContext>(options =>
         {
             options.UseNpgsql(mainConnectionString, b => { b.MigrationsAssembly("HC.Persistence.Context"); });
