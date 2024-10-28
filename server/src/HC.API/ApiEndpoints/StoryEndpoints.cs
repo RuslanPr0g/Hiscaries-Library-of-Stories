@@ -2,7 +2,7 @@
 using HC.API.Requests.Comments;
 using HC.API.Requests.Genres;
 using HC.API.Requests.Stories;
-using HC.Application.Extentions;
+using HC.Application.Extensions;
 using HC.Application.Genres.ReadModels;
 using HC.Application.Stories.Command;
 using HC.Application.Stories.Query;

@@ -8,7 +8,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HC.Application.Extentions;
+namespace HC.Application.Extensions;
 
 public static class JwtServicesConfiguration
 {

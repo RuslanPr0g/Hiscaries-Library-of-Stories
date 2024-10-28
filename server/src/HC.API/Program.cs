@@ -1,11 +1,12 @@
 using FluentValidation.AspNetCore;
 using HC.API.ApiEndpoints;
 using HC.Application;
-using HC.Application.Extentions;
+using HC.Application.Extensions;
 using HC.Application.Filters;
 using HC.Application.Options;
 using HC.Application.Users.Command;
-using HC.Infrastructure.Extentions;
+using HC.Persistence.Read.Extensions;
+using HC.Persistence.Write.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,8 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDataAccess(builder.Configuration);
+builder.Services.AddPersistenceWriteLayer(builder.Configuration);
+builder.Services.AddPersistenceReadLayer(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddSerilog();
 

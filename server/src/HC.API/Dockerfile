@@ -12,7 +12,7 @@ WORKDIR /src
 COPY ["HC.API/HC.API.csproj", "HC.API/"]
 COPY ["HC.Application/HC.Application.csproj", "HC.Application/"]
 COPY ["HC.Domain/HC.Domain.csproj", "HC.Domain/"]
-COPY ["HC.Infrastructure/HC.Infrastructure.csproj", "HC.Infrastructure/"]
+COPY ["HC.Persistence.Write/HC.Persistence.Write.csproj", "HC.Persistence.Write/"]
 RUN dotnet restore "./HC.API/HC.API.csproj"
 COPY . .
 WORKDIR "/src/HC.API"

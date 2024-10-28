@@ -33,7 +33,8 @@
     <ItemGroup>
         <ProjectReference Include="..\HC.Application\HC.Application.csproj" />
         <ProjectReference Include="..\HC.Domain\HC.Domain.csproj" />
-        <ProjectReference Include="..\HC.Infrastructure\HC.Infrastructure.csproj" />
+        <ProjectReference Include="..\HC.Persistence.Read\HC.Persistence.Read.csproj" />
+        <ProjectReference Include="..\HC.Persistence.Write\HC.Persistence.Write.csproj" />
     </ItemGroup>
 
 </Project>

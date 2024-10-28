@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HC.Application.Extentions;
+namespace HC.Application.Extensions;
 
-public static class IEnumerableExtentions
+public static class IEnumerableExtensions
 {
     private static readonly Random rng = new();
 
