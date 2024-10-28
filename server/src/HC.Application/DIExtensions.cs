@@ -1,7 +1,8 @@
 ﻿using HC.Application.FileStorage;
 using HC.Application.Generators;
 using HC.Application.JWT;
-using HC.Application.Services;
+using HC.Application.Stories.Services;
+using HC.Application.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HC.Application;

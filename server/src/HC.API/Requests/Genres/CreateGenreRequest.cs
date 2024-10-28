@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests;
+﻿namespace HC.API.Requests.Genres;
 
 public sealed class CreateGenreRequest
 {

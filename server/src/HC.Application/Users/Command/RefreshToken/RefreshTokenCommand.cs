@@ -1,8 +1,7 @@
-﻿using HC.Application.Models.Response;
-using HC.Application.ResultModels.Response;
+﻿using HC.Application.ResultModels.Response;
 using MediatR;
 
-namespace HC.Application.Users.Command.RefreshToken;
+namespace HC.Application.Users.Command;
 
 public class RefreshTokenCommand : IRequest<OperationResult<UserWithTokenResponse>>
 {

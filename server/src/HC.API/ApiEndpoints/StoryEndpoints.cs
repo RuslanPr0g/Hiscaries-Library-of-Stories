@@ -1,26 +1,23 @@
 ﻿using HC.API.Extensions;
-using HC.API.Requests;
 using HC.API.Requests.Comments;
+using HC.API.Requests.Genres;
 using HC.API.Requests.Stories;
 using HC.Application.Extentions;
+using HC.Application.Genres.ReadModels;
 using HC.Application.Stories.Command;
-using HC.Application.Stories.Command.DeleteStory;
-using HC.Application.Stories.Command.ReadStory;
-using HC.Application.Stories.Command.ScoreStory;
 using HC.Application.Stories.Query;
-using HC.Application.Stories.Query.GetGenreList;
+using HC.Application.Stories.ReadModels;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
-using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HC.API.Controllers;
+namespace HC.API.ApiEndpoints;
 
 #nullable enable
 
@@ -104,16 +101,6 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapPatch("/comments", UpdateComment)
-            .Produces(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapPost("/audio", AddAudioForStory)
-            .AllowAnonymous()
-            .Produces(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest);
-
-        group.MapPut("/audio", ChangeAudioForStory)
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
@@ -221,7 +208,7 @@ public static class StoryEndpoints
         // TODO: I do not like this logic here
         bool isImageAlreadyUrl = request.ImagePreview.Contains("http");
         byte[] imageInBytes = isImageAlreadyUrl ? [] : GetImageBytes(request.ImagePreview) ?? [];
-        bool imageWasRemoved = (!isImageAlreadyUrl && imageInBytes.Length == 0);
+        bool imageWasRemoved = !isImageAlreadyUrl && imageInBytes.Length == 0;
         bool isImageUpdated = imageInBytes.Length > 0 || imageWasRemoved;
 
         var command = new PublishStoryCommand
@@ -257,7 +244,7 @@ public static class StoryEndpoints
         // TODO: I do not like this logic here
         bool isImageAlreadyUrl = request.ImagePreview.Contains("http");
         byte[] imageInBytes = isImageAlreadyUrl ? [] : GetImageBytes(request.ImagePreview) ?? [];
-        bool imageWasRemoved = (!isImageAlreadyUrl && imageInBytes.Length == 0);
+        bool imageWasRemoved = !isImageAlreadyUrl && imageInBytes.Length == 0;
         bool isImageUpdated = imageInBytes.Length > 0 || imageWasRemoved;
 
         var command = new UpdateStoryCommand
@@ -359,32 +346,6 @@ public static class StoryEndpoints
             CommentId = request.Id,
             StoryId = request.StoryId,
             Content = request.Content
-        };
-
-        var result = await mediator.Send(command);
-        return result.ToResult();
-    }
-
-    private static async Task<IResult> AddAudioForStory([FromBody] UpdateAudioRequest request, [FromServices] IMediator mediator)
-    {
-        var command = new UpdateStoryAudioCommand
-        {
-            StoryId = request.StoryId,
-            Name = request.Name,
-            Audio = request.Audio
-        };
-
-        var result = await mediator.Send(command);
-        return result.ToResult();
-    }
-
-    private static async Task<IResult> ChangeAudioForStory([FromBody] UpdateAudioRequest request, [FromServices] IMediator mediator)
-    {
-        var command = new UpdateStoryAudioCommand
-        {
-            StoryId = request.StoryId,
-            Name = request.Name,
-            Audio = request.Audio
         };
 
         var result = await mediator.Send(command);

@@ -1,8 +1,8 @@
-﻿using HC.Application.Models.Response;
+﻿using HC.Application.ResultModels.Response;
 using MediatR;
 using System;
 
-namespace HC.Application.Users.Command.PublishReview;
+namespace HC.Application.Users.Command;
 
 public sealed class PublishReviewCommand : IRequest<OperationResult>
 {

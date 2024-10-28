@@ -1,4 +1,4 @@
-﻿using HC.Application.Models.Response;
+﻿using HC.Application.ResultModels.Response;
 using MediatR;
 using System;
 

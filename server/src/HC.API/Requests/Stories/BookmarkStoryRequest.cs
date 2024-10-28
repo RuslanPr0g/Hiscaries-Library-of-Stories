@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests;
+﻿namespace HC.API.Requests.Stories;
 
 public class BookmarkStoryRequest
 {

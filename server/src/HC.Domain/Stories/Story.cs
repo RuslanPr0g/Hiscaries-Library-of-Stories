@@ -1,5 +1,4 @@
-﻿using Enterprise.Domain;
-using HC.Domain.Users;
+﻿using HC.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;

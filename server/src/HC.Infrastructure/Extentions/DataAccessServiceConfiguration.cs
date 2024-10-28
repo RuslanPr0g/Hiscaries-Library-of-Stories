@@ -1,4 +1,6 @@
 ﻿using HC.Application.DataAccess;
+using HC.Application.Stories.DataAccess;
+using HC.Application.Users.DataAccess;
 using HC.Infrastructure.DataAccess;
 using HC.Infrastructure.Repository;
 using HC.Infrastructure.UnitOfWorks;

@@ -1,10 +1,10 @@
-﻿using HC.Application.Models.Response;
-using HC.Application.Services.Users;
+﻿using HC.Application.ResultModels.Response;
+using HC.Application.Users.Services;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HC.Application.Stories.Command.BookmarkStory;
+namespace HC.Application.Stories.Command;
 
 internal class BookmarkStoryCommandHandler : IRequestHandler<BookmarkStoryCommand, OperationResult>
 {

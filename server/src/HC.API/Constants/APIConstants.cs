@@ -1,4 +1,4 @@
-﻿namespace HC.API;
+﻿namespace HC.API.Constants;
 
 public static class APIConstants
 {

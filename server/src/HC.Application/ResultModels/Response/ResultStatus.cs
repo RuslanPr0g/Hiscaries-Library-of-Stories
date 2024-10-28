@@ -1,4 +1,4 @@
-namespace HC.Application.Models.Response;
+namespace HC.Application.ResultModels.Response;
 public enum ResultStatus
 {
     Success,

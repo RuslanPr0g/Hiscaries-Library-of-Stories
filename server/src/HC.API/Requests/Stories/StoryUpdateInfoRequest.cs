@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HC.API.Requests;
+namespace HC.API.Requests.Stories;
 
 public class StoryUpdateInfoRequest
 {

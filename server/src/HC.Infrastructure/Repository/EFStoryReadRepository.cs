@@ -1,4 +1,6 @@
-﻿using HC.Application.DataAccess;
+﻿using HC.Application.Genres.ReadModels;
+using HC.Application.Stories.DataAccess;
+using HC.Application.Stories.ReadModels;
 using HC.Domain.Stories;
 using HC.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;

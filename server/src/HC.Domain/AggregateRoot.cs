@@ -1,7 +1,6 @@
-﻿using HC.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Enterprise.Domain;
+namespace HC.Domain;
 
 public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot
     where T : Identity

@@ -1,6 +1,6 @@
 #nullable enable
 
-using HC.Application.Models.Response;
+using HC.Application.ResultModels.Response;
 using Microsoft.AspNetCore.Http;
 
 namespace HC.API.Extensions

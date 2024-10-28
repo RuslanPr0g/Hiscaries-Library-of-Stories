@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HC.Application.Stories.ReadModels;
+using MediatR;
 using System;
 using System.Collections.Generic;
 

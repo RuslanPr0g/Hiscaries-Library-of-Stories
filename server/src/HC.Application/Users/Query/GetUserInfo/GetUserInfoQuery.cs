@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HC.Application.Users.ReadModels;
+using MediatR;
 
 namespace HC.Application.Users.Query;
 

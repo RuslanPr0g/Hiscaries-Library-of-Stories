@@ -1,12 +1,10 @@
 ﻿using HC.API.Extensions;
 using HC.API.Requests.Reviews;
+using HC.API.Requests.Users;
 using HC.Application.ResultModels.Response;
 using HC.Application.Users.Command;
-using HC.Application.Users.Command.LoginUser;
-using HC.Application.Users.Command.PublishReview;
-using HC.Application.Users.Command.RefreshToken;
 using HC.Application.Users.Query;
-using HC.Application.Users.Query.BecomePublisher;
+using HC.Application.Users.ReadModels;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +13,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Threading.Tasks;
 
-namespace HC.API.Controllers;
+namespace HC.API.ApiEndpoints;
 
 public static class UserEndpoints
 {
@@ -90,7 +88,7 @@ public static class UserEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> LoginUser([FromBody] UserLoginRequest request, [FromServices]  IMediator mediator)
+    private static async Task<IResult> LoginUser([FromBody] UserLoginRequest request, [FromServices] IMediator mediator)
     {
         var command = new LoginUserCommand
         {

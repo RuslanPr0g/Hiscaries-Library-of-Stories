@@ -1,10 +1,10 @@
-﻿using HC.Application.Models.Response;
-using HC.Application.Services.Stories;
+﻿using HC.Application.ResultModels.Response;
+using HC.Application.Stories.Services;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HC.Application.Stories.Command.UpdateStory;
+namespace HC.Application.Stories.Command;
 
 public class UpdateStoryCommandHandler : IRequestHandler<UpdateStoryCommand, OperationResult>
 {

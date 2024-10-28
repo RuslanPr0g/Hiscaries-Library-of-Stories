@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Enterprise.Domain;
+namespace HC.Domain;
 
 public interface IAggregateRoot
 {

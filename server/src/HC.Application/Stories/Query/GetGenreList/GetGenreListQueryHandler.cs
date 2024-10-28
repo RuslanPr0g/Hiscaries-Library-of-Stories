@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using HC.Application.Services.Stories;
+using HC.Application.Genres.ReadModels;
+using HC.Application.Stories.Services;
 using MediatR;
 
-namespace HC.Application.Stories.Query.GetGenreList;
+namespace HC.Application.Stories.Query;
 
 public class GetGenreListQueryHandler : IRequestHandler<GetGenreListQuery, IEnumerable<GenreReadModel>>
 {

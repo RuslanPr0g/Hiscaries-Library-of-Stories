@@ -1,11 +1,10 @@
-﻿using HC.Application.Models.Response;
-using HC.Application.Services.Stories;
-using HC.Application.Stories.Command;
+﻿using HC.Application.ResultModels.Response;
+using HC.Application.Stories.Services;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HC.Application.Users.Command;
+namespace HC.Application.Stories.Command;
 
 public sealed class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, OperationResult>
 {

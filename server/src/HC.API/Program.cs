@@ -1,10 +1,10 @@
 using FluentValidation.AspNetCore;
-using HC.API.Controllers;
+using HC.API.ApiEndpoints;
 using HC.Application;
 using HC.Application.Extentions;
 using HC.Application.Filters;
 using HC.Application.Options;
-using HC.Application.Users.Command.CreateUser;
+using HC.Application.Users.Command;
 using HC.Infrastructure.Extentions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;

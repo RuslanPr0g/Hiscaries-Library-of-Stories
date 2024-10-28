@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain;
+﻿namespace HC.Domain;
 
 public interface IDomainEvent
 {

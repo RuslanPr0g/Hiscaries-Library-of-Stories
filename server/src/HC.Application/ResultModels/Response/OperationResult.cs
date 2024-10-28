@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Models.Response;
+﻿namespace HC.Application.ResultModels.Response;
 
 // TODO: is it too bad? maybe look up for best practices?
 

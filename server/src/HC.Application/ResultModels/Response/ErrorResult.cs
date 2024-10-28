@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using HC.Application.Models.Message;
+using HC.Application.ResultModels.Message;
 
-namespace HC.Application.Models.Response;
+namespace HC.Application.ResultModels.Response;
 
 public record ErrorResult(List<ErrorMessage> Errors);

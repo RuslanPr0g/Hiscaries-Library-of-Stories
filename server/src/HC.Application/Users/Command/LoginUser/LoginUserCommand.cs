@@ -1,8 +1,7 @@
-﻿using HC.Application.Models.Response;
-using HC.Application.ResultModels.Response;
+﻿using HC.Application.ResultModels.Response;
 using MediatR;
 
-namespace HC.Application.Users.Command.LoginUser;
+namespace HC.Application.Users.Command;
 
 public class LoginUserCommand : IRequest<OperationResult<UserWithTokenResponse>>
 {

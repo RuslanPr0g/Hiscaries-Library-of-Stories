@@ -1,4 +1,5 @@
-﻿using HC.Application.DataAccess;
+﻿using HC.Application.Users.DataAccess;
+using HC.Application.Users.ReadModels;
 using HC.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;

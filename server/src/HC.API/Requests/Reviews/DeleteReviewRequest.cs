@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HC.API.Requests;
+namespace HC.API.Requests.Reviews;
 
 public sealed class DeleteReviewRequest
 {

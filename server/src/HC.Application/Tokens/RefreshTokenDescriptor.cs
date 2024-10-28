@@ -1,7 +1,7 @@
 ﻿using HC.Domain.Users;
 using System;
 
-namespace HC.Application.Services;
+namespace HC.Application.Tokens;
 
 public sealed class RefreshTokenDescriptor
 {

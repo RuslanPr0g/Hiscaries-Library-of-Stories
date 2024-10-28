@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HC.API.Requests;
+namespace HC.API.Requests.Stories;
 
 public sealed class GetStoryWithContentsRequest
 {

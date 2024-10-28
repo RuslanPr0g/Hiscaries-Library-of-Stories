@@ -1,4 +1,4 @@
-﻿using HC.Application.DataAccess;
+﻿using HC.Application.Users.DataAccess;
 using HC.Domain.Users;
 using HC.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;

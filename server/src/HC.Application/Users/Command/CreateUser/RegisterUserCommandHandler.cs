@@ -1,11 +1,10 @@
-﻿using HC.Application.Models.Response;
-using HC.Application.ResultModels.Response;
-using HC.Application.Services.Users;
+﻿using HC.Application.ResultModels.Response;
+using HC.Application.Users.Services;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HC.Application.Users.Command.CreateUser;
+namespace HC.Application.Users.Command;
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, OperationResult<UserWithTokenResponse>>
 {

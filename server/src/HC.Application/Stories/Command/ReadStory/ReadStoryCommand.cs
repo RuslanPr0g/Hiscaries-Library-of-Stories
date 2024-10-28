@@ -1,8 +1,8 @@
-﻿using HC.Application.Models.Response;
+﻿using HC.Application.ResultModels.Response;
 using MediatR;
 using System;
 
-namespace HC.Application.Stories.Command.ReadStory;
+namespace HC.Application.Stories.Command;
 
 public class ReadStoryCommand : IRequest<OperationResult>
 {

@@ -1,4 +1,5 @@
-﻿using HC.Application.Services.Users;
+﻿using HC.Application.Users.ReadModels;
+using HC.Application.Users.Services;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

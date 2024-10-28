@@ -1,7 +1,7 @@
-﻿using HC.Application.Models.Response;
+﻿using HC.Application.ResultModels.Response;
 using MediatR;
 
-namespace HC.Application.Users.Query.BecomePublisher;
+namespace HC.Application.Users.Command;
 
 public sealed class BecomePublisherCommand : IRequest<OperationResult>
 {

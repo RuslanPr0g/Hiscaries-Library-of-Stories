@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HC.Application.Models.Message;
-using HC.Application.Models.Response;
+using HC.Application.ResultModels.Message;
+using HC.Application.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

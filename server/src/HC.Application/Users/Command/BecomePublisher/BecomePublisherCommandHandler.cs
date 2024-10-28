@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using HC.Application.Constants;
-using HC.Application.Models.Response;
-using HC.Application.Services.Users;
+using HC.Application.ResultModels.Response;
+using HC.Application.Users.Services;
 using MediatR;
 
-namespace HC.Application.Users.Query.BecomePublisher;
+namespace HC.Application.Users.Command;
 
 public class BecomePublisherCommandHandler : IRequestHandler<BecomePublisherCommand, OperationResult>
 {
