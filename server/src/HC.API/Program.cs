@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using HC.API.Controllers;
 using HC.Application;
 using HC.Application.Common.Extentions;
 using HC.Application.Filters;
@@ -11,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using HC.API.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
