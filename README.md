@@ -1,7 +1,7 @@
 # 📚 Hiscaries Library of Stories
 Welcome to the **Hiscary Library of Stories** repository! This project (referred to as *application*) is undergoing a complete refactor, following the best practices known to date. 🛠️
 
-## 🚀 Refactoring Plan for the Server
+## 🚀 Refactoring Plan for the Server 🚀
 The following steps outline the server refactoring process:
 
 1. **Improve Identity Provider**
