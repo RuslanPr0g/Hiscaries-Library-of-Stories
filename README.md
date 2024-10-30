@@ -5,17 +5,11 @@ Welcome to the **Hiscary Library of Stories** repository! This project (referred
 The following steps outline the server refactoring process:
 
 1. **Improve Identity Provider**
-    - Move identity providing to a separate service (IdentityServer or similar).
+    - Move identity providing (jwt, oauth, etc.) to a separate service (OpenIddict as a separate AUTH server with its separate DB, etc.).
 
 2. **Domain Layer**  
     - Refactor domain entities to include domain-specific methods.
     - Add domain services
-
-3. **Performance**  
-    - Address all the performance bottlenecks! especially the one when returning a list of stories, 10 stories is like 12MB THAT'S CRAZY!.
-    - Also add image compression so that it has smaller size!
-    (1. resize the image to be different sizes, for small resolution, medium, and large
-        2. think of progressive jpeg)
 
 5. **DTO Optimization**  🚀
     - Simplify Read DTOs, ensuring they only carry necessary data.
@@ -81,9 +75,6 @@ The following steps outline the server refactoring process:
 
 24. **Domain Events**  
     - Implement domain events.
-
-25. **JWT Service**  
-    - Extract JWT token generation into a separate service or utilize an identity provider.
 
 26. **Other microservices**
     - Think about what other microservice to add that would leverage event sourcing. But it should be reasonable in terms of my app.
