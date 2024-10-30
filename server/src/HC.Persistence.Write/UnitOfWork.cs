@@ -1,7 +1,7 @@
 ﻿using HC.Application.Write.DataAccess;
 using HC.Persistence.Context;
 
-namespace HC.Persistence.Write.UnitOfWorks;
+namespace HC.Persistence.Write;
 
 public sealed class UnitOfWork : IUnitOfWork
 {

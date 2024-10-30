@@ -2,7 +2,6 @@
 using HC.Application.Write.Stories.DataAccess;
 using HC.Application.Write.Users.DataAccess;
 using HC.Persistence.Write.Repositories;
-using HC.Persistence.Write.UnitOfWorks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
