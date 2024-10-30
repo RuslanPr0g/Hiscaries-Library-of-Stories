@@ -1,9 +1,6 @@
 ﻿using HC.Application.Read.Reviews.ReadModels;
 using HC.Application.Read.Stories.ReadModels;
 using HC.Domain.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HC.Application.Read.Users.ReadModels;
 

@@ -25,7 +25,7 @@ public sealed class StoryAudio : Entity<StoryAudioId>
         StoryAudioId id,
         DateTime dateAdded,
         string name) =>
-        new StoryAudio(id, dateAdded, name);
+        new(id, dateAdded, name);
 
     internal void UpdateInformation(Guid fileId, string name, DateTime updatedAt)
     {

@@ -43,7 +43,7 @@ public sealed class Story : AggregateRoot<StoryId>
         ICollection<Genre> genres,
         int ageLimit,
         DateTime datePublished,
-        DateTime dateWritten) => new Story(
+        DateTime dateWritten) => new(
             id,
             publisher,
             title,

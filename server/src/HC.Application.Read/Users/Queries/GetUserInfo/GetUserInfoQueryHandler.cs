@@ -1,8 +1,6 @@
 ﻿using HC.Application.Read.Users.ReadModels;
 using HC.Application.Read.Users.Services;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace HC.Application.Read.Users.Queries;
 

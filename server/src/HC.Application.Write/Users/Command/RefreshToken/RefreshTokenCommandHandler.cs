@@ -1,8 +1,6 @@
 ﻿using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Users.Services;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace HC.Application.Write.Users.Command;
 

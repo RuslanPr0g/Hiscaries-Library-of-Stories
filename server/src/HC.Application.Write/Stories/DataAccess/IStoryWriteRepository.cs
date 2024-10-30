@@ -1,7 +1,4 @@
 ﻿using HC.Domain.Stories;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HC.Application.Write.Stories.DataAccess;
 

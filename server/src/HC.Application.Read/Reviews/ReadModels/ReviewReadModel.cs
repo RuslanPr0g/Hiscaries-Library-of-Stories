@@ -1,6 +1,5 @@
 ﻿using HC.Application.Read.Users.ReadModels;
 using HC.Domain.Users;
-using System;
 
 namespace HC.Application.Read.Reviews.ReadModels;
 

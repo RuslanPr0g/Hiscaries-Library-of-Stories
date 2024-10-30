@@ -1,5 +1,4 @@
 ﻿using HC.Domain.Users;
-using System.Threading.Tasks;
 
 namespace HC.Application.Write.Users.DataAccess;
 

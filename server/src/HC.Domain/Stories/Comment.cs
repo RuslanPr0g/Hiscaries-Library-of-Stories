@@ -27,7 +27,7 @@ public class Comment : Entity<CommentId>
         UserId user,
         string content,
         DateTime commentedAt,
-        int score) => new Comment(id, story, user, content, commentedAt, score);
+        int score) => new(id, story, user, content, commentedAt, score);
 
     internal void UpdateContent(string content, int score, DateTime updatedAt)
     {

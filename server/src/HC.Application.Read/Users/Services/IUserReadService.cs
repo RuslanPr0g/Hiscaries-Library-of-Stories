@@ -1,6 +1,5 @@
 ﻿using HC.Application.Read.Users.ReadModels;
 using HC.Domain.Users;
-using System.Threading.Tasks;
 
 namespace HC.Application.Read.Users.Services;
 

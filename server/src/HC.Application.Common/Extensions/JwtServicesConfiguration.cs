@@ -38,7 +38,7 @@ public static class JwtServicesConfiguration
     {
         services.AddSingleton(jwtSettings);
 
-        TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
+        TokenValidationParameters tokenValidationParameters = new()
         {
             ValidateIssuer = true,
             ValidateAudience = true,

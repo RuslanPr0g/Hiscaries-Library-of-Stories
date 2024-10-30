@@ -2,7 +2,6 @@
 using HC.Application.Write.Stories.Command;
 using HC.Application.Write.Users.Command;
 using HC.Domain.Users;
-using System.Threading.Tasks;
 
 namespace HC.Application.Write.Users.Services;
 

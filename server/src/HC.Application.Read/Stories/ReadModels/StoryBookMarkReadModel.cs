@@ -1,5 +1,4 @@
 ﻿using HC.Domain.Users;
-using System;
 
 namespace HC.Application.Read.Stories.ReadModels;
 

@@ -1,7 +1,5 @@
 ﻿using HC.Application.Write.ResultModels.Response;
 using MediatR;
-using System;
-using System.Collections.Generic;
 
 namespace HC.Application.Write.Stories.Command;
 

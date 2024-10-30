@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HC.Application.Write.ResultModels.Message;
+﻿using HC.Application.Write.ResultModels.Message;
 using HC.Application.Write.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -18,19 +15,19 @@ public class ValidationFilter : IAsyncActionFilter
                 .Where(x => x.Value.Errors.Count > 0)
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(x => x.ErrorMessage)).ToArray();
 
-            ErrorResult errorResponse = new ErrorResult(new List<ErrorMessage>());
+            ErrorResult errorResponse = new(new List<ErrorMessage>());
 
             foreach (KeyValuePair<string, IEnumerable<string>> error in errors)
-            foreach (string subError in error.Value)
-            {
-                ErrorMessage errorModel = new ErrorMessage
+                foreach (string subError in error.Value)
                 {
-                    FieldName = error.Key,
-                    Message = subError
-                };
+                    ErrorMessage errorModel = new()
+                    {
+                        FieldName = error.Key,
+                        Message = subError
+                    };
 
-                errorResponse.Errors.Add(errorModel);
-            }
+                    errorResponse.Errors.Add(errorModel);
+                }
 
             context.Result = new BadRequestObjectResult(errorResponse);
             return;

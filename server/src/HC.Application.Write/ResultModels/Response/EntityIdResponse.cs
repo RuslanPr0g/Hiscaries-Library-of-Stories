@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.Application.Write.ResultModels.Response;
+﻿namespace HC.Application.Write.ResultModels.Response;
 
 public class EntityIdResponse
 {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using HC.Application.Read.Genres.ReadModels;
+﻿using HC.Application.Read.Genres.ReadModels;
 using HC.Application.Read.Stories.Services;
 using MediatR;
 

@@ -1,5 +1,4 @@
 ﻿using HC.Domain;
-using System;
 
 namespace HC.Application.Write.Generators;
 

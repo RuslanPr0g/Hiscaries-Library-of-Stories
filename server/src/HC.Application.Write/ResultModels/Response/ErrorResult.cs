@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using HC.Application.Write.ResultModels.Message;
+﻿using HC.Application.Write.ResultModels.Message;
 
 namespace HC.Application.Write.ResultModels.Response;
 

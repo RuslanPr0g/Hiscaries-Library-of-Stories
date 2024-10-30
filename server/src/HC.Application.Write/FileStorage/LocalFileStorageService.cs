@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-
-namespace HC.Application.Write.FileStorage;
+﻿namespace HC.Application.Write.FileStorage;
 
 public class LocalFileStorageService : IFileStorageService
 {
