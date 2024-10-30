@@ -17,7 +17,7 @@ The following steps outline the server refactoring process:
     (1. resize the image to be different sizes, for small resolution, medium, and large
         2. think of progressive jpeg)
 
-5. **DTO Optimization**  
+5. **DTO Optimization**  🚀
     - Simplify Read DTOs, ensuring they only carry necessary data.
   
 6. **Application Layer**  
