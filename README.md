@@ -11,10 +11,13 @@ The following steps outline the server refactoring process:
     - Refactor domain entities to include domain-specific methods.
     - Add domain services
 
+3. **Deployment**  
+    - Streamline the deployment process to allow for one-click application deployment.
+
 5. **DTO Optimization**  🚀
     - Simplify Read DTOs, ensuring they only carry necessary data.
   
-6. **Application Layer**  
+6. **Application Layer**  🚀
     - Split the application layer into *Read* and *Write*:  
      - **Read**: Utilize Dapper with Read Models (DB Views).  
      - **Write**: Use EF Core with Change Tracking and strict transactional boundaries within one aggregate root.
