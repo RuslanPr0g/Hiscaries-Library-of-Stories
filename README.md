@@ -22,7 +22,7 @@ The following steps outline the server refactoring process:
 7. **Pagination Implementation**  
     - Implement pagination when fetching data
   
-8. **REST API Best Practices**  
+8. **REST API Best Practices**  🚀 
     - Refactor API to adhere to the latest REST best practices.  
     - Implement security roles to restrict access to authorized users for specific actions.
 
