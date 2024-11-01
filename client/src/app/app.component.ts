@@ -26,6 +26,8 @@ import { SearchInputComponent } from './shared/components/search-input/search-in
 })
 export class AppComponent {
     title = 'hiscaries';
+
+    searchTerm?: string | null;
     loading: boolean = true;
     sidebarVisible: boolean = false;
 
@@ -49,7 +51,6 @@ export class AppComponent {
     }
 
     search(term: string): void {
-        // TODO: navigate to search component with query param term?=...
-        console.warn(term);
+        this.router.navigate([NavigationConst.SearchStory(term)]);
     }
 }

@@ -8,6 +8,7 @@ import { PublishStoryComponent } from './stories/publish-story/publish-story.com
 import { PreviewStoryComponent } from './stories/preview-story/preview-story.component';
 import { ModifyStoryComponent } from './stories/modify-story/modify-story.component';
 import { ReadStoryContentComponent } from './stories/read-story-content/read-story-content.component';
+import { SearchStoryComponent } from './stories/search-story/search-story.component';
 
 export const routes: Routes = [
     {
@@ -44,6 +45,12 @@ export const routes: Routes = [
         path: 'read-story/:id',
         title: 'Read Story',
         component: ReadStoryContentComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'search-story/:term',
+        title: 'Search Story',
+        component: SearchStoryComponent,
         canActivate: [authGuard],
     },
     { path: '**', redirectTo: '', pathMatch: 'full' },

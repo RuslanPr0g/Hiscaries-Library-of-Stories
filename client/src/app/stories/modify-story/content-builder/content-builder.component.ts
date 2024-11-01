@@ -80,7 +80,6 @@ export class ContentBuilderComponent implements OnInit {
     }
 
     private setUpperBoundary(): void {
-        console.warn(this.contents.length - 1);
         this.iterator.upperBoundary = this.contents.length - 1;
     }
 }
