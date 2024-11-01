@@ -11,6 +11,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class SearchInputComponent {
     @Output() searchAction = new EventEmitter<string>();
 
+    isHighlighted: boolean = true;
+
+    constructor() {
+        setTimeout(() => (this.isHighlighted = false), 15000);
+    }
+
     search(term: string): void {
         this.searchAction?.emit(term);
     }

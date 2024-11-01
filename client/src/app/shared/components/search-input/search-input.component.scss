@@ -166,3 +166,47 @@ body {
         background: #f1f1f1;
     }
 }
+
+// HIGHLIGHT IS ON THE BOTTOM
+
+.orbit-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: orbit-rotate 0.5s linear infinite;
+    transform-origin: center;
+    margin-inline: auto;
+}
+
+.highlight {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 0, 0.8);
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    animation: fade-out 1s linear 2s forwards;
+}
+
+@keyframes orbit-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
