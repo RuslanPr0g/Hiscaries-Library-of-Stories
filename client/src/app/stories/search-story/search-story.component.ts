@@ -8,11 +8,12 @@ import { StoryModel } from '../models/domain/story-model';
 import { Store } from '@ngrx/store';
 import { searchStoryByTerm } from '../store/story.actions';
 import { StoryStateModel } from '../store/story-state.model';
+import { SearchStoryResultsComponent } from '../search-story-results/search-story-results.component';
 
 @Component({
     selector: 'app-search-story',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SearchStoryResultsComponent],
     templateUrl: './search-story.component.html',
     styleUrl: './search-story.component.scss',
     providers: [DestroyService],

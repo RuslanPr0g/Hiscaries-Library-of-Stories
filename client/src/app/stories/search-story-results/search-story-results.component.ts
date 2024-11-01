@@ -28,6 +28,7 @@ export class SearchStoryResultsComponent implements OnInit {
     constructor(private storyService: StoryService) {}
 
     ngOnInit(): void {
+        console.warn(this.initialStories);
         this._stories = this.initialStories.length > 0 ? this.initialStories : [];
         if (this._stories.length === 0) {
             this.fetchRecommendations();

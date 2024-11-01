@@ -19,14 +19,17 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() =>
         await _context.Genres.AsNoTracking().Select(genre => GenreReadModel.FromDomainModel(genre)).ToListAsync();
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre) =>
-        await _context.Stories.AsNoTracking().Where(story =>
-        story.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-        story.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-        story.Genres.Any(genre => genre.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
-        story.Genres.Any(genre => genre.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)))
-        .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
-        .ToListAsync();
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre)
+    {
+        return await _context.Stories.AsNoTracking()
+            .Where(story =>
+                story.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                story.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                story.Genres.Any(genre => genre.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
+                story.Genres.Any(genre => genre.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)))
+            .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
+            .ToListAsync();
+    }
 
     public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId)
     {

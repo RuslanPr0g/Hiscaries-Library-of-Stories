@@ -23,7 +23,7 @@ public sealed class StoryReadService : IStoryReadService
 
     public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request)
     {
-        if (request.Id.HasValue)
+        if (request.Id.HasValue && Guid.Empty != request.Id)
         {
             var foundStory = await _repository.GetStorySimpleInfo(request.Id.Value, request.RequesterUsername);
             return foundStory is null ? [] : [foundStory];

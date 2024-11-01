@@ -1,1 +1,3 @@
-IM HERE TO SEARCH FOR STORIES
+<ng-container *ngIf="stories?.length; else empty">
+    <app-search-story-results [initialStories]="stories"></app-search-story-results>
+</ng-container>
