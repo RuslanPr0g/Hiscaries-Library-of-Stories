@@ -24,8 +24,8 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         // TODO: improve the search depth, etc.
         return await _context.Stories.AsNoTracking()
             .Where(story =>
-                story.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                story.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
+                EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
             .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
             .ToListAsync();
     }
