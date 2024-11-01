@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchStoryResultsComponent } from '../../stories/search-story-results/search-story-results.component';
+import { SearchStoryRecommendationsComponent } from '../../stories/search-story-recommendations/search-story-recommendations.component';
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [CommonModule, SearchStoryResultsComponent],
+    imports: [CommonModule, SearchStoryRecommendationsComponent],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
 })

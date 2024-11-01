@@ -1,0 +1,11 @@
+<app-search-story-results
+    [stories]="displayedStories"
+    [isLoading]="isLoading"
+>
+</app-search-story-results>
+<app-button-one
+    *ngIf="shouldShowMoreButton"
+    [label]="'Show More'"
+    [disabled]="isCooldownActive"
+    (clickAction)="showMore()"
+></app-button-one>

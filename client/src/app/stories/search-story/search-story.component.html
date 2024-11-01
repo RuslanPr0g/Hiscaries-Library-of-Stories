@@ -1,9 +1,5 @@
-<ng-container *ngIf="stories?.length; else empty">
-    <app-search-story-results [initialStories]="stories"></app-search-story-results>
-</ng-container>
-<ng-template #empty>
-    <div class="error-message">
-        <h2>Search criteria</h2>
-        <p>Sorry, we couldn't find any story by the criteria.</p>
-    </div>
-</ng-template>
+<app-search-story-results
+    [stories]="stories"
+    [isLoading]="isLoading"
+>
+</app-search-story-results>

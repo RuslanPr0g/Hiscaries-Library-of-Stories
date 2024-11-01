@@ -1,24 +1,16 @@
-<app-skeleton-or-story-content [dataLoaded]="storiesLoaded">
+<app-skeleton-or-story-content [dataLoaded]="!isLoading">
     <ng-container *ngIf="!isCarousel; else carousel">
         <div class="stories">
             <div class="story-list">
-                <ng-container *ngIf="storiesLoaded">
-                    <ng-container *ngFor="let story of displayedStories">
-                        <app-story-search-item [story]="story"></app-story-search-item>
-                    </ng-container>
+                <ng-container *ngFor="let story of stories">
+                    <app-story-search-item [story]="story"></app-story-search-item>
                 </ng-container>
             </div>
-            <app-button-one
-                *ngIf="shouldShowMoreButton"
-                [label]="'Show More'"
-                [disabled]="isCooldownActive"
-                (clickAction)="showMore()"
-            ></app-button-one>
         </div>
     </ng-container>
     <ng-template #carousel>
         <p-carousel
-            [value]="displayedStories"
+            [value]="stories"
             [numVisible]="3"
             [numScroll]="1"
             [circular]="false"

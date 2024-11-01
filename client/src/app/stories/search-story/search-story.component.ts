@@ -9,19 +9,22 @@ import { Store } from '@ngrx/store';
 import { searchStoryByTerm } from '../store/story.actions';
 import { StoryStateModel } from '../store/story-state.model';
 import { SearchStoryResultsComponent } from '../search-story-results/search-story-results.component';
+import { SkeletonOrStoryContentComponent } from '../load-story-or-content/skeleton-or-story-content.component';
+import { TemplateMessageModel } from '../models/template-message.model';
 
 @Component({
     selector: 'app-search-story',
     standalone: true,
-    imports: [CommonModule, SearchStoryResultsComponent],
+    imports: [CommonModule, SearchStoryResultsComponent, SkeletonOrStoryContentComponent],
     templateUrl: './search-story.component.html',
     styleUrl: './search-story.component.scss',
     providers: [DestroyService],
 })
 export class SearchStoryComponent implements OnInit {
     stories: StoryModel[] = [];
+    errorMessage: TemplateMessageModel | null;
 
-    storyNotFound: boolean = false;
+    isLoading: boolean = false;
 
     constructor(
         private store: Store<StoryStateModel>,
@@ -37,12 +40,19 @@ export class SearchStoryComponent implements OnInit {
         });
     }
 
+    get storiesLoaded(): boolean {
+        return this.stories && this.stories.length > 0;
+    }
+
     private searchStoryByTerm(term: string | null): void {
         if (!term) {
             return;
         }
 
         this.store.dispatch(searchStoryByTerm({ SearchTerm: term }));
+
+        this.stories = [];
+        this.isLoading = true;
 
         this.storyService
             .searchStory({
@@ -52,6 +62,17 @@ export class SearchStoryComponent implements OnInit {
             .subscribe({
                 next: (stories: StoryModel[]) => {
                     this.stories = stories;
+
+                    if (stories?.length === 0) {
+                        this.errorMessage = {
+                            Title: 'Search criteria',
+                            Description: 'No stories found by the criteria',
+                        };
+                    } else {
+                        this.errorMessage = null;
+                    }
+
+                    this.isLoading = false;
                 },
             });
     }
