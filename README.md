@@ -14,6 +14,9 @@ The following steps outline the server refactoring process:
 3. **Deployment**  
     - Streamline the deployment process to allow for one-click application deployment.
 
+3. **Auth and Security**  
+    - Add roles to the system and also validation that user is authorized to perform certain actions.
+
 5. **DTO Optimization**  🚀
     - Simplify Read DTOs, ensuring they only carry necessary data.
   
