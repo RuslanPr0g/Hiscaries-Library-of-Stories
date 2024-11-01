@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { DestroyService } from '../../services/destroy.service';
 
 @Component({
@@ -12,28 +11,38 @@ import { DestroyService } from '../../services/destroy.service';
     providers: [DestroyService],
 })
 export class SearchInputComponent implements AfterViewInit {
+    private _defaultValue?: string | null;
+
     @ViewChild('searchValue') searchValueRef!: ElementRef;
 
-    @Input() defaultValue?: string | null;
+    @Input() set defaultValue(value: string | null | undefined) {
+        this._defaultValue = value;
+        this.updateSearchInput();
+    }
+
+    get defaultValue(): string | null | undefined {
+        return this._defaultValue;
+    }
 
     @Output() searchAction = new EventEmitter<string>();
 
     isHighlighted: boolean = true;
 
-    constructor(
-        private destroy: DestroyService,
-        private route: ActivatedRoute
-    ) {
+    constructor() {
         setTimeout(() => (this.isHighlighted = false), 15000);
     }
 
     ngAfterViewInit(): void {
-        if (this.searchValueRef?.nativeElement) {
-            this.searchValueRef.nativeElement.value = this.defaultValue;
-        }
+        this.updateSearchInput();
     }
 
     search(term: string): void {
         this.searchAction?.emit(term);
+    }
+
+    private updateSearchInput(): void {
+        if (this.searchValueRef?.nativeElement && this.defaultValue) {
+            this.searchValueRef.nativeElement.value = this.defaultValue;
+        }
     }
 }

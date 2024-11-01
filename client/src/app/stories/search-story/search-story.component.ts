@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { take, takeUntil } from 'rxjs';
 import { DestroyService } from '../../shared/services/destroy.service';
 import { StoryModel } from '../models/domain/story-model';
+import { Store } from '@ngrx/store';
+import { searchStoryByTerm } from '../store/story.actions';
+import { StoryStateModel } from '../store/story-state.model';
 
 @Component({
     selector: 'app-search-story',
@@ -17,11 +20,10 @@ import { StoryModel } from '../models/domain/story-model';
 export class SearchStoryComponent implements OnInit {
     stories: StoryModel[] = [];
 
-    searchTerm: string | null;
-
     storyNotFound: boolean = false;
 
     constructor(
+        private store: Store<StoryStateModel>,
         private destroy: DestroyService,
         private route: ActivatedRoute,
         private storyService: StoryService
@@ -31,7 +33,6 @@ export class SearchStoryComponent implements OnInit {
         this.route.paramMap.pipe(takeUntil(this.destroy.subject$)).subscribe((params) => {
             const searchTerm = params.get('term');
             this.searchStoryByTerm(searchTerm);
-            this.searchTerm = searchTerm;
         });
     }
 
@@ -39,6 +40,8 @@ export class SearchStoryComponent implements OnInit {
         if (!term) {
             return;
         }
+
+        this.store.dispatch(searchStoryByTerm({ SearchTerm: term }));
 
         this.storyService
             .searchStory({

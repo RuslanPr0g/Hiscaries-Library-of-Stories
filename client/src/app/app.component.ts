@@ -7,7 +7,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
 import { UserService } from './users/services/user.service';
-import { SearchInputComponent } from './shared/components/search-input/search-input.component';
+import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 
 @Component({
     selector: 'app-root',
@@ -19,7 +19,7 @@ import { SearchInputComponent } from './shared/components/search-input/search-in
         SidebarModule,
         HeaderComponent,
         LoadingOverlayComponent,
-        SearchInputComponent,
+        SearchBarComponent,
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
@@ -27,7 +27,6 @@ import { SearchInputComponent } from './shared/components/search-input/search-in
 export class AppComponent {
     title = 'hiscaries';
 
-    searchTerm?: string | null;
     loading: boolean = true;
     sidebarVisible: boolean = false;
 
@@ -48,9 +47,5 @@ export class AppComponent {
 
     home(): void {
         this.router.navigate([NavigationConst.Home]);
-    }
-
-    search(term: string): void {
-        this.router.navigate([NavigationConst.SearchStory(term)]);
     }
 }

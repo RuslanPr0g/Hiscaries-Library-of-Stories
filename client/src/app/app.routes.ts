@@ -3,19 +3,18 @@ import { LoginComponent } from './users/login/login.component';
 import { HomeComponent } from './users/home/home.component';
 import { authGuard } from './shared/auth/guards/auth.guard';
 import { provideState } from '@ngrx/store';
-import { userFeatureKey, userReducer } from './users/store/user.reducer';
 import { PublishStoryComponent } from './stories/publish-story/publish-story.component';
 import { PreviewStoryComponent } from './stories/preview-story/preview-story.component';
 import { ModifyStoryComponent } from './stories/modify-story/modify-story.component';
 import { ReadStoryContentComponent } from './stories/read-story-content/read-story-content.component';
 import { SearchStoryComponent } from './stories/search-story/search-story.component';
+import { storyFeatureKey, storyReducer } from './stories/store/story.reducer';
 
 export const routes: Routes = [
     {
         path: 'login',
         title: 'Login',
         component: LoginComponent,
-        providers: [provideState({ name: userFeatureKey, reducer: userReducer })],
     },
     {
         path: '',
@@ -52,6 +51,7 @@ export const routes: Routes = [
         title: 'Search Story',
         component: SearchStoryComponent,
         canActivate: [authGuard],
+        providers: [provideState({ name: storyFeatureKey, reducer: storyReducer })],
     },
     { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

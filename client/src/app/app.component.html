@@ -17,10 +17,7 @@
             (onClick)="sidebarVisible = true"
             icon="pi pi-arrow-right"
         />
-        <app-search-input
-            (searchAction)="search($event)"
-            [defaultValue]="searchTerm"
-        ></app-search-input>
+        <app-search-bar></app-search-bar>
     </div>
     <div class="right-panel">
         <router-outlet></router-outlet>
