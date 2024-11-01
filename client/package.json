@@ -7,7 +7,7 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "prepare": "husky install"
+        "prepare": "cd .. && husky install client/.husky"
     },
     "private": true,
     "dependencies": {
@@ -22,6 +22,7 @@
         "@angular/router": "^18.1.0",
         "@auth0/angular-jwt": "^5.2.0",
         "@ngrx/store": "^18.0.2",
+        "husky-init": "^8.0.0",
         "prettier": "^3.3.3",
         "primeicons": "^7.0.0",
         "primeng": "^17.18.11",
@@ -38,16 +39,27 @@
         "@types/jasmine": "~5.1.0",
         "eslint": "^9.13.0",
         "globals": "^15.11.0",
+        "husky": "^8.0.3",
         "jasmine-core": "~5.1.0",
         "karma": "~6.4.0",
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.1.0",
+        "lint-staged": "^15.2.10",
         "typescript": "~5.5.2",
         "typescript-eslint": "^8.12.2"
     },
     "lint-staged": {
-        "*.js": "eslint --cache --fix"
+        "*.{ts,js}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.scss": [
+            "prettier --write"
+        ],
+        "*.html": [
+            "prettier --write"
+        ]
     }
 }
