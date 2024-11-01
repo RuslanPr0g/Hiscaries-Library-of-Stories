@@ -4,14 +4,20 @@ import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryItemComponent } from '../story-search-item/story-search-item.component';
-import { SkeletonModule } from 'primeng/skeleton';
 import { CarouselModule, CarouselResponsiveOptions } from 'primeng/carousel';
 import { ButtonOneComponent } from '../../shared/components/button-one/button-one.component';
+import { SkeletonOrStoryContentComponent } from '../load-story-or-content/skeleton-or-story-content.component';
 
 @Component({
     selector: 'app-search-story-results',
     standalone: true,
-    imports: [CommonModule, SearchStoryItemComponent, SkeletonModule, CarouselModule, ButtonOneComponent],
+    imports: [
+        CommonModule,
+        SearchStoryItemComponent,
+        CarouselModule,
+        ButtonOneComponent,
+        SkeletonOrStoryContentComponent,
+    ],
     templateUrl: './search-story-results.component.html',
     styleUrls: ['./search-story-results.component.scss'],
 })
@@ -38,6 +44,10 @@ export class SearchStoryResultsComponent implements OnInit {
         }
 
         this.initializeResponsiveOptions();
+    }
+
+    get storiesLoaded(): boolean {
+        return this.displayedStories && this.displayedStories.length > 0;
     }
 
     get shouldShowMoreButton(): boolean {

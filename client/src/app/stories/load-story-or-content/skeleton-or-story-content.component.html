@@ -1,0 +1,29 @@
+<ng-container *ngIf="dataLoaded; else loading">
+    <ng-content />
+</ng-container>
+<ng-template #loading>
+    <ng-container *ngFor="let _ of [1, 2]">
+        <div
+            class="border-round border-1 surface-border p-4 surface-card"
+            [style]="{ 'margin-bottom': '32px' }"
+        >
+            <p-skeleton
+                width="100%"
+                height="220px"
+            />
+            <div class="flex mb-3">
+                <div>
+                    <p-skeleton
+                        width="400px"
+                        [style]="{ 'margin-bottom': '16px' }"
+                    />
+                    <p-skeleton
+                        width="5rem"
+                        [style]="{ 'margin-bottom': '16px' }"
+                    />
+                    <p-skeleton height="1.5rem" />
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
