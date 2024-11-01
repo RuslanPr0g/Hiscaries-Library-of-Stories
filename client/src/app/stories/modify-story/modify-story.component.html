@@ -4,11 +4,17 @@
         [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }"
         *ngIf="story"
     >
-        <div class="overlay" *ngIf="base64Image"></div>
+        <div
+            class="overlay"
+            *ngIf="base64Image"
+        ></div>
 
         <h2>Modify Story</h2>
 
-        <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
+        <form
+            [formGroup]="modifyForm"
+            (ngSubmit)="onSubmit()"
+        >
             <p-tabView [activeIndex]="1">
                 <p-tabPanel header="General Information">
                     <div class="form-controls half-width-form">
@@ -77,22 +83,41 @@
             <div class="error-block">
                 <p-divider layout="horizontal" />
 
-                <p-message severity="error" [text]="globalError" *ngIf="globalError" class="error-message"></p-message>
+                <p-message
+                    severity="error"
+                    [text]="globalError"
+                    *ngIf="globalError"
+                    class="error-message"
+                ></p-message>
 
-                <p-divider layout="horizontal" *ngIf="globalError" />
+                <p-divider
+                    layout="horizontal"
+                    *ngIf="globalError"
+                />
 
                 <ng-container *ngIf="submitted; else submit">
-                    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+                    <p-progressSpinner
+                        styleClass="w-4rem h-4rem"
+                        strokeWidth="8"
+                        animationDuration=".5s"
+                    />
                 </ng-container>
                 <ng-template #submit>
-                    <app-form-button label="Apply changes" (onClick)="onSubmit()"></app-form-button>
+                    <app-form-button
+                        label="Apply changes"
+                        (onClick)="onSubmit()"
+                    ></app-form-button>
                 </ng-template>
             </div>
         </form>
     </div>
     <ng-container *ngIf="!story">
         <div class="loading">
-            <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+            <p-progressSpinner
+                styleClass="w-4rem h-4rem"
+                strokeWidth="8"
+                animationDuration=".5s"
+            />
         </div>
     </ng-container>
 </ng-container>

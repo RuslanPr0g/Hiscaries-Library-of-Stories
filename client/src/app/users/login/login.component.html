@@ -1,21 +1,65 @@
 <div class="signin">
     @if (isLoginState) {
-        <app-auth-form [formGroup]="formlogin" (submitForm)="logIn()">
-            <app-auth-input formControlName="Username" type="username" placeholder="Username"></app-auth-input>
-            <app-auth-input formControlName="Password" type="password" placeholder="Password"></app-auth-input>
-            <app-auth-button type="submit" [disabled]="submitted">Log In</app-auth-button>
-            <app-auth-button type="button" (clicked)="changeState()" [disabled]="submitted"
+        <app-auth-form
+            [formGroup]="formlogin"
+            (submitForm)="logIn()"
+        >
+            <app-auth-input
+                formControlName="Username"
+                type="username"
+                placeholder="Username"
+            ></app-auth-input>
+            <app-auth-input
+                formControlName="Password"
+                type="password"
+                placeholder="Password"
+            ></app-auth-input>
+            <app-auth-button
+                type="submit"
+                [disabled]="submitted"
+                >Log In</app-auth-button
+            >
+            <app-auth-button
+                type="button"
+                (clicked)="changeState()"
+                [disabled]="submitted"
                 >I need an account</app-auth-button
             >
         </app-auth-form>
     } @else {
-        <app-auth-form [formGroup]="formregister" (submitForm)="signUp()">
-            <app-auth-input formControlName="Username" type="username" placeholder="Username"></app-auth-input>
-            <app-auth-input formControlName="Email" type="email" placeholder="Email"></app-auth-input>
-            <app-auth-input formControlName="Dob" type="date" placeholder="Date of Birth"></app-auth-input>
-            <app-auth-input formControlName="Password" type="password" placeholder="Password"></app-auth-input>
-            <app-auth-button type="submit" [disabled]="submitted">Sign Up</app-auth-button>
-            <app-auth-button type="button" (clicked)="changeState()" [disabled]="submitted"
+        <app-auth-form
+            [formGroup]="formregister"
+            (submitForm)="signUp()"
+        >
+            <app-auth-input
+                formControlName="Username"
+                type="username"
+                placeholder="Username"
+            ></app-auth-input>
+            <app-auth-input
+                formControlName="Email"
+                type="email"
+                placeholder="Email"
+            ></app-auth-input>
+            <app-auth-input
+                formControlName="Dob"
+                type="date"
+                placeholder="Date of Birth"
+            ></app-auth-input>
+            <app-auth-input
+                formControlName="Password"
+                type="password"
+                placeholder="Password"
+            ></app-auth-input>
+            <app-auth-button
+                type="submit"
+                [disabled]="submitted"
+                >Sign Up</app-auth-button
+            >
+            <app-auth-button
+                type="button"
+                (clicked)="changeState()"
+                [disabled]="submitted"
                 >I have an account</app-auth-button
             >
         </app-auth-form>

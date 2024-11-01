@@ -7,7 +7,11 @@
         ></app-text-editor>
     </ng-container>
     <div class="controls">
-        <app-form-button severity="danger" label="Remove Page" (onClick)="removeContent()"></app-form-button>
+        <app-form-button
+            severity="danger"
+            label="Remove Page"
+            (onClick)="removeContent()"
+        ></app-form-button>
         <div class="pagination">
             <p-button
                 icon="pi pi-angle-left"
@@ -25,6 +29,10 @@
                 (onClick)="moveNext()"
             />
         </div>
-        <app-form-button severity="success" label="Add Page" (onClick)="addContent()"></app-form-button>
+        <app-form-button
+            severity="success"
+            label="Add Page"
+            (onClick)="addContent()"
+        ></app-form-button>
     </div>
 </div>

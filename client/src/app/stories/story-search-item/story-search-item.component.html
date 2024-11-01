@@ -1,6 +1,10 @@
 <div class="story-card">
     <div class="story-thumbnail">
-        <img [src]="story.ImagePreviewUrl" alt="{{ story.Title }}" class="story-image" />
+        <img
+            [src]="story.ImagePreviewUrl"
+            alt="{{ story.Title }}"
+            class="story-image"
+        />
     </div>
     <div class="story-details">
         <div class="story-overview">
@@ -12,7 +16,10 @@
             <div class="story-info__item-age"><i class="fas fa-calendar-alt"></i> {{ story.AgeLimit }}+</div>
         </div>
     </div>
-    <div class="story-hover-details" (click)="previewStory(story)">
+    <div
+        class="story-hover-details"
+        (click)="previewStory(story)"
+    >
         <h3 class="story-title">{{ story.Title | slice: 0 : 100 }}{{ story.Title.length > 100 ? '...' : '' }}</h3>
         <p class="full-description">
             {{ story.Description | slice: 0 : 150 }}{{ story.Description.length > 150 ? '...' : '' }}

@@ -2,11 +2,17 @@
     class="publish-story-container"
     [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }"
 >
-    <div class="overlay" *ngIf="base64Image"></div>
+    <div
+        class="overlay"
+        *ngIf="base64Image"
+    ></div>
 
     <h2>Publish New Story</h2>
 
-    <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
+    <form
+        [formGroup]="publishForm"
+        (ngSubmit)="onSubmit()"
+    >
         <div class="form-controls half-width-form">
             <app-form-input
                 [formGroup]="publishForm"
@@ -63,15 +69,29 @@
 
             <p-divider layout="horizontal" />
 
-            <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
+            <p-message
+                severity="error"
+                [text]="globalError"
+                *ngIf="globalError"
+            ></p-message>
 
-            <p-divider layout="horizontal" *ngIf="globalError" />
+            <p-divider
+                layout="horizontal"
+                *ngIf="globalError"
+            />
 
             <ng-container *ngIf="submitted; else submit">
-                <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+                <p-progressSpinner
+                    styleClass="w-4rem h-4rem"
+                    strokeWidth="8"
+                    animationDuration=".5s"
+                />
             </ng-container>
             <ng-template #submit>
-                <app-form-button label="Publish Story" (onClick)="onSubmit()"></app-form-button>
+                <app-form-button
+                    label="Publish Story"
+                    (onClick)="onSubmit()"
+                ></app-form-button>
             </ng-template>
         </div>
     </form>

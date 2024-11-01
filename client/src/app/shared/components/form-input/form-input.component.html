@@ -1,6 +1,14 @@
-<div [formGroup]="formGroup" class="form-control">
+<div
+    [formGroup]="formGroup"
+    class="form-control"
+>
     <span class="p-float-label">
-        <input [id]="controlName" type="text" pInputText [formControlName]="controlName" />
+        <input
+            [id]="controlName"
+            type="text"
+            pInputText
+            [formControlName]="controlName"
+        />
         <label [for]="controlName">{{ label }}</label>
     </span>
     <p-message

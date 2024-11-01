@@ -1,4 +1,8 @@
-<div [formGroup]="formGroup" class="custom-form-field" [ngClass]="{ 'custom-form-field-centered': centered }">
+<div
+    [formGroup]="formGroup"
+    class="custom-form-field"
+    [ngClass]="{ 'custom-form-field-centered': centered }"
+>
     <label [for]="controlName">{{ label }}</label>
     <p-calendar
         [formControlName]="controlName"

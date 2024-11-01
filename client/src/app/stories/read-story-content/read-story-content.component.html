@@ -5,15 +5,26 @@
     </div>
 </ng-container>
 <ng-template #storyFound>
-    <div class="loading" *ngIf="!story">
-        <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+    <div
+        class="loading"
+        *ngIf="!story"
+    >
+        <p-progressSpinner
+            styleClass="w-4rem h-4rem"
+            strokeWidth="8"
+            animationDuration=".5s"
+        />
     </div>
 
     <h2 *ngIf="story">
         <span class="text-main">{{ story.Title }}</span>
     </h2>
 
-    <div class="read-story-container" *ngIf="story" [ngClass]="{ 'read-story-container-maximized': maximized }">
+    <div
+        class="read-story-container"
+        *ngIf="story"
+        [ngClass]="{ 'read-story-container-maximized': maximized }"
+    >
         <div class="focus">
             <p-button
                 icon="pi pi-window-maximize"
@@ -34,7 +45,10 @@
         </div>
 
         <div class="read-story-container__content">
-            <div [innerHTML]="currentPageContent" class="content"></div>
+            <div
+                [innerHTML]="currentPageContent"
+                class="content"
+            ></div>
         </div>
         <div class="read-story-container__navigation">
             <p-button

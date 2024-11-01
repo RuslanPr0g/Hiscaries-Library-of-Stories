@@ -1,11 +1,22 @@
 <app-loading-overlay *ngIf="loading"></app-loading-overlay>
 <main>
-    <div class="left-panel" *ngIf="userService.isAuthenticated()">
+    <div
+        class="left-panel"
+        *ngIf="userService.isAuthenticated()"
+    >
         <p-sidebar [(visible)]="sidebarVisible">
             <app-header (commandExecuted)="sidebarVisible = false"></app-header>
         </p-sidebar>
-        <div class="logo" (click)="home()">HISCARIES</div>
-        <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
+        <div
+            class="logo"
+            (click)="home()"
+        >
+            HISCARIES
+        </div>
+        <p-button
+            (onClick)="sidebarVisible = true"
+            icon="pi pi-arrow-right"
+        />
     </div>
     <div class="right-panel">
         <router-outlet></router-outlet>
