@@ -1,0 +1,16 @@
+<form
+    class="search-bar"
+    (submit)="search(searchValue.value); $event.preventDefault()"
+>
+    <input
+        name="search"
+        required
+        #searchValue
+    />
+    <button
+        class="search-btn"
+        (click)="search(searchValue.value); $event.preventDefault()"
+    >
+        <span>Search</span>
+    </button>
+</form>

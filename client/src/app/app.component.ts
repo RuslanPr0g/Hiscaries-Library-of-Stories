@@ -7,11 +7,20 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
 import { UserService } from './users/services/user.service';
+import { SearchInputComponent } from './shared/components/search-input/search-input.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, ButtonModule, SidebarModule, HeaderComponent, LoadingOverlayComponent],
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        ButtonModule,
+        SidebarModule,
+        HeaderComponent,
+        LoadingOverlayComponent,
+        SearchInputComponent,
+    ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
@@ -37,5 +46,10 @@ export class AppComponent {
 
     home(): void {
         this.router.navigate([NavigationConst.Home]);
+    }
+
+    search(term: string): void {
+        // TODO: navigate to search component with query param term?=...
+        console.warn(term);
     }
 }
