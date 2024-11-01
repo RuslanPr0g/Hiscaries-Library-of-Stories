@@ -80,7 +80,7 @@ export class ReadStoryContentComponent implements OnInit {
         return this.iterator.currentIndex;
     }
 
-    get base64Image(): any {
+    get base64Image(): string | undefined {
         return this.story?.ImagePreviewUrl;
     }
 

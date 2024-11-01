@@ -75,11 +75,11 @@ export class PublishStoryComponent implements OnInit {
             });
     }
 
-    get imageControl(): AbstractControl<any, any> | null {
+    get imageControl(): AbstractControl<string | null, string | null> | null {
         return this.publishForm.get('Image');
     }
 
-    get base64Image(): any {
+    get base64Image(): string | null | undefined {
         return this.imageControl?.value;
     }
 

@@ -8,6 +8,10 @@ import { UserService } from '../services/user.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 
+export interface ApiError {
+    Message: string;
+}
+
 @Component({
     standalone: true,
     imports: [AuthButtonComponent, AuthInputComponent, AuthFormComponent, FormsModule, ReactiveFormsModule],
@@ -95,13 +99,13 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    private processError(error: any): void {
+    private processError(error: { error: ApiError }): void {
         this.processed();
-        this.handleError(error);
+        this.handleError(error.error);
     }
 
-    private handleError(error: any): void {
-        this.errorMessage = error.error?.Message || 'An unexpected error occurred';
+    private handleError(error: ApiError): void {
+        this.errorMessage = error?.Message || 'An unexpected error occurred';
     }
 
     private submit(): void {

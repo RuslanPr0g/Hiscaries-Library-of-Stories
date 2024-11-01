@@ -5,8 +5,7 @@ import { take } from 'rxjs';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryItemComponent } from '../story-search-item/story-search-item.component';
 import { SkeletonModule } from 'primeng/skeleton';
-import { CarouselModule } from 'primeng/carousel';
-import { convertToBase64 } from '../../shared/helpers/image.helper';
+import { CarouselModule, CarouselResponsiveOptions } from 'primeng/carousel';
 
 @Component({
     selector: 'app-search-story-results',
@@ -21,7 +20,7 @@ export class SearchStoryResultsComponent {
     @Input() initialStories: StoryModel[];
     @Input() isCarousel: boolean = false;
 
-    responsiveOptions: any[] | undefined;
+    responsiveOptions: CarouselResponsiveOptions[] | undefined;
 
     constructor(private storyService: StoryService) {
         if (!this.initialStories || this.initialStories.length === 0) {

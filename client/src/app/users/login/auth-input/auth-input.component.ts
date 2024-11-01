@@ -1,7 +1,7 @@
-import { Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
+import { Component, forwardRef, Input, Provider } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const CUSTOM_CONROL_VALUE_ACCESSOR: any = {
+export const CUSTOM_CONROL_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => AuthInputComponent),
     multi: true,
@@ -18,24 +18,21 @@ export class AuthInputComponent implements ControlValueAccessor {
     @Input({ required: true }) formControlName?: string;
     @Input() type: string = 'text';
     @Input() placeholder?: string;
-    value: any;
-    onChange: (value: any) => void = () => {};
+    value: string;
+
+    onChange: (value: string) => void = () => {};
     onTouched: () => void = () => {};
 
-    writeValue(value: any): void {
+    writeValue(value: string): void {
         this.value = value;
     }
 
-    registerOnChange(fn: (value: any) => void): void {
+    registerOnChange(fn: (value: string) => void): void {
         this.onChange = fn;
     }
 
     registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
-    }
-
-    setDisabledState?(isDisabled: boolean): void {
-        // Implement if needed
     }
 
     onInput(event: Event): void {

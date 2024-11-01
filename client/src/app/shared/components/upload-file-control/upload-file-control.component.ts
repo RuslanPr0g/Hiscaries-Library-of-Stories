@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
-import { FileUpload, FileUploadModule, UploadEvent } from 'primeng/fileupload';
+import { FileSelectEvent, FileUpload, FileUploadModule } from 'primeng/fileupload';
 
 @Component({
     selector: 'app-upload-file-control',
@@ -14,7 +14,7 @@ import { FileUpload, FileUploadModule, UploadEvent } from 'primeng/fileupload';
 export class UploadFileControlComponent {
     @ViewChild('fileUpload') fileUpload!: FileUpload;
 
-    @Input() control: AbstractControl<any, any> | null;
+    @Input() control: AbstractControl<string | null, string | null> | null;
     @Input() centered: boolean = false;
 
     requiredErrorMessage: string = 'Image is required.';
@@ -25,7 +25,7 @@ export class UploadFileControlComponent {
         return !!this.control?.value;
     }
 
-    onSelect(event: any) {
+    onSelect(event: FileSelectEvent) {
         if (!this.control) {
             console.error('No control to upload a file was provided. Skipping file upload.');
             return;
@@ -45,16 +45,12 @@ export class UploadFileControlComponent {
         reader.readAsDataURL(file);
     }
 
-    onUpload(event: UploadEvent) {
-        this.onSelect(event);
-    }
-
     clearSelection(): void {
         this.control?.setValue(null);
     }
 
     private updateControlValue(reader: FileReader): void {
-        this.control?.patchValue(reader.result);
+        this.control?.patchValue(reader.result as string);
         this.fileUpload?.clear();
     }
 }

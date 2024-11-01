@@ -7,7 +7,8 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "prepare": "cd .. && husky install client/.husky"
+        "prepare": "cd .. && husky install client/.husky",
+        "lintall": "npx eslint . --ignore-pattern \".angular/*\""
     },
     "private": true,
     "dependencies": {
@@ -52,7 +53,7 @@
     },
     "lint-staged": {
         "*.{ts,js}": [
-            "eslint --fix",
+            "eslint --fix --ignore-pattern \".angular/*\"",
             "prettier --write"
         ],
         "*.scss": [

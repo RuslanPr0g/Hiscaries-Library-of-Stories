@@ -21,8 +21,8 @@ export class UserService {
     ) {}
 
     register(request: RegisterUserRequest): Observable<UserWithTokenResponse> {
-        return this.http.post(this.apiUrl + '/register', request).pipe(
-            tap((tokenData: any) => {
+        return this.http.post<UserWithTokenResponse>(this.apiUrl + '/register', request).pipe(
+            tap((tokenData: UserWithTokenResponse) => {
                 localStorage.setItem(this.access_token_local_storage_key, tokenData.Token);
                 localStorage.setItem(this.refresh_token_local_storage_key, tokenData.RefreshToken);
             })
@@ -30,8 +30,8 @@ export class UserService {
     }
 
     login(request: LoginUserRequest): Observable<UserWithTokenResponse> {
-        return this.http.post(this.apiUrl + '/login', request).pipe(
-            tap((tokenData: any) => {
+        return this.http.post<UserWithTokenResponse>(this.apiUrl + '/login', request).pipe(
+            tap((tokenData: UserWithTokenResponse) => {
                 localStorage.setItem(this.access_token_local_storage_key, tokenData.Token);
                 localStorage.setItem(this.refresh_token_local_storage_key, tokenData.RefreshToken);
             })

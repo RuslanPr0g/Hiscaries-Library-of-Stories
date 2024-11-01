@@ -18,7 +18,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ModifyFormModel } from '../models/form/modify-story-form.model';
 import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { StoryModelWithContents } from '../models/domain/story-model';
-import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../../users/services/user.service';
 import { ContentBuilderComponent } from './content-builder/content-builder.component';
@@ -122,11 +121,11 @@ export class ModifyStoryComponent implements OnInit {
             });
     }
 
-    get imageControl(): AbstractControl<any, any> | null {
+    get imageControl(): AbstractControl<string | null, string | null> | null {
         return this.modifyForm.get('Image');
     }
 
-    get base64Image(): any {
+    get base64Image(): string | null | undefined {
         return this.imageControl?.value;
     }
 
