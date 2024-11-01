@@ -21,12 +21,11 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre)
     {
+        // TODO: improve the search depth, etc.
         return await _context.Stories.AsNoTracking()
             .Where(story =>
                 story.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                story.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                story.Genres.Any(genre => genre.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
-                story.Genres.Any(genre => genre.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)))
+                story.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
             .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
             .ToListAsync();
     }
