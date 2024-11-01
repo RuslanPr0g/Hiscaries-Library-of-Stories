@@ -9,109 +9,108 @@ import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
-  standalone: true,
-  imports: [AuthButtonComponent, AuthInputComponent, AuthFormComponent, FormsModule, ReactiveFormsModule],
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    standalone: true,
+    imports: [AuthButtonComponent, AuthInputComponent, AuthFormComponent, FormsModule, ReactiveFormsModule],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  formlogin: FormGroup;
-  formregister: FormGroup;
-  isLoginState: boolean = true;
-  errorMessage: string | null;
+    formlogin: FormGroup;
+    formregister: FormGroup;
+    isLoginState: boolean = true;
+    errorMessage: string | null;
 
-  username: string;
+    username: string;
 
-  submitted: boolean = false;
+    submitted: boolean = false;
 
-  constructor(
-    private service: UserService,
-    private router: Router) {
-    this.formlogin = new FormGroup({
-      Username: new FormControl('', Validators.required),
-      Password: new FormControl('', Validators.required)
-    });
+    constructor(
+        private service: UserService,
+        private router: Router
+    ) {
+        this.formlogin = new FormGroup({
+            Username: new FormControl('', Validators.required),
+            Password: new FormControl('', Validators.required),
+        });
 
-    this.formregister = new FormGroup({
-      Username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      Password: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      Email: new FormControl('', [Validators.required, Validators.email]),
-      Dob: new FormControl('', Validators.required)
-    });
-  }
-
-  ngOnInit(): void {
-    if (this.service.isAuthenticated()) {
-      this.router.navigateByUrl(NavigationConst.Home);
-    }
-  }
-
-  changeState(): void {
-    this.isLoginState = !this.isLoginState;
-    this.errorMessage = null;
-    this.formlogin.reset();
-    this.formregister.reset();
-  }
-
-  logIn(): void {
-    if (this.formlogin?.invalid) {
-      this.errorMessage = "All fields are required!";
-      return;
+        this.formregister = new FormGroup({
+            Username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+            Password: new FormControl('', [Validators.required, Validators.minLength(3)]),
+            Email: new FormControl('', [Validators.required, Validators.email]),
+            Dob: new FormControl('', Validators.required),
+        });
     }
 
-    this.submit();
-    this.service.login(this.formlogin?.value)
-      .pipe(take(1))
-      .subscribe(
-        {
-          next: () => this.processAuth(),
-          error: error => this.processError(error)
+    ngOnInit(): void {
+        if (this.service.isAuthenticated()) {
+            this.router.navigateByUrl(NavigationConst.Home);
         }
-      );
-  }
-
-  signUp(): void {
-    if (this.formregister?.invalid) {
-      this.errorMessage = "All fields are required and must be valid!";
-      return;
     }
 
-    this.submit();
-    this.service.register(this.formregister?.value).subscribe(
-      {
-        next: () => this.processAuth(),
-        error: error => this.processError(error)
-      }
-    );
-  }
+    changeState(): void {
+        this.isLoginState = !this.isLoginState;
+        this.errorMessage = null;
+        this.formlogin.reset();
+        this.formregister.reset();
+    }
 
-  private processAuth(): void {
-    this.router.navigateByUrl(NavigationConst.Home)
-      .then(() => {
+    logIn(): void {
+        if (this.formlogin?.invalid) {
+            this.errorMessage = 'All fields are required!';
+            return;
+        }
+
+        this.submit();
+        this.service
+            .login(this.formlogin?.value)
+            .pipe(take(1))
+            .subscribe({
+                next: () => this.processAuth(),
+                error: (error) => this.processError(error),
+            });
+    }
+
+    signUp(): void {
+        if (this.formregister?.invalid) {
+            this.errorMessage = 'All fields are required and must be valid!';
+            return;
+        }
+
+        this.submit();
+        this.service.register(this.formregister?.value).subscribe({
+            next: () => this.processAuth(),
+            error: (error) => this.processError(error),
+        });
+    }
+
+    private processAuth(): void {
+        this.router
+            .navigateByUrl(NavigationConst.Home)
+            .then(() => {
+                this.processed();
+            })
+            .catch(() => {
+                this.processed();
+            });
+    }
+
+    private processError(error: any): void {
         this.processed();
-      })
-      .catch(() => {
-        this.processed();
-      });
-  }
+        this.handleError(error);
+    }
 
-  private processError(error: any): void {
-    this.processed();
-    this.handleError(error);
-  }
+    private handleError(error: any): void {
+        this.errorMessage = error.error?.Message || 'An unexpected error occurred';
+    }
 
-  private handleError(error: any): void {
-    this.errorMessage = error.error?.Message || 'An unexpected error occurred';
-  }
+    private submit(): void {
+        this.errorMessage = null;
+        this.submitted = true;
+    }
 
-  private submit(): void {
-    this.errorMessage = null;
-    this.submitted = true;
-  }
-
-  private processed(): void {
-    this.errorMessage = null;
-    this.submitted = false;
-  }
+    private processed(): void {
+        this.errorMessage = null;
+        this.submitted = false;
+    }
 }

@@ -1,17 +1,14 @@
-<div class="preview-story-page background-image-configuration" *ngIf="story && !storyNotFound"
-    [ngStyle]="{ 'background-image': backgroundImageUrl ? 'url(' + backgroundImageUrl + ')' : 'none' }">
+<div
+    class="preview-story-page background-image-configuration"
+    *ngIf="story && !storyNotFound"
+    [ngStyle]="{ 'background-image': backgroundImageUrl ? 'url(' + backgroundImageUrl + ')' : 'none' }"
+>
     <div class="overlay" *ngIf="backgroundImageUrl"></div>
     <div class="top">
         <div class="story-info">
-            <div class="story-info-item">
-                <span>Date Written:</span> {{ story.DateWritten | date }}
-            </div>
-            <div class="story-info-item">
-                {{ story.AgeLimit }}+
-            </div>
-            <div class="story-info-item">
-                <span>Publisher:</span> {{ story.Publisher?.Username }}
-            </div>
+            <div class="story-info-item"><span>Date Written:</span> {{ story.DateWritten | date }}</div>
+            <div class="story-info-item">{{ story.AgeLimit }}+</div>
+            <div class="story-info-item"><span>Publisher:</span> {{ story.Publisher?.Username }}</div>
         </div>
         <div class="story-header">
             <h1>{{ story.Title }}</h1>
@@ -28,16 +25,17 @@
     </div>
     <div class="bottom">
         <app-form-button label="Read" (onClick)="readStory()"></app-form-button>
-        <app-form-button *ngIf="isEditable" label="Modify" severity="warning"
-            (onClick)="modifyStory()"></app-form-button>
+        <app-form-button
+            *ngIf="isEditable"
+            label="Modify"
+            severity="warning"
+            (onClick)="modifyStory()"
+        ></app-form-button>
     </div>
 </div>
 
 <div *ngIf="!story && !storyNotFound">
-    <p-progressSpinner 
-        styleClass="w-4rem h-4rem"
-        strokeWidth="8" 
-        animationDuration=".5s" />
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
 </div>
 
 <div *ngIf="storyNotFound" class="error-message">

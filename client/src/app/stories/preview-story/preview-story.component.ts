@@ -9,54 +9,55 @@ import { NavigationConst } from '../../shared/constants/navigation.const';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
-  selector: 'app-preview-story',
-  standalone: true,
-  imports: [CommonModule, FormButtonComponent, ProgressSpinnerModule],
-  templateUrl: './preview-story.component.html',
-  styleUrl: './preview-story.component.scss'
+    selector: 'app-preview-story',
+    standalone: true,
+    imports: [CommonModule, FormButtonComponent, ProgressSpinnerModule],
+    templateUrl: './preview-story.component.html',
+    styleUrl: './preview-story.component.scss',
 })
 export class PreviewStoryComponent implements OnInit {
-  private storyId: string | null = null;
+    private storyId: string | null = null;
 
-  story: StoryModel | null = null;
-  storyNotFound: boolean = false;
+    story: StoryModel | null = null;
+    storyNotFound: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private storyService: StoryService
-  ) { }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private storyService: StoryService
+    ) {}
 
-  ngOnInit(): void {
-    this.storyId = this.route.snapshot.paramMap.get('id');
+    ngOnInit(): void {
+        this.storyId = this.route.snapshot.paramMap.get('id');
 
-    this.storyService.searchStory({
-      Id: this.storyId
-    })
-      .pipe(take(1))
-      .subscribe(stories => {
-        const story = stories[0];
-        if (!story) {
-          this.storyNotFound = true;
-        } else {
-          this.story = story;
-        }
-      });
-  }
+        this.storyService
+            .searchStory({
+                Id: this.storyId,
+            })
+            .pipe(take(1))
+            .subscribe((stories) => {
+                const story = stories[0];
+                if (!story) {
+                    this.storyNotFound = true;
+                } else {
+                    this.story = story;
+                }
+            });
+    }
 
-  get backgroundImageUrl(): string | undefined {
-    return this.story?.ImagePreviewUrl;
-  }
+    get backgroundImageUrl(): string | undefined {
+        return this.story?.ImagePreviewUrl;
+    }
 
-  get isEditable(): boolean {
-    return this.story?.IsEditable ?? false;
-  }
+    get isEditable(): boolean {
+        return this.story?.IsEditable ?? false;
+    }
 
-  readStory(): void {
-    this.router.navigate([NavigationConst.ReadStory(this.storyId!)]);
-  }
+    readStory(): void {
+        this.router.navigate([NavigationConst.ReadStory(this.storyId!)]);
+    }
 
-  modifyStory(): void {
-    this.router.navigate([NavigationConst.ModifyStory(this.storyId!)]);
-  }
+    modifyStory(): void {
+        this.router.navigate([NavigationConst.ModifyStory(this.storyId!)]);
+    }
 }

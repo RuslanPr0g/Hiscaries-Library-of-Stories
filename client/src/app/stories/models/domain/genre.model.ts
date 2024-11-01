@@ -1,4 +1,4 @@
-import { BaseIdModel } from "../../../shared/models/base-id.model";
+import { BaseIdModel } from '../../../shared/models/base-id.model';
 
 export interface GenreModel extends BaseIdModel {
     Name: string;

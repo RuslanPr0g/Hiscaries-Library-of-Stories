@@ -5,7 +5,8 @@ $accent-color: #007bff;
 $hover-box-shadow: #a78bfa;
 $border-color: #444;
 
-:host, .story-card {
+:host,
+.story-card {
     display: flex;
     flex-direction: column;
     flex: 1 1 calc(25% - 32px);
@@ -14,7 +15,9 @@ $border-color: #444;
     border-radius: 8px;
     overflow: hidden;
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     user-select: none;
     cursor: pointer !important;
 
@@ -100,7 +103,7 @@ $border-color: #444;
             font-size: 1.5rem;
             color: #a78bfa;
             font-weight: 600;
-    
+
             i {
                 color: $accent-color;
             }
@@ -123,7 +126,9 @@ $border-color: #444;
     color: $text-color;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 
     .story-title {
         font-size: 1.4rem;
@@ -145,19 +150,22 @@ $border-color: #444;
 }
 
 @media (max-width: 1500px) {
-    :host, .story-card {
+    :host,
+    .story-card {
         flex: 1 1 calc(33.33% - 32px); // 3 cards per row
     }
 }
 
 @media (max-width: 1200px) {
-    :host, .story-card {
+    :host,
+    .story-card {
         flex: 1 1 calc(50% - 32px); // 2 cards per row
     }
 }
 
 @media (max-width: 900px) {
-    :host, .story-card {
+    :host,
+    .story-card {
         flex: 1 1 100%; // 1 card per row
     }
 }

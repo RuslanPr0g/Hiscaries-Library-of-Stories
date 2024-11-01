@@ -9,26 +9,25 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 
 export function tokenGetter() {
-  return localStorage.getItem(environment.localStorageKeys.ACCESS_TOKEN_KEY);
+    return localStorage.getItem(environment.localStorageKeys.ACCESS_TOKEN_KEY);
 }
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideStore(),
-    importProvidersFrom(
-      JwtModule.forRoot({
-        config: {
-          tokenGetter: tokenGetter,
-          allowedDomains: [environment.apiDomain],
-          disallowedRoutes: [`${environment.apiDomain}/login`, `${environment.apiDomain}/register`],
-        },
-      }),
-    ),
-    provideHttpClient(
-      withInterceptorsFromDi()
-    ),
-    provideState({ name: userFeatureKey, reducer: userReducer }),
-    provideAnimationsAsync()],
+    providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideRouter(routes),
+        provideStore(),
+        importProvidersFrom(
+            JwtModule.forRoot({
+                config: {
+                    tokenGetter: tokenGetter,
+                    allowedDomains: [environment.apiDomain],
+                    disallowedRoutes: [`${environment.apiDomain}/login`, `${environment.apiDomain}/register`],
+                },
+            })
+        ),
+        provideHttpClient(withInterceptorsFromDi()),
+        provideState({ name: userFeatureKey, reducer: userReducer }),
+        provideAnimationsAsync(),
+    ],
 };

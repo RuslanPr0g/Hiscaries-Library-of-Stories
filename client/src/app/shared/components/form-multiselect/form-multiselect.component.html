@@ -7,6 +7,9 @@
         filterBy="Name"
         [filter]="true"
     ></p-multiSelect>
-    <p-message severity="error" [text]="errorMessage"
-        *ngIf="formGroup.get(controlName)?.hasError('required') && formGroup.get(controlName)?.touched"></p-message>
+    <p-message
+        severity="error"
+        [text]="errorMessage"
+        *ngIf="formGroup.get(controlName)?.hasError('required') && formGroup.get(controlName)?.touched"
+    ></p-message>
 </div>

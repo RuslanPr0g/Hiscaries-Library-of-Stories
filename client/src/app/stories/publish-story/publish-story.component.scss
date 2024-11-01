@@ -1,71 +1,70 @@
 .publish-story-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 1500px;
-  margin: 2rem auto;
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  background-color: #1e1e1e;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1500px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: #1e1e1e;
 
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-  transition: all .5s ease;
-  transition: background-image 0.5s ease;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    transition: all 0.5s ease;
+    transition: background-image 0.5s ease;
 
-  .half-width-form {
-    ::ng-deep {
-
-      app-form-input,
-      app-form-textarea,
-      app-form-button {
-        display: flex;
-        width: 100%;
-        margin-bottom: 1rem;
-        justify-content: center;
-        align-items: center;
-      }
+    .half-width-form {
+        ::ng-deep {
+            app-form-input,
+            app-form-textarea,
+            app-form-button {
+                display: flex;
+                width: 100%;
+                margin-bottom: 1rem;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
-  }
 
-  form {
-    width: 50%;
-  }
+    form {
+        width: 50%;
+    }
 }
 
 .overlay {
-  border-radius: 16px;
+    border-radius: 16px;
 }
 
-.publish-story-container>* {
-  position: relative;
-  z-index: 2;
+.publish-story-container > * {
+    position: relative;
+    z-index: 2;
 }
 
 h2 {
-  color: #fff;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .form-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  justify-content: center;
-  align-items: center;
-
-  &__same-line {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-  }
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+
+    &__same-line {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
 }

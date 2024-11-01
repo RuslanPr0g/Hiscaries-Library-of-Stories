@@ -9,34 +9,33 @@ import { NavigationConst } from './shared/constants/navigation.const';
 import { UserService } from './users/services/user.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, ButtonModule, SidebarModule, HeaderComponent, LoadingOverlayComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule, RouterOutlet, ButtonModule, SidebarModule, HeaderComponent, LoadingOverlayComponent],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'hiscaries';
-  loading: boolean = true;
-  sidebarVisible: boolean = false;
+    title = 'hiscaries';
+    loading: boolean = true;
+    sidebarVisible: boolean = false;
 
-  constructor(
-    private router: Router,
-    public userService: UserService
-  ) {
-  }
+    constructor(
+        private router: Router,
+        public userService: UserService
+    ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.fadeOutLoading();
-    }, 1501);
-  }
+    ngOnInit() {
+        setTimeout(() => {
+            this.fadeOutLoading();
+        }, 1501);
+    }
 
-  fadeOutLoading() {
-    this.loading = false;
-  }
+    fadeOutLoading() {
+        this.loading = false;
+    }
 
-  home(): void {
-    this.router.navigate([NavigationConst.Home]);
-  }
+    home(): void {
+        this.router.navigate([NavigationConst.Home]);
+    }
 }

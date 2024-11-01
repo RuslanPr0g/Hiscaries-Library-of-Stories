@@ -10,104 +10,105 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
-  selector: 'app-read-story-content',
-  standalone: true,
-  imports: [CommonModule, ButtonModule, ProgressSpinnerModule],
-  providers: [IteratorService],
-  templateUrl: './read-story-content.component.html',
-  styleUrl: './read-story-content.component.scss'
+    selector: 'app-read-story-content',
+    standalone: true,
+    imports: [CommonModule, ButtonModule, ProgressSpinnerModule],
+    providers: [IteratorService],
+    templateUrl: './read-story-content.component.html',
+    styleUrl: './read-story-content.component.scss',
 })
 export class ReadStoryContentComponent implements OnInit {
-  storyId: string | null = null;
+    storyId: string | null = null;
 
-  globalError: string | null = null;
-  story: StoryModelWithContents | null = null;
-  storyNotFound: boolean = false;
+    globalError: string | null = null;
+    story: StoryModelWithContents | null = null;
+    storyNotFound: boolean = false;
 
-  maximized: boolean = false;
+    maximized: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private storyService: StoryService,
-    private iterator: IteratorService
-  ) {
-    this.storyId = this.route.snapshot.paramMap.get('id');
-  }
-
-  ngOnInit() {
-    if (!this.storyId) {
-      this.storyNotFound = true;
-      return;
+    constructor(
+        private route: ActivatedRoute,
+        private storyService: StoryService,
+        private iterator: IteratorService
+    ) {
+        this.storyId = this.route.snapshot.paramMap.get('id');
     }
 
-    this.storyService.getStoryByIdWithContents({
-      Id: this.storyId
-    })
-      .pipe(take(1))
-      .subscribe({
-        next: story => {
-          if (!story) {
+    ngOnInit() {
+        if (!this.storyId) {
             this.storyNotFound = true;
             return;
-          }
+        }
 
-          this.story = {
-            ...story,
-            ImagePreviewUrl: convertToBase64(story.ImagePreviewUrl)
-          };
+        this.storyService
+            .getStoryByIdWithContents({
+                Id: this.storyId,
+            })
+            .pipe(take(1))
+            .subscribe({
+                next: (story) => {
+                    if (!story) {
+                        this.storyNotFound = true;
+                        return;
+                    }
 
-          this.iterator.upperBoundary = story.Contents.length - 1;
-        },
-        error: () => this.storyNotFound = true
-      });
-  }
+                    this.story = {
+                        ...story,
+                        ImagePreviewUrl: convertToBase64(story.ImagePreviewUrl),
+                    };
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'Enter') {
-      this.moveNext();
-    } else if (event.key === 'Backspace' || event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
-      this.movePrev();
-    } else if (event.key === ' ') {
-      this.maximize();
-    } else if (event.key === 'Escape') {
-      this.minimize();
+                    this.iterator.upperBoundary = story.Contents.length - 1;
+                },
+                error: () => (this.storyNotFound = true),
+            });
     }
-  }
 
-  get currentIndex(): number {
-    return this.iterator.currentIndex;
-  }
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'Enter') {
+            this.moveNext();
+        } else if (event.key === 'Backspace' || event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
+            this.movePrev();
+        } else if (event.key === ' ') {
+            this.maximize();
+        } else if (event.key === 'Escape') {
+            this.minimize();
+        }
+    }
 
-  get base64Image(): any {
-    return this.story?.ImagePreviewUrl;
-  }
+    get currentIndex(): number {
+        return this.iterator.currentIndex;
+    }
 
-  get contents(): string[] {
-    return this.story?.Contents?.map(contentModel => contentModel.Content) ?? [];
-  }
+    get base64Image(): any {
+        return this.story?.ImagePreviewUrl;
+    }
 
-  get currentPageContent(): string {
-    return this.contents.at(this.currentIndex) ?? 'Page is empty';
-  }
+    get contents(): string[] {
+        return this.story?.Contents?.map((contentModel) => contentModel.Content) ?? [];
+    }
 
-  get currentPageLabel(): string {
-    return `Page: ${(this.currentIndex + 1)} / ${this.contents.length}`;
-  }
+    get currentPageContent(): string {
+        return this.contents.at(this.currentIndex) ?? 'Page is empty';
+    }
 
-  moveNext(): boolean {
-    return this.iterator.moveNext();
-  }
+    get currentPageLabel(): string {
+        return `Page: ${this.currentIndex + 1} / ${this.contents.length}`;
+    }
 
-  movePrev(): boolean {
-    return this.iterator.movePrev();
-  }
+    moveNext(): boolean {
+        return this.iterator.moveNext();
+    }
 
-  maximize(): void {
-    this.maximized = true;
-  }
+    movePrev(): boolean {
+        return this.iterator.movePrev();
+    }
 
-  minimize(): void {
-    this.maximized = false;
-  }
+    maximize(): void {
+        this.maximized = true;
+    }
+
+    minimize(): void {
+        this.maximized = false;
+    }
 }

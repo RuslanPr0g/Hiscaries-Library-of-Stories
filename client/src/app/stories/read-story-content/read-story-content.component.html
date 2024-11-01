@@ -9,25 +9,49 @@
         <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
     </div>
 
-    <h2 *ngIf="story"><span class="text-main">{{ story.Title }}</span></h2>
+    <h2 *ngIf="story">
+        <span class="text-main">{{ story.Title }}</span>
+    </h2>
 
     <div class="read-story-container" *ngIf="story" [ngClass]="{ 'read-story-container-maximized': maximized }">
         <div class="focus">
-            <p-button icon="pi pi-window-maximize" [rounded]="true" [text]="true" severity="secondary"
-                (onClick)="maximize()" *ngIf="!maximized" />
-            <p-button icon="pi pi-window-minimize" [rounded]="true" [text]="true" severity="secondary"
-                (onClick)="minimize()" *ngIf="maximized" />
+            <p-button
+                icon="pi pi-window-maximize"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="maximize()"
+                *ngIf="!maximized"
+            />
+            <p-button
+                icon="pi pi-window-minimize"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="minimize()"
+                *ngIf="maximized"
+            />
         </div>
 
         <div class="read-story-container__content">
             <div [innerHTML]="currentPageContent" class="content"></div>
         </div>
         <div class="read-story-container__navigation">
-            <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" severity="secondary"
-                (onClick)="movePrev()" />
+            <p-button
+                icon="pi pi-angle-left"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="movePrev()"
+            />
             <div class="message">{{ currentPageLabel }}</div>
-            <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" severity="secondary"
-                (onClick)="moveNext()" />
+            <p-button
+                icon="pi pi-angle-right"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="moveNext()"
+            />
         </div>
     </div>
 </ng-template>

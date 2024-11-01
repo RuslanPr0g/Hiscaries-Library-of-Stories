@@ -14,39 +14,37 @@ export const routes: Routes = [
         path: 'login',
         title: 'Login',
         component: LoginComponent,
-        providers: [
-            provideState({ name: userFeatureKey, reducer: userReducer })
-          ]
+        providers: [provideState({ name: userFeatureKey, reducer: userReducer })],
     },
     {
         path: '',
         title: 'Home page',
-        component: HomeComponent, 
-        canActivate: [authGuard]
+        component: HomeComponent,
+        canActivate: [authGuard],
     },
     {
         path: 'publish-story',
         title: 'Publish Story',
         component: PublishStoryComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
     },
     {
         path: 'modify-story/:id',
         title: 'Modify Story',
         component: ModifyStoryComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
     },
     {
         path: 'preview-story/:id',
         title: 'Preview Story',
         component: PreviewStoryComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
     },
     {
         path: 'read-story/:id',
         title: 'Read Story',
         component: ReadStoryContentComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
     },
-    { path: '**', redirectTo: '', pathMatch: 'full' }
+    { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

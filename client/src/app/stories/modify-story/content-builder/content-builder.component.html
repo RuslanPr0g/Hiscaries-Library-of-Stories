@@ -1,13 +1,29 @@
 <div [formGroup]="formGroup">
     <ng-container [formArrayName]="formArrayName">
-        <app-text-editor [control]="currentPageControl" [label]="currentPageLabel" [errorMessage]="'Content is required'"></app-text-editor>
+        <app-text-editor
+            [control]="currentPageControl"
+            [label]="currentPageLabel"
+            [errorMessage]="'Content is required'"
+        ></app-text-editor>
     </ng-container>
     <div class="controls">
         <app-form-button severity="danger" label="Remove Page" (onClick)="removeContent()"></app-form-button>
         <div class="pagination">
-            <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" severity="secondary" (onClick)="movePrev()"/>
+            <p-button
+                icon="pi pi-angle-left"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="movePrev()"
+            />
             <span class="message">{{ currentPageLabel }}</span>
-            <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" severity="secondary" (onClick)="moveNext()"/>
+            <p-button
+                icon="pi pi-angle-right"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="moveNext()"
+            />
         </div>
         <app-form-button severity="success" label="Add Page" (onClick)="addContent()"></app-form-button>
     </div>

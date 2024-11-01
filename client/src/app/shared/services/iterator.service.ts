@@ -1,41 +1,40 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class IteratorService {
     private _upperBoundary: number = 0;
     private _currentIndex: number = 0;
-  
+
     set upperBoundary(value: number) {
-      this._upperBoundary = value;
+        this._upperBoundary = value;
     }
-  
+
     get currentIndex(): number {
-      return this._currentIndex;
+        return this._currentIndex;
     }
-  
+
     moveNext(): boolean {
-      if (this._currentIndex === this._upperBoundary) {
-        return false;
-      }
-  
-      this._currentIndex++;
-  
-      return true;
+        if (this._currentIndex === this._upperBoundary) {
+            return false;
+        }
+
+        this._currentIndex++;
+
+        return true;
     }
-  
+
     movePrev(): boolean {
-      if (this._currentIndex === 0) {
-        return false;
-      }
-  
-      this._currentIndex--;
-  
-      return true;
+        if (this._currentIndex === 0) {
+            return false;
+        }
+
+        this._currentIndex--;
+
+        return true;
     }
-  
+
     moveToLast(): boolean {
-      this._currentIndex = this._upperBoundary;
-      return true;
+        this._currentIndex = this._upperBoundary;
+        return true;
     }
-  }
-  
+}

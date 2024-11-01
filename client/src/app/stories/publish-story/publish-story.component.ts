@@ -10,7 +10,7 @@ import { DividerModule } from 'primeng/divider';
 import { GenreModel } from '../models/domain/genre.model';
 import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
-import { UploadFileControlComponent } from "../../shared/components/upload-file-control/upload-file-control.component";
+import { UploadFileControlComponent } from '../../shared/components/upload-file-control/upload-file-control.component';
 import { FormMultiselectComponent } from '../../shared/components/form-multiselect/form-multiselect.component';
 import { PublishFormModel } from '../models/form/publish-story-form.model';
 import { PublishStoryRequest } from '../models/requests/publish-story.model';
@@ -21,89 +21,98 @@ import { BaseIdModel } from '../../shared/models/base-id.model';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 
 @Component({
-  selector: 'app-publish-story',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormInputComponent,
-    FormTextareaComponent,
-    FormButtonComponent,
-    FormDateInputComponent,
-    NumberLimitControlComponent,
-    DividerModule,
-    UploadFileControlComponent,
-    FormMultiselectComponent,
-    MessageModule,
-    ProgressSpinnerModule
-  ],
-  templateUrl: './publish-story.component.html',
-  styleUrls: ['./publish-story.component.scss']
+    selector: 'app-publish-story',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormInputComponent,
+        FormTextareaComponent,
+        FormButtonComponent,
+        FormDateInputComponent,
+        NumberLimitControlComponent,
+        DividerModule,
+        UploadFileControlComponent,
+        FormMultiselectComponent,
+        MessageModule,
+        ProgressSpinnerModule,
+    ],
+    templateUrl: './publish-story.component.html',
+    styleUrls: ['./publish-story.component.scss'],
 })
 export class PublishStoryComponent implements OnInit {
-  publishForm: FormGroup<PublishFormModel>;
-  genres: GenreModel[] = [];
-  submitted: boolean = false;
-  globalError: string | null = null;
+    publishForm: FormGroup<PublishFormModel>;
+    genres: GenreModel[] = [];
+    submitted: boolean = false;
+    globalError: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private storyService: StoryService,
-    private router: Router) {
-    this.publishForm = this.fb.group<PublishFormModel>({
-      Title: this.fb.control<string | null>(null, Validators.required),
-      Description: this.fb.control<string | null>(null, Validators.required),
-      AuthorName: this.fb.control<string | null>(null, Validators.required),
-      Image: this.fb.control<string | null>(null, Validators.required),
-      Genres: this.fb.control<GenreModel[] | null>(null, Validators.required),
-      AgeLimit: this.fb.control<number | null>(null, [Validators.required, Validators.min(0), Validators.max(18)]),
-      DateWritten: this.fb.control<Date | null>(null, Validators.required)
-    });
-  }
-
-  ngOnInit() {
-    this.storyService.genreList().pipe(take(1)).subscribe((genres: GenreModel[]) => {
-      this.genres = genres;
-    });
-  }
-
-  get imageControl(): AbstractControl<any, any> | null {
-    return this.publishForm.get('Image');
-  }
-
-  get base64Image(): any {
-    return this.imageControl?.value;
-  }
-
-  onSubmit() {
-    if (!this.publishForm.valid) {
-      this.publishForm.markAllAsTouched();
-      return;
+    constructor(
+        private fb: FormBuilder,
+        private storyService: StoryService,
+        private router: Router
+    ) {
+        this.publishForm = this.fb.group<PublishFormModel>({
+            Title: this.fb.control<string | null>(null, Validators.required),
+            Description: this.fb.control<string | null>(null, Validators.required),
+            AuthorName: this.fb.control<string | null>(null, Validators.required),
+            Image: this.fb.control<string | null>(null, Validators.required),
+            Genres: this.fb.control<GenreModel[] | null>(null, Validators.required),
+            AgeLimit: this.fb.control<number | null>(null, [
+                Validators.required,
+                Validators.min(0),
+                Validators.max(18),
+            ]),
+            DateWritten: this.fb.control<Date | null>(null, Validators.required),
+        });
     }
 
-    this.submitted = true;
+    ngOnInit() {
+        this.storyService
+            .genreList()
+            .pipe(take(1))
+            .subscribe((genres: GenreModel[]) => {
+                this.genres = genres;
+            });
+    }
 
-    const formModel = this.publishForm.value;
+    get imageControl(): AbstractControl<any, any> | null {
+        return this.publishForm.get('Image');
+    }
 
-    const request: PublishStoryRequest = {
-      ...formModel,
-      GenreIds: formModel.Genres?.map(g => g.Id),
-      ImagePreview: formModel.Image
-    };
+    get base64Image(): any {
+        return this.imageControl?.value;
+    }
 
-    this.storyService.publish(request)
-      .pipe(take(1))
-      .subscribe({
-        next: (story: BaseIdModel) => {
-          this.router.navigate([NavigationConst.ModifyStory(story.Id)]);
-        },
-        error: (error) => {
-          if (error) {
-            this.globalError = 'Error occured while publishing the story, please try again later';
-          }
-
-          this.submitted = false;
+    onSubmit() {
+        if (!this.publishForm.valid) {
+            this.publishForm.markAllAsTouched();
+            return;
         }
-      });
-  }
+
+        this.submitted = true;
+
+        const formModel = this.publishForm.value;
+
+        const request: PublishStoryRequest = {
+            ...formModel,
+            GenreIds: formModel.Genres?.map((g) => g.Id),
+            ImagePreview: formModel.Image,
+        };
+
+        this.storyService
+            .publish(request)
+            .pipe(take(1))
+            .subscribe({
+                next: (story: BaseIdModel) => {
+                    this.router.navigate([NavigationConst.ModifyStory(story.Id)]);
+                },
+                error: (error) => {
+                    if (error) {
+                        this.globalError = 'Error occured while publishing the story, please try again later';
+                    }
+
+                    this.submitted = false;
+                },
+            });
+    }
 }

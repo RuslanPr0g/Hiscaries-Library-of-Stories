@@ -1,113 +1,113 @@
-@import "primeng/resources/themes/lara-dark-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
+@import 'primeng/resources/themes/lara-dark-blue/theme.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeicons/primeicons.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-@import "../node_modules/quill/dist/quill.core.css";
-@import "../node_modules/quill/dist/quill.snow.css";
+@import '../node_modules/quill/dist/quill.core.css';
+@import '../node_modules/quill/dist/quill.snow.css';
 
 *,
 ::after,
 ::before {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  background-image: linear-gradient(to top, rgba(0, 0, 0, .6), #1E1E1E);
-  background-size: 100% 100%;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: 0.05em;
-  margin: 0;
-  padding: 1em;
-  min-height: 100vh;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), #1e1e1e);
+    background-size: 100% 100%;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.05em;
+    margin: 0;
+    padding: 1em;
+    min-height: 100vh;
 }
 
 h1 {
-  font-size: 23px;
+    font-size: 23px;
 }
 
 label {
-  color: #fff;
+    color: #fff;
 }
 
 input {
-  background-color: #2e2e2e !important;
-  border: 1px solid #4e4e4e !important;
-  color: #fff;
+    background-color: #2e2e2e !important;
+    border: 1px solid #4e4e4e !important;
+    color: #fff;
 }
 
 .logo {
-  font-family: monospace, serif;
-  font-size: large;
-  font-weight: 800;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  cursor: pointer;
-  border: 1px solid #a78bfa;
-  border-radius: 5px;
-  color: #a78bfa;
+    font-family: monospace, serif;
+    font-size: large;
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid #a78bfa;
+    border-radius: 5px;
+    color: #a78bfa;
 
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
-  height: 45px;
-  margin: 0px 20px;
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    height: 45px;
+    margin: 0px 20px;
 }
 
 .text-main {
-  color: #a78bfa;
+    color: #a78bfa;
 }
 
 .fs-3rem {
-  font-size: 3rem;
+    font-size: 3rem;
 }
 
 .error-message {
-  color: red;
+    color: red;
 }
 
 .overlay {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1 !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1 !important;
 }
 
 .background-image-configuration {
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-  transition: all .5s ease;
-  transition: background-image 0.5s ease;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    transition: all 0.5s ease;
+    transition: background-image 0.5s ease;
 }
 
 .error {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 
-  margin-top: 1.5em;
-  color: red;
-  font-size: 1.5em;
+    margin-top: 1.5em;
+    color: red;
+    font-size: 1.5em;
 }
 
 .custom-form-field {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  gap: 0.5em;
-  margin-bottom: 1rem;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 0.5em;
+    margin-bottom: 1rem;
+    width: 100%;
 
-  &-centered {
-    justify-content: center;
-    align-items: center;
-  }
+    &-centered {
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 // add new styles here...
@@ -122,43 +122,43 @@ input {
 .p-dropdown-header,
 .p-dropdown-items,
 .p-dropdown-items li {
-  background-color: #2e2e2e !important;
-  border: 1px solid #4e4e4e !important;
-  color: #fff !important;
-
-  & button {
+    background-color: #2e2e2e !important;
+    border: 1px solid #4e4e4e !important;
     color: #fff !important;
-  }
+
+    & button {
+        color: #fff !important;
+    }
 }
 
 .p-dropdown {
-  min-width: 230px;
+    min-width: 230px;
 }
 
 p-dropdown {
-  width: 100%;
+    width: 100%;
 }
 
 .p-dropdown-items li span {
-  padding: 0.6rem;
+    padding: 0.6rem;
 }
 
 .p-multiselect {
-  min-width: 230px;
+    min-width: 230px;
 }
 
 .p-inputnumber input {
-  max-width: 130px !important;
+    max-width: 130px !important;
 }
 
 .p-multiselect-label {
-  max-width: 180px !important;
+    max-width: 180px !important;
 }
 
 .p-fileupload {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 // PRIME NG OVERRIDE ********************
@@ -166,144 +166,144 @@ p-dropdown {
 // SIGN IN FUNCTIONALITY ****************************
 
 .signin {
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
 
 .form {
-  width: 300px;
-  padding: 64px 15px 24px;
-  margin: 0 auto;
+    width: 300px;
+    padding: 64px 15px 24px;
+    margin: 0 auto;
 }
 
 .form .control {
-  margin: 0 0 24px;
+    margin: 0 0 24px;
 }
 
 .form .control input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  font-family: monospace, serif;
-  letter-spacing: 0.05em;
-  font-size: 16px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+    font-size: 16px;
 }
 
 .form .control input:hover,
 .form .control input:focus {
-  outline: none;
-  border: 0;
+    outline: none;
+    border: 0;
 }
 
 .form .btn {
-  width: 100%;
-  display: block;
-  padding: 14px 16px;
-  background: transparent;
-  outline: none;
-  border: 0;
-  color: #fff;
-  letter-spacing: 0.1em;
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 16px;
+    width: 100%;
+    display: block;
+    padding: 14px 16px;
+    background: transparent;
+    outline: none;
+    border: 0;
+    color: #fff;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 16px;
 
-  &:disabled {
-    cursor: not-allowed !important;
-    opacity: 0.5;
-    pointer-events: none;
-    color: gray;
-  }
+    &:disabled {
+        cursor: not-allowed !important;
+        opacity: 0.5;
+        pointer-events: none;
+        color: gray;
+    }
 }
 
 .block-cube {
-  position: relative;
+    position: relative;
 }
 
 .block-cube .bg-top {
-  position: absolute;
-  height: 10px;
-  background: #020024;
-  background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
-  bottom: 100%;
-  left: 5px;
-  right: -5px;
-  transform: skew(-45deg, 0);
-  margin: 0;
+    position: absolute;
+    height: 10px;
+    background: #020024;
+    background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
+    bottom: 100%;
+    left: 5px;
+    right: -5px;
+    transform: skew(-45deg, 0);
+    margin: 0;
 }
 
 .block-cube .bg-top .bg-inner {
-  bottom: 0;
+    bottom: 0;
 }
 
 .block-cube .bg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: #020024;
-  background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #020024;
+    background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
 }
 
 .block-cube .bg-right {
-  position: absolute;
-  background: #020024;
-  background: #00d4ff;
-  top: -5px;
-  z-index: 0;
-  bottom: 5px;
-  width: 10px;
-  left: 100%;
-  transform: skew(0, -45deg);
+    position: absolute;
+    background: #020024;
+    background: #00d4ff;
+    top: -5px;
+    z-index: 0;
+    bottom: 5px;
+    width: 10px;
+    left: 100%;
+    transform: skew(0, -45deg);
 }
 
 .block-cube .bg-right .bg-inner {
-  left: 0;
+    left: 0;
 }
 
 .block-cube .bg .bg-inner {
-  transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .block-cube .bg-inner {
-  background: #212121;
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
+    background: #212121;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
 }
 
 .block-cube .text {
-  position: relative;
-  z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 
 .block-cube.block-input input {
-  position: relative;
-  z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 
-.block-cube.block-input input:focus~.bg-right .bg-inner,
-.block-cube.block-input input:focus~.bg-top .bg-inner,
-.block-cube.block-input input:focus~.bg-inner .bg-inner {
-  top: 100%;
-  background: rgba(255, 255, 255, 0.5);
+.block-cube.block-input input:focus ~ .bg-right .bg-inner,
+.block-cube.block-input input:focus ~ .bg-top .bg-inner,
+.block-cube.block-input input:focus ~ .bg-inner .bg-inner {
+    top: 100%;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .block-cube.block-input .bg-top,
 .block-cube.block-input .bg-right,
 .block-cube.block-input .bg {
-  background: rgba(255, 255, 255, 0.5);
-  transition: background 0.2s ease-in-out;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.2s ease-in-out;
 }
 
 .block-cube.block-input .bg-right .bg-inner,
 .block-cube.block-input .bg-top .bg-inner {
-  transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .block-cube.block-input:focus .bg-top,
@@ -312,32 +312,32 @@ p-dropdown {
 .block-cube.block-input:hover .bg-top,
 .block-cube.block-input:hover .bg-right,
 .block-cube.block-input:hover .bg {
-  background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .block-cube.block-cube-hover:focus .bg .bg-inner,
 .block-cube.block-cube-hover:hover .bg .bg-inner {
-  top: 100%;
+    top: 100%;
 }
 
 .credits {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  padding: 15px 15px;
-  width: 100%;
-  z-index: 111;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 15px 15px;
+    width: 100%;
+    z-index: 111;
 }
 
 .credits a {
-  opacity: 0.6;
-  color: #fff;
-  font-size: 11px;
-  text-decoration: none;
+    opacity: 0.6;
+    color: #fff;
+    font-size: 11px;
+    text-decoration: none;
 }
 
 .credits a:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 // SIGN IN FUNCTIONALITY ****************************
@@ -345,23 +345,23 @@ p-dropdown {
 // PAGE CONTENT STYLES **************************************
 
 .content {
-  font-size: 1.3rem;
-  line-height: 30px;
-  font-family: 'Helvetica';
-  color: #E0E0E0;
+    font-size: 1.3rem;
+    line-height: 30px;
+    font-family: 'Helvetica';
+    color: #e0e0e0;
 }
 
 @media (max-width: 900px) {
-  .content {
-    font-size: 1rem;
-    line-height: 20px;
-  }
+    .content {
+        font-size: 1rem;
+        line-height: 20px;
+    }
 }
 
 // PAGE CONTENT STYLES **************************************
 
 @media (max-width: 900px) {
-  .fs-3rem {
-    font-size: 2rem;
-  }
+    .fs-3rem {
+        font-size: 2rem;
+    }
 }

@@ -1,83 +1,78 @@
-<div class="publish-story-container" [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }">
-  <div class="overlay" *ngIf="base64Image"></div>
-  
-  <h2>Publish New Story</h2>
-  
-  <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
-    <div class="form-controls half-width-form">
-      <app-form-input
-        [formGroup]="publishForm"
-        controlName="Title"
-        label="Title"
-        errorMessage="Title is required"
-      ></app-form-input>
+<div
+    class="publish-story-container"
+    [ngStyle]="{ 'background-image': base64Image ? 'url(' + base64Image + ')' : 'none' }"
+>
+    <div class="overlay" *ngIf="base64Image"></div>
 
-      <app-form-textarea
-        [formGroup]="publishForm"
-        controlName="Description"
-        label="Description"
-        errorMessage="Description is required"
-        [rows]="4"
-      ></app-form-textarea>
+    <h2>Publish New Story</h2>
 
-      <app-form-input
-        [formGroup]="publishForm"
-        controlName="AuthorName"
-        label="Author Name"
-        errorMessage="Author Name is required"
-      ></app-form-input>
+    <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
+        <div class="form-controls half-width-form">
+            <app-form-input
+                [formGroup]="publishForm"
+                controlName="Title"
+                label="Title"
+                errorMessage="Title is required"
+            ></app-form-input>
 
-      <div class="form-controls__same-line">
-        <app-number-limit-control
-          [formGroup]="publishForm"
-          controlName="AgeLimit"
-          label="Age Limit"
-          errorMessage="Age Limit is required and must be between 0 and 18"
-          [min]="0"
-          [max]="18"
-          [step]="1"
-          [centered]="true"
-        ></app-number-limit-control>
+            <app-form-textarea
+                [formGroup]="publishForm"
+                controlName="Description"
+                label="Description"
+                errorMessage="Description is required"
+                [rows]="4"
+            ></app-form-textarea>
 
-        <app-form-date-input
-          [formGroup]="publishForm"
-          controlName="DateWritten"
-          label="Date Written"
-          errorMessage="Date Written is required"
-          [centered]="true"
-          ></app-form-date-input>
-      </div>
+            <app-form-input
+                [formGroup]="publishForm"
+                controlName="AuthorName"
+                label="Author Name"
+                errorMessage="Author Name is required"
+            ></app-form-input>
 
-      <ng-container *ngIf="genres && genres.length > 0">
-        <app-form-multiselect
-          [formGroup]="publishForm"
-          [items]="genres"
-          controlName="Genres"
-        ></app-form-multiselect>
-      </ng-container>
+            <div class="form-controls__same-line">
+                <app-number-limit-control
+                    [formGroup]="publishForm"
+                    controlName="AgeLimit"
+                    label="Age Limit"
+                    errorMessage="Age Limit is required and must be between 0 and 18"
+                    [min]="0"
+                    [max]="18"
+                    [step]="1"
+                    [centered]="true"
+                ></app-number-limit-control>
 
-      <app-upload-file-control
-        [control]="imageControl"
-      ></app-upload-file-control>
+                <app-form-date-input
+                    [formGroup]="publishForm"
+                    controlName="DateWritten"
+                    label="Date Written"
+                    errorMessage="Date Written is required"
+                    [centered]="true"
+                ></app-form-date-input>
+            </div>
 
-      <p-divider layout="horizontal" />
+            <ng-container *ngIf="genres && genres.length > 0">
+                <app-form-multiselect
+                    [formGroup]="publishForm"
+                    [items]="genres"
+                    controlName="Genres"
+                ></app-form-multiselect>
+            </ng-container>
 
-      <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
+            <app-upload-file-control [control]="imageControl"></app-upload-file-control>
 
-      <p-divider layout="horizontal" *ngIf="globalError" />
+            <p-divider layout="horizontal" />
 
-      <ng-container *ngIf="submitted; else submit">
-        <p-progressSpinner 
-          styleClass="w-4rem h-4rem"
-          strokeWidth="8" 
-          animationDuration=".5s" />
-      </ng-container>
-      <ng-template #submit>
-        <app-form-button
-          label="Publish Story"
-          (onClick)="onSubmit()"
-        ></app-form-button>
-      </ng-template>
-    </div>
-  </form>
+            <p-message severity="error" [text]="globalError" *ngIf="globalError"></p-message>
+
+            <p-divider layout="horizontal" *ngIf="globalError" />
+
+            <ng-container *ngIf="submitted; else submit">
+                <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+            </ng-container>
+            <ng-template #submit>
+                <app-form-button label="Publish Story" (onClick)="onSubmit()"></app-form-button>
+            </ng-template>
+        </div>
+    </form>
 </div>

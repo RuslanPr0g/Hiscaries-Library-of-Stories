@@ -3,5 +3,5 @@ export interface UserStateModel {
 }
 
 export const InitialUserStateModel: UserStateModel = {
-    Username: undefined
+    Username: undefined,
 };

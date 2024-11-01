@@ -1,5 +1,5 @@
-import { UserModel } from "../../../users/models/domain/user.model";
-import { GenreModel } from "./genre.model";
+import { UserModel } from '../../../users/models/domain/user.model';
+import { GenreModel } from './genre.model';
 
 export interface StoryModel {
     Id: string;

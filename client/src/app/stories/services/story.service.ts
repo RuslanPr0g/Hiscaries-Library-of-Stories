@@ -11,34 +11,34 @@ import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { SearchStoryWithContentsRequest } from '../models/requests/search-story-with-contents.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class StoryService {
-  private apiUrl = `${environment.apiUrl}/stories`;
+    private apiUrl = `${environment.apiUrl}/stories`;
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
-  genreList(): Observable<GenreModel[]> {
-    return this.http.get<GenreModel[]>(`${this.apiUrl}/genres`);
-  }
+    genreList(): Observable<GenreModel[]> {
+        return this.http.get<GenreModel[]>(`${this.apiUrl}/genres`);
+    }
 
-  recommendations(): Observable<StoryModel[]> {
-    return this.http.get<StoryModel[]>(`${this.apiUrl}/recommendations`);
-  }
+    recommendations(): Observable<StoryModel[]> {
+        return this.http.get<StoryModel[]>(`${this.apiUrl}/recommendations`);
+    }
 
-  searchStory(request: SearchStoryRequest): Observable<StoryModel[]> {
-    return this.http.post<StoryModel[]>(`${this.apiUrl}/search`, request);
-  }
+    searchStory(request: SearchStoryRequest): Observable<StoryModel[]> {
+        return this.http.post<StoryModel[]>(`${this.apiUrl}/search`, request);
+    }
 
-  getStoryByIdWithContents(request: SearchStoryWithContentsRequest): Observable<StoryModelWithContents> {
-    return this.http.post<StoryModelWithContents>(`${this.apiUrl}/by-id-with-contents`, request);
-  }
+    getStoryByIdWithContents(request: SearchStoryWithContentsRequest): Observable<StoryModelWithContents> {
+        return this.http.post<StoryModelWithContents>(`${this.apiUrl}/by-id-with-contents`, request);
+    }
 
-  publish(request: PublishStoryRequest): Observable<BaseIdModel> {
-    return this.http.post<BaseIdModel>(`${this.apiUrl}`, request);
-  }
+    publish(request: PublishStoryRequest): Observable<BaseIdModel> {
+        return this.http.post<BaseIdModel>(`${this.apiUrl}`, request);
+    }
 
-  modify(request: ModifyStoryRequest): Observable<void> {
-    return this.http.patch<void>(`${this.apiUrl}`, request);
-  }
+    modify(request: ModifyStoryRequest): Observable<void> {
+        return this.http.patch<void>(`${this.apiUrl}`, request);
+    }
 }
