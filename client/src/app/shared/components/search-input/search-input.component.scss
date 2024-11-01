@@ -210,3 +210,17 @@ body {
         opacity: 0;
     }
 }
+
+@media (max-width: 1000px) {
+    .search-bar {
+        width: 300px;
+    }
+}
+
+@media (max-width: 900px) {
+    :host {
+        left: auto;
+        right: 0;
+        width: fit-content;
+    }
+}

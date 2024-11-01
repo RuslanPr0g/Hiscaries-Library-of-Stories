@@ -50,7 +50,7 @@ export class SearchStoryRecommendationsComponent implements OnInit {
         this._stories.splice(0, this._chunkSize);
 
         if (this._stories.length < 12) {
-            this.fetchRecommendations();
+            this.fetchRecommendations(false);
         }
 
         setTimeout(() => {
@@ -60,8 +60,8 @@ export class SearchStoryRecommendationsComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    private fetchRecommendations(): void {
-        this.isLoading = true;
+    private fetchRecommendations(shouldSetLoading: boolean = true): void {
+        this.isLoading = shouldSetLoading;
 
         this.storyService
             .recommendations()
