@@ -53,11 +53,6 @@ The following steps outline the server refactoring process:
 16. **Audit Fields**  
     - Add audit fields (e.g., `CreatedAt`, `UpdatedAt`) for all entities.
 
-17. **Image Storage**  
-    - For image uploads (e.g., story preview images):  
-    - Store images locally or on the cloud, not in the DB as blobs.  
-    - Return URLs for image access when delivering to the client.
-
 18. **Pagination**  
     - Add pagination for large datasets (e.g., search results).
 
