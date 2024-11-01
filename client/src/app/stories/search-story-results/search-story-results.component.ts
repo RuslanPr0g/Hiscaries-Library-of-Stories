@@ -19,8 +19,13 @@ export class SearchStoryResultsComponent implements OnInit {
     private _stories: StoryModel[] = [];
     private readonly _chunkSize: number = 6;
     private _isCooldown: boolean = false;
+    private _storiesLoaded: boolean = false;
 
-    @Input() initialStories: StoryModel[] = [];
+    @Input() set initialStories(value: StoryModel[]) {
+        this._stories = value;
+        this._storiesLoaded = true;
+    }
+
     @Input() isCarousel: boolean = false;
 
     responsiveOptions: CarouselResponsiveOptions[] | undefined;
@@ -28,13 +33,43 @@ export class SearchStoryResultsComponent implements OnInit {
     constructor(private storyService: StoryService) {}
 
     ngOnInit(): void {
-        console.warn(this.initialStories);
-        this._stories = this.initialStories.length > 0 ? this.initialStories : [];
-        if (this._stories.length === 0) {
+        if (this._stories.length === 0 && !this._storiesLoaded) {
             this.fetchRecommendations();
         }
 
         this.initializeResponsiveOptions();
+    }
+
+    get shouldShowMoreButton(): boolean {
+        return this.displayedStories && this.displayedStories.length > 0 && !this._storiesLoaded;
+    }
+
+    get isCooldownActive(): boolean {
+        return this._isCooldown;
+    }
+
+    get displayedStories(): StoryModel[] {
+        return this._stories.slice(0, this._chunkSize);
+    }
+
+    showMore(): void {
+        if (this._isCooldown) {
+            return;
+        }
+
+        this._isCooldown = true;
+
+        this._stories.splice(0, this._chunkSize);
+
+        if (this._stories.length < 12) {
+            this.fetchRecommendations();
+        }
+
+        setTimeout(() => {
+            this._isCooldown = false;
+        }, 3000);
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     private fetchRecommendations(): void {
@@ -64,33 +99,5 @@ export class SearchStoryResultsComponent implements OnInit {
                 numScroll: 1,
             },
         ];
-    }
-
-    get isCooldownActive(): boolean {
-        return this._isCooldown;
-    }
-
-    get displayedStories(): StoryModel[] {
-        return this._stories.slice(0, this._chunkSize);
-    }
-
-    showMore(): void {
-        if (this._isCooldown) {
-            return;
-        }
-
-        this._isCooldown = true;
-
-        this._stories.splice(0, this._chunkSize);
-
-        if (this._stories.length < 12) {
-            this.fetchRecommendations();
-        }
-
-        setTimeout(() => {
-            this._isCooldown = false;
-        }, 3000);
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
