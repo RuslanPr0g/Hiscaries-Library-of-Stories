@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonOneComponent {
     @Input() label?: string;
+    @Input() disabled?: boolean;
     @Output() clickAction = new EventEmitter<void>();
 
     click(): void {

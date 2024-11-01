@@ -35,6 +35,7 @@
         </div>
         <app-button-one
             [label]="'Show More'"
+            [disabled]="isCooldownActive"
             (clickAction)="showMore()"
         ></app-button-one>
     </div>

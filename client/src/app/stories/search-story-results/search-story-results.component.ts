@@ -18,6 +18,7 @@ import { ButtonOneComponent } from '../../shared/components/button-one/button-on
 export class SearchStoryResultsComponent implements OnInit {
     private _stories: StoryModel[] = [];
     private readonly _chunkSize: number = 6;
+    private _isCooldown: boolean = false;
 
     @Input() initialStories: StoryModel[] = [];
     @Input() isCarousel: boolean = false;
@@ -64,15 +65,29 @@ export class SearchStoryResultsComponent implements OnInit {
         ];
     }
 
+    get isCooldownActive(): boolean {
+        return this._isCooldown;
+    }
+
     get displayedStories(): StoryModel[] {
         return this._stories.slice(0, this._chunkSize);
     }
 
     showMore(): void {
+        if (this._isCooldown) {
+            return;
+        }
+
+        this._isCooldown = true;
+
         this._stories.splice(0, this._chunkSize);
 
         if (this._stories.length < 12) {
             this.fetchRecommendations();
         }
+
+        setTimeout(() => {
+            this._isCooldown = false;
+        }, 3000);
     }
 }
