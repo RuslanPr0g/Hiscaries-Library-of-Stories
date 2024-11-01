@@ -44,8 +44,8 @@ export class UserService {
     }
 
     isAuthenticated(): boolean {
-        let token = localStorage.getItem(this.access_token_local_storage_key);
-        let authenticated = token != null && !this.jwtHelper.isTokenExpired(token);
+        const token = localStorage.getItem(this.access_token_local_storage_key);
+        const authenticated = token != null && !this.jwtHelper.isTokenExpired(token);
         if (!authenticated) {
             this.logOut();
             return false;
