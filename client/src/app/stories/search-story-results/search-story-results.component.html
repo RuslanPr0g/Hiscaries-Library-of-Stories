@@ -34,6 +34,7 @@
             </ng-template>
         </div>
         <app-button-one
+            *ngIf="displayedStories && displayedStories.length > 0"
             [label]="'Show More'"
             [disabled]="isCooldownActive"
             (clickAction)="showMore()"

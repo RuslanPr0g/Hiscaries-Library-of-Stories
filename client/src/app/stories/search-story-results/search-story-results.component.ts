@@ -89,5 +89,7 @@ export class SearchStoryResultsComponent implements OnInit {
         setTimeout(() => {
             this._isCooldown = false;
         }, 3000);
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }

@@ -53,31 +53,33 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
         return await _context.Stories
             .Include(x => x.Publisher)
+            .Include(x => x.Contents)
+            .Where(x => x.Contents.Any())
             .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
             .ToListAsync();
 
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+        //var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
-        var historyOfTheUser = user.ReadHistory;
+        //var historyOfTheUser = user.ReadHistory;
 
-        var rnd = new Random(user.Username.Length);
+        //var rnd = new Random(user.Username.Length);
 
-        var randomStory = historyOfTheUser.Skip(rnd.Next(0, historyOfTheUser.Count - 1)).Take(1).Single();
+        //var randomStory = historyOfTheUser.Skip(rnd.Next(0, historyOfTheUser.Count - 1)).Take(1).Single();
 
-        var splitTitleInWords = randomStory.Story.Title.Trim().Split(' ');
+        //var splitTitleInWords = randomStory.Story.Title.Trim().Split(' ');
 
-        var randomWordFromTitle = splitTitleInWords.Skip(rnd.Next(0, splitTitleInWords.Length - 1)).Take(1).Single();
+        //var randomWordFromTitle = splitTitleInWords.Skip(rnd.Next(0, splitTitleInWords.Length - 1)).Take(1).Single();
 
-        var randomSearchTerm = randomWordFromTitle.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Trim();
+        //var randomSearchTerm = randomWordFromTitle.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Trim();
 
-        var genresCount = randomStory.Story.Genres.Count;
+        //var genresCount = randomStory.Story.Genres.Count;
 
-        var randomStoryGenre = randomStory.Story.Genres.Skip(rnd.Next(0, genresCount - 1)).Take(1).FirstOrDefault()?.Name;
+        //var randomStoryGenre = randomStory.Story.Genres.Skip(rnd.Next(0, genresCount - 1)).Take(1).FirstOrDefault()?.Name;
 
-        var allGenresCount = await _context.Genres.CountAsync();
+        //var allGenresCount = await _context.Genres.CountAsync();
 
-        randomStoryGenre ??= (await _context.Genres.Skip(rnd.Next(0, allGenresCount - 1)).Take(1).SingleOrDefaultAsync()).Name;
+        //randomStoryGenre ??= (await _context.Genres.Skip(rnd.Next(0, allGenresCount - 1)).Take(1).SingleOrDefaultAsync()).Name;
 
-        return await GetStoriesBy(randomSearchTerm ?? randomStoryGenre, randomStoryGenre);
+        //return await GetStoriesBy(randomSearchTerm ?? randomStoryGenre, randomStoryGenre);
     }
 }
