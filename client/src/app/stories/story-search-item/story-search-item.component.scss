@@ -20,6 +20,7 @@ $border-color: #444;
         box-shadow 0.3s ease;
     user-select: none;
     cursor: pointer !important;
+    max-height: 350px;
 
     &:hover {
         transform: scale(1.01);
