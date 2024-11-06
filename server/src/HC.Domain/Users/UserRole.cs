@@ -1,5 +1,4 @@
 ﻿using System;
-using static HC.Domain.Users.UserRole;
 
 namespace HC.Domain.Users;
 
@@ -28,12 +27,5 @@ public sealed record class UserRole : IValueObject<UserRoleEnum>
 
     private UserRole()
     {
-    }
-
-    public enum UserRoleEnum
-    {
-        Reader,
-        Publisher,
-        Admin
     }
 }
