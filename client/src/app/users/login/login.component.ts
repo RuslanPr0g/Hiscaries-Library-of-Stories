@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { AuthFormComponent } from './auth-form/auth-form.component';
 import { AuthInputComponent } from './auth-input/auth-input.component';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     submitted: boolean = false;
 
     constructor(
-        private service: UserService,
+        private service: AuthService,
         private router: Router
     ) {
         this.formlogin = new FormGroup({

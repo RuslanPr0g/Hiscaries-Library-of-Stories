@@ -19,7 +19,7 @@ import { ModifyFormModel } from '../models/form/modify-story-form.model';
 import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { StoryModelWithContents } from '../models/domain/story-model';
 import { NavigationConst } from '../../shared/constants/navigation.const';
-import { UserService } from '../../users/services/user.service';
+import { AuthService } from '../../users/services/auth.service';
 import { ContentBuilderComponent } from './content-builder/content-builder.component';
 import { TabViewModule } from 'primeng/tabview';
 
@@ -60,7 +60,7 @@ export class ModifyStoryComponent implements OnInit {
         private route: ActivatedRoute,
         private fb: FormBuilder,
         private storyService: StoryService,
-        private userService: UserService,
+        private userService: AuthService,
         private router: Router
     ) {
         this.modifyForm = this.fb.group<ModifyFormModel>({

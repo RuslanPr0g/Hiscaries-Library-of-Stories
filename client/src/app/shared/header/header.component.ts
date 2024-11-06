@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { UserService } from '../../users/services/user.service';
+import { AuthService } from '../../users/services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -23,7 +23,7 @@ export class HeaderComponent {
     @Output() commandExecuted = new EventEmitter<void>();
 
     constructor(
-        public userService: UserService,
+        public userService: AuthService,
         private router: Router
     ) {
         this.items = [

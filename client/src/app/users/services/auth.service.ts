@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
     providedIn: 'root',
 })
-export class UserService {
+export class AuthService {
     private apiUrl: string = `${environment.apiUrl}/users`;
     private access_token_local_storage_key: string = environment.localStorageKeys.ACCESS_TOKEN_KEY;
     private refresh_token_local_storage_key: string = environment.localStorageKeys.REFRESH_TOKEN_KEY;

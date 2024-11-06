@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
-import { UserService } from './users/services/user.service';
+import { AuthService } from './users/services/auth.service';
 import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 
 @Component({
@@ -32,7 +32,7 @@ export class AppComponent {
 
     constructor(
         private router: Router,
-        public userService: UserService
+        public userService: AuthService
     ) {}
 
     ngOnInit() {
