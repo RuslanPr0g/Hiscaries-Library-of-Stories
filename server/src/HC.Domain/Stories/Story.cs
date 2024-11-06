@@ -175,18 +175,17 @@ public sealed class Story : AggregateRoot<StoryId>
     public void SetAudio(
         StoryAudioId storyAudioId,
         Guid fileId,
-        DateTime updatedAt,
         string name)
     {
         var audio = Audios.FirstOrDefault();
 
         if (audio is not null)
         {
-            audio.UpdateInformation(fileId, name, updatedAt);
+            audio.UpdateInformation(fileId, name);
         }
         else
         {
-            Audios.Add(StoryAudio.Create(storyAudioId, updatedAt, name));
+            Audios.Add(StoryAudio.Create(storyAudioId, name));
         }
     }
 
