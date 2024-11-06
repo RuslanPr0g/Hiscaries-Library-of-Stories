@@ -286,7 +286,7 @@ namespace HC.Persistence.Context.Migrations
                     b.Property<Guid>("RefreshTokenId")
                         .HasColumnType("uuid");
 
-                    b.Property<UserRole.UserRoleEnum>("Role")
+                    b.Property<UserRoleEnum>("Role")
                         .HasColumnType("integer");
 
                     b.Property<string>("Username")
