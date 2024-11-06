@@ -22,7 +22,7 @@ public static class DIExtensions
 
         builder.Services.AddHttpContextAccessor();
 
-        builder.Services.AddJwtBearerSupportAlongWithSwaggerSupport(jwtSettings);
+        builder.Services.AddJwtBearerSupport(jwtSettings);
 
         return builder;
     }
