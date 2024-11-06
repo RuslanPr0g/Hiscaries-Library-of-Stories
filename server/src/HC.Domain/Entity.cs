@@ -1,9 +1,15 @@
 ﻿using HC.Domain;
 using System;
 
-public abstract class Entity<T> : IEquatable<Entity<T>> where T : Identity
+public abstract class Entity<T> :
+    IAuditableEntity,
+    IEquatable<Entity<T>> where T : Identity
 {
     public T Id { get; init; }
+
+    public DateTime CreatedAt { get; set; }
+    public DateTime EditedAt { get; set; }
+    public int Version { get; set; }
 
     protected Entity(T id)
     {

@@ -1,5 +1,4 @@
 ﻿using HC.Domain.Users;
-using System;
 
 namespace HC.Domain.Stories;
 
@@ -10,14 +9,11 @@ public class Comment : Entity<CommentId>
         StoryId story,
         UserId user,
         string content,
-        DateTime commentedAt,
         int score) : base(id)
     {
         StoryId = story;
         UserId = user;
         Content = content;
-        CommentedAt = commentedAt;
-        UpdatedAt = commentedAt;
         Score = score;
     }
 
@@ -26,14 +22,12 @@ public class Comment : Entity<CommentId>
         StoryId story,
         UserId user,
         string content,
-        DateTime commentedAt,
-        int score) => new(id, story, user, content, commentedAt, score);
+        int score) => new(id, story, user, content, score);
 
-    internal void UpdateContent(string content, int score, DateTime updatedAt)
+    internal void UpdateContent(string content, int score)
     {
         Content = content;
         Score = score;
-        UpdatedAt = updatedAt;
     }
 
     public StoryId StoryId { get; init; }
@@ -43,8 +37,6 @@ public class Comment : Entity<CommentId>
 
     public string Content { get; private set; }
     public int Score { get; private set; }
-    public DateTime CommentedAt { get; init; }
-    public DateTime UpdatedAt { get; private set; }
 
     protected Comment()
     {

@@ -16,7 +16,6 @@ public sealed class Story : AggregateRoot<StoryId>
         string? imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
-        DateTime datePublished,
         DateTime dateWritten) : base(id)
     {
         Id = id;
@@ -26,8 +25,6 @@ public sealed class Story : AggregateRoot<StoryId>
         AuthorName = authorName;
         Genres = genres;
         AgeLimit = ageLimit;
-        DatePublished = datePublished;
-        DateEdited = datePublished;
         DateWritten = dateWritten;
 
         ImagePreviewUrl = imagePreviewUrl;
@@ -42,7 +39,6 @@ public sealed class Story : AggregateRoot<StoryId>
         string? imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
-        DateTime datePublished,
         DateTime dateWritten) => new(
             id,
             publisher,
@@ -52,7 +48,6 @@ public sealed class Story : AggregateRoot<StoryId>
             imagePreviewUrl,
             genres,
             ageLimit,
-            datePublished,
             dateWritten);
 
     public UserId PublisherId { get; init; }
@@ -67,15 +62,13 @@ public sealed class Story : AggregateRoot<StoryId>
     public string Description { get; private set; }
     public string AuthorName { get; private set; }
     public int AgeLimit { get; private set; }
-    public DateTime DatePublished { get; private set; }
-    public DateTime DateEdited { get; private set; }
     public DateTime DateWritten { get; private set; }
 
     public string? ImagePreviewUrl { get; private set; }
 
-    public void AddComment(CommentId commentId, UserId userId, string content, int score, DateTime commentedAt)
+    public void AddComment(CommentId commentId, UserId userId, string content, int score)
     {
-        Comments.Add(Comment.Create(commentId, Id, userId, content, commentedAt, score));
+        Comments.Add(Comment.Create(commentId, Id, userId, content, score));
     }
 
     public void SetScoreByUser(UserId userId, int score, StoryRatingId ratingId)
@@ -102,13 +95,13 @@ public sealed class Story : AggregateRoot<StoryId>
         }
     }
 
-    public void UpdateComment(CommentId commentId, string content, int score, DateTime updatedAt)
+    public void UpdateComment(CommentId commentId, string content, int score)
     {
         var comment = Comments.FirstOrDefault(x => x.Id == commentId);
 
         if (comment is not null)
         {
-            comment.UpdateContent(content, score, updatedAt);
+            comment.UpdateContent(content, score);
         }
     }
 
@@ -119,14 +112,12 @@ public sealed class Story : AggregateRoot<StoryId>
         string? imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
-        DateTime dateEdited,
         DateTime dateWritten)
     {
         Title = title;
         Description = description;
         AuthorName = authorName;
         AgeLimit = ageLimit;
-        DateEdited = dateEdited;
         DateWritten = dateWritten;
 
         ImagePreviewUrl = imagePreviewUrl;
@@ -144,7 +135,6 @@ public sealed class Story : AggregateRoot<StoryId>
         if (Contents is null || Contents.Count == 0)
         {
             Contents = [.. newContents.Select((content, index) => new StoryPage(Id, index, content))];
-            DateEdited = editedAt;
             return;
         }
 
@@ -173,8 +163,6 @@ public sealed class Story : AggregateRoot<StoryId>
         {
             Contents.RemoveRange(currentIndex, Contents.Count - currentIndex);
         }
-
-        DateEdited = editedAt;
     }
 
     public Guid? ClearAllAudio()

@@ -11,32 +11,26 @@ public sealed class StoryAudio : Entity<StoryAudioId>
 {
     private StoryAudio(
         StoryAudioId id,
-        DateTime dateAdded,
         string name) : base(id)
     {
         ArgumentNullException.ThrowIfNull(name);
 
         FileId = id.Value;
-        CreatedAt = dateAdded;
         Name = name;
     }
 
     public static StoryAudio Create(
         StoryAudioId id,
-        DateTime dateAdded,
         string name) =>
-        new(id, dateAdded, name);
+        new(id, name);
 
-    internal void UpdateInformation(Guid fileId, string name, DateTime updatedAt)
+    internal void UpdateInformation(Guid fileId, string name)
     {
         FileId = fileId;
         Name = name;
-        UpdatedAt = updatedAt;
     }
 
     public Guid FileId { get; private set; }
-    public DateTime CreatedAt { get; init; }
-    public DateTime UpdatedAt { get; private set; }
     public string Name { get; private set; }
 
     protected StoryAudio()

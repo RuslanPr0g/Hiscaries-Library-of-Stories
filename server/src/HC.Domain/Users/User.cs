@@ -12,13 +12,11 @@ public sealed class User : AggregateRoot<UserId>
         string username,
         string email,
         string password,
-        DateTime accountCreated,
         DateTime birthDate) : base(id)
     {
         Username = username;
         Email = email;
         Password = password;
-        AccountCreated = accountCreated;
         BirthDate = birthDate;
 
         Banned = false;
@@ -28,7 +26,6 @@ public sealed class User : AggregateRoot<UserId>
     public string Username { get; private set; }
     public string Email { get; private set; }
     public string Password { get; private set; }
-    public DateTime AccountCreated { get; init; }
     public DateTime BirthDate { get; private set; }
     public bool Banned { get; init; }
 
@@ -41,7 +38,7 @@ public sealed class User : AggregateRoot<UserId>
     public ICollection<UserReadHistory> ReadHistory { get; }
     public ICollection<UserStoryBookMark> BookMarks { get; }
 
-    public void ReadStoryPage(StoryId storyId, int page, DateTime readDate, UserReadHistoryId generatedHistoryPageId)
+    public void ReadStoryPage(StoryId storyId, int page, UserReadHistoryId generatedHistoryPageId)
     {
         var historyItem = ReadHistory.FirstOrDefault(x => x.StoryId == storyId);
 
@@ -51,7 +48,7 @@ public sealed class User : AggregateRoot<UserId>
         }
         else
         {
-            ReadHistory.Add(new UserReadHistory(generatedHistoryPageId, Id, storyId, readDate, page));
+            ReadHistory.Add(new UserReadHistory(generatedHistoryPageId, Id, storyId, page));
         }
     }
 
@@ -148,11 +145,11 @@ public sealed class User : AggregateRoot<UserId>
         Password = password;
     }
 
-    public void BookmarkStory(UserStoryBookMarkId id, StoryId storyId, DateTime updatedAt)
+    public void BookmarkStory(UserStoryBookMarkId id, StoryId storyId)
     {
         if (!BookMarks.Any(x => x.StoryId == storyId))
         {
-            BookMarks.Add(new UserStoryBookMark(id, Id, storyId, updatedAt));
+            BookMarks.Add(new UserStoryBookMark(id, Id, storyId));
         }
     }
 

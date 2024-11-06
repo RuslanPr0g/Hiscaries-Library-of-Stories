@@ -22,6 +22,9 @@ public static class ConfigurationExtensions
         {
             builder.Property(u => u.Id).HasConversion(converter).HasValueGenerator<GuidValueGenerator>();
         }
+        builder.Property(u => u.Version).IsRequired();
+        builder.Property(u => u.CreatedAt).IsRequired();
+        builder.Property(u => u.EditedAt).IsRequired();
         return builder;
     }
 }

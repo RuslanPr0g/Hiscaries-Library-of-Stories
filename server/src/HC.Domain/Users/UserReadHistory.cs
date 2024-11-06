@@ -1,5 +1,4 @@
 ﻿using HC.Domain.Stories;
-using System;
 
 namespace HC.Domain.Users;
 
@@ -9,13 +8,11 @@ public sealed class UserReadHistory : Entity<UserReadHistoryId>
         UserReadHistoryId id,
         UserId user,
         StoryId story,
-        DateTime dateRead,
         int pageRead) : base(id)
     {
         Id = id;
         UserId = user;
         StoryId = story;
-        DateLastRead = dateRead;
         LastPageRead = pageRead;
 
         SoftDeleted = false;
@@ -24,7 +21,6 @@ public sealed class UserReadHistory : Entity<UserReadHistoryId>
     public UserId UserId { get; init; }
     public StoryId StoryId { get; init; }
     public Story Story { get; }
-    public DateTime DateLastRead { get; init; }
     public int LastPageRead { get; private set; }
     public bool SoftDeleted { get; init; }
 
