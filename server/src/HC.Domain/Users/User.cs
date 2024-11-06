@@ -20,7 +20,7 @@ public sealed class User : AggregateRoot<UserId>
         BirthDate = birthDate;
 
         Banned = false;
-        Role = new UserRole(UserRole.UserRoleEnum.Reader);
+        Role = new UserRole(UserRoleEnum.Reader);
     }
 
     public string Username { get; private set; }
@@ -56,7 +56,7 @@ public sealed class User : AggregateRoot<UserId>
     {
         if (Role.IsReader)
         {
-            Role = new UserRole(UserRole.UserRoleEnum.Publisher);
+            Role = new UserRole(UserRoleEnum.Publisher);
         }
     }
 
