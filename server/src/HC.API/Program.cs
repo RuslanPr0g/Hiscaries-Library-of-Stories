@@ -84,4 +84,9 @@ app.MapUserEndpoints();
 
 app.MapStoryEndpoints();
 
+if (app.Environment.IsDevelopment())
+{
+    app.MapContentGenerationEndpoints();
+}
+
 app.Run();
