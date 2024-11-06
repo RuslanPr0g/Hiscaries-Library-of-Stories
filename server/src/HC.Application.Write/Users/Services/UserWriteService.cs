@@ -54,8 +54,7 @@ public sealed class UserWriteService : IUserWriteService
 
         user.BookmarkStory(
             _idGenerator.Generate((id) => new UserStoryBookMarkId(id)),
-            command.StoryId,
-            DateTime.UtcNow);
+            command.StoryId);
 
         _logger.LogInformation("Successfully bookmarked story {StoryId} for user {UserId}", command.StoryId, command.UserId);
         return OperationResult.CreateSuccess();
@@ -75,7 +74,6 @@ public sealed class UserWriteService : IUserWriteService
         user.ReadStoryPage(
             command.StoryId,
             command.Page,
-            DateTime.UtcNow,
             _idGenerator.Generate((id) => new UserReadHistoryId(id)));
 
         _logger.LogInformation("Successfully recorded read story history for user {UserId}, story {StoryId}, page {Page}", command.UserId, command.StoryId, command.Page);
@@ -250,8 +248,7 @@ public sealed class UserWriteService : IUserWriteService
             command.Username,
             command.Email,
             encryptedpassword,
-            DateTime.UtcNow,
-            DateTime.UtcNow
+            command.BirthDate
             );
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =

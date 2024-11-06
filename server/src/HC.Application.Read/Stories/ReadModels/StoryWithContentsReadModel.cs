@@ -23,7 +23,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             Description = story.Description,
             AuthorName = story.AuthorName,
             AgeLimit = story.AgeLimit,
-            DatePublished = story.DatePublished,
+            DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),

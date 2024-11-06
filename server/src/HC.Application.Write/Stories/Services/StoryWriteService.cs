@@ -46,7 +46,7 @@ public sealed class StoryWriteService : IStoryWriteService
         }
 
         var commentId = _idGenerator.Generate((id) => new CommentId(id));
-        story.AddComment(commentId, command.UserId, command.Content, command.Score, DateTime.UtcNow);
+        story.AddComment(commentId, command.UserId, command.Content, command.Score);
         _logger.LogInformation("Comment {CommentId} added to story {StoryId}", commentId, command.StoryId);
 
         return OperationResult.CreateSuccess();
@@ -110,7 +110,7 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
-        story.UpdateComment(command.CommentId, command.Content, command.Score, DateTime.UtcNow);
+        story.UpdateComment(command.CommentId, command.Content, command.Score);
         _logger.LogInformation("Comment {CommentId} updated for story {StoryId}", command.CommentId, command.StoryId);
 
         return OperationResult.CreateSuccess();
@@ -134,7 +134,6 @@ public sealed class StoryWriteService : IStoryWriteService
             imagePreviewUrl,
             existingGenres,
             command.AgeLimit,
-            DateTime.UtcNow,
             command.DateWritten);
 
         await _repository.AddStory(story);
@@ -174,14 +173,11 @@ public sealed class StoryWriteService : IStoryWriteService
             imagePreviewUrl,
             existingGenres,
             command.AgeLimit,
-            DateTime.UtcNow,
             DateTime.SpecifyKind(command.DateWritten, DateTimeKind.Utc));
 
         if (command.Contents is not null && command.Contents.Any())
         {
-            // TODO: add wrapper around datetime.
-            var editedAt = DateTime.UtcNow;
-            story.ModifyContents(command.Contents, editedAt);
+            story.ModifyContents(command.Contents);
         }
 
         _logger.LogInformation("Story {StoryId} updated successfully", command.StoryId);
@@ -201,7 +197,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
         Guid fileId = Guid.NewGuid();
         var audioId = _idGenerator.Generate((id) => new StoryAudioId(id));
-        story.SetAudio(audioId, fileId, DateTime.UtcNow, command.Name);
+        story.SetAudio(audioId, fileId, command.Name);
 
         try
         {

@@ -25,7 +25,7 @@ public class StorySimpleReadModel
             Description = story.Description,
             AuthorName = story.AuthorName,
             AgeLimit = story.AgeLimit,
-            DatePublished = story.DatePublished,
+            DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             IsEditable = story.Publisher?.Username == requesterUsername,

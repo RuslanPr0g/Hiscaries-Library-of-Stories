@@ -17,7 +17,7 @@ public sealed class UserAccountOwnerReadModel : UserSimpleReadModel
         {
             Id = user.Id,
             Username = user.Username,
-            AccountCreated = user.AccountCreated,
+            AccountCreated = user.CreatedAt,
             BirthDate = user.BirthDate,
             Age = DateTime.UtcNow.Year - user.BirthDate.Year,
             BookmarkedStories = user.BookMarks.Select(StoryBookMarkReadModel.FromDomainModel),

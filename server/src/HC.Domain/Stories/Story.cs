@@ -130,7 +130,7 @@ public sealed class Story : AggregateRoot<StoryId>
         }
     }
 
-    public void ModifyContents(IEnumerable<string> newContents, DateTime editedAt)
+    public void ModifyContents(IEnumerable<string> newContents)
     {
         if (Contents is null || Contents.Count == 0)
         {
