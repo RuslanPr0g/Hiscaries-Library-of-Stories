@@ -1,20 +1,32 @@
-FROM node:21
+### STAGE 1: Build ###
+FROM node:lts-alpine AS build
 
+#### make the 'app' folder the current working directory
+WORKDIR /usr/src/app
+
+#### copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
+
+#### install angular cli
 RUN npm install -g @angular/cli
 
-WORKDIR /
-RUN mkdir angular-app
-WORKDIR /angular-app
+#### install project dependencies
+RUN npm install
 
-ENV APP_NAME 'my-app'
-ENV ROUTING 'true'
-ENV STANDALONE 'true'
-ENV STRICT 'true'
-ENV STYLE 'scss'
+#### copy things
+COPY . .
 
-CMD ng new $APP_NAME --routing=$ROUTING --standalone=$STANDALONE --strict=$STRICT --style=$STYLE \
-    && mv $APP_NAME/* . \
-    && rm -rf $APP_NAME \
-    && ng serve --host 0.0.0.0 --port 4001
+#### generate build --prod
+RUN npm run build --prod
 
-EXPOSE 4001
+### STAGE 2: Run ###
+FROM nginxinc/nginx-unprivileged
+
+#### copy nginx conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+#### copy artifact build from the 'build environment'
+COPY --from=build /usr/src/app/dist/bookproject /usr/share/nginx/html
+
+#### don't know what this is, but seems cool and techy
+CMD ["nginx", "-g", "daemon off;"]

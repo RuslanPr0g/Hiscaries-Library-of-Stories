@@ -1,15 +1,15 @@
 version: '3.4'
 
 services:
-  hc.ui:
-    image: ${DOCKER_REGISTRY-}hcui
-    build:
-      context: .
-      dockerfile: ../../client/Dockerfile
-    ports:
-      - "4001:4001"
-    environment:
-      - STYLE=scss
+  # hc.ui:
+  #   image: ${DOCKER_REGISTRY-}hcui
+  #   build:
+  #     context: .
+  #     dockerfile: ../../client/Dockerfile
+  #   ports:
+  #     - "40023:40023"
+  #   environment:
+  #     - STYLE=scss
 
   hc.api:
     image: ${DOCKER_REGISTRY-}hcapi
