@@ -2,8 +2,8 @@
 
 namespace HC.Domain.Users.Events;
 
-public sealed class UserBannedDomainEvent(Guid UserId, DateTime OccurredOn) : IDomainEvent
+// TODO: maybe record is not the best choice for domain event representation?
+public sealed class UserBannedDomainEvent(Guid UserId) : IDomainEvent
 {
     public Guid UserId { get; } = UserId;
-    public DateTime OccurredOn { get; } = OccurredOn;
 }

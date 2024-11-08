@@ -41,6 +41,22 @@ public sealed class UserWriteService : IUserWriteService
         _saltSettings = saltSettings;
     }
 
+    public async Task<OperationResult> BanUser(string username)
+    {
+        User? user = await _repository.GetUserByUsername(username);
+
+        if (user is null)
+        {
+            _logger.LogWarning("User {username} was not found to be banned", username);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+        }
+
+        user.Ban();
+
+        _logger.LogInformation("User {username} is now banned from using the system", username);
+        return OperationResult.CreateSuccess();
+    }
+
     public async Task<OperationResult> BookmarkStory(BookmarkStoryCommand command)
     {
         _logger.LogInformation("Attempting to bookmark story for user {UserId}", command.UserId);

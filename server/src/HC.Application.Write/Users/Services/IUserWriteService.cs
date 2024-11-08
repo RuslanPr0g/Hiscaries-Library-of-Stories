@@ -11,6 +11,8 @@ public interface IUserWriteService
     Task<OperationResult<User>> GetUserByUsername(string username);
     Task<OperationResult> BecomePublisher(string username);
 
+    Task<OperationResult> BanUser(string username);
+
     Task<OperationResult<UserWithTokenResponse>> RegisterUser(RegisterUserCommand command);
     Task<OperationResult<UserWithTokenResponse>> LoginUser(LoginUserCommand command);
 
