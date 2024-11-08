@@ -193,7 +193,7 @@ public sealed class UserWriteService : IUserWriteService
             return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.PasswordMismatch);
         }
 
-        if (user.Banned)
+        if (user.IsBanned)
         {
             _logger.LogWarning("Login attempt failed: User {Username} is banned", command.Username);
             return OperationResult<UserWithTokenResponse>.CreateValidationsError(UserFriendlyMessages.UserIsBanned);

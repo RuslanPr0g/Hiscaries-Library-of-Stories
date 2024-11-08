@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace HC.Quartz;
+namespace HC.Infrastructure.Jobs;
 
 public class ProcessOutboxMessagesJob : IJob
 {
@@ -31,7 +31,7 @@ public class ProcessOutboxMessagesJob : IJob
         {
             try
             {
-                var messageType = typeof(UserBanned).Assembly.GetType(message.Type);
+                var messageType = typeof(UserBannedDomainEvent).Assembly.GetType(message.Type);
 
                 if (messageType is null)
                 {

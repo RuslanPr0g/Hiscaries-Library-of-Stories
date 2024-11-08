@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace HC.Quartz;
+namespace HC.Infrastructure.Jobs;
 
 public class CleanOutboxJob : IJob
 {
