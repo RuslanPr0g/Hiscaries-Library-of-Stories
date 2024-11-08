@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Persistence.Outbox;
+﻿namespace HC.Application.Common.Outbox;
 
 public class OutboxMessage
 {

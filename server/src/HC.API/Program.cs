@@ -9,6 +9,7 @@ using HC.Application.Write.Users.Command;
 using HC.Persistence.Context;
 using HC.Persistence.Read;
 using HC.Persistence.Write;
+using HC.Quartz;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ builder.Services.AddApplicationWriteLayer();
 builder.Services.AddPersistenceContext(builder.Configuration);
 builder.Services.AddPersistenceWriteLayer(builder.Configuration);
 builder.Services.AddPersistenceReadLayer(builder.Configuration);
+builder.Services.AddJobs();
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 
