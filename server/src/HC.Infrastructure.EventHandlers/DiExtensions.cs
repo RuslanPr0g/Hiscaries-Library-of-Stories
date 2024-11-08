@@ -1,4 +1,4 @@
-﻿using HC.Application.Solutions.NotificationHandlers;
+﻿using HC.Infrastructure.EventHandlers.DomainEvents.Users;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +13,7 @@ public static class DiExtensions
             x.SetKebabCaseEndpointNameFormatter();
             x.SetInMemorySagaRepositoryProvider();
 
-            var asm = typeof(SolutionDomainEventHandler).Assembly;
+            var asm = typeof(UserDomainEventHandler).Assembly;
 
             x.AddConsumers(asm);
             x.AddSagaStateMachines(asm);

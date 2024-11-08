@@ -4,17 +4,17 @@ using HC.Domain.Users.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace HC.Application.Solutions.NotificationHandlers;
+namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;
 
-public sealed class SolutionDomainEventHandler
+public sealed class UserDomainEventHandler
     : IDomainEventHandler<UserBannedDomainEvent>
 {
     private readonly IUserWriteRepository _userRepository;
-    private readonly ILogger<SolutionDomainEventHandler> _logger;
+    private readonly ILogger<UserDomainEventHandler> _logger;
 
-    public SolutionDomainEventHandler(
+    public UserDomainEventHandler(
         IUserWriteRepository repository,
-        ILogger<SolutionDomainEventHandler> logger)
+        ILogger<UserDomainEventHandler> logger)
     {
         _userRepository = repository;
         _logger = logger;
