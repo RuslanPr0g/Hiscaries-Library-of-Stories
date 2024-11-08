@@ -5,7 +5,7 @@ namespace HC.Domain;
 public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot
     where T : Identity
 {
-    private readonly ICollection<IDomainEvent> _domainEvents;
+    private readonly List<IDomainEvent> _domainEvents;
 
     protected AggregateRoot(T id) : base(id)
     {
@@ -13,7 +13,7 @@ public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot
         _domainEvents = [];
     }
 
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => [.. _domainEvents];
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     public void ClearEvents()
     {
@@ -25,9 +25,7 @@ public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot
         _domainEvents.Add(domainEvent);
     }
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     protected AggregateRoot()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         _domainEvents = [];
     }
