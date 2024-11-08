@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Outbox;
+﻿using HC.Application.Common.Outbox;
 using HC.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Outbox;
+﻿using HC.Application.Common.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
