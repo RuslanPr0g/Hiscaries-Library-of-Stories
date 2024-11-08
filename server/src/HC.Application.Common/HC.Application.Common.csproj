@@ -21,8 +21,4 @@
 		<ProjectReference Include="..\HC.Domain\HC.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="EventHandlers\" />
-	</ItemGroup>
-
 </Project>

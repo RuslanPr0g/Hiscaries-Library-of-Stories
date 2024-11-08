@@ -12,4 +12,9 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\HC.Application.Common\HC.Application.Common.csproj" />
+	  <ProjectReference Include="..\HC.Application.Write\HC.Application.Write.csproj" />
+	</ItemGroup>
+
 </Project>
