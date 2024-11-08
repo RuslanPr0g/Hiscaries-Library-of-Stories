@@ -1,4 +1,5 @@
 ﻿using HC.Domain.Stories;
+using HC.Domain.Users.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ public sealed class User : AggregateRoot<UserId>
         Password = password;
         BirthDate = birthDate;
 
-        Banned = false;
+        IsBanned = false;
         Role = new UserRole(UserRoleEnum.Reader);
     }
 
@@ -27,7 +28,7 @@ public sealed class User : AggregateRoot<UserId>
     public string Email { get; private set; }
     public string Password { get; private set; }
     public DateTime BirthDate { get; private set; }
-    public bool Banned { get; init; }
+    public bool IsBanned { get; private set; }
 
     public UserRole Role { get; private set; }
 
@@ -37,6 +38,16 @@ public sealed class User : AggregateRoot<UserId>
     public ICollection<Review> Reviews { get; }
     public ICollection<UserReadHistory> ReadHistory { get; }
     public ICollection<UserStoryBookMark> BookMarks { get; }
+
+    public void Ban()
+    {
+        if (!IsBanned)
+        {
+            IsBanned = true;
+            // TODO: extract event publishing to a private method
+            PublishEvent(new UserBannedDomainEvent(Id));
+        }
+    }
 
     public void ReadStoryPage(StoryId storyId, int page, UserReadHistoryId generatedHistoryPageId)
     {

@@ -6,6 +6,8 @@ using HC.Application.Read.Users.Queries;
 using HC.Application.Write;
 using HC.Application.Write.Filters;
 using HC.Application.Write.Users.Command;
+using HC.Infrastructure.Jobs;
+using HC.Infrastructure.EventHandlers;
 using HC.Persistence.Context;
 using HC.Persistence.Read;
 using HC.Persistence.Write;
@@ -23,6 +25,8 @@ builder.Services.AddApplicationWriteLayer();
 builder.Services.AddPersistenceContext(builder.Configuration);
 builder.Services.AddPersistenceWriteLayer(builder.Configuration);
 builder.Services.AddPersistenceReadLayer(builder.Configuration);
+builder.Services.AddJobs();
+builder.Services.AddEventHandlers();
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 
