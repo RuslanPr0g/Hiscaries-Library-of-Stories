@@ -26,4 +26,5 @@ POSTGRES_PASSWORD=***
 ---
 
 🎉 **Thank you for visiting the repository!**
+
 Feel free to contribute or raise any issues to improve the application!
