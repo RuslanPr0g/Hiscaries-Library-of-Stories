@@ -58,6 +58,13 @@ export class ReadStoryContentComponent implements OnInit {
                     };
 
                     this.iterator.upperBoundary = story.Contents.length - 1;
+
+                    this.storyService
+                        .read({
+                            StoryId: story.Id,
+                            PageRead: 0,
+                        })
+                        .subscribe();
                 },
                 error: () => (this.storyNotFound = true),
             });
@@ -97,7 +104,18 @@ export class ReadStoryContentComponent implements OnInit {
     }
 
     moveNext(): boolean {
-        return this.iterator.moveNext();
+        const result = this.iterator.moveNext();
+
+        if (result && this.storyId) {
+            this.storyService
+                .read({
+                    StoryId: this.storyId,
+                    PageRead: this.currentIndex,
+                })
+                .subscribe();
+        }
+
+        return result;
     }
 
     movePrev(): boolean {

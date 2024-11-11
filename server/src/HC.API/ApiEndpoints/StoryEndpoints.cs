@@ -266,12 +266,18 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> ReadStory([FromBody] ReadStoryRequest request, [FromServices] IMediator mediator)
+    private static async Task<IResult> ReadStory([FromBody] ReadStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
+        var userIdClaim = httpContext.User.FindFirst("id");
+        if (userIdClaim is null || !Guid.TryParse(userIdClaim.Value, out Guid userId))
+        {
+            return Results.BadRequest("Invalid or missing publisher ID in the token.");
+        }
+
         var command = new ReadStoryCommand
         {
-            UserId = new Guid(),
-            StoryId = new Guid(),
+            UserId = userId,
+            StoryId = request.StoryId,
             Page = request.PageRead
         };
 

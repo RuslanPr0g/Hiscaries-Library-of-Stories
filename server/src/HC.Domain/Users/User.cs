@@ -35,17 +35,16 @@ public sealed class User : AggregateRoot<UserId>
     public RefreshTokenId RefreshTokenId { get; init; }
     public RefreshToken RefreshToken { get; private set; }
 
-    public ICollection<Review> Reviews { get; }
-    public ICollection<UserReadHistory> ReadHistory { get; }
-    public ICollection<UserStoryBookMark> BookMarks { get; }
+    public ICollection<Review> Reviews { get; } = [];
+    public ICollection<UserReadHistory> ReadHistory { get; } = [];
+    public ICollection<UserStoryBookMark> BookMarks { get; } = [];
 
     public void Ban()
     {
         if (!IsBanned)
         {
             IsBanned = true;
-            // TODO: extract event publishing to a private method
-            PublishEvent(new UserBannedDomainEvent(Id));
+            PublishUserBannedEvent();
         }
     }
 
@@ -61,6 +60,8 @@ public sealed class User : AggregateRoot<UserId>
         {
             ReadHistory.Add(new UserReadHistory(generatedHistoryPageId, Id, storyId, page));
         }
+
+        PublishStoryPageReadEvent(Id, storyId, page);
     }
 
     public void BecomePublisher()
@@ -162,6 +163,16 @@ public sealed class User : AggregateRoot<UserId>
         {
             BookMarks.Add(new UserStoryBookMark(id, Id, storyId));
         }
+    }
+
+    private void PublishUserBannedEvent()
+    {
+        PublishEvent(new UserBannedDomainEvent(Id));
+    }
+
+    private void PublishStoryPageReadEvent(UserId userId, StoryId storyId, int page)
+    {
+        PublishEvent(new StoryPageReadDomainEvent(userId, storyId, page));
     }
 
     private User()

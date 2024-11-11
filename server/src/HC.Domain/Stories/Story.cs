@@ -66,6 +66,14 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public string? ImagePreviewUrl { get; private set; }
 
+    public void UpdateTitle(string title)
+    {
+        if (!string.IsNullOrEmpty(title))
+        {
+            Title = title;
+        }
+    }
+
     public void AddComment(CommentId commentId, UserId userId, string content, int score)
     {
         Comments.Add(Comment.Create(commentId, Id, userId, content, score));
