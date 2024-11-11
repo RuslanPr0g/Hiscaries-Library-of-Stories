@@ -22,6 +22,8 @@ services:
     depends_on:
       - postgresdb
       - rabbitmq
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
 
   postgresdb:
     image: postgres:latest

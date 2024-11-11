@@ -4,11 +4,5 @@
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": { "^/api/v1": "/api/v1" }
-    },
-    "/auth/v1/*": {
-        "target": "https://localhost:5002",
-        "secure": false,
-        "changeOrigin": true,
-        "pathRewrite": { "^/auth/v1": "/auth/v1" }
     }
 }
