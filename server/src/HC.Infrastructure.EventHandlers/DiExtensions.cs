@@ -1,6 +1,8 @@
-﻿using HC.Infrastructure.EventHandlers.DomainEvents.Users;
+﻿using HC.Domain.Users.Events;
+using HC.Infrastructure.EventHandlers.DomainEvents.Users;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace HC.Infrastructure.EventHandlers;
 
@@ -8,12 +10,15 @@ public static class DiExtensions
 {
     public static IServiceCollection AddEventHandlers(this IServiceCollection services)
     {
+        // TODO: subscribe everything using reflection
+        services.AddScoped<IConsumer<StoryPageReadDomainEvent>, StoryDomainEventHandler>();
+
         services.AddMassTransit(x =>
         {
             x.SetKebabCaseEndpointNameFormatter();
             x.SetInMemorySagaRepositoryProvider();
 
-            var asm = typeof(UserDomainEventHandler).Assembly;
+            var asm = Assembly.GetExecutingAssembly();
 
             x.AddConsumers(asm);
             x.AddSagaStateMachines(asm);

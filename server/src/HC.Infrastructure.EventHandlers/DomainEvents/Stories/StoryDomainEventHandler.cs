@@ -7,43 +7,29 @@ using Microsoft.Extensions.Logging;
 
 namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;
 
+// TODO: do I want to allow one domain handler to handle multiple domain events? if no, then this approach is kinda okay
 public sealed class StoryDomainEventHandler
-    : IDomainEventHandler<StoryPageReadDomainEvent>
+    : DomainEventHandler<StoryPageReadDomainEvent>
 {
     private readonly IStoryWriteRepository _repository;
-    private readonly ILogger<StoryDomainEventHandler> _logger;
-    private readonly IUnitOfWork _unitOfWork;
 
     public StoryDomainEventHandler(
         IStoryWriteRepository repository,
         ILogger<StoryDomainEventHandler> logger,
         IUnitOfWork unitOfWork)
+        : base(logger, unitOfWork)
     {
         _repository = repository;
-        _logger = logger;
-        _unitOfWork = unitOfWork;
     }
 
-    // TODO: is there a way to extract this even more? so that we work only with the domain event itself, or smth...??
-
-    public async Task Consume(ConsumeContext<StoryPageReadDomainEvent> context)
+    protected override async Task HandleEventAsync(StoryPageReadDomainEvent domainEvent, ConsumeContext<StoryPageReadDomainEvent> context)
     {
-        using (_logger.BeginScope(new { context.CorrelationId }))
+        var story = await _repository.GetStory(domainEvent.StoryId);
+        if (story is null)
         {
-            _logger.LogInformation("Starting to process event {event}.", typeof(StoryPageReadDomainEvent));
-
-            var story = await _repository.GetStory(context.Message.StoryId);
-
-            if (story is null)
-            {
-                return;
-            }
-
-            story.UpdateTitle($"{context.Message.Page} | {story.Title}");
-
-            await _unitOfWork.SaveChanges();
-
-            _logger.LogInformation("Finished processing event {event}.", typeof(StoryPageReadDomainEvent));
+            return;
         }
+
+        story.UpdateTitle($"{domainEvent.Page} | {story.Title}");
     }
 }
