@@ -3,8 +3,13 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "hc.api",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
-        "hc.api": "StartDebugging"
+        "hc.api": "StartDebugging",
+        "postgresdb": "StartWithoutDebugging",
+        "rabbitmq": "StartWithoutDebugging"
       }
     }
   }
