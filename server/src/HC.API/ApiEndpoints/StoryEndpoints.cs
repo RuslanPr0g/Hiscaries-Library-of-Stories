@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HC.API.Extensions;
+﻿using HC.API.Extensions;
 using HC.API.Requests.Comments;
 using HC.API.Requests.Genres;
 using HC.API.Requests.Stories;
@@ -16,6 +12,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HC.API.ApiEndpoints;
 
@@ -131,11 +131,21 @@ public static class StoryEndpoints
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> GetByIdWithContents([FromBody] GetStoryWithContentsRequest request, [FromServices] IMediator mediator)
+    private static async Task<IResult> GetByIdWithContents(
+        [FromBody] GetStoryWithContentsRequest request,
+        [FromServices] IMediator mediator,
+        HttpContext httpContext)
     {
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
         var query = new GetStoryWithContentsQuery
         {
             Id = request.Id,
+            UserId = userIdClaim.Value
         };
 
         var result = await mediator.Send(query);

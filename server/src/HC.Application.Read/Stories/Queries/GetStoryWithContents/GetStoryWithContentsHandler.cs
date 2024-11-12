@@ -15,11 +15,6 @@ public class GetStoryWithContentsHandler : IRequestHandler<GetStoryWithContentsQ
 
     public async Task<StoryWithContentsReadModel?> Handle(GetStoryWithContentsQuery request, CancellationToken cancellationToken)
     {
-        if (!request.Id.HasValue)
-        {
-            return null;
-        }
-
-        return await _storySevice.GetStoryById(request.Id.Value);
+        return await _storySevice.GetStoryById(request.Id, request.UserId);
     }
 }
