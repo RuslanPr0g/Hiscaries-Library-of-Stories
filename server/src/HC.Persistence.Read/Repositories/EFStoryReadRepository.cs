@@ -5,6 +5,7 @@ using HC.Application.Read.Stories.ReadModels;
 using HC.Domain.Stories;
 using HC.Domain.Users;
 using HC.Persistence.Context;
+using MassTransit.Initializers;
 using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Read.Repositories;
@@ -24,14 +25,14 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre, UserId searchedBy)
     {
         // TODO: improve the search depth, etc.
-        var stories = await _context.Stories.AsNoTracking()
+        var stories = (await _context.Stories.AsNoTracking()
             .Where(story =>
                 EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
                 EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
-            .Select(story => StoryDomainToSimpleReadDto(story, searchedBy, null))
-            .ToListAsync();
+            .ToListAsync())
+            .Select(story => StoryDomainToSimpleReadDto(_context, story, searchedBy, null));
 
-        return await Task.WhenAll(stories);
+        return await stories.WhenAllSequentialAsync();
     }
 
     public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, UserId searchedBy)
@@ -42,7 +43,6 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .Include(x => x.Comments)
             .Include(x => x.Contents)
             .Where(story => story.Id == storyId)
-            .Select(story => StoryDomainToReadDto(story, searchedBy))
             .FirstOrDefaultAsync();
 
         if (story is null)
@@ -50,7 +50,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             return null;
         }
 
-        return await story;
+        return await StoryDomainToReadDto(_context, story, searchedBy);
     }
 
     public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, UserId searchedBy, string? requesterUsername)
@@ -58,7 +58,6 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         var story = await _context.Stories.AsNoTracking()
             .Include(x => x.Publisher)
             .Where(story => story.Id == storyId)
-            .Select(story => StoryDomainToSimpleReadDto(story, searchedBy, requesterUsername))
             .FirstOrDefaultAsync();
 
         if (story is null)
@@ -66,50 +65,26 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             return null;
         }
 
-        return await story;
+        return await StoryDomainToSimpleReadDto(_context, story, searchedBy, requesterUsername);
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(UserId searchedBy)
     {
         // TODO: make it less dumb
 
-        var stories = await _context.Stories
+        var stories = (await _context.Stories
             .Include(x => x.Publisher)
             .Include(x => x.Contents)
             .Where(x => x.Contents.Any())
-            .Select(story => StoryDomainToSimpleReadDto(story, searchedBy, null))
-            .ToListAsync();
+            .ToListAsync())
+            .Select(story => StoryDomainToSimpleReadDto(_context, story, searchedBy, null));
 
-        return await Task.WhenAll(stories);
-
-        //var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
-
-        //var historyOfTheUser = user.ReadHistory;
-
-        //var rnd = new Random(user.Username.Length);
-
-        //var randomStory = historyOfTheUser.Skip(rnd.Next(0, historyOfTheUser.Count - 1)).Take(1).Single();
-
-        //var splitTitleInWords = randomStory.Story.Title.Trim().Split(' ');
-
-        //var randomWordFromTitle = splitTitleInWords.Skip(rnd.Next(0, splitTitleInWords.Length - 1)).Take(1).Single();
-
-        //var randomSearchTerm = randomWordFromTitle.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Trim();
-
-        //var genresCount = randomStory.Story.Genres.Count;
-
-        //var randomStoryGenre = randomStory.Story.Genres.Skip(rnd.Next(0, genresCount - 1)).Take(1).FirstOrDefault()?.Name;
-
-        //var allGenresCount = await _context.Genres.CountAsync();
-
-        //randomStoryGenre ??= (await _context.Genres.Skip(rnd.Next(0, allGenresCount - 1)).Take(1).SingleOrDefaultAsync()).Name;
-
-        //return await GetStoriesBy(randomSearchTerm ?? randomStoryGenre, randomStoryGenre);
+        return await stories.WhenAllSequentialAsync();
     }
 
-    private async Task<decimal> CalculateStoryReadingProgressForAUser(UserId userId, StoryId storyId, int totalPages)
+    private static async Task<decimal> CalculateStoryReadingProgressForAUser(HiscaryContext context, UserId userId, StoryId storyId, int totalPages)
     {
-        var readingHistory = await _context.ReadHistory
+        var readingHistory = await context.ReadHistory
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.StoryId == storyId && x.UserId == userId);
 
@@ -123,25 +98,32 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return currentPage.PercentageOf(totalPages);
     }
 
-    private async Task<StorySimpleReadModel> StoryDomainToSimpleReadDto(Story? story, UserId userId, string? requesterUsername = null)
+    private static async Task<StorySimpleReadModel> StoryDomainToSimpleReadDto(
+        HiscaryContext context,
+        Story? story,
+        UserId userId,
+        string? requesterUsername = null)
     {
         if (story is null)
         {
             return null;
         }
 
-        var percentageRead = await CalculateStoryReadingProgressForAUser(userId, story.Id, story.TotalPages);
+        var percentageRead = await CalculateStoryReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
         return StorySimpleReadModel.FromDomainModel(story, percentageRead, requesterUsername);
     }
 
-    private async Task<StoryWithContentsReadModel?> StoryDomainToReadDto(Story? story, UserId userId)
+    private static async Task<StoryWithContentsReadModel?> StoryDomainToReadDto(
+        HiscaryContext context,
+        Story? story,
+        UserId userId)
     {
         if (story is null)
         {
             return null;
         }
 
-        var percentageRead = await CalculateStoryReadingProgressForAUser(userId, story.Id, story.TotalPages);
+        var percentageRead = await CalculateStoryReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
         return StoryWithContentsReadModel.FromDomainModel(story, percentageRead);
     }
 }
