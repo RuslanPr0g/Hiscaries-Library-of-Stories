@@ -66,6 +66,8 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public string? ImagePreviewUrl { get; private set; }
 
+    public int TotalPages => Contents.Count;
+
     public void UpdateTitle(string title)
     {
         if (!string.IsNullOrEmpty(title))

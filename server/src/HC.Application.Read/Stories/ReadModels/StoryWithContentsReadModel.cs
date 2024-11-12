@@ -14,7 +14,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
 
     }
 
-    public static StoryWithContentsReadModel FromDomainModel(Story story)
+    public static StoryWithContentsReadModel FromDomainModel(Story story, decimal percentageRead)
     {
         return new StoryWithContentsReadModel
         {
@@ -28,7 +28,8 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),
             Contents = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
-            ImagePreviewUrl = story.ImagePreviewUrl
+            ImagePreviewUrl = story.ImagePreviewUrl,
+            PercentageRead = percentageRead
         };
     }
 }

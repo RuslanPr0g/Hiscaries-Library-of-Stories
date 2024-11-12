@@ -9,4 +9,5 @@ public sealed class GetStoryListQuery : IRequest<IEnumerable<StorySimpleReadMode
     public string SearchTerm { get; set; }
     public string Genre { get; set; }
     public string? RequesterUsername { get; set; }
+    public Guid UserId { get; set; }
 }

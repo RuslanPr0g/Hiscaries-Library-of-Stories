@@ -5,5 +5,5 @@ namespace HC.Application.Read.Stories.Queries;
 
 public sealed class GetStoryRecommendationsQuery : IRequest<IEnumerable<StorySimpleReadModel>>
 {
-    public string Username { get; set; }
+    public Guid UserId { get; set; }
 }

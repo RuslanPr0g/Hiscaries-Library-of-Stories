@@ -1,4 +1,8 @@
-﻿using HC.API.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using HC.API.Extensions;
 using HC.API.Requests.Comments;
 using HC.API.Requests.Genres;
 using HC.API.Requests.Stories;
@@ -12,14 +16,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HC.API.ApiEndpoints;
-
-#nullable enable
 
 public static class StoryEndpoints
 {
@@ -113,14 +111,20 @@ public static class StoryEndpoints
 
     private static async Task<IResult> GetStories([FromBody] GetStoryListRequest request, [FromServices] IMediator mediator, HttpContext context)
     {
-        string? requesterUsername = context.User.GetUsername();
+        var requesterUsername = context.User.GetUsername();
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null || requesterUsername is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
 
         var query = new GetStoryListQuery
         {
             Id = request.Id,
             SearchTerm = request.SearchTerm,
             Genre = request.Genre,
-            RequesterUsername = requesterUsername
+            RequesterUsername = requesterUsername,
+            UserId = userIdClaim.Value
         };
 
         var result = await mediator.Send(query);
@@ -183,11 +187,17 @@ public static class StoryEndpoints
         return result.ToResult();
     }
 
-    private static async Task<IResult> BestToRead([FromServices] IMediator mediator)
+    private static async Task<IResult> BestToRead([FromServices] IMediator mediator, HttpContext httpContext)
     {
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
         var query = new GetStoryRecommendationsQuery
         {
-            Username = string.Empty
+            UserId = userIdClaim.Value
         };
 
         var result = await mediator.Send(query);
@@ -199,10 +209,10 @@ public static class StoryEndpoints
 
     private static async Task<IResult> PublishStory([FromBody] PublishStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
-        var publisherIdClaim = httpContext.User.FindFirst("id");
-        if (publisherIdClaim is null || !Guid.TryParse(publisherIdClaim.Value, out Guid publisherId))
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
         {
-            return Results.BadRequest("Invalid or missing publisher ID in the token.");
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
         // TODO: I do not like this logic here
@@ -213,7 +223,7 @@ public static class StoryEndpoints
 
         var command = new PublishStoryCommand
         {
-            PublisherId = publisherId,
+            PublisherId = userIdClaim.Value,
             Title = request.Title,
             Description = request.Description,
             AuthorName = request.AuthorName,
@@ -235,10 +245,10 @@ public static class StoryEndpoints
             return Results.BadRequest("No story ID was provided.");
         }
 
-        var userIdClaim = httpContext.User.FindFirst("id");
-        if (userIdClaim is null || !Guid.TryParse(userIdClaim.Value, out Guid userId))
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
         {
-            return Results.BadRequest("Invalid or missing publisher ID in the token.");
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
         // TODO: I do not like this logic here
@@ -249,7 +259,7 @@ public static class StoryEndpoints
 
         var command = new UpdateStoryCommand
         {
-            CurrentUserId = userId,
+            CurrentUserId = userIdClaim.Value,
             StoryId = request.StoryId.Value,
             Title = request.Title,
             Description = request.Description,
@@ -268,15 +278,15 @@ public static class StoryEndpoints
 
     private static async Task<IResult> ReadStory([FromBody] ReadStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
     {
-        var userIdClaim = httpContext.User.FindFirst("id");
-        if (userIdClaim is null || !Guid.TryParse(userIdClaim.Value, out Guid userId))
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
         {
-            return Results.BadRequest("Invalid or missing publisher ID in the token.");
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
         var command = new ReadStoryCommand
         {
-            UserId = userId,
+            UserId = userIdClaim.Value,
             StoryId = request.StoryId,
             Page = request.PageRead
         };

@@ -13,11 +13,5 @@ public class UserReadHistoryConfigurations : IEntityTypeConfiguration<UserReadHi
         builder.ConfigureEntity<UserReadHistory, UserReadHistoryId, UserReadHistoryIdentityConverter>();
         builder.Property(c => c.UserId).HasConversion(new UserIdentityConverter());
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
-
-        builder
-            .HasOne(urh => urh.Story)
-            .WithMany()
-            .HasForeignKey(urh => urh.StoryId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }
