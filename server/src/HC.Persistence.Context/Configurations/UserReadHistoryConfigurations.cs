@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HC.Persistence.Context.Configurations;
 
-public class UserReadHistoryConfigurations : IEntityTypeConfiguration<UserReadHistory>
+public class UserReadHistoryConfigurations : IEntityTypeConfiguration<ReadingHistory>
 {
-    public void Configure(EntityTypeBuilder<UserReadHistory> builder)
+    public void Configure(EntityTypeBuilder<ReadingHistory> builder)
     {
         builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.StoryId, sp.UserId });

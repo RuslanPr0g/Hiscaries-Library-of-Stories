@@ -2,9 +2,9 @@
 
 namespace HC.Domain.Users;
 
-public sealed class UserReadHistory : Entity
+public sealed class ReadingHistory : Entity
 {
-    public UserReadHistory(
+    public ReadingHistory(
         UserId user,
         StoryId story,
         int pageRead)
@@ -29,7 +29,7 @@ public sealed class UserReadHistory : Entity
         }
     }
 
-    private UserReadHistory()
+    private ReadingHistory()
     {
     }
 }

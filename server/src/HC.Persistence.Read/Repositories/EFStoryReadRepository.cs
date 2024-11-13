@@ -29,43 +29,67 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .Where(story =>
                 EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
                 EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => history.LastPageRead)
+                    .FirstOrDefault()
+            })
             .ToListAsync())
-            .Select(story => StoryDomainToSimpleReadDto(_context, story, searchedBy, null));
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
 
-        return await stories.WhenAllSequentialAsync();
+        return stories;
     }
 
     public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, UserId searchedBy)
     {
-        var story = await _context.Stories.AsNoTracking()
+        var storyInformation = await _context.Stories.AsNoTracking()
             .Include(x => x.Publisher)
             .Include(x => x.Genres)
             .Include(x => x.Comments)
             .Include(x => x.Contents)
             .Where(story => story.Id == storyId)
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => history.LastPageRead)
+                    .FirstOrDefault()
+            })
             .FirstOrDefaultAsync();
 
-        if (story is null)
+        if (storyInformation is null)
         {
             return null;
         }
 
-        return await StoryDomainToReadDto(_context, story, searchedBy);
+        return StoryDomainToReadDto(storyInformation.Story, storyInformation.LastPageRead);
     }
 
     public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, UserId searchedBy, string? requesterUsername)
     {
-        var story = await _context.Stories.AsNoTracking()
+        var storyInformation = await _context.Stories.AsNoTracking()
             .Include(x => x.Publisher)
             .Where(story => story.Id == storyId)
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => history.LastPageRead)
+                    .FirstOrDefault()
+            })
             .FirstOrDefaultAsync();
 
-        if (story is null)
+        if (storyInformation is null)
         {
             return null;
         }
 
-        return await StoryDomainToSimpleReadDto(_context, story, searchedBy, requesterUsername);
+        return StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, requesterUsername);
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(UserId searchedBy)
@@ -76,32 +100,29 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .Include(x => x.Publisher)
             .Include(x => x.Contents)
             .Where(x => x.Contents.Any())
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => history.LastPageRead)
+                    .FirstOrDefault()
+            })
             .ToListAsync())
-            .Select(story => StoryDomainToSimpleReadDto(_context, story, searchedBy, null));
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
 
-        return await stories.WhenAllSequentialAsync();
+        return stories;
     }
 
-    private static async Task<(int CurrentPage, decimal PercentageRead)> RetrieveReadingProgressForAUser(HiscaryContext context, UserId userId, StoryId storyId, int totalPages)
+    private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
     {
-        var readingHistory = await context.ReadHistory
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.StoryId == storyId && x.UserId == userId);
-
-        if (readingHistory is null)
-        {
-            return (0, 0);
-        }
-
-        int currentPage = readingHistory.LastPageRead + 1;
-
-        return (readingHistory.LastPageRead, currentPage.PercentageOf(totalPages));
+        int currentPage = lastPageRead + 1;
+        return currentPage.PercentageOf(totalPages);
     }
 
-    private static async Task<StorySimpleReadModel> StoryDomainToSimpleReadDto(
-        HiscaryContext context,
+    private static StorySimpleReadModel StoryDomainToSimpleReadDto(
         Story? story,
-        UserId userId,
+        int lastPageReadByUser,
         string? requesterUsername = null)
     {
         if (story is null)
@@ -109,21 +130,20 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             return null;
         }
 
-        var readingProgress = await RetrieveReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
-        return StorySimpleReadModel.FromDomainModel(story, readingProgress.PercentageRead, readingProgress.CurrentPage, requesterUsername);
+        var percentageRead = RetrieveReadingProgressForAUser(lastPageReadByUser, story.TotalPages);
+        return StorySimpleReadModel.FromDomainModel(story, percentageRead, lastPageReadByUser, requesterUsername);
     }
 
-    private static async Task<StoryWithContentsReadModel?> StoryDomainToReadDto(
-        HiscaryContext context,
+    private static StoryWithContentsReadModel? StoryDomainToReadDto(
         Story? story,
-        UserId userId)
+        int lastPageReadByUser)
     {
         if (story is null)
         {
             return null;
         }
 
-        var readingProgress = await RetrieveReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
-        return StoryWithContentsReadModel.FromDomainModel(story, readingProgress.PercentageRead, readingProgress.CurrentPage);
+        var percentageRead = RetrieveReadingProgressForAUser(lastPageReadByUser, story.TotalPages);
+        return StoryWithContentsReadModel.FromDomainModel(story, percentageRead, lastPageReadByUser);
     }
 }

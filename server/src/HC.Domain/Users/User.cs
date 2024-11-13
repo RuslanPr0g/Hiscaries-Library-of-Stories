@@ -36,7 +36,7 @@ public sealed class User : AggregateRoot<UserId>
     public RefreshToken RefreshToken { get; private set; }
 
     public ICollection<Review> Reviews { get; } = [];
-    public ICollection<UserReadHistory> ReadHistory { get; } = [];
+    public ICollection<ReadingHistory> ReadHistory { get; } = [];
     public ICollection<UserStoryBookMark> BookMarks { get; } = [];
 
     public void Ban()
@@ -58,7 +58,7 @@ public sealed class User : AggregateRoot<UserId>
         }
         else
         {
-            ReadHistory.Add(new UserReadHistory(Id, storyId, page));
+            ReadHistory.Add(new ReadingHistory(Id, storyId, page));
         }
 
         PublishStoryPageReadEvent(Id, storyId, page);
