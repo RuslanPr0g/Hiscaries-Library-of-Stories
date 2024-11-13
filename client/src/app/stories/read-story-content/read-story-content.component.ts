@@ -59,16 +59,16 @@ export class ReadStoryContentComponent implements OnInit {
 
                     if (story.LastPageRead) {
                         this.iterator.moveTo(story.LastPageRead);
+                    } else {
+                        this.storyService
+                            .read({
+                                StoryId: story.Id,
+                                PageRead: 0,
+                            })
+                            .subscribe();
                     }
 
                     this.iterator.upperBoundary = story.Contents.length - 1;
-
-                    this.storyService
-                        .read({
-                            StoryId: story.Id,
-                            PageRead: 0,
-                        })
-                        .subscribe();
                 },
                 error: () => (this.storyNotFound = true),
             });
