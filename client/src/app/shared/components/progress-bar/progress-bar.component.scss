@@ -1,0 +1,18 @@
+$text-color: #e0e0e0;
+$hover-box-shadow: #a78bfa;
+
+.progress-bar-container {
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    background-color: $text-color;
+    overflow: hidden;
+    bottom: 0;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: $hover-box-shadow;
+    width: 0%;
+    transition: width 0.3s ease;
+}

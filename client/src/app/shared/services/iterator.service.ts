@@ -34,7 +34,11 @@ export class IteratorService {
     }
 
     moveToLast(): boolean {
-        this._currentIndex = this._upperBoundary;
+        return this.moveTo(this._upperBoundary);
+    }
+
+    moveTo(index: number): boolean {
+        this._currentIndex = index;
         return true;
     }
 }

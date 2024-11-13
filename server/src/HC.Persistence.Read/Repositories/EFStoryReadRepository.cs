@@ -1,8 +1,11 @@
-﻿using HC.Application.Read.Genres.ReadModels;
+﻿using HC.Application.Common.Extensions;
+using HC.Application.Read.Genres.ReadModels;
 using HC.Application.Read.Stories.DataAccess;
 using HC.Application.Read.Stories.ReadModels;
 using HC.Domain.Stories;
+using HC.Domain.Users;
 using HC.Persistence.Context;
+using MassTransit.Initializers;
 using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Read.Repositories;
@@ -19,69 +22,132 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() =>
         await _context.Genres.AsNoTracking().Select(genre => GenreReadModel.FromDomainModel(genre)).ToListAsync();
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre, UserId searchedBy)
     {
         // TODO: improve the search depth, etc.
-        return await _context.Stories.AsNoTracking()
+        var stories = (await _context.Stories.AsNoTracking()
             .Where(story =>
                 EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
                 EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
-            .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
-            .ToListAsync();
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => (int?)history.LastPageRead)
+                    .FirstOrDefault()
+            })
+            .ToListAsync())
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
+
+        return stories;
     }
 
-    public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId)
+    public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, UserId searchedBy)
     {
-        return await _context.Stories.AsNoTracking()
-        .Include(x => x.Publisher)
-        .Include(x => x.Genres)
-        .Include(x => x.Comments)
-        .Include(x => x.Contents)
-        .Where(story => story.Id == storyId)
-        .Select(story => StoryWithContentsReadModel.FromDomainModel(story)).FirstOrDefaultAsync();
+        var storyInformation = await _context.Stories.AsNoTracking()
+            .Include(x => x.Publisher)
+            .Include(x => x.Genres)
+            .Include(x => x.Comments)
+            .Include(x => x.Contents)
+            .Where(story => story.Id == storyId)
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => (int?)history.LastPageRead)
+                    .FirstOrDefault()
+            })
+            .FirstOrDefaultAsync();
+
+        if (storyInformation is null)
+        {
+            return null;
+        }
+
+        return StoryDomainToReadDto(storyInformation.Story, storyInformation.LastPageRead);
     }
 
-    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, string? requesterUsername)
+    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, UserId searchedBy, string? requesterUsername)
     {
-        return await _context.Stories.AsNoTracking()
-        .Include(x => x.Publisher)
-        .Where(story => story.Id == storyId)
-        .Select(story => StorySimpleReadModel.FromDomainModel(story, requesterUsername)).FirstOrDefaultAsync();
+        var storyInformation = await _context.Stories.AsNoTracking()
+            .Include(x => x.Publisher)
+            .Where(story => story.Id == storyId)
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => (int?)history.LastPageRead)
+                    .FirstOrDefault()
+            })
+            .FirstOrDefaultAsync();
+
+        if (storyInformation is null)
+        {
+            return null;
+        }
+
+        return StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, requesterUsername);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(string username)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(UserId searchedBy)
     {
         // TODO: make it less dumb
 
-        return await _context.Stories
+        var stories = (await _context.Stories
             .Include(x => x.Publisher)
             .Include(x => x.Contents)
             .Where(x => x.Contents.Any())
-            .Select(story => StorySimpleReadModel.FromDomainModel(story, null))
-            .ToListAsync();
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => (int?)history.LastPageRead)
+                    .FirstOrDefault()
+            })
+            .ToListAsync())
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
 
-        //var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+        return stories;
+    }
 
-        //var historyOfTheUser = user.ReadHistory;
+    private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
+    {
+        int currentPage = lastPageRead + 1;
+        return currentPage.PercentageOf(totalPages);
+    }
 
-        //var rnd = new Random(user.Username.Length);
+    private static StorySimpleReadModel StoryDomainToSimpleReadDto(
+        Story? story,
+        int? lastPageReadByUser,
+        string? requesterUsername = null)
+    {
+        if (story is null)
+        {
+            return null;
+        }
 
-        //var randomStory = historyOfTheUser.Skip(rnd.Next(0, historyOfTheUser.Count - 1)).Take(1).Single();
+        var lastPageRead = lastPageReadByUser is null ? 0 : lastPageReadByUser.Value;
+        var percentageRead = lastPageReadByUser is null ? 0 :
+            RetrieveReadingProgressForAUser(lastPageRead, story.TotalPages);
+        return StorySimpleReadModel.FromDomainModel(story, percentageRead, lastPageRead, requesterUsername);
+    }
 
-        //var splitTitleInWords = randomStory.Story.Title.Trim().Split(' ');
+    private static StoryWithContentsReadModel? StoryDomainToReadDto(
+        Story? story,
+        int? lastPageReadByUser)
+    {
+        if (story is null)
+        {
+            return null;
+        }
 
-        //var randomWordFromTitle = splitTitleInWords.Skip(rnd.Next(0, splitTitleInWords.Length - 1)).Take(1).Single();
-
-        //var randomSearchTerm = randomWordFromTitle.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Trim();
-
-        //var genresCount = randomStory.Story.Genres.Count;
-
-        //var randomStoryGenre = randomStory.Story.Genres.Skip(rnd.Next(0, genresCount - 1)).Take(1).FirstOrDefault()?.Name;
-
-        //var allGenresCount = await _context.Genres.CountAsync();
-
-        //randomStoryGenre ??= (await _context.Genres.Skip(rnd.Next(0, allGenresCount - 1)).Take(1).SingleOrDefaultAsync()).Name;
-
-        //return await GetStoriesBy(randomSearchTerm ?? randomStoryGenre, randomStoryGenre);
+        var lastPageRead = lastPageReadByUser is null ? 0 : lastPageReadByUser.Value;
+        var percentageRead = lastPageReadByUser is null ? 0 :
+            RetrieveReadingProgressForAUser(lastPageRead, story.TotalPages);
+        return StoryWithContentsReadModel.FromDomainModel(story, percentageRead, lastPageRead);
     }
 }

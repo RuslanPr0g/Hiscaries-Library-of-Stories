@@ -12,6 +12,8 @@ export interface StoryModel {
     DateWritten: Date;
     Publisher?: UserModel;
     IsEditable: boolean;
+    PercentageRead: number;
+    LastPageRead: number;
 }
 
 export interface StoryModelWithContents extends StoryModel {

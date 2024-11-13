@@ -9,7 +9,6 @@ public sealed class UserAccountOwnerReadModel : UserSimpleReadModel
     public DateTime AccountCreated { get; set; }
     public IEnumerable<StoryBookMarkReadModel> BookmarkedStories { get; set; }
     public IEnumerable<ReviewReadModel> Reviews { get; set; }
-    public UserReadHistoryReadModel ReadHistory { get; set; }
 
     public static new UserAccountOwnerReadModel FromDomainModel(User user)
     {
@@ -25,7 +24,6 @@ public sealed class UserAccountOwnerReadModel : UserSimpleReadModel
                 ReviewReadModel.FromDomainModel(x,
                 UserSimpleReadModel.FromDomainModel(user),
                 UserSimpleReadModel.FromDomainModel(user))),
-            ReadHistory = UserReadHistoryReadModel.FromDomainModel(user.ReadHistory),
         };
     }
 }

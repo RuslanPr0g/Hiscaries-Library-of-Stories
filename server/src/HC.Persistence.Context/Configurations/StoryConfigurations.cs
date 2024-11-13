@@ -47,9 +47,16 @@ public class StoryConfigurations : IEntityTypeConfiguration<Story>
             .HasForeignKey(sr => sr.StoryId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder
+            .HasMany(s => s.ReadHistory)
+            .WithOne()
+            .HasForeignKey(sr => sr.StoryId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.Navigation(x => x.Genres).AutoInclude();
         builder.Navigation(x => x.Publisher).AutoInclude();
         builder.Navigation(x => x.Ratings).AutoInclude();
+        builder.Navigation(x => x.ReadHistory).AutoInclude();
         builder.Navigation(x => x.Comments).AutoInclude();
         builder.Navigation(x => x.Contents).AutoInclude();
     }

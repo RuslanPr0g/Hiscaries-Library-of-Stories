@@ -1,25 +1,22 @@
 ﻿using HC.Domain;
 using System;
 
-public abstract class Entity<T> :
-    IAuditableEntity,
+public abstract class Entity : IAuditableEntity
+{
+    public DateTime CreatedAt { get; set; }
+    public DateTime EditedAt { get; set; }
+    public int Version { get; set; }
+}
+
+public abstract class Entity<T> : 
+    Entity,
     IEquatable<Entity<T>> where T : Identity
 {
     public T Id { get; init; }
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime EditedAt { get; set; }
-    public int Version { get; set; }
-
     protected Entity(T id)
     {
         Id = id;
-    }
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    protected Entity()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    {
     }
 
     public override bool Equals(object? obj)
@@ -57,5 +54,9 @@ public abstract class Entity<T> :
     public static bool operator !=(Entity<T>? left, Entity<T>? right)
     {
         return !(left == right);
+    }
+
+    protected Entity()
+    {
     }
 }

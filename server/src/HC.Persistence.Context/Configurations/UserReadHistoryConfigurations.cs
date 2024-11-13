@@ -6,18 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HC.Persistence.Context.Configurations;
 
-public class UserReadHistoryConfigurations : IEntityTypeConfiguration<UserReadHistory>
+public class UserReadHistoryConfigurations : IEntityTypeConfiguration<ReadingHistory>
 {
-    public void Configure(EntityTypeBuilder<UserReadHistory> builder)
+    public void Configure(EntityTypeBuilder<ReadingHistory> builder)
     {
-        builder.ConfigureEntity<UserReadHistory, UserReadHistoryId, UserReadHistoryIdentityConverter>();
+        builder.ConfigureEntity();
+        builder.HasKey(sp => new { sp.StoryId, sp.UserId });
         builder.Property(c => c.UserId).HasConversion(new UserIdentityConverter());
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
-
-        builder
-            .HasOne(urh => urh.Story)
-            .WithMany()
-            .HasForeignKey(urh => urh.StoryId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

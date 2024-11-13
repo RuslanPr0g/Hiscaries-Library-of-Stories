@@ -57,14 +57,18 @@ export class ReadStoryContentComponent implements OnInit {
                         ImagePreviewUrl: convertToBase64(story.ImagePreviewUrl),
                     };
 
-                    this.iterator.upperBoundary = story.Contents.length - 1;
+                    if (story.LastPageRead) {
+                        this.iterator.moveTo(story.LastPageRead);
+                    } else {
+                        this.storyService
+                            .read({
+                                StoryId: story.Id,
+                                PageRead: 0,
+                            })
+                            .subscribe();
+                    }
 
-                    this.storyService
-                        .read({
-                            StoryId: story.Id,
-                            PageRead: 0,
-                        })
-                        .subscribe();
+                    this.iterator.upperBoundary = story.Contents.length - 1;
                 },
                 error: () => (this.storyNotFound = true),
             });
@@ -106,7 +110,7 @@ export class ReadStoryContentComponent implements OnInit {
     moveNext(): boolean {
         const result = this.iterator.moveNext();
 
-        if (result && this.storyId) {
+        if (result && this.storyId && this.iterator.currentIndex > (this.story?.LastPageRead ?? 0)) {
             this.storyService
                 .read({
                     StoryId: this.storyId,

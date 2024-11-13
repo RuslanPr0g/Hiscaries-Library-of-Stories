@@ -16,7 +16,10 @@ public class StorySimpleReadModel
     public UserSimpleReadModel Publisher { get; set; }
     public bool IsEditable { get; set; } = false;
 
-    public static StorySimpleReadModel FromDomainModel(Story story, string? requesterUsername = null)
+    public decimal PercentageRead { get; set; } = 0;
+    public int LastPageRead { get; set; }
+
+    public static StorySimpleReadModel FromDomainModel(Story story, decimal percentageRead, int lastPageRead, string? requesterUsername = null)
     {
         return new StorySimpleReadModel
         {
@@ -29,7 +32,9 @@ public class StorySimpleReadModel
             DateWritten = story.DateWritten,
             Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
             IsEditable = story.Publisher?.Username == requesterUsername,
-            ImagePreviewUrl = story.ImagePreviewUrl
+            ImagePreviewUrl = story.ImagePreviewUrl,
+            PercentageRead = percentageRead,
+            LastPageRead = lastPageRead
         };
     }
 }

@@ -5,6 +5,8 @@
             alt="{{ story.Title }}"
             class="story-image"
         />
+
+        <app-progress-bar [percentage]="story.PercentageRead"></app-progress-bar>
     </div>
     <div class="story-details">
         <div class="story-overview">

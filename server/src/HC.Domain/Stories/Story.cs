@@ -52,11 +52,13 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public UserId PublisherId { get; init; }
     public User Publisher { get; init; }
-    public ICollection<Genre> Genres { get; init; } = new List<Genre>();
-    public List<StoryPage> Contents { get; private set; } = new List<StoryPage>();
-    public ICollection<Comment> Comments { get; init; } = new List<Comment>();
-    public ICollection<StoryAudio> Audios { get; init; } = new List<StoryAudio>();
-    public ICollection<StoryRating> Ratings { get; init; } = new List<StoryRating>();
+
+    public ICollection<Genre> Genres { get; init; } = [];
+    public List<StoryPage> Contents { get; private set; } = [];
+    public ICollection<Comment> Comments { get; init; } = [];
+    public ICollection<StoryAudio> Audios { get; init; } = [];
+    public ICollection<StoryRating> Ratings { get; init; } = [];
+    public ICollection<ReadingHistory> ReadHistory { get; } = [];
 
     public string Title { get; private set; }
     public string Description { get; private set; }
@@ -66,12 +68,19 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public string? ImagePreviewUrl { get; private set; }
 
+    public int TotalPages => Contents.Count;
+
     public void UpdateTitle(string title)
     {
         if (!string.IsNullOrEmpty(title))
         {
             Title = title;
         }
+    }
+
+    public void UpdateAgeLimit(int value)
+    {
+        AgeLimit = value;
     }
 
     public void AddComment(CommentId commentId, UserId userId, string content, int score)

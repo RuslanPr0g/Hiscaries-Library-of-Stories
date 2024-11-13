@@ -38,7 +38,7 @@ public sealed class Genre : Entity<GenreId>
         ImagePreview = imagePreview;
     }
 
-    protected Genre()
+    private Genre()
     {
     }
 }
