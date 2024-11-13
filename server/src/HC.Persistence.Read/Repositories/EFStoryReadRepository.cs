@@ -34,7 +34,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
                 Story = story,
                 LastPageRead = story.ReadHistory
                     .Where(history => history.UserId == searchedBy)
-                    .Select(history => history.LastPageRead)
+                    .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
             .ToListAsync())
@@ -56,7 +56,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
                 Story = story,
                 LastPageRead = story.ReadHistory
                     .Where(history => history.UserId == searchedBy)
-                    .Select(history => history.LastPageRead)
+                    .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
             .FirstOrDefaultAsync();
@@ -79,7 +79,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
                 Story = story,
                 LastPageRead = story.ReadHistory
                     .Where(history => history.UserId == searchedBy)
-                    .Select(history => history.LastPageRead)
+                    .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
             .FirstOrDefaultAsync();
@@ -105,7 +105,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
                 Story = story,
                 LastPageRead = story.ReadHistory
                     .Where(history => history.UserId == searchedBy)
-                    .Select(history => history.LastPageRead)
+                    .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
             .ToListAsync())
@@ -122,7 +122,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
     private static StorySimpleReadModel StoryDomainToSimpleReadDto(
         Story? story,
-        int lastPageReadByUser,
+        int? lastPageReadByUser,
         string? requesterUsername = null)
     {
         if (story is null)
@@ -130,20 +130,24 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             return null;
         }
 
-        var percentageRead = RetrieveReadingProgressForAUser(lastPageReadByUser, story.TotalPages);
-        return StorySimpleReadModel.FromDomainModel(story, percentageRead, lastPageReadByUser, requesterUsername);
+        var lastPageRead = lastPageReadByUser is null ? 0 : lastPageReadByUser.Value;
+        var percentageRead = lastPageReadByUser is null ? 0 :
+            RetrieveReadingProgressForAUser(lastPageRead, story.TotalPages);
+        return StorySimpleReadModel.FromDomainModel(story, percentageRead, lastPageRead, requesterUsername);
     }
 
     private static StoryWithContentsReadModel? StoryDomainToReadDto(
         Story? story,
-        int lastPageReadByUser)
+        int? lastPageReadByUser)
     {
         if (story is null)
         {
             return null;
         }
 
-        var percentageRead = RetrieveReadingProgressForAUser(lastPageReadByUser, story.TotalPages);
-        return StoryWithContentsReadModel.FromDomainModel(story, percentageRead, lastPageReadByUser);
+        var lastPageRead = lastPageReadByUser is null ? 0 : lastPageReadByUser.Value;
+        var percentageRead = lastPageReadByUser is null ? 0 :
+            RetrieveReadingProgressForAUser(lastPageRead, story.TotalPages);
+        return StoryWithContentsReadModel.FromDomainModel(story, percentageRead, lastPageRead);
     }
 }
