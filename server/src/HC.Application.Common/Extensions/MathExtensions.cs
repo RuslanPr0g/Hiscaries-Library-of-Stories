@@ -14,6 +14,6 @@ public static class MathExtensions
             return 0;
         }
 
-        return (currentCount / totalCount) * 100;
+        return ((currentCount * 1m) / (totalCount * 1m)) * 100;
     }
 }

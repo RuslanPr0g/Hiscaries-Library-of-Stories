@@ -23,7 +23,10 @@ public sealed class UserReadHistory : Entity
 
     internal void ReadPage(int page)
     {
-        LastPageRead = page;
+        if (page > LastPageRead)
+        {
+            LastPageRead = page;
+        }
     }
 
     private UserReadHistory()

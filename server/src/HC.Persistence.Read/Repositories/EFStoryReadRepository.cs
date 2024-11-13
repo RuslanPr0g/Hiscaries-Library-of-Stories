@@ -82,7 +82,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return await stories.WhenAllSequentialAsync();
     }
 
-    private static async Task<decimal> CalculateStoryReadingProgressForAUser(HiscaryContext context, UserId userId, StoryId storyId, int totalPages)
+    private static async Task<(int CurrentPage, decimal PercentageRead)> RetrieveReadingProgressForAUser(HiscaryContext context, UserId userId, StoryId storyId, int totalPages)
     {
         var readingHistory = await context.ReadHistory
             .AsNoTracking()
@@ -90,12 +90,12 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
         if (readingHistory is null)
         {
-            return 0;
+            return (0, 0);
         }
 
-        int currentPage = readingHistory.LastPageRead;
+        int currentPage = readingHistory.LastPageRead + 1;
 
-        return currentPage.PercentageOf(totalPages);
+        return (currentPage, currentPage.PercentageOf(totalPages));
     }
 
     private static async Task<StorySimpleReadModel> StoryDomainToSimpleReadDto(
@@ -109,8 +109,8 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             return null;
         }
 
-        var percentageRead = await CalculateStoryReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
-        return StorySimpleReadModel.FromDomainModel(story, percentageRead, requesterUsername);
+        var readingProgress = await RetrieveReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
+        return StorySimpleReadModel.FromDomainModel(story, readingProgress.PercentageRead, readingProgress.CurrentPage, requesterUsername);
     }
 
     private static async Task<StoryWithContentsReadModel?> StoryDomainToReadDto(
@@ -123,7 +123,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             return null;
         }
 
-        var percentageRead = await CalculateStoryReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
-        return StoryWithContentsReadModel.FromDomainModel(story, percentageRead);
+        var readingProgress = await RetrieveReadingProgressForAUser(context, userId, story.Id, story.TotalPages);
+        return StoryWithContentsReadModel.FromDomainModel(story, readingProgress.PercentageRead, readingProgress.CurrentPage);
     }
 }
