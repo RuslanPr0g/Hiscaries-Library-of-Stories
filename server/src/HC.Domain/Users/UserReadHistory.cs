@@ -2,15 +2,13 @@
 
 namespace HC.Domain.Users;
 
-public sealed class UserReadHistory : Entity<UserReadHistoryId>
+public sealed class UserReadHistory : Entity
 {
     public UserReadHistory(
-        UserReadHistoryId id,
         UserId user,
         StoryId story,
-        int pageRead) : base(id)
+        int pageRead)
     {
-        Id = id;
         UserId = user;
         StoryId = story;
         LastPageRead = pageRead;

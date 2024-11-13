@@ -1,6 +1,6 @@
 ﻿namespace HC.Domain.Stories;
 
-public sealed class StoryPage
+public sealed class StoryPage : Entity
 {
     public StoryPage(
         StoryId storyId,

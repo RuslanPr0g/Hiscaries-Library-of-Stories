@@ -30,6 +30,6 @@ public sealed class StoryDomainEventHandler
             return;
         }
 
-        story.UpdateTitle($"{domainEvent.Page} | {story.Title}");
+        story.UpdateAgeLimit(domainEvent.Page);
     }
 }

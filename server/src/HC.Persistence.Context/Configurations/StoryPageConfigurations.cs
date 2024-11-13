@@ -1,5 +1,6 @@
 ﻿using HC.Domain.Stories;
 using HC.Persistence.Context.Configurations.Converters;
+using HC.Persistence.Context.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,6 +10,7 @@ public class StoryPageConfigurations : IEntityTypeConfiguration<StoryPage>
 {
     public void Configure(EntityTypeBuilder<StoryPage> builder)
     {
+        builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.StoryId, sp.Page });
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
     }

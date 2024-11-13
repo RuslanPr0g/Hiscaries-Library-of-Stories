@@ -33,7 +33,7 @@ public sealed class StoryAudio : Entity<StoryAudioId>
     public Guid FileId { get; private set; }
     public string Name { get; private set; }
 
-    protected StoryAudio()
+    private StoryAudio()
     {
     }
 }

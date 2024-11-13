@@ -48,7 +48,7 @@ public sealed class User : AggregateRoot<UserId>
         }
     }
 
-    public void ReadStoryPage(StoryId storyId, int page, UserReadHistoryId generatedHistoryPageId)
+    public void ReadStoryPage(StoryId storyId, int page)
     {
         var historyItem = ReadHistory.FirstOrDefault(x => x.StoryId == storyId);
 
@@ -58,7 +58,7 @@ public sealed class User : AggregateRoot<UserId>
         }
         else
         {
-            ReadHistory.Add(new UserReadHistory(generatedHistoryPageId, Id, storyId, page));
+            ReadHistory.Add(new UserReadHistory(Id, storyId, page));
         }
 
         PublishStoryPageReadEvent(Id, storyId, page);

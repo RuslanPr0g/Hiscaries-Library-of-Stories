@@ -76,6 +76,11 @@ public sealed class Story : AggregateRoot<StoryId>
         }
     }
 
+    public void UpdateAgeLimit(int value)
+    {
+        AgeLimit = value;
+    }
+
     public void AddComment(CommentId commentId, UserId userId, string content, int score)
     {
         Comments.Add(Comment.Create(commentId, Id, userId, content, score));

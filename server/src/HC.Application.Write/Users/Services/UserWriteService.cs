@@ -89,8 +89,7 @@ public sealed class UserWriteService : IUserWriteService
 
         user.ReadStoryPage(
             command.StoryId,
-            command.Page,
-            _idGenerator.Generate((id) => new UserReadHistoryId(id)));
+            command.Page);
 
         _logger.LogInformation("Successfully recorded read story history for user {UserId}, story {StoryId}, page {Page}", command.UserId, command.StoryId, command.Page);
         return OperationResult.CreateSuccess();
