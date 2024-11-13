@@ -95,7 +95,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
         int currentPage = readingHistory.LastPageRead + 1;
 
-        return (currentPage, currentPage.PercentageOf(totalPages));
+        return (readingHistory.LastPageRead, currentPage.PercentageOf(totalPages));
     }
 
     private static async Task<StorySimpleReadModel> StoryDomainToSimpleReadDto(

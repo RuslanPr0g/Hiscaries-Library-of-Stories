@@ -57,6 +57,10 @@ export class ReadStoryContentComponent implements OnInit {
                         ImagePreviewUrl: convertToBase64(story.ImagePreviewUrl),
                     };
 
+                    if (story.LastPageRead) {
+                        this.iterator.moveTo(story.LastPageRead);
+                    }
+
                     this.iterator.upperBoundary = story.Contents.length - 1;
 
                     this.storyService
@@ -106,7 +110,7 @@ export class ReadStoryContentComponent implements OnInit {
     moveNext(): boolean {
         const result = this.iterator.moveNext();
 
-        if (result && this.storyId) {
+        if (result && this.storyId && this.iterator.currentIndex > (this.story?.LastPageRead ?? 0)) {
             this.storyService
                 .read({
                     StoryId: this.storyId,
