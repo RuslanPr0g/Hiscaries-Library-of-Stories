@@ -29,6 +29,11 @@ public sealed class StoryReadService : IStoryReadService
         return await _repository.GetStoryResumeReading(request.UserId);
     }
 
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(GetStoryReadingHistoryQuery request)
+    {
+        return await _repository.GetStoryReadingHistory(request.UserId);
+    }
+
     public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request)
     {
         if (request.Id.HasValue && Guid.Empty != request.Id)

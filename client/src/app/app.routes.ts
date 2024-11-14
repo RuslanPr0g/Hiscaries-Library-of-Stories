@@ -9,6 +9,7 @@ import { ModifyStoryComponent } from './stories/modify-story/modify-story.compon
 import { ReadStoryContentComponent } from './stories/read-story-content/read-story-content.component';
 import { SearchStoryComponent } from './stories/search-story/search-story.component';
 import { storyFeatureKey, storyReducer } from './stories/store/story.reducer';
+import { ReadingHistoryComponent } from './stories/reading-history/reading-history.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,12 @@ export const routes: Routes = [
         path: 'publish-story',
         title: 'Publish Story',
         component: PublishStoryComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'reading-history',
+        title: 'Reading History',
+        component: ReadingHistoryComponent,
         canActivate: [authGuard],
     },
     {

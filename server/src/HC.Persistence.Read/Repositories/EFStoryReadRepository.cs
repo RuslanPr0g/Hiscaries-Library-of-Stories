@@ -136,6 +136,32 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return stories;
     }
 
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(UserId searchedBy)
+    {
+        var stories = (await _context.Stories
+            .Include(x => x.Publisher)
+            .Include(x => x.Contents)
+            .Where(x => x.ReadHistory.Any(x => x.UserId == searchedBy))
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => new
+                    {
+                        PageNumber = (int?)history.LastPageRead,
+                        ReadAt = (DateTime?)history.EditedAt
+                    })
+                    .FirstOrDefault(),
+            })
+            .Where(x => x.LastPageRead != null)
+            .OrderByDescending(x => x.LastPageRead!.ReadAt)
+            .ToListAsync())
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead?.PageNumber ?? 0, null));
+
+        return stories;
+    }
+
     private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
     {
         int currentPage = lastPageRead + 1;

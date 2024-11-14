@@ -3,6 +3,7 @@ export class NavigationConst {
     public static readonly Login: string = '/login';
 
     public static readonly PublishStory: string = '/publish-story';
+    public static readonly ReadingHistory: string = '/reading-history';
     public static readonly PreviewStory = (storyId: string): string => this.ByRouteParameter('preview-story', storyId);
     public static readonly ModifyStory = (storyId: string): string => this.ByRouteParameter('modify-story', storyId);
     public static readonly ReadStory = (storyId: string): string => this.ByRouteParameter('read-story', storyId);

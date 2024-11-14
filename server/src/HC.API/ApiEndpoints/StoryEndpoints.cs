@@ -62,6 +62,10 @@ public static class StoryEndpoints
             .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
+        group.MapGet("/reading-history", ReadingHistory)
+            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
         group.MapPost("/", PublishStory)
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
@@ -230,6 +234,24 @@ public static class StoryEndpoints
         }
 
         var query = new GetStoryResumeReadingQuery
+        {
+            UserId = userIdClaim.Value
+        };
+
+        var result = await mediator.Send(query);
+
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> ReadingHistory([FromServices] IMediator mediator, HttpContext httpContext)
+    {
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetStoryReadingHistoryQuery
         {
             UserId = userIdClaim.Value
         };
