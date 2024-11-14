@@ -92,7 +92,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, requesterUsername);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(UserId searchedBy)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions(UserId searchedBy)
     {
         // TODO: make it less dumb
 
@@ -108,6 +108,28 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
                     .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
+            .ToListAsync())
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
+
+        return stories;
+    }
+
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(UserId searchedBy)
+    {
+        var stories = (await _context.Stories
+            .Include(x => x.Publisher)
+            .Include(x => x.Contents)
+            .Where(x => x.ReadHistory.Any(x => x.UserId == searchedBy))
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.UserId == searchedBy)
+                    .Select(history => (int?)history.LastPageRead)
+                    .FirstOrDefault()
+            })
+            .Take(3)
+            .OrderByDescending(x => x.LastPageRead)
             .ToListAsync())
             .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
 

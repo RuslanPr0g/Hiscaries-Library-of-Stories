@@ -57,7 +57,9 @@ export class SearchStoryRecommendationsComponent implements OnInit {
             this._isCooldown = false;
         }, 3000);
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // TODO: we need this on mobile view,
+        // + we need to scroll only to the beginning of the current component, not the whole page
+        // window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     private fetchRecommendations(shouldSetLoading: boolean = true): void {

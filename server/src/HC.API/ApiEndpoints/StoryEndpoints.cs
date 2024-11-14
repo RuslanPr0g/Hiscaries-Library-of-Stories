@@ -55,7 +55,11 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapGet("/recommendations", BestToRead)
-            .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
+            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/resume-reading", ResumeReading)
+            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapPost("/", PublishStory)
@@ -215,6 +219,24 @@ public static class StoryEndpoints
         response.Shuffle();
 
         return Results.Ok(response);
+    }
+
+    private static async Task<IResult> ResumeReading([FromServices] IMediator mediator, HttpContext httpContext)
+    {
+        var userIdClaim = httpContext.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetStoryResumeReadingQuery
+        {
+            UserId = userIdClaim.Value
+        };
+
+        var result = await mediator.Send(query);
+
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PublishStory([FromBody] PublishStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)

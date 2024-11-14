@@ -8,7 +8,8 @@ namespace HC.Application.Read.Stories.DataAccess;
 public interface IStoryReadRepository
 {
     Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre, UserId searchedBy);
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(UserId searchedBy);
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions(UserId searchedBy);
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(UserId searchedBy);
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
     Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, UserId searchedBy);
     Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, UserId searchedBy, string? requesterUsername);

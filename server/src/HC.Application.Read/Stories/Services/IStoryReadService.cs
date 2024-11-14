@@ -10,5 +10,6 @@ public interface IStoryReadService
     Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId, UserId searchedBy);
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
     Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request);
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(GetStoryResumeReadingQuery request);
     Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request);
 }

@@ -27,6 +27,10 @@ export class StoryService {
         return this.http.get<StoryModel[]>(`${this.apiUrl}/recommendations`);
     }
 
+    resumeReading(): Observable<StoryModel[]> {
+        return this.http.get<StoryModel[]>(`${this.apiUrl}/resume-reading`);
+    }
+
     searchStory(request: SearchStoryRequest): Observable<StoryModel[]> {
         return this.http.post<StoryModel[]>(`${this.apiUrl}/search`, request);
     }
