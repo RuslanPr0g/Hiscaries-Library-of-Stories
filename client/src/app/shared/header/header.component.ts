@@ -36,6 +36,10 @@ export class HeaderComponent {
                 Command: () => this.navigateToPublishStory(),
             },
             {
+                Label: 'Reading history',
+                Command: () => this.navigateToReadingHistory(),
+            },
+            {
                 Label: 'Sign out',
                 Command: () => this.logOut(),
             },
@@ -58,5 +62,9 @@ export class HeaderComponent {
 
     navigateToPublishStory(): void {
         this.router.navigate([NavigationConst.PublishStory]);
+    }
+
+    navigateToReadingHistory(): void {
+        this.router.navigate([NavigationConst.ReadingHistory]);
     }
 }
