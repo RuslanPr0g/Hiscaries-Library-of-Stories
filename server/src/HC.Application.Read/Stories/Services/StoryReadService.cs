@@ -19,8 +19,15 @@ public sealed class StoryReadService : IStoryReadService
 
     public async Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId, UserId searchedBy) => await _repository.GetStory(storyId, searchedBy);
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request) =>
-        await _repository.GetStoryRecommendations(request.UserId);
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request)
+    {
+        return await _repository.GetStoryReadingSuggestions(request.UserId);
+    }
+
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(GetStoryResumeReadingQuery request)
+    {
+        return await _repository.GetStoryResumeReading(request.UserId);
+    }
 
     public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request)
     {
