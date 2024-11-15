@@ -2,7 +2,7 @@
 
 ---
 
-## 🛠️ Configuration Settings
+## 🛠️ Configuration Settings!
 
 Configure your settings in your chosen config file as follows:
 
