@@ -1,5 +1,8 @@
-<app-search-story-results
-    [stories]="displayedStories"
-    [isLoading]="isLoading"
->
-</app-search-story-results>
+<ng-container *ngIf="displayedStories">
+    <h1 class="fs-3rem main-title">Resume reading</h1>
+    <app-search-story-results
+        [stories]="displayedStories"
+        [isLoading]="isLoading"
+    >
+    </app-search-story-results>
+</ng-container>
