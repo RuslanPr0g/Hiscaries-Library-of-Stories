@@ -343,7 +343,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
             using var ms = new MemoryStream();
             image.Save(ms, new JpegEncoder { Quality = 75 });
-            var fileName = $"{storyId.Value}.{extension}";
+            var fileName = $"stories/{storyId.Value}.{extension}";
             return await _fileStorageService.SaveFileAsync(ms.ToArray(), fileName);
         }
     }
