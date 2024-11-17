@@ -1,8 +1,8 @@
-# 📚 Hiscaries Library of Stories
+# 📚 Hiscaries Library of Stories!
 
 ---
 
-## 🛠️ Configuration Settings
+## 🛠️ Configuration Settings!
 
 Configure your settings in your chosen config file as follows:
 

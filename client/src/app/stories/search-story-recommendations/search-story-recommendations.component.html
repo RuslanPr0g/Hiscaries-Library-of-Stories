@@ -1,11 +1,14 @@
-<app-search-story-results
-    [stories]="displayedStories"
-    [isLoading]="isLoading"
->
-</app-search-story-results>
-<app-button-one
-    *ngIf="shouldShowMoreButton"
-    [label]="'Show More'"
-    [disabled]="isCooldownActive"
-    (clickAction)="showMore()"
-></app-button-one>
+<ng-container *ngIf="displayedStories">
+    <h1 class="fs-3rem main-title">Stories for you to read</h1>
+    <app-search-story-results
+        [stories]="displayedStories"
+        [isLoading]="isLoading"
+    >
+    </app-search-story-results>
+    <app-button-one
+        *ngIf="shouldShowMoreButton"
+        [label]="'Show More'"
+        [disabled]="isCooldownActive"
+        (clickAction)="showMore()"
+    ></app-button-one>
+</ng-container>
