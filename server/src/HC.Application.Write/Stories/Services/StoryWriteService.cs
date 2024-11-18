@@ -111,6 +111,8 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
+        // TODO: add a check that only the owner is going to update his comment
+
         story.UpdateComment(command.CommentId, command.Content, command.Score);
         _logger.LogInformation("Comment {CommentId} updated for story {StoryId}", command.CommentId, command.StoryId);
 
@@ -128,7 +130,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var story = Story.Create(
             storyId,
-            command.PublisherId,
+            command.LibraryId,
             command.Title,
             command.Description,
             command.AuthorName,
@@ -154,7 +156,7 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
-        if (story.PublisherId.Value != command.CurrentUserId)
+        if (story.Library.PlatformUserId.Value != command.CurrentUserId)
         {
             _logger.LogWarning("Story {StoryId} can only be updated by its publisher or an administrator, user {UserId} tried to update not his story.",
                 command.StoryId, command.CurrentUserId);
@@ -263,6 +265,8 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
+        // TODO: add rights check
+
         story.DeleteComment(command.CommentId);
         _logger.LogInformation("Comment {CommentId} deleted from story {StoryId}", command.CommentId, command.StoryId);
 
@@ -291,8 +295,12 @@ public sealed class StoryWriteService : IStoryWriteService
         _logger.LogInformation("Deleting story {StoryId}", command.StoryId);
         var story = await _repository.GetStory(command.StoryId);
 
+        // TODO: add rights check
+
         if (story is not null)
         {
+            // TODO: let's mark it as isDeleted and then have a
+            // job that would remove all the isdeleted records once per month or smth
             _repository.DeleteStory(story);
             _logger.LogInformation("Story {StoryId} deleted successfully", command.StoryId);
         }
@@ -326,6 +334,7 @@ public sealed class StoryWriteService : IStoryWriteService
         return await UploadImageWithCompression(storyId, imagePreview, extension);
     }
 
+    // TODO: we need to extract this logic
     private async Task<string> UploadImageWithCompression(StoryId storyId, byte[] imagePreview, string extension = "jpg")
     {
         using (var image = Image.Load(imagePreview))

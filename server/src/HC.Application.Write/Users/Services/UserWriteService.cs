@@ -7,7 +7,6 @@ using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Stories.Command;
 using HC.Application.Write.Users.Command;
 using HC.Application.Write.Users.DataAccess;
-using HC.Domain.Users;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 

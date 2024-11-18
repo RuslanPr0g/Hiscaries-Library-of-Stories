@@ -33,7 +33,7 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public static Story Create(
         StoryId id,
-        LibraryId publisherId,
+        LibraryId libraryId,
         string title,
         string description,
         string authorName,
@@ -42,7 +42,7 @@ public sealed class Story : AggregateRoot<StoryId>
         int ageLimit,
         DateTime dateWritten) => new(
             id,
-            publisherId,
+            libraryId,
             title,
             description,
             authorName,
