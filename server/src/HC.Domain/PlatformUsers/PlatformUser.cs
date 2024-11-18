@@ -37,6 +37,16 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     // TODO: this value should be synced with the user account, as it should be the same (use domain events)
     public string Username { get; set; }
 
+    public Library? GetCurrentLibrary()
+    {
+        if (!IsPublisher)
+        {
+            return null;
+        }
+
+        return Libraries.ElementAt(0);
+    }
+
     public void BecomePublisher(LibraryId libraryId)
     {
         if (!IsPublisher)

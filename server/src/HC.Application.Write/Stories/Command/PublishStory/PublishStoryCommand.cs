@@ -5,7 +5,7 @@ namespace HC.Application.Write.Stories.Command;
 
 public class PublishStoryCommand : IRequest<OperationResult<EntityIdResponse>>
 {
-    public Guid LibraryId { get; set; }
+    public Guid UserId { get; set; }
 
     public string Title { get; set; }
 
