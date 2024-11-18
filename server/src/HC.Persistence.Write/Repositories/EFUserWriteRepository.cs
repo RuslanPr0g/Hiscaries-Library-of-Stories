@@ -18,12 +18,10 @@ public class EFUserWriteRepository : IUserWriteRepository
 
     public async Task<User?> GetUserById(UserId userId) =>
         await _context.Users
-            .Include(x => x.ReadHistory)
             .FirstOrDefaultAsync(x => x.Id == userId);
 
     public async Task<User?> GetUserByUsername(string username) =>
         await _context.Users
-            .Include(x => x.ReadHistory)
             .FirstOrDefaultAsync(x => x.Username == username);
 
     public async Task<bool> IsUserExistByEmail(string email) =>

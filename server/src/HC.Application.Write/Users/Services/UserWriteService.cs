@@ -69,7 +69,7 @@ public sealed class UserWriteService : IUserWriteService
         }
 
         user.BookmarkStory(
-            _idGenerator.Generate((id) => new UserStoryBookMarkId(id)),
+            _idGenerator.Generate((id) => new StoryBookMarkId(id)),
             command.StoryId);
 
         _logger.LogInformation("Successfully bookmarked story {StoryId} for user {UserId}", command.StoryId, command.UserId);
@@ -134,7 +134,7 @@ public sealed class UserWriteService : IUserWriteService
         {
             _logger.LogInformation("Publishing new review");
             user.PublishNewReview(
-                new UserId(command.PublisherId),
+                new PublisherId(command.PublisherId),
                 command.Message,
                 _idGenerator.Generate((id) => new ReviewId(id)));
         }

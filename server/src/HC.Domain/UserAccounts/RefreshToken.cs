@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HC.Domain.Users;
+namespace HC.Domain.UserAccounts;
 
 public sealed class RefreshToken : Entity<RefreshTokenId>
 {

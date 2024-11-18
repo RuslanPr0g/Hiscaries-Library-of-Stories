@@ -3,7 +3,6 @@ using HC.Application.Read.Genres.ReadModels;
 using HC.Application.Read.Stories.DataAccess;
 using HC.Application.Read.Stories.ReadModels;
 using HC.Domain.Stories;
-using HC.Domain.Users;
 using HC.Persistence.Context;
 using MassTransit.Initializers;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() =>
         await _context.Genres.AsNoTracking().Select(genre => GenreReadModel.FromDomainModel(genre)).ToListAsync();
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre, UserId searchedBy)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre, ReaderId searchedBy)
     {
         // TODO: improve the search depth, etc.
         var stories = (await _context.Stories.AsNoTracking()
@@ -33,7 +32,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             {
                 Story = story,
                 LastPageRead = story.ReadHistory
-                    .Where(history => history.UserId == searchedBy)
+                    .Where(history => history.ReaderId == searchedBy)
                     .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
@@ -43,7 +42,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return stories;
     }
 
-    public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, UserId searchedBy)
+    public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, ReaderId searchedBy)
     {
         var storyInformation = await _context.Stories.AsNoTracking()
             .Include(x => x.Publisher)
@@ -55,7 +54,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             {
                 Story = story,
                 LastPageRead = story.ReadHistory
-                    .Where(history => history.UserId == searchedBy)
+                    .Where(history => history.ReaderId == searchedBy)
                     .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
@@ -69,7 +68,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return StoryDomainToReadDto(storyInformation.Story, storyInformation.LastPageRead);
     }
 
-    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, UserId searchedBy, string? requesterUsername)
+    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, ReaderId searchedBy, string? requesterUsername)
     {
         var storyInformation = await _context.Stories.AsNoTracking()
             .Include(x => x.Publisher)
@@ -78,7 +77,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             {
                 Story = story,
                 LastPageRead = story.ReadHistory
-                    .Where(history => history.UserId == searchedBy)
+                    .Where(history => history.ReaderId == searchedBy)
                     .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
@@ -92,7 +91,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, requesterUsername);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions(UserId searchedBy)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions(ReaderId searchedBy)
     {
         // TODO: make it less dumb
 
@@ -104,7 +103,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             {
                 Story = story,
                 LastPageRead = story.ReadHistory
-                    .Where(history => history.UserId == searchedBy)
+                    .Where(history => history.ReaderId == searchedBy)
                     .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
@@ -114,17 +113,17 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return stories;
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(UserId searchedBy)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(ReaderId searchedBy)
     {
         var stories = (await _context.Stories
             .Include(x => x.Publisher)
             .Include(x => x.Contents)
-            .Where(x => x.ReadHistory.Any(x => x.UserId == searchedBy))
+            .Where(x => x.ReadHistory.Any(x => x.ReaderId == searchedBy))
             .Select(story => new
             {
                 Story = story,
                 LastPageRead = story.ReadHistory
-                    .Where(history => history.UserId == searchedBy)
+                    .Where(history => history.ReaderId == searchedBy)
                     .Select(history => (int?)history.LastPageRead)
                     .FirstOrDefault()
             })
@@ -136,17 +135,17 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return stories;
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(UserId searchedBy)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(ReaderId searchedBy)
     {
         var stories = (await _context.Stories
             .Include(x => x.Publisher)
             .Include(x => x.Contents)
-            .Where(x => x.ReadHistory.Any(x => x.UserId == searchedBy))
+            .Where(x => x.ReadHistory.Any(x => x.ReaderId == searchedBy))
             .Select(story => new
             {
                 Story = story,
                 LastPageRead = story.ReadHistory
-                    .Where(history => history.UserId == searchedBy)
+                    .Where(history => history.ReaderId == searchedBy)
                     .Select(history => new
                     {
                         PageNumber = (int?)history.LastPageRead,

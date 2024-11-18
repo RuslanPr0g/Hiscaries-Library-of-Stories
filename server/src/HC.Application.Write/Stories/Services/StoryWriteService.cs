@@ -4,6 +4,7 @@ using HC.Application.Write.Generators;
 using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Stories.Command;
 using HC.Application.Write.Stories.DataAccess;
+using HC.Domain.Genres;
 using HC.Domain.Stories;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;

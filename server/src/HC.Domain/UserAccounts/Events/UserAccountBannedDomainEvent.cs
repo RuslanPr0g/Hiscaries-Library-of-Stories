@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace HC.Domain.Users.Events;
+namespace HC.Domain.UserAccounts.Events;
 
 // TODO: maybe record is not the best choice for domain event representation?
-public sealed class UserBannedDomainEvent(Guid UserId) : IDomainEvent
+public sealed class UserAccountBannedDomainEvent(Guid UserId) : IDomainEvent
 {
     public Guid UserId { get; } = UserId;
 }

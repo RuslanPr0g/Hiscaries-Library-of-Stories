@@ -12,12 +12,12 @@ public class CommentConfigurations : IEntityTypeConfiguration<Comment>
     {
         builder.ConfigureEntity<Comment, CommentId, CommentIdentityConverter>();
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
-        builder.Property(c => c.UserId).HasConversion(new UserIdentityConverter());
+        builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());
 
         builder
-            .HasOne(c => c.User)
+            .HasOne(c => c.PlatformUser)
             .WithMany()
-            .HasForeignKey(c => c.UserId)
+            .HasForeignKey(c => c.PlatformUserId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,4 +1,4 @@
-﻿using HC.Domain.Genres;
+﻿using HC.Domain.PlatformUsers;
 using HC.Persistence.Context.Configurations.Converters;
 using HC.Persistence.Context.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HC.Persistence.Context.Configurations;
 
-public class GenreConfigurations : IEntityTypeConfiguration<Genre>
+public class LibraryConfigurations : IEntityTypeConfiguration<Library>
 {
-    public void Configure(EntityTypeBuilder<Genre> builder)
+    public void Configure(EntityTypeBuilder<Library> builder)
     {
-        builder.ConfigureEntity<Genre, GenreId, GenreIdentityConverter>();
+        builder.ConfigureEntity<Library, LibraryId, LibraryIdentityConverter>();
     }
 }

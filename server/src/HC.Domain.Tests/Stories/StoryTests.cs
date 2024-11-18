@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
+using HC.Domain.Genres;
 using HC.Domain.Stories;
-using HC.Domain.Users;
 
 namespace HC.Domain.Tests.Stories;
 
@@ -18,14 +18,13 @@ public class StoryTests
     {
         return Story.Create(
             _fixture.Create<StoryId>(),
-            _fixture.Create<UserId>(),
+            _fixture.Create<PublisherId>(),
             _fixture.Create<string>(),
             _fixture.Create<string>(),
             _fixture.Create<string>(),
             _fixture.Create<string>(),
             _fixture.Create<List<Genre>>(),
             _fixture.Create<int>(),
-            _fixture.Create<DateTime>(),
             _fixture.Create<DateTime>()
         );
     }
@@ -40,18 +39,17 @@ public class StoryTests
         obj.ModifyContents(new List<string>
         {
             "Page 1"
-        }, editedAt);
+        });
 
         var newContents = new List<string> { "Page 1", "Page 2" };
 
         // Act
-        obj.ModifyContents(newContents, editedAt);
+        obj.ModifyContents(newContents);
 
         // Assert
         obj.Contents.Should().HaveCount(2);
         obj.Contents[0].Content.Should().Be("Page 1");
         obj.Contents[1].Content.Should().Be("Page 2");
-        obj.DateEdited.Should().Be(editedAt);
     }
 
     [Fact]
@@ -65,17 +63,16 @@ public class StoryTests
         {
             "Page 1",
             "Page 2"
-        }, editedAt);
+        });
 
         var newContents = new List<string> { "Page 1" };
 
         // Act
-        obj.ModifyContents(newContents, editedAt);
+        obj.ModifyContents(newContents);
 
         // Assert
         obj.Contents.Should().HaveCount(1);
         obj.Contents[0].Content.Should().Be("Page 1");
-        obj.DateEdited.Should().Be(editedAt);
     }
 
     [Fact]
@@ -88,17 +85,16 @@ public class StoryTests
         obj.ModifyContents(new List<string>
         {
             "Old Page 1",
-        }, editedAt);
+        });
 
         var newContents = new List<string> { "New Page 1" };
 
         // Act
-        obj.ModifyContents(newContents, editedAt);
+        obj.ModifyContents(newContents);
 
         // Assert
         obj.Contents.Should().HaveCount(1);
         obj.Contents[0].Content.Should().Be("New Page 1");
-        obj.DateEdited.Should().Be(editedAt);
     }
 
     [Fact]
@@ -111,17 +107,16 @@ public class StoryTests
         obj.ModifyContents(new List<string>
         {
             "Page 1",
-        }, editedAt);
+        });
 
         var newContents = new List<string> { "Page 1" };
 
         // Act
-        obj.ModifyContents(newContents, editedAt);
+        obj.ModifyContents(newContents);
 
         // Assert
         obj.Contents.Should().HaveCount(1);
         obj.Contents[0].Content.Should().Be("Page 1");
-        obj.DateEdited.Should().Be(editedAt);
     }
 
     [Fact]
@@ -134,15 +129,14 @@ public class StoryTests
         obj.ModifyContents(new List<string>
         {
             "Page 1",
-        }, editedAt);
+        });
 
         var newContents = new List<string>();
 
         // Act
-        obj.ModifyContents(newContents, editedAt);
+        obj.ModifyContents(newContents);
 
         // Assert
         obj.Contents.Should().BeEmpty();
-        obj.DateEdited.Should().Be(editedAt);
     }
 }

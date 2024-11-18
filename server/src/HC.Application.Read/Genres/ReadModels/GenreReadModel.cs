@@ -1,4 +1,4 @@
-﻿using HC.Domain.Stories;
+﻿using HC.Domain.Genres;
 
 namespace HC.Application.Read.Genres.ReadModels;
 

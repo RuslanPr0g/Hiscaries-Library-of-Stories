@@ -1,22 +1,21 @@
 ﻿using HC.Domain.Stories;
 
-namespace HC.Domain.Users;
+namespace HC.Domain.PlatformUsers;
 
 public sealed class ReadingHistory : Entity
 {
     public ReadingHistory(
-        UserId user,
-        StoryId story,
+        PlatformUserId userId,
+        StoryId storyId,
         int pageRead)
     {
-        UserId = user;
-        StoryId = story;
+        PlatformUserId = userId;
+        StoryId = storyId;
         LastPageRead = pageRead;
-
         SoftDeleted = false;
     }
 
-    public UserId UserId { get; init; }
+    public PlatformUserId PlatformUserId { get; init; }
     public StoryId StoryId { get; init; }
     public int LastPageRead { get; private set; }
     public bool SoftDeleted { get; init; }

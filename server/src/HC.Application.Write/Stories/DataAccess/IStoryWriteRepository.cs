@@ -1,4 +1,5 @@
-﻿using HC.Domain.Stories;
+﻿using HC.Domain.Genres;
+using HC.Domain.Stories;
 
 namespace HC.Application.Write.Stories.DataAccess;
 

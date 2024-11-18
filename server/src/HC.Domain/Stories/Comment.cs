@@ -1,28 +1,28 @@
-﻿using HC.Domain.Users;
+﻿using HC.Domain.PlatformUsers;
 
 namespace HC.Domain.Stories;
 
-public class Comment : Entity<CommentId>
+public sealed class Comment : Entity<CommentId>
 {
     private Comment(
         CommentId id,
-        StoryId story,
-        UserId user,
+        StoryId storyId,
+        PlatformUserId userId,
         string content,
         int score) : base(id)
     {
-        StoryId = story;
-        UserId = user;
+        StoryId = storyId;
+        PlatformUserId = userId;
         Content = content;
         Score = score;
     }
 
     public static Comment Create(
         CommentId id,
-        StoryId story,
-        UserId user,
+        StoryId storyId,
+        PlatformUserId userId,
         string content,
-        int score) => new(id, story, user, content, score);
+        int score) => new(id, storyId, userId, content, score);
 
     internal void UpdateContent(string content, int score)
     {
@@ -32,8 +32,8 @@ public class Comment : Entity<CommentId>
 
     public StoryId StoryId { get; init; }
     public Story Story { get; init; }
-    public UserId UserId { get; init; }
-    public User User { get; init; }
+    public PlatformUserId PlatformUserId { get; init; }
+    public PlatformUser PlatformUser { get; init; }
 
     public string Content { get; private set; }
     public int Score { get; private set; }

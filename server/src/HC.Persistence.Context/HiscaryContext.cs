@@ -1,6 +1,8 @@
 ﻿using HC.Domain;
+using HC.Domain.Genres;
+using HC.Domain.PlatformUsers;
 using HC.Domain.Stories;
-using HC.Domain.Users;
+using HC.Domain.UserAccounts;
 using HC.Persistence.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -28,16 +30,15 @@ public class DatabaseDesignTimeDbContextFactory
 
 public sealed class HiscaryContext(DbContextOptions<HiscaryContext> options) : DbContext(options)
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<ReadingHistory> ReadHistory { get; set; }
+    public DbSet<UserAccount> UserAccounts { get; set; }
+    public DbSet<PlatformUser> PlatformUsers { get; set; }
     public DbSet<Story> Stories { get; set; }
     public DbSet<Genre> Genres { get; set; }
-    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfigurations).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserAccountConfigurations).Assembly);
     }
 
     public override int SaveChanges()

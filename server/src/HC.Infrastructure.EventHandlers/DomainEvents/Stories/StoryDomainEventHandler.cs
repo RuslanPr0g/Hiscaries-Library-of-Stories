@@ -1,7 +1,7 @@
 ﻿using HC.Application.Common.EventHandlers;
 using HC.Application.Write.DataAccess;
 using HC.Application.Write.Stories.DataAccess;
-using HC.Domain.Users.Events;
+using HC.Domain.PlatformUsers.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 

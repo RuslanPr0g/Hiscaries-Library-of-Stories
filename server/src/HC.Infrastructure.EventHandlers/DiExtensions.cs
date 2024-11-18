@@ -1,4 +1,4 @@
-﻿using HC.Domain.Users.Events;
+﻿using HC.Domain.PlatformUsers.Events;
 using HC.Infrastructure.EventHandlers.DomainEvents.Users;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;

@@ -30,7 +30,7 @@ public class StorySimpleReadModel
             AgeLimit = story.AgeLimit,
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
-            Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher),
+            Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher.User),
             IsEditable = story.Publisher?.Username == requesterUsername,
             ImagePreviewUrl = story.ImagePreviewUrl,
             PercentageRead = percentageRead,
