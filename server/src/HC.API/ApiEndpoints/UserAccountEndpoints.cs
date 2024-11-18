@@ -19,8 +19,8 @@ public static class UserAccountEndpoints
 {
     public static void MapUserAccountEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/v1/account")
-            .WithTags("Account");
+        var group = app.MapGroup("/api/v1/accounts")
+            .WithTags("Accounts");
 
         group.MapPost("/register", RegisterUser)
             .AllowAnonymous()
