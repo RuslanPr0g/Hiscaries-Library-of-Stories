@@ -47,7 +47,7 @@ public static class ContentGenerationEndpoints
     {
         var generatedStories = new List<Guid>(storiesCount);
 
-        var publisher = await hiscaryContext.Users.FirstOrDefaultAsync();
+        var publisher = await hiscaryContext.PlatformUsers.FirstOrDefaultAsync();
         var genre = await hiscaryContext.Genres.FirstOrDefaultAsync();
 
         if (publisher is null || genre is null)
