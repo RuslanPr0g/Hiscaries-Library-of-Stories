@@ -1,6 +1,6 @@
 ﻿using HC.Domain.PlatformUsers;
 
-namespace HC.Application.Write.Users.DataAccess;
+namespace HC.Application.Write.PlatformUsers.DataAccess;
 
 public interface IPlatformUserWriteRepository
 {

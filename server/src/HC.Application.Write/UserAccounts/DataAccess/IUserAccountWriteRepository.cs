@@ -1,6 +1,6 @@
 ﻿using HC.Domain.UserAccounts;
 
-namespace HC.Application.Write.Users.DataAccess;
+namespace HC.Application.Write.UserAccounts.DataAccess;
 
 public interface IUserAccountWriteRepository
 {
