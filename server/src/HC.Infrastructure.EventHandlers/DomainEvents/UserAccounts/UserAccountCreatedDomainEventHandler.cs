@@ -40,7 +40,7 @@ public sealed class UserAccountCreatedDomainEventHandler
 
         // TODO: it should be domain service's responsibility to do these kind of things
         var platformUserId = _idGenerator.Generate((Guid id) => new PlatformUserId(id));
-        var platformUser = new PlatformUser(platformUserId, domainEvent.UserAccountId);
+        var platformUser = new PlatformUser(platformUserId, domainEvent.UserAccountId, domainEvent.Username);
 
         await _repository.Add(platformUser);
     }

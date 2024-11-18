@@ -16,9 +16,11 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
 {
     public PlatformUser(
         PlatformUserId id,
-        UserAccountId userId) : base(id)
+        UserAccountId userId,
+        string username) : base(id)
     {
         UserAccountId = userId;
+        Username = username;
     }
 
     public UserAccountId UserAccountId { get; init; }

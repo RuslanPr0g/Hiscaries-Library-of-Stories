@@ -99,7 +99,7 @@ public sealed class UserAccount : AggregateRoot<UserAccountId>
 
     private void PublishUserCreatedEvent()
     {
-        PublishEvent(new UserAccountCreatedDomainEvent(Id));
+        PublishEvent(new UserAccountCreatedDomainEvent(Id, Username));
     }
 
     private UserAccount()
