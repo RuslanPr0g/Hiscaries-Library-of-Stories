@@ -31,9 +31,9 @@ public sealed class UserAccountCreatedDomainEventHandler
         UserAccountCreatedDomainEvent domainEvent,
         ConsumeContext<UserAccountCreatedDomainEvent> context)
     {
-        var story = await _repository.GetByUserAccountId(domainEvent.UserAccountId);
+        var user = await _repository.GetByUserAccountId(domainEvent.UserAccountId);
 
-        if (story is not null)
+        if (user is not null)
         {
             return;
         }

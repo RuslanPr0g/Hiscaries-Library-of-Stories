@@ -52,6 +52,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         if (!IsPublisher)
         {
             Libraries.Add(new Library(libraryId, Id));
+            PublishUserBecamePublisherEvent();
         }
     }
 
@@ -113,6 +114,11 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     private void PublishStoryPageReadEvent(StoryId storyId, int page)
     {
         PublishEvent(new StoryPageReadDomainEvent(Id, storyId, page));
+    }
+
+    private void PublishUserBecamePublisherEvent()
+    {
+        PublishEvent(new UserBecamePublisherDomainEvent(Id, UserAccountId));
     }
 
     private PlatformUser()
