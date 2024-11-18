@@ -1,5 +1,6 @@
 ﻿using HC.Application.Read.Users.DataAccess;
 using HC.Application.Read.Users.ReadModels;
+using HC.Domain.UserAccounts;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,13 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
             .AsNoTracking()
             .Where(x => x.Id.Value == userId)
             .Select(user => PlatformUserReadModel.FromDomainModel(user))
+            .FirstOrDefaultAsync();
+
+    public async Task<PlatformUserId?> GetPlatformUserIdByUserAccountId(UserAccountId userId) =>
+        await _context.PlatformUsers
+            .AsNoTracking()
+            .Where(x => x.UserAccountId == userId)
+            .Select(user => user.Id)
             .FirstOrDefaultAsync();
 }
 
