@@ -41,6 +41,7 @@ public sealed class JWTTokenHandler : IJWTTokenHandler
                     new Claim(JwtRegisteredClaimNames.Email, user.Username),
                     new Claim("id", user.Id.Value.ToString()),
                     new Claim("username", user.Username),
+                    new Claim("role", user.Role),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
                     new Claim(JwtRegisteredClaimNames.Aud, settings.Audience),
                     new Claim(JwtRegisteredClaimNames.Iss, settings.Issuer),

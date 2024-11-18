@@ -10,6 +10,10 @@ namespace HC.Domain.UserAccounts;
 /// </summary>
 public sealed class UserAccount : AggregateRoot<UserAccountId>
 {
+    private static string ReaderRole = "reader";
+    private static string PublisherRole = "publisher";
+    private static string AdminRole = "admin";
+
     public UserAccount(
         UserAccountId id,
         string username,
@@ -22,6 +26,7 @@ public sealed class UserAccount : AggregateRoot<UserAccountId>
         Password = password;
         BirthDate = birthDate;
         IsBanned = false;
+        Role = ReaderRole;
 
         PublishUserCreatedEvent();
     }
@@ -32,8 +37,20 @@ public sealed class UserAccount : AggregateRoot<UserAccountId>
     public DateTime BirthDate { get; private set; }
     public bool IsBanned { get; private set; }
 
+    public string Role { get; private set; }
+
     public RefreshTokenId RefreshTokenId { get; init; }
     public RefreshToken RefreshToken { get; private set; }
+
+    public void BecomePublisher()
+    {
+        Role = PublisherRole;
+    }
+
+    public void BecomeAdmin()
+    {
+        Role = AdminRole;
+    }
 
     public void Ban()
     {
