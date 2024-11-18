@@ -216,7 +216,7 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
     public async Task<OperationResult> UpdateUserData(UpdateUserDataCommand command)
     {
         _logger.LogInformation("Attempting to update user data for {Username}", command.Username);
-        UserAccount? user = await _repository.GetByUsername(command.Username);
+        UserAccount? user = await _repository.GetById(command.Id);
 
         if (user is null)
         {
@@ -224,14 +224,14 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
             return OperationResult.CreateValidationsError(UserFriendlyMessages.UserIsNotFound);
         }
 
-        if (!string.IsNullOrEmpty(command.UpdatedUsername))
+        if (!string.IsNullOrEmpty(command.Username))
         {
-            _logger.LogInformation("Checking if new username {UpdatedUsername} is available", command.UpdatedUsername);
-            var newUsernameUser = await _repository.GetByUsername(command.UpdatedUsername);
+            _logger.LogInformation("Checking if new username {Username} is available", command.Username);
+            var newUsernameUser = await _repository.GetByUsername(command.Username);
 
             if (newUsernameUser is not null)
             {
-                _logger.LogWarning("Update user data failed: New username {UpdatedUsername} already exists", command.UpdatedUsername);
+                _logger.LogWarning("Update user data failed: New username {Username} already exists", command.Username);
                 return OperationResult.CreateValidationsError(UserFriendlyMessages.UserWithUsernameExists);
             }
         }
@@ -252,7 +252,7 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
             if (result.ResultStatus is ResultStatus.Success)
             {
                 _logger.LogInformation("Password updated successfully for user {Username}", command.Username);
-                user.UpdatePersonalInformation(command.UpdatedUsername, command.Email, command.BirthDate);
+                user.UpdatePersonalInformation(command.Username, command.Email, command.BirthDate);
             }
             else
             {
@@ -263,7 +263,7 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
         }
         else
         {
-            user.UpdatePersonalInformation(command.UpdatedUsername, command.Email, command.BirthDate);
+            user.UpdatePersonalInformation(command.Username, command.Email, command.BirthDate);
         }
 
         _logger.LogInformation("Successfully updated user data for {Username}", command.Username);
