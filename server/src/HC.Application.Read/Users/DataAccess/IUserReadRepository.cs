@@ -2,8 +2,7 @@
 
 namespace HC.Application.Read.Users.DataAccess;
 
-public interface IUserReadRepository
+public interface IPlatformUserReadRepository
 {
-    Task<UserAccountOwnerReadModel?> GetUserById(Guid userId);
-    Task<UserSimpleReadModel?> GetUserByUsername(string username);
+    Task<PlatformUserReadModel?> GetUserById(Guid userId);
 }

@@ -1,11 +1,9 @@
-﻿using HC.Domain.Users;
+﻿using HC.Domain.PlatformUsers;
 
 namespace HC.Application.Write.Users.DataAccess;
 
-public interface IUserWriteRepository
+public interface IPlatformUserWriteRepository
 {
-    Task<User?> GetUserById(UserId userId);
-    Task<User?> GetUserByUsername(string username);
-    Task<bool> IsUserExistByEmail(string email);
-    Task AddUser(User user);
+    Task<PlatformUser?> GetById(PlatformUserId userId);
+    Task Add(PlatformUser user);
 }

@@ -5,6 +5,6 @@ namespace HC.Application.Read.Users.Services;
 
 public interface IUserReadService
 {
-    Task<UserAccountOwnerReadModel?> GetUserById(UserId userId);
+    Task<PlatformUserReadModel?> GetUserById(UserId userId);
     Task<UserSimpleReadModel?> GetUserByUsername(string username);
 }

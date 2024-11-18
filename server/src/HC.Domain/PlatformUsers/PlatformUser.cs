@@ -30,6 +30,9 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     // For now, we allow only one library to be added, but in the future, we can allow to create multiple libraries
     public ICollection<Library> Libraries { get; } = [];
 
+    // TODO: this value should be synced with the user account, as it should be the same
+    public string Username { get; set; }
+
     public void ReadStoryPage(StoryId storyId, int page)
     {
         var historyItem = ReadHistory.FirstOrDefault(x => x.StoryId == storyId);

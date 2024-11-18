@@ -13,7 +13,7 @@ public sealed class UserReadService : IUserReadService
         _repository = repository;
     }
 
-    public async Task<UserAccountOwnerReadModel?> GetUserById(UserId userId) => await _repository.GetUserById(userId);
+    public async Task<PlatformUserReadModel?> GetUserById(UserId userId) => await _repository.GetUserById(userId);
 
     public async Task<UserSimpleReadModel?> GetUserByUsername(string username) => await _repository.GetUserByUsername(username);
 }
