@@ -32,7 +32,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     // For now, we allow only one library to be added, but in the future, we can allow to create multiple libraries
     public ICollection<Library> Libraries { get; } = [];
 
-    // TODO: this value should be synced with the user account, as it should be the same
+    // TODO: this value should be synced with the user account, as it should be the same (use domain events)
     public string Username { get; set; }
 
     public void BecomePublisher(LibraryId libraryId)

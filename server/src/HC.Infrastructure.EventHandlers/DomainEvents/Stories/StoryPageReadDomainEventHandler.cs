@@ -8,14 +8,14 @@ using Microsoft.Extensions.Logging;
 namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;
 
 // TODO: do I want to allow one domain handler to handle multiple domain events? if no, then this approach is kinda okay
-public sealed class StoryDomainEventHandler
+public sealed class StoryPageReadDomainEventHandler
     : DomainEventHandler<StoryPageReadDomainEvent>
 {
     private readonly IStoryWriteRepository _repository;
 
-    public StoryDomainEventHandler(
+    public StoryPageReadDomainEventHandler(
         IStoryWriteRepository repository,
-        ILogger<StoryDomainEventHandler> logger,
+        ILogger<StoryPageReadDomainEventHandler> logger,
         IUnitOfWork unitOfWork)
         : base(logger, unitOfWork)
     {

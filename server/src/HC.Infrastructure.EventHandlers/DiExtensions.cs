@@ -11,7 +11,7 @@ public static class DiExtensions
     public static IServiceCollection AddEventHandlers(this IServiceCollection services)
     {
         // TODO: subscribe everything using reflection
-        services.AddScoped<IConsumer<StoryPageReadDomainEvent>, StoryDomainEventHandler>();
+        services.AddScoped<IConsumer<StoryPageReadDomainEvent>, StoryPageReadDomainEventHandler>();
 
         services.AddMassTransit(x =>
         {

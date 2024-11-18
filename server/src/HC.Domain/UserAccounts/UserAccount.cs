@@ -22,6 +22,8 @@ public sealed class UserAccount : AggregateRoot<UserAccountId>
         Password = password;
         BirthDate = birthDate;
         IsBanned = false;
+
+        PublishUserCreatedEvent();
     }
 
     public string Username { get; private set; }
@@ -93,6 +95,11 @@ public sealed class UserAccount : AggregateRoot<UserAccountId>
     private void PublishUserBannedEvent()
     {
         PublishEvent(new UserAccountBannedDomainEvent(Id));
+    }
+
+    private void PublishUserCreatedEvent()
+    {
+        PublishEvent(new UserAccountCreatedDomainEvent(Id));
     }
 
     private UserAccount()

@@ -11,6 +11,8 @@ public class PlatformUserConfigurations : IEntityTypeConfiguration<PlatformUser>
     public void Configure(EntityTypeBuilder<PlatformUser> builder)
     {
         builder.ConfigureEntity<PlatformUser, PlatformUserId, PlatformUserIdentityConverter>();
+        builder.Property(c => c.UserAccountId).HasConversion(new UserAccountIdentityConverter());
+
 
         builder
             .HasMany(u => u.Reviews)
