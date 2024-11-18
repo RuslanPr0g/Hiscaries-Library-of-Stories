@@ -16,10 +16,20 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
     }
 
     public async Task<PlatformUser?> GetById(PlatformUserId userId) =>
-        await _context.PlatformUsers.FirstOrDefaultAsync(x => x.Id == userId);
+        await _context.PlatformUsers
+        .Include(x => x.ReadHistory)
+        .Include(x => x.Libraries)
+        .Include(x => x.Bookmarks)
+        .Include(x => x.Reviews)
+        .FirstOrDefaultAsync(x => x.Id == userId);
 
     public async Task<PlatformUser?> GetByUserAccountId(UserAccountId userId) =>
-        await _context.PlatformUsers.FirstOrDefaultAsync(x => x.UserAccountId == userId);
+        await _context.PlatformUsers
+        .Include(x => x.ReadHistory)
+        .Include(x => x.Libraries)
+        .Include(x => x.Bookmarks)
+        .Include(x => x.Reviews)
+        .FirstOrDefaultAsync(x => x.UserAccountId == userId);
 
     public async Task Add(PlatformUser user) =>
         await _context.PlatformUsers.AddAsync(user);
