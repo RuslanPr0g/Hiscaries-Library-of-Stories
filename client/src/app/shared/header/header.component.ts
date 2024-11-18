@@ -81,4 +81,8 @@ export class HeaderComponent {
     navigateToReadingHistory(): void {
         this.router.navigate([NavigationConst.ReadingHistory]);
     }
+
+    navigateToBecomePublisherPage(): void {
+        this.router.navigate([NavigationConst.BecomePublisher]);
+    }
 }

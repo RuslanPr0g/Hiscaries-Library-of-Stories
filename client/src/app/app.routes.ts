@@ -10,6 +10,7 @@ import { ReadStoryContentComponent } from './stories/read-story-content/read-sto
 import { SearchStoryComponent } from './stories/search-story/search-story.component';
 import { storyFeatureKey, storyReducer } from './stories/store/story.reducer';
 import { ReadingHistoryComponent } from './stories/reading-history/reading-history.component';
+import { BecomePublisherComponent } from './users/become-publisher/become-publisher.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,12 @@ export const routes: Routes = [
         path: '',
         title: 'Home page',
         component: HomeComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'become-publisher',
+        title: 'Become Publisher',
+        component: BecomePublisherComponent,
         canActivate: [authGuard],
     },
     {
