@@ -31,16 +31,6 @@ public sealed class UserAccountCreatedDomainEventHandler
         UserAccountCreatedDomainEvent domainEvent,
         ConsumeContext<UserAccountCreatedDomainEvent> context)
     {
-        try
-        {
-            var st = await _repository.GetByUserAccountId(domainEvent.UserAccountId);
-        }
-        catch (Exception ex)
-        {
-
-            throw;
-        }
-
         var story = await _repository.GetByUserAccountId(domainEvent.UserAccountId);
 
         if (story is not null)
