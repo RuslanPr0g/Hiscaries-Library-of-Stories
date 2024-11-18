@@ -120,7 +120,7 @@ public static class ContentGenerationEndpoints
         )
     {
         var faker = new Faker<PublishStoryCommand>()
-            .RuleFor(s => s.LibraryId, f => publisherId)
+            .RuleFor(s => s.UserId, f => publisherId)
             .RuleFor(s => s.Title, f => f.Lorem.Sentence(5, 10))
             .RuleFor(s => s.Description, f => f.Lorem.Paragraphs(4, 8))
             .RuleFor(s => s.AuthorName, f => f.Name.FullName())
