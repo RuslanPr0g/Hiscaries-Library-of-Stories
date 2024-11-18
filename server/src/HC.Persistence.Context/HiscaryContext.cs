@@ -3,10 +3,10 @@ using HC.Domain.Genres;
 using HC.Domain.PlatformUsers;
 using HC.Domain.Stories;
 using HC.Domain.UserAccounts;
-using HC.Persistence.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace HC.Persistence.Context;
 
@@ -38,7 +38,7 @@ public sealed class HiscaryContext(DbContextOptions<HiscaryContext> options) : D
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserAccountConfigurations).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     public override int SaveChanges()

@@ -32,7 +32,7 @@ public class PlatformUserConfigurations : IEntityTypeConfiguration<PlatformUser>
 
         builder
             .HasMany(s => s.Libraries)
-            .WithOne()
+            .WithOne(s => s.PlatformUser)
             .HasForeignKey(sp => sp.PlatformUserId)
             .OnDelete(DeleteBehavior.Cascade);
     }
