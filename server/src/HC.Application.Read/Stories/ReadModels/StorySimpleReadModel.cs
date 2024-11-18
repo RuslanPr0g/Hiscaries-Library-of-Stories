@@ -13,7 +13,7 @@ public class StorySimpleReadModel
     public string? ImagePreviewUrl { get; protected set; }
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
-    public UserSimpleReadModel Publisher { get; set; }
+    public PlatformUserReadModel Publisher { get; set; }
     public bool IsEditable { get; set; } = false;
 
     public decimal PercentageRead { get; set; } = 0;
@@ -30,7 +30,7 @@ public class StorySimpleReadModel
             AgeLimit = story.AgeLimit,
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
-            Publisher = UserSimpleReadModel.FromDomainModel(story.Publisher.User),
+            Publisher = PlatformUserReadModel.FromDomainModel(story.Publisher.User),
             IsEditable = story.Publisher?.Username == requesterUsername,
             ImagePreviewUrl = story.ImagePreviewUrl,
             PercentageRead = percentageRead,

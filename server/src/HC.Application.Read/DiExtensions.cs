@@ -8,7 +8,7 @@ public static class DIExtensions
 {
     public static IServiceCollection AddApplicationReadLayer(this IServiceCollection services)
     {
-        services.AddScoped<IUserReadService, UserReadService>();
+        services.AddScoped<IPlatformUserReadService, PlatformUserReadService>();
         services.AddScoped<IStoryReadService, StoryReadService>();
 
         return services;

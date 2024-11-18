@@ -5,7 +5,6 @@ using HC.Application.Read;
 using HC.Application.Read.Users.Queries;
 using HC.Application.Write;
 using HC.Application.Write.Filters;
-using HC.Application.Write.Users.Command;
 using HC.Infrastructure.Jobs;
 using HC.Infrastructure.EventHandlers;
 using HC.Persistence.Context;
@@ -16,6 +15,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using HC.Application.Write.UserAccounts.Command.CreateUser;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,8 @@
 ﻿using HC.Application.Write.FileStorage;
 using HC.Application.Write.Generators;
 using HC.Application.Write.JWT;
+using HC.Application.Write.PlatformUsers.Services;
 using HC.Application.Write.Stories.Services;
-using HC.Application.Write.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HC.Application.Write;

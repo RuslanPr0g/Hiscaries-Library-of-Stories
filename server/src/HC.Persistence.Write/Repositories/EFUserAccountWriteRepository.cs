@@ -1,4 +1,4 @@
-﻿using HC.Application.Write.Users.DataAccess;
+﻿using HC.Application.Write.UserAccounts.DataAccess;
 using HC.Domain.UserAccounts;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;

@@ -6,11 +6,11 @@ namespace HC.Application.Read.Reviews.ReadModels;
 public sealed class ReviewReadModel
 {
     public Guid Id { get; set; }
-    public UserSimpleReadModel Publisher { get; init; }
-    public UserSimpleReadModel Reviewer { get; init; }
+    public PlatformUserReadModel Publisher { get; init; }
+    public PlatformUserReadModel Reviewer { get; init; }
     public string Message { get; init; }
 
-    public static ReviewReadModel FromDomainModel(Review review, UserSimpleReadModel publisher, UserSimpleReadModel reviewer)
+    public static ReviewReadModel FromDomainModel(Review review, PlatformUserReadModel publisher, PlatformUserReadModel reviewer)
     {
         return new ReviewReadModel
         {
