@@ -6,9 +6,9 @@ namespace HC.Application.Write.Stories.Command;
 
 internal class ReadStoryCommandHandler : IRequestHandler<ReadStoryCommand, OperationResult>
 {
-    private readonly IUserWriteService _service;
+    private readonly IPlatformUserWriteService _service;
 
-    public ReadStoryCommandHandler(IUserWriteService storyService)
+    public ReadStoryCommandHandler(IPlatformUserWriteService storyService)
     {
         _service = storyService;
     }

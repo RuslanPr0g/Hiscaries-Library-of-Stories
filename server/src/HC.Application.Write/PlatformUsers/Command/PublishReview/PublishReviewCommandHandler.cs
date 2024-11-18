@@ -7,9 +7,9 @@ namespace HC.Application.Write.PlatformUsers.Command.PublishReview;
 
 public class PublishReviewCommandHandler : IRequestHandler<PublishReviewCommand, OperationResult>
 {
-    private readonly IUserWriteService _userService;
+    private readonly IPlatformUserWriteService _userService;
 
-    public PublishReviewCommandHandler(IUserWriteService userService)
+    public PublishReviewCommandHandler(IPlatformUserWriteService userService)
     {
         _userService = userService;
     }

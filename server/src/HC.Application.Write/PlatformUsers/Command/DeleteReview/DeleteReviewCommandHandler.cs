@@ -6,9 +6,9 @@ namespace HC.Application.Write.PlatformUsers.Command.DeleteReview;
 
 public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand, OperationResult>
 {
-    private readonly IUserWriteService _userService;
+    private readonly IPlatformUserWriteService _userService;
 
-    public DeleteReviewCommandHandler(IUserWriteService userService)
+    public DeleteReviewCommandHandler(IPlatformUserWriteService userService)
     {
         _userService = userService;
     }
