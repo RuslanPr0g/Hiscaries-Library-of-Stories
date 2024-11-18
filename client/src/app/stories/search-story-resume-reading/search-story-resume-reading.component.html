@@ -1,4 +1,4 @@
-<ng-container *ngIf="displayedStories.length > 0">
+<ng-container *ngIf="displayedStories.length > 0 || isLoading">
     <h1 class="fs-3rem main-title">Resume reading</h1>
     <app-search-story-results
         [stories]="displayedStories"

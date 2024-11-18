@@ -1,4 +1,4 @@
-<ng-container *ngIf="stories.length > 0; else noStories">
+<ng-container *ngIf="stories.length > 0 || isLoading; else noStories">
     <app-search-story-results
         [stories]="stories"
         [isLoading]="isLoading"

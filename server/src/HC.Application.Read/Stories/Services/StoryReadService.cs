@@ -40,7 +40,7 @@ public sealed class StoryReadService : IStoryReadService
 
         if (platformUserId is null)
         {
-            return [];
+            return await _repository.GetLastNStories(6);
         }
 
         return await _repository.GetStoryReadingSuggestions(platformUserId);
