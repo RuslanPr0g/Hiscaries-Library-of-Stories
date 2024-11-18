@@ -1,4 +1,4 @@
-﻿using HC.Domain.Users;
+﻿using HC.Domain.PlatformUsers;
 using System;
 
 namespace HC.Domain.Stories;
@@ -7,13 +7,13 @@ public sealed class StoryRating : Entity<StoryRatingId>
 {
     public StoryRating(
         StoryRatingId id,
-        StoryId story,
-        UserId user,
+        StoryId storyId,
+        PlatformUserId userId,
         int score) : base(id)
     {
         Id = id;
-        StoryId = story;
-        UserId = user;
+        StoryId = storyId;
+        PlatformUserId = userId;
 
         if (score < 1 || score > 5)
         {
@@ -26,8 +26,8 @@ public sealed class StoryRating : Entity<StoryRatingId>
     }
 
     public StoryId StoryId { get; init; }
-    public UserId UserId { get; init; }
-    public User User { get; init; }
+    public PlatformUserId PlatformUserId { get; init; }
+    public PlatformUser PlatformUser { get; init; }
     public int Score { get; private set; }
 
     internal void UpdateScore(int score)

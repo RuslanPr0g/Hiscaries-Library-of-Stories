@@ -5,9 +5,9 @@ using HC.Application.Read;
 using HC.Application.Read.Users.Queries;
 using HC.Application.Write;
 using HC.Application.Write.Filters;
-using HC.Application.Write.Users.Command;
-using HC.Infrastructure.Jobs;
+using HC.Application.Write.UserAccounts.Command.CreateUser;
 using HC.Infrastructure.EventHandlers;
+using HC.Infrastructure.Jobs;
 using HC.Persistence.Context;
 using HC.Persistence.Read;
 using HC.Persistence.Write;
@@ -29,6 +29,9 @@ builder.Services.AddJobs();
 builder.Services.AddEventHandlers();
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -91,7 +94,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapUserEndpoints();
+app.MapUserAccountEndpoints();
+app.MapPlatformUserEndpoints();
 
 app.MapStoryEndpoints();
 

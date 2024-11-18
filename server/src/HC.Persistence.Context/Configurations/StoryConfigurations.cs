@@ -11,12 +11,12 @@ public class StoryConfigurations : IEntityTypeConfiguration<Story>
     public void Configure(EntityTypeBuilder<Story> builder)
     {
         builder.ConfigureEntity<Story, StoryId, StoryIdentityConverter>();
-        builder.Property(c => c.PublisherId).HasConversion(new UserIdentityConverter());
+        builder.Property(c => c.LibraryId).HasConversion(new LibraryIdentityConverter());
 
         builder
-            .HasOne(s => s.Publisher)
+            .HasOne(s => s.Library)
             .WithMany()
-            .HasForeignKey(s => s.PublisherId)
+            .HasForeignKey(s => s.LibraryId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
@@ -54,7 +54,7 @@ public class StoryConfigurations : IEntityTypeConfiguration<Story>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Navigation(x => x.Genres).AutoInclude();
-        builder.Navigation(x => x.Publisher).AutoInclude();
+        builder.Navigation(x => x.Library).AutoInclude();
         builder.Navigation(x => x.Ratings).AutoInclude();
         builder.Navigation(x => x.ReadHistory).AutoInclude();
         builder.Navigation(x => x.Comments).AutoInclude();

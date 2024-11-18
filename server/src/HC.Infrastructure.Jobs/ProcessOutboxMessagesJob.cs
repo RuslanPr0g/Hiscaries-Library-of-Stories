@@ -1,5 +1,5 @@
 ﻿using HC.Application.Common.Outbox;
-using HC.Domain.Users.Events;
+using HC.Domain.UserAccounts.Events;
 using HC.Persistence.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +31,7 @@ public class ProcessOutboxMessagesJob : IJob
         {
             try
             {
-                var messageType = typeof(UserBannedDomainEvent).Assembly.GetType(message.Type);
+                var messageType = typeof(UserAccountBannedDomainEvent).Assembly.GetType(message.Type);
 
                 if (messageType is null)
                 {
@@ -49,6 +49,7 @@ public class ProcessOutboxMessagesJob : IJob
                     continue;
                 }
 
+                // TODO: if event handler fails, there is not way (for now) to catch it and retry the message
                 await _publisher.Publish(domainEvent);
 
                 message.ProcessedOnUtc = DateTime.UtcNow;

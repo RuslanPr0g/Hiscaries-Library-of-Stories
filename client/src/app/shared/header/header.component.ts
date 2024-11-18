@@ -31,10 +31,20 @@ export class HeaderComponent {
                 Label: 'Home',
                 Command: () => this.home(),
             },
-            {
-                Label: 'Publish story',
-                Command: () => this.navigateToPublishStory(),
-            },
+        ];
+
+        if (this.isUserPublisher) {
+            this.items = [
+                ...this.items,
+                {
+                    Label: 'Publish story',
+                    Command: () => this.navigateToPublishStory(),
+                },
+            ];
+        }
+
+        this.items = [
+            ...this.items,
             {
                 Label: 'Reading history',
                 Command: () => this.navigateToReadingHistory(),
@@ -44,6 +54,10 @@ export class HeaderComponent {
                 Command: () => this.logOut(),
             },
         ];
+    }
+
+    get isUserPublisher(): boolean {
+        return this.userService.isPublisher();
     }
 
     callItemCommand(item: MenuItem): void {
@@ -66,5 +80,9 @@ export class HeaderComponent {
 
     navigateToReadingHistory(): void {
         this.router.navigate([NavigationConst.ReadingHistory]);
+    }
+
+    navigateToBecomePublisherPage(): void {
+        this.router.navigate([NavigationConst.BecomePublisher]);
     }
 }

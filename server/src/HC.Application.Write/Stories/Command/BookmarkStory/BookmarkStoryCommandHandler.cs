@@ -1,14 +1,14 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.Users.Services;
+﻿using HC.Application.Write.PlatformUsers.Services;
+using HC.Application.Write.ResultModels.Response;
 using MediatR;
 
 namespace HC.Application.Write.Stories.Command;
 
 internal class BookmarkStoryCommandHandler : IRequestHandler<BookmarkStoryCommand, OperationResult>
 {
-    private readonly IUserWriteService _userService;
+    private readonly IPlatformUserWriteService _userService;
 
-    public BookmarkStoryCommandHandler(IUserWriteService userService)
+    public BookmarkStoryCommandHandler(IPlatformUserWriteService userService)
     {
         _userService = userService;
     }

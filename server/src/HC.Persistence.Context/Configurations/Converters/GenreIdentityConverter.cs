@@ -1,4 +1,4 @@
-﻿using HC.Domain.Stories;
+﻿using HC.Domain.Genres;
 
 namespace HC.Persistence.Context.Configurations.Converters;
 

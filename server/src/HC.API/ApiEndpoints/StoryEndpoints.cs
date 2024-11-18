@@ -277,7 +277,7 @@ public static class StoryEndpoints
 
         var command = new PublishStoryCommand
         {
-            PublisherId = userIdClaim.Value,
+            UserId = userIdClaim.Value,
             Title = request.Title,
             Description = request.Description,
             AuthorName = request.AuthorName,

@@ -10,6 +10,18 @@
     margin-bottom: 1.5rem;
     width: 100%;
 
+    & .link {
+        margin-top: 24px;
+        background: none !important;
+        border: none;
+        padding: 0 !important;
+        font-family: arial, sans-serif;
+        color: #a78bfa;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
     &__option {
         width: 100%;
 

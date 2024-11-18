@@ -1,6 +1,6 @@
 ﻿using HC.Application.Options;
 using HC.Application.Tokens;
-using HC.Domain.Users;
+using HC.Domain.UserAccounts;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -27,7 +27,7 @@ public sealed class JWTTokenHandler : IJWTTokenHandler
         }
     }
 
-    public Task<(string AccessKey, RefreshTokenDescriptor ReshreshToken)> GenerateJwtToken(User user, JwtSettings settings)
+    public Task<(string AccessKey, RefreshTokenDescriptor ReshreshToken)> GenerateJwtToken(UserAccount user, JwtSettings settings)
     {
         JwtSecurityTokenHandler tokenHandler = new();
         byte[] keyInBytes = Encoding.ASCII.GetBytes(settings.Key);
@@ -41,6 +41,7 @@ public sealed class JWTTokenHandler : IJWTTokenHandler
                     new Claim(JwtRegisteredClaimNames.Email, user.Username),
                     new Claim("id", user.Id.Value.ToString()),
                     new Claim("username", user.Username),
+                    new Claim("role", user.Role),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
                     new Claim(JwtRegisteredClaimNames.Aud, settings.Audience),
                     new Claim(JwtRegisteredClaimNames.Iss, settings.Issuer),

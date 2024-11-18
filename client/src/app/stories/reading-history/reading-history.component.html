@@ -1,5 +1,8 @@
-<app-search-story-results
-    [stories]="stories"
-    [isLoading]="isLoading"
->
-</app-search-story-results>
+<ng-container *ngIf="stories.length > 0 || isLoading; else noStories">
+    <app-search-story-results
+        [stories]="stories"
+        [isLoading]="isLoading"
+    >
+    </app-search-story-results>
+</ng-container>
+<ng-template #noStories> Nothing read so far! </ng-template>

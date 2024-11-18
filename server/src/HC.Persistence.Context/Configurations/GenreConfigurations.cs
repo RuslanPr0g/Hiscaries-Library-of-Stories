@@ -1,4 +1,4 @@
-﻿using HC.Domain.Stories;
+﻿using HC.Domain.Genres;
 using HC.Persistence.Context.Configurations.Converters;
 using HC.Persistence.Context.Extensions;
 using Microsoft.EntityFrameworkCore;

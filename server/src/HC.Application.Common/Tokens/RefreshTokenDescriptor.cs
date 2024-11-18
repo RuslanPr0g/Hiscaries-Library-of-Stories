@@ -1,4 +1,4 @@
-﻿using HC.Domain.Users;
+﻿using HC.Domain.UserAccounts;
 
 namespace HC.Application.Tokens;
 

@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BaseIdModel } from '../../shared/models/base-id.model';
 import { NavigationConst } from '../../shared/constants/navigation.const';
+import { AuthService } from '../../users/services/auth.service';
 
 @Component({
     selector: 'app-publish-story',
@@ -49,8 +50,15 @@ export class PublishStoryComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private storyService: StoryService,
-        private router: Router
+        private router: Router,
+        public userService: AuthService
     ) {
+        if (!this.userService.isPublisher()) {
+            console.warn('User is not a publisher!');
+            this.router.navigate([NavigationConst.Home]);
+            return;
+        }
+
         this.publishForm = this.fb.group<PublishFormModel>({
             Title: this.fb.control<string | null>(null, Validators.required),
             Description: this.fb.control<string | null>(null, Validators.required),

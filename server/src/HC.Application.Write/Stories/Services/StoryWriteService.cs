@@ -1,9 +1,11 @@
 ﻿using HC.Application.Constants;
 using HC.Application.Write.FileStorage;
 using HC.Application.Write.Generators;
+using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Stories.Command;
 using HC.Application.Write.Stories.DataAccess;
+using HC.Domain.Genres;
 using HC.Domain.Stories;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;
@@ -16,6 +18,7 @@ public sealed class StoryWriteService : IStoryWriteService
 {
     private readonly IFileStorageService _fileStorageService;
     private readonly IStoryWriteRepository _repository;
+    private readonly IPlatformUserWriteRepository _userRepository;
     private readonly IResourceUrlGeneratorService _urlGeneratorService;
     private readonly IIdGenerator _idGenerator;
     private readonly ILogger<StoryWriteService> _logger;
@@ -25,13 +28,15 @@ public sealed class StoryWriteService : IStoryWriteService
         IResourceUrlGeneratorService urlGeneratorService,
         IIdGenerator idGenerator,
         ILogger<StoryWriteService> logger,
-        IFileStorageService fileStorageService)
+        IFileStorageService fileStorageService,
+        IPlatformUserWriteRepository userRepository)
     {
         _repository = storyWriteRepository;
         _urlGeneratorService = urlGeneratorService;
         _idGenerator = idGenerator;
         _logger = logger;
         _fileStorageService = fileStorageService;
+        _userRepository = userRepository;
     }
 
     public async Task<OperationResult> AddComment(AddCommentCommand command)
@@ -110,6 +115,8 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
+        // TODO: add a check that only the owner is going to update his comment
+
         story.UpdateComment(command.CommentId, command.Content, command.Score);
         _logger.LogInformation("Comment {CommentId} updated for story {StoryId}", command.CommentId, command.StoryId);
 
@@ -118,6 +125,28 @@ public sealed class StoryWriteService : IStoryWriteService
 
     public async Task<OperationResult<EntityIdResponse>> PublishStory(PublishStoryCommand command)
     {
+        var platformUser = await _userRepository.GetByUserAccountId(command.UserId);
+
+        if (platformUser is null)
+        {
+            _logger.LogWarning("Publishing new story is not possible: {StoryTitle} by {AuthorName}. User is not found {id}",
+                command.Title,
+                command.AuthorName,
+                command.UserId);
+            return OperationResult<EntityIdResponse>.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+        }
+
+        var library = platformUser.GetCurrentLibrary();
+
+        if (!platformUser.IsPublisher || library is null)
+        {
+            _logger.LogWarning("Publishing new story is not possible: {StoryTitle} by {AuthorName}. User is not a publisher {id}",
+                command.Title,
+                command.AuthorName,
+                command.UserId);
+            return OperationResult<EntityIdResponse>.CreateClientSideError(UserFriendlyMessages.NoRights);
+        }
+
         _logger.LogInformation("Publishing new story: {StoryTitle} by {AuthorName}", command.Title, command.AuthorName);
         var storyId = _idGenerator.Generate((id) => new StoryId(id));
 
@@ -127,7 +156,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var story = Story.Create(
             storyId,
-            command.PublisherId,
+            library.Id,
             command.Title,
             command.Description,
             command.AuthorName,
@@ -153,7 +182,7 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
-        if (story.PublisherId.Value != command.CurrentUserId)
+        if (story.Library.PlatformUserId.Value != command.CurrentUserId)
         {
             _logger.LogWarning("Story {StoryId} can only be updated by its publisher or an administrator, user {UserId} tried to update not his story.",
                 command.StoryId, command.CurrentUserId);
@@ -262,6 +291,8 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
+        // TODO: add rights check
+
         story.DeleteComment(command.CommentId);
         _logger.LogInformation("Comment {CommentId} deleted from story {StoryId}", command.CommentId, command.StoryId);
 
@@ -290,8 +321,12 @@ public sealed class StoryWriteService : IStoryWriteService
         _logger.LogInformation("Deleting story {StoryId}", command.StoryId);
         var story = await _repository.GetStory(command.StoryId);
 
+        // TODO: add rights check
+
         if (story is not null)
         {
+            // TODO: let's mark it as isDeleted and then have a
+            // job that would remove all the isdeleted records once per month or smth
             _repository.DeleteStory(story);
             _logger.LogInformation("Story {StoryId} deleted successfully", command.StoryId);
         }
@@ -325,6 +360,7 @@ public sealed class StoryWriteService : IStoryWriteService
         return await UploadImageWithCompression(storyId, imagePreview, extension);
     }
 
+    // TODO: we need to extract this logic
     private async Task<string> UploadImageWithCompression(StoryId storyId, byte[] imagePreview, string extension = "jpg")
     {
         using (var image = Image.Load(imagePreview))
@@ -343,7 +379,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
             using var ms = new MemoryStream();
             image.Save(ms, new JpegEncoder { Quality = 75 });
-            var fileName = $"{storyId.Value}.{extension}";
+            var fileName = $"stories/{storyId.Value}.{extension}";
             return await _fileStorageService.SaveFileAsync(ms.ToArray(), fileName);
         }
     }

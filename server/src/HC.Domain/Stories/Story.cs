@@ -1,4 +1,5 @@
-﻿using HC.Domain.Users;
+﻿using HC.Domain.Genres;
+using HC.Domain.PlatformUsers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ public sealed class Story : AggregateRoot<StoryId>
 {
     private Story(
         StoryId id,
-        UserId publisherId,
+        LibraryId libraryId,
         string title,
         string description,
         string authorName,
@@ -19,7 +20,7 @@ public sealed class Story : AggregateRoot<StoryId>
         DateTime dateWritten) : base(id)
     {
         Id = id;
-        PublisherId = publisherId;
+        LibraryId = libraryId;
         Title = title;
         Description = description;
         AuthorName = authorName;
@@ -32,7 +33,7 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public static Story Create(
         StoryId id,
-        UserId publisher,
+        LibraryId libraryId,
         string title,
         string description,
         string authorName,
@@ -41,7 +42,7 @@ public sealed class Story : AggregateRoot<StoryId>
         int ageLimit,
         DateTime dateWritten) => new(
             id,
-            publisher,
+            libraryId,
             title,
             description,
             authorName,
@@ -50,8 +51,8 @@ public sealed class Story : AggregateRoot<StoryId>
             ageLimit,
             dateWritten);
 
-    public UserId PublisherId { get; init; }
-    public User Publisher { get; init; }
+    public LibraryId LibraryId { get; init; }
+    public Library Library { get; init; }
 
     public ICollection<Genre> Genres { get; init; } = [];
     public List<StoryPage> Contents { get; private set; } = [];
@@ -83,14 +84,14 @@ public sealed class Story : AggregateRoot<StoryId>
         AgeLimit = value;
     }
 
-    public void AddComment(CommentId commentId, UserId userId, string content, int score)
+    public void AddComment(CommentId commentId, PlatformUserId userId, string content, int score)
     {
         Comments.Add(Comment.Create(commentId, Id, userId, content, score));
     }
 
-    public void SetScoreByUser(UserId userId, int score, StoryRatingId ratingId)
+    public void SetScoreByUser(PlatformUserId userId, int score, StoryRatingId ratingId)
     {
-        var existingRating = Ratings.FirstOrDefault(x => x.UserId == userId);
+        var existingRating = Ratings.FirstOrDefault(x => x.PlatformUserId == userId);
 
         if (existingRating is not null)
         {

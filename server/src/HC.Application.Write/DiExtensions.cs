@@ -1,6 +1,7 @@
 ﻿using HC.Application.Write.FileStorage;
 using HC.Application.Write.Generators;
 using HC.Application.Write.JWT;
+using HC.Application.Write.PlatformUsers.Services;
 using HC.Application.Write.Stories.Services;
 using HC.Application.Write.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,8 @@ public static class DIExtensions
     {
         services.AddSingleton<IIdGenerator, IdGenerator>();
 
-        services.AddScoped<IUserWriteService, UserWriteService>();
+        services.AddScoped<IPlatformUserWriteService, PlatformUserWriteService>();
+        services.AddScoped<IUserAccountWriteService, UserAccountWriteService>();
         services.AddScoped<IStoryWriteService, StoryWriteService>();
         services.AddScoped<IJWTTokenHandler, JWTTokenHandler>();
 

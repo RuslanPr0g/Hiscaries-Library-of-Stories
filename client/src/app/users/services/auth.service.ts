@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     providedIn: 'root',
 })
 export class AuthService {
-    private apiUrl: string = `${environment.apiUrl}/users`;
+    private apiUrl: string = `${environment.apiUrl}/accounts`;
     private access_token_local_storage_key: string = environment.localStorageKeys.ACCESS_TOKEN_KEY;
     private refresh_token_local_storage_key: string = environment.localStorageKeys.REFRESH_TOKEN_KEY;
 
@@ -66,5 +66,19 @@ export class AuthService {
         const id = decodedToken?.id;
 
         return id === userId;
+    }
+
+    isPublisher(): boolean {
+        const token = localStorage.getItem(this.access_token_local_storage_key);
+
+        if (!token) {
+            return false;
+        }
+
+        const decodedToken = this.jwtHelper.decodeToken(token);
+
+        const role = decodedToken?.role;
+
+        return role === 'publisher';
     }
 }

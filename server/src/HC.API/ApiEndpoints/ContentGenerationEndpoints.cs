@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using HC.Application.Write.Stories.Command;
 using HC.Application.Write.Stories.Services;
+using HC.Domain.Genres;
 using HC.Domain.Stories;
 using HC.Persistence.Context;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -47,22 +49,37 @@ public static class ContentGenerationEndpoints
     {
         var generatedStories = new List<Guid>(storiesCount);
 
-        var publisher = await hiscaryContext.Users.FirstOrDefaultAsync();
+        var publisher = await hiscaryContext.PlatformUsers.Include(x => x.Libraries).FirstOrDefaultAsync();
         var genre = await hiscaryContext.Genres.FirstOrDefaultAsync();
 
-        if (publisher is null || genre is null)
+        if (genre is null)
+        {
+            genre = Genre.Create(Guid.NewGuid(), "*Automatically Generated", "No", []);
+            hiscaryContext.Genres.Add(genre);
+            hiscaryContext.SaveChanges();
+        }
+
+        if (publisher is null)
         {
             throw new Exception("No data is present in the database to seed upon");
+        }
+
+        if (publisher.Libraries.Count == 0)
+        {
+            publisher.BecomePublisher(Guid.NewGuid());
+            hiscaryContext.SaveChanges();
         }
 
         for (int i = 0; i < storiesCount; i++)
         {
             var imagePreview = await GetRandomImageAsByteArray();
 
+            var library = publisher.Libraries.ElementAt(0);
+
             var command = GenerateFakeStoryCommand(
-                publisher.Id,
+                library.Id,
                 [genre.Id],
-                imagePreview);
+                imagePreview); ;
 
             var publishedStory = await storyService.PublishStory(command);
             await hiscaryContext.SaveChangesAsync();
@@ -103,7 +120,7 @@ public static class ContentGenerationEndpoints
         )
     {
         var faker = new Faker<PublishStoryCommand>()
-            .RuleFor(s => s.PublisherId, f => publisherId)
+            .RuleFor(s => s.UserId, f => publisherId)
             .RuleFor(s => s.Title, f => f.Lorem.Sentence(5, 10))
             .RuleFor(s => s.Description, f => f.Lorem.Paragraphs(4, 8))
             .RuleFor(s => s.AuthorName, f => f.Name.FullName())
