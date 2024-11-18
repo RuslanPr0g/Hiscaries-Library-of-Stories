@@ -18,7 +18,7 @@ public class StoryTests
     {
         return Story.Create(
             _fixture.Create<StoryId>(),
-            _fixture.Create<PublisherId>(),
+            _fixture.Create<LibraryId>(),
             _fixture.Create<string>(),
             _fixture.Create<string>(),
             _fixture.Create<string>(),
