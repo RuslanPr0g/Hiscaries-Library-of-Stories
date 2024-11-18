@@ -24,7 +24,10 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre, PlatformUserId searchedBy)
     {
         // TODO: improve the search depth, etc.
-        var stories = (await _context.Stories.AsNoTracking()
+        var stories = (await _context.Stories
+            .AsNoTracking()
+            .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
             .Where(story =>
                 EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
                 EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
@@ -44,8 +47,10 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
     public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, PlatformUserId searchedBy)
     {
-        var storyInformation = await _context.Stories.AsNoTracking()
+        var storyInformation = await _context.Stories
+            .AsNoTracking()
             .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
             .Include(x => x.Genres)
             .Include(x => x.Comments)
             .Include(x => x.Contents)
@@ -70,8 +75,10 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
     public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, PlatformUserId searchedBy, string? requesterUsername)
     {
-        var storyInformation = await _context.Stories.AsNoTracking()
+        var storyInformation = await _context.Stories
+            .AsNoTracking()
             .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
             .Where(story => story.Id == storyId)
             .Select(story => new
             {
@@ -96,7 +103,9 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         // TODO: make it less dumb
 
         var stories = (await _context.Stories
+            .AsNoTracking()
             .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
             .Include(x => x.Contents)
             .Where(x => x.Contents.Any())
             .Select(story => new
@@ -116,7 +125,9 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(PlatformUserId searchedBy)
     {
         var stories = (await _context.Stories
+            .AsNoTracking()
             .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
             .Include(x => x.Contents)
             .Where(x => x.ReadHistory.Any(x => x.PlatformUserId == searchedBy))
             .Select(story => new
@@ -138,7 +149,9 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(PlatformUserId searchedBy)
     {
         var stories = (await _context.Stories
+            .AsNoTracking()
             .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
             .Include(x => x.Contents)
             .Where(x => x.ReadHistory.Any(x => x.PlatformUserId == searchedBy))
             .Select(story => new
