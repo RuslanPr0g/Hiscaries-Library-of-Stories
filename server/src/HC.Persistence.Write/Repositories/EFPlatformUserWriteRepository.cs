@@ -1,5 +1,6 @@
 ﻿using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Domain.PlatformUsers;
+using HC.Domain.UserAccounts;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,9 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
 
     public async Task<PlatformUser?> GetById(PlatformUserId userId) =>
         await _context.PlatformUsers.FirstOrDefaultAsync(x => x.Id == userId);
+
+    public async Task<PlatformUser?> GetByUserAccountId(UserAccountId userId) =>
+        await _context.PlatformUsers.FirstOrDefaultAsync(x => x.UserAccountId == userId);
 
     public async Task Add(PlatformUser user) =>
         await _context.PlatformUsers.AddAsync(user);
