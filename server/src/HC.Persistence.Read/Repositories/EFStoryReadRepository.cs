@@ -106,7 +106,6 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .AsNoTracking()
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
-            .Include(x => x.Contents)
             .Where(x => x.Contents.Any())
             .Select(story => new
             {
@@ -128,7 +127,6 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .AsNoTracking()
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
-            .Include(x => x.Contents)
             .Where(x => x.Contents.Any())
             .OrderByDescending(x => x.CreatedAt)
             .Take(n)
@@ -145,7 +143,6 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
             .Include(x => x.ReadHistory)
-            .Include(x => x.Contents)
             .Where(x => x.ReadHistory.Any(x => x.PlatformUserId == searchedBy))
             .Select(story => new
             {
@@ -170,7 +167,6 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
             .Include(x => x.ReadHistory)
-            .Include(x => x.Contents)
             .Where(x => x.ReadHistory.Any(x => x.PlatformUserId == searchedBy))
             .Select(story => new
             {

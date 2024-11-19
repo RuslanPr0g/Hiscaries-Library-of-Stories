@@ -12,7 +12,9 @@ public class PlatformUserConfigurations : IEntityTypeConfiguration<PlatformUser>
     {
         builder.ConfigureEntity<PlatformUser, PlatformUserId, PlatformUserIdentityConverter>();
         builder.Property(c => c.UserAccountId).HasConversion(new UserAccountIdentityConverter());
-
+        builder.HasIndex(x => x.UserAccountId)
+            .HasDatabaseName("IX_UserAccountId")
+            .IsUnique();
 
         builder
             .HasMany(u => u.Reviews)
