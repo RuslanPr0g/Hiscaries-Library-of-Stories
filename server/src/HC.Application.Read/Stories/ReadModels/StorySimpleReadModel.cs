@@ -21,6 +21,7 @@ public class StorySimpleReadModel
 
     public static StorySimpleReadModel FromDomainModel(Story story, decimal percentageRead, int lastPageRead, string? requesterUsername = null)
     {
+        // TODO: why use username? why don't use user id?
         return new StorySimpleReadModel
         {
             Id = story.Id,

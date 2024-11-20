@@ -1,6 +1,5 @@
 ﻿using HC.API.Extensions;
 using HC.API.Requests.Comments;
-using HC.API.Requests.Genres;
 using HC.API.Requests.Stories;
 using HC.Application.Read.Extensions;
 using HC.Application.Read.Genres.ReadModels;
@@ -35,21 +34,6 @@ public static class StoryEndpoints
             .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/genres", AddGenre)
-            .Produces(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapPatch("/genres", EditGenre)
-            .Produces(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapDelete("/genres", DeleteGenre)
-            .Produces(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status401Unauthorized);
-
         group.MapGet("/genres", GetGenres)
             .Produces<IEnumerable<GenreReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
@@ -63,6 +47,10 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapGet("/reading-history", ReadingHistory)
+            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/", GetStoriesBy)
             .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
@@ -117,6 +105,25 @@ public static class StoryEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
     }
 
+    private static async Task<IResult> GetStoriesBy([FromQuery] Guid libraryId, [FromServices] IMediator mediator, HttpContext context)
+    {
+        var requesterUsername = context.User.GetUsername();
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null || requesterUsername is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetStoryListQuery
+        {
+            LibraryId = libraryId,
+            UserId = userIdClaim.Value
+        };
+
+        var result = await mediator.Send(query);
+        return Results.Ok(result);
+    }
+
     private static async Task<IResult> GetStories([FromBody] GetStoryListRequest request, [FromServices] IMediator mediator, HttpContext context)
     {
         var requesterUsername = context.User.GetUsername();
@@ -158,44 +165,6 @@ public static class StoryEndpoints
 
         var result = await mediator.Send(query);
         return Results.Ok(result);
-    }
-
-    private static async Task<IResult> AddGenre([FromBody] CreateGenreRequest request, [FromServices] IMediator mediator)
-    {
-        var command = new CreateGenreCommand
-        {
-            Name = request.Name,
-            Description = request.Description,
-            ImagePreview = request.ImagePreview
-        };
-
-        var result = await mediator.Send(command);
-        return result.ToResult();
-    }
-
-    private static async Task<IResult> EditGenre([FromBody] UpdateGenreRequest request, [FromServices] IMediator mediator)
-    {
-        var command = new UpdateGenreCommand
-        {
-            GenreId = request.Id,
-            Name = request.Name,
-            Description = request.Description,
-            ImagePreview = request.ImagePreview
-        };
-
-        var result = await mediator.Send(command);
-        return result.ToResult();
-    }
-
-    private static async Task<IResult> DeleteGenre([FromBody] DeleteGenreRequest request, [FromServices] IMediator mediator)
-    {
-        var command = new DeleteGenreCommand
-        {
-            GenreId = request.Id,
-        };
-
-        var result = await mediator.Send(command);
-        return result.ToResult();
     }
 
     private static async Task<IResult> GetGenres([FromServices] IMediator mediator)

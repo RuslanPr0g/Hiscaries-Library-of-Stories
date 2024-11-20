@@ -121,6 +121,27 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
         return stories;
     }
 
+    public async Task<IEnumerable<StorySimpleReadModel>?> GetStorySimpleInfoByLibraryId(LibraryId libraryId, PlatformUserId searchedBy, string? requesterUsername)
+    {
+        var stories = (await _context.Stories
+            .AsNoTracking()
+            .Include(x => x.Library)
+                .ThenInclude(x => x.PlatformUser)
+            .Where(x => x.LibraryId == libraryId)
+            .Select(story => new
+            {
+                Story = story,
+                LastPageRead = story.ReadHistory
+                    .Where(history => history.PlatformUserId == searchedBy)
+                    .Select(history => (int?)history.LastPageRead)
+                    .FirstOrDefault()
+            })
+            .ToListAsync())
+            .Select(storyInformation => StoryDomainToSimpleReadDto(storyInformation.Story, storyInformation.LastPageRead, null));
+
+        return stories;
+    }
+
     public async Task<IEnumerable<StorySimpleReadModel>> GetLastNStories(int n)
     {
         var stories = (await _context.Stories

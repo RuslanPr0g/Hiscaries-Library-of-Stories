@@ -79,6 +79,12 @@ public sealed class StoryReadService : IStoryReadService
             return [];
         }
 
+        if (request.LibraryId.HasValue && Guid.Empty != request.Id)
+        {
+            var foundStories = await _repository.GetStorySimpleInfoByLibraryId(request.LibraryId.Value, platformUserId, request.RequesterUsername);
+            return foundStories is null ? [] : foundStories;
+        }
+
         if (request.Id.HasValue && Guid.Empty != request.Id)
         {
             var foundStory = await _repository.GetStorySimpleInfo(request.Id.Value, platformUserId, request.RequesterUsername);
