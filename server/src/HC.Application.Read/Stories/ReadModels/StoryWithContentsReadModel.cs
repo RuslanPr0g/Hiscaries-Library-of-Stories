@@ -1,5 +1,4 @@
 ﻿using HC.Application.Read.Genres.ReadModels;
-using HC.Application.Read.Users.ReadModels;
 using HC.Domain.Stories;
 
 namespace HC.Application.Read.Stories.ReadModels;
@@ -25,7 +24,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             AgeLimit = story.AgeLimit,
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
-            Library = LibraryReadModel.FromDomainModel(story.Library),
+            LibraryId = story.Library.Id,
             Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),
             Contents = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
             ImagePreviewUrl = story.ImagePreviewUrl,

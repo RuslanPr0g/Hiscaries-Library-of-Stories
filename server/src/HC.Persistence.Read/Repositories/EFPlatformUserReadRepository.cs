@@ -15,10 +15,17 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
         _context = context;
     }
 
-    public async Task<PlatformUserReadModel?> GetUserById(Guid userId) =>
+    public async Task<PlatformUserReadModel?> GetUserById(PlatformUserId userId) =>
         await _context.PlatformUsers
             .AsNoTracking()
-            .Where(x => x.Id.Value == userId)
+            .Where(x => x.UserAccountId == userId)
+            .Select(user => PlatformUserReadModel.FromDomainModel(user))
+            .FirstOrDefaultAsync();
+
+    public async Task<PlatformUserReadModel?> GetPlatformUserByAccountUserId(UserAccountId userId) =>
+        await _context.PlatformUsers
+            .AsNoTracking()
+            .Where(x => x.UserAccountId == userId)
             .Select(user => PlatformUserReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 
@@ -28,5 +35,25 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
             .Where(x => x.UserAccountId == userId)
             .Select(user => user.Id)
             .FirstOrDefaultAsync();
+
+    public async Task<LibraryReadModel?> GetLibraryInformation(UserAccountId requesterId, LibraryId? libraryId)
+    {
+        if (libraryId is null)
+        {
+            return await _context.Libraries
+                .AsNoTracking()
+                .Include(x => x.PlatformUser)
+                .Where(x => x.PlatformUser.UserAccountId == requesterId)
+                .Select(x => LibraryReadModel.FromDomainModel(x, requesterId))
+                .FirstOrDefaultAsync();
+        }
+
+        return await _context.Libraries
+            .AsNoTracking()
+            .Include(x => x.PlatformUser)
+            .Where(x => x.Id == libraryId)
+            .Select(x => LibraryReadModel.FromDomainModel(x, requesterId))
+            .FirstOrDefaultAsync();
+    }
 }
 
