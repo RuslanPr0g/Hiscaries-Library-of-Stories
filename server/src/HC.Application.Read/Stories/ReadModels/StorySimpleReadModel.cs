@@ -1,5 +1,4 @@
-﻿using HC.Application.Read.Users.ReadModels;
-using HC.Domain.Stories;
+﻿using HC.Domain.Stories;
 
 namespace HC.Application.Read.Stories.ReadModels;
 
@@ -13,7 +12,8 @@ public class StorySimpleReadModel
     public string? ImagePreviewUrl { get; protected set; }
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
-    public LibraryReadModel Library { get; set; }
+    public Guid LibraryId { get; set; }
+    public string LibraryName { get; set; }
     public bool IsEditable { get; set; } = false;
 
     public decimal PercentageRead { get; set; } = 0;
@@ -21,6 +21,7 @@ public class StorySimpleReadModel
 
     public static StorySimpleReadModel FromDomainModel(Story story, decimal percentageRead, int lastPageRead, string? requesterUsername = null)
     {
+        // TODO: why use username? why don't use user id?
         return new StorySimpleReadModel
         {
             Id = story.Id,
@@ -30,7 +31,8 @@ public class StorySimpleReadModel
             AgeLimit = story.AgeLimit,
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
-            Library = LibraryReadModel.FromDomainModel(story.Library),
+            LibraryId = story.Library.Id,
+            LibraryName = story.Library.PlatformUser.Username,
             IsEditable = story.Library.PlatformUser?.Username == requesterUsername,
             ImagePreviewUrl = story.ImagePreviewUrl,
             PercentageRead = percentageRead,

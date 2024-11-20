@@ -1,10 +1,12 @@
 ﻿using HC.API.Extensions;
+using HC.Application.Read.Users.Queries;
 using HC.Application.Write.PlatformUsers.Command.BecomePublisher;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
 using System.Threading.Tasks;
 
 namespace HC.API.ApiEndpoints;
@@ -21,6 +23,12 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/libraries", GetLibrary)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
     }
 
     private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)
@@ -33,6 +41,19 @@ public static class PlatformUserEndpoints
 
         var command = new BecomePublisherCommand { Id = userIdClaim.Value };
         var result = await mediator.Send(command);
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> GetLibrary([FromQuery] Guid? libraryId, HttpContext context, [FromServices] IMediator mediator)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetLibraryInfoQuery { UserId = userIdClaim.Value, LibraryId = libraryId };
+        var result = await mediator.Send(query);
         return result.ToResult();
     }
 }

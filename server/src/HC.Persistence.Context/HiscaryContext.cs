@@ -32,6 +32,7 @@ public sealed class HiscaryContext(DbContextOptions<HiscaryContext> options) : D
 {
     public DbSet<UserAccount> UserAccounts { get; set; }
     public DbSet<PlatformUser> PlatformUsers { get; set; }
+    public DbSet<Library> Libraries { get; set; }
     public DbSet<Story> Stories { get; set; }
     public DbSet<Genre> Genres { get; set; }
 

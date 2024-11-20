@@ -11,6 +11,8 @@ import { SearchStoryComponent } from './stories/search-story/search-story.compon
 import { storyFeatureKey, storyReducer } from './stories/store/story.reducer';
 import { ReadingHistoryComponent } from './stories/reading-history/reading-history.component';
 import { BecomePublisherComponent } from './users/become-publisher/become-publisher.component';
+import { MyLibraryComponent } from './users/my-library/my-library.component';
+import { PublisherLibraryComponent } from './users/publisher-library/publisher-library.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +42,18 @@ export const routes: Routes = [
         path: 'reading-history',
         title: 'Reading History',
         component: ReadingHistoryComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'library',
+        title: 'My Library',
+        component: MyLibraryComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'library/:id',
+        title: 'Library',
+        component: PublisherLibraryComponent,
         canActivate: [authGuard],
     },
     {

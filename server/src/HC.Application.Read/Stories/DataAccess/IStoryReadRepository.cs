@@ -13,5 +13,6 @@ public interface IStoryReadRepository
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
     Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, PlatformUserId searchedBy);
     Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId, PlatformUserId searchedBy, string? requesterUsername);
+    Task<IEnumerable<StorySimpleReadModel>?> GetStorySimpleInfoByLibraryId(LibraryId libraryId, PlatformUserId searchedBy, string? requesterUsername);
     Task<IEnumerable<StorySimpleReadModel>> GetLastNStories(int n);
 }

@@ -9,13 +9,21 @@
     ></div>
     <div class="top">
         <div class="story-info">
-            <div class="story-info-item"><span>Date Written:</span> {{ story.DateWritten | date }}</div>
+            <div class="story-info-item"><span>Originally written on&nbsp;</span> {{ story.DateWritten | date }}</div>
             <div class="story-info-item">{{ story.AgeLimit }}+</div>
-            <div class="story-info-item"><span>Publisher:</span> {{ story.Publisher?.Username }}</div>
+            <div class="story-info-item">
+                <span>From library:&nbsp;</span>
+                <button
+                    (click)="navigateToLibrary()"
+                    class="link"
+                >
+                    {{ story.LibraryName }}
+                </button>
+            </div>
         </div>
         <div class="story-header">
             <h1>{{ story.Title }}</h1>
-            <span class="story-author">By {{ story.AuthorName ?? story.Publisher?.Username }}</span>
+            <span class="story-author">By {{ story.AuthorName ?? story.LibraryName }}</span>
             &#x2022;
             <span class="story-date">{{ story.DatePublished | date: 'longDate' }}</span>
         </div>
@@ -27,6 +35,11 @@
         </div>
     </div>
     <div class="bottom">
+        <app-form-button
+            label="See library"
+            severity="warning"
+            (onClick)="navigateToLibrary()"
+        ></app-form-button>
         <app-form-button
             label="Read"
             (onClick)="readStory()"

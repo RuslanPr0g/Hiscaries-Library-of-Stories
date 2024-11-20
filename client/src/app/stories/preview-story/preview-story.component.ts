@@ -60,4 +60,12 @@ export class PreviewStoryComponent implements OnInit {
     modifyStory(): void {
         this.router.navigate([NavigationConst.ModifyStory(this.storyId!)]);
     }
+
+    navigateToLibrary(): void {
+        if (this.story?.LibraryId) {
+            this.router.navigate([NavigationConst.PublisherLibrary(this.story?.LibraryId)]);
+        } else {
+            console.warn('Why the story library id is empty?');
+        }
+    }
 }
