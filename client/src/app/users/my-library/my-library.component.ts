@@ -36,20 +36,25 @@ export class MyLibraryComponent implements OnInit {
         this.userService
             .getLibrary()
             .pipe(take(1))
-            .subscribe((library) => {
-                if (!library) {
-                    // todo: show error
-                    return;
-                }
+            .subscribe({
+                next: (library) => {
+                    if (!library) {
+                        this.router.navigate([NavigationConst.Home]);
+                        return;
+                    }
 
-                this.libraryInfo = library;
+                    this.libraryInfo = library;
 
-                this.storyService
-                    .getStoriesByLibraryId(this.libraryInfo.Id)
-                    .pipe(take(1))
-                    .subscribe((stories) => {
-                        this.stories = stories;
-                    });
+                    this.storyService
+                        .getStoriesByLibraryId(this.libraryInfo.Id)
+                        .pipe(take(1))
+                        .subscribe((stories) => {
+                            this.stories = stories;
+                        });
+                },
+                error: () => {
+                    this.router.navigate([NavigationConst.Home]);
+                },
             });
     }
 }

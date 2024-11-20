@@ -38,20 +38,23 @@ export class PublisherLibraryComponent implements OnInit {
         this.userService
             .getLibrary(this.libraryId)
             .pipe(take(1))
-            .subscribe((library) => {
-                if (!library) {
-                    // todo: show error
-                    return;
-                }
+            .subscribe({
+                next: (library) => {
+                    if (!library) {
+                        this.router.navigate([NavigationConst.Home]);
+                        return;
+                    }
 
-                if (library.IsLibraryOwner) {
-                    this.router.navigate([NavigationConst.MyLibrary]);
-                    return;
-                }
+                    if (library.IsLibraryOwner) {
+                        this.router.navigate([NavigationConst.MyLibrary]);
+                        return;
+                    }
 
-                this.libraryInfo = library;
-
-                // TODO: add error in case if library is not found in the error => lambda
+                    this.libraryInfo = library;
+                },
+                error: () => {
+                    this.router.navigate([NavigationConst.Home]);
+                },
             });
 
         this.storyService

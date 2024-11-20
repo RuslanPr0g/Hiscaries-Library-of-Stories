@@ -18,7 +18,8 @@
                     >
                         <!-- TODO: the icon class should be according to the link type -->
                         <i
-                            class="pi pi-youtube"
+                            class="pi"
+                            [ngClass]="getSocialNetworkIcon(link)"
                             style="font-size: 2rem"
                         ></i>
                     </a>
