@@ -6,6 +6,8 @@ import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../services/user.service';
 import { LibraryModel } from '../models/domain/Library.model';
 import { take } from 'rxjs';
+import { StoryModel } from '../../stories/models/domain/story-model';
+import { StoryService } from '../../stories/services/story.service';
 
 @Component({
     selector: 'app-my-library',
@@ -16,11 +18,13 @@ import { take } from 'rxjs';
 })
 export class MyLibraryComponent implements OnInit {
     libraryInfo: LibraryModel;
+    stories: StoryModel[];
 
     constructor(
         private router: Router,
         private authService: AuthService,
-        private userService: UserService
+        private userService: UserService,
+        private storyService: StoryService
     ) {
         if (!this.authService.isPublisher()) {
             this.router.navigate([NavigationConst.Home]);
@@ -39,6 +43,13 @@ export class MyLibraryComponent implements OnInit {
                 }
 
                 this.libraryInfo = library;
+
+                this.storyService
+                    .getStoriesByLibraryId(this.libraryInfo.Id)
+                    .pipe(take(1))
+                    .subscribe((stories) => {
+                        this.stories = stories;
+                    });
             });
     }
 }

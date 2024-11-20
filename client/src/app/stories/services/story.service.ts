@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PublishStoryRequest } from '../models/requests/publish-story.model';
@@ -25,6 +25,11 @@ export class StoryService {
 
     recommendations(): Observable<StoryModel[]> {
         return this.http.get<StoryModel[]>(`${this.apiUrl}/recommendations`);
+    }
+
+    getStoriesByLibraryId(libraryId: string): Observable<StoryModel[]> {
+        const params = new HttpParams().set('libraryId', libraryId);
+        return this.http.get<StoryModel[]>(`${this.apiUrl}/`, { params });
     }
 
     resumeReading(): Observable<StoryModel[]> {

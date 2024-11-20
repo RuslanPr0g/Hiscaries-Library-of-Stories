@@ -5,6 +5,8 @@ import { LibraryModel } from '../models/domain/Library.model';
 import { UserService } from '../services/user.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
+import { StoryService } from '../../stories/services/story.service';
+import { StoryModel } from '../../stories/models/domain/story-model';
 
 @Component({
     selector: 'app-publisher-library',
@@ -16,11 +18,13 @@ import { NavigationConst } from '../../shared/constants/navigation.const';
 export class PublisherLibraryComponent implements OnInit {
     libraryInfo: LibraryModel;
     libraryId: string | null;
+    stories: StoryModel[];
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private userService: UserService
+        private userService: UserService,
+        private storyService: StoryService
     ) {
         this.libraryId = this.route.snapshot.paramMap.get('id');
     }
@@ -48,6 +52,13 @@ export class PublisherLibraryComponent implements OnInit {
                 this.libraryInfo = library;
 
                 // TODO: add error in case if library is not found in the error => lambda
+            });
+
+        this.storyService
+            .getStoriesByLibraryId(this.libraryId)
+            .pipe(take(1))
+            .subscribe((stories) => {
+                this.stories = stories;
             });
     }
 }
