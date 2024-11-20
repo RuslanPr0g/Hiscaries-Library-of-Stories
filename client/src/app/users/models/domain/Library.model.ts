@@ -1,6 +1,6 @@
 import { UserModel } from './user.model';
 
-export interface Library {
+export interface LibraryModel {
     PlatformUser: UserModel;
     Id: string;
     Bio: string;

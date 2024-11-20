@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../services/user.service';
-import { Library } from '../models/domain/Library.model';
+import { LibraryModel } from '../models/domain/Library.model';
 import { take } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ import { take } from 'rxjs';
     styleUrl: './my-library.component.scss',
 })
 export class MyLibraryComponent implements OnInit {
-    libraryInfo: Library;
+    libraryInfo: LibraryModel;
 
     constructor(
         private router: Router,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryComponent } from '../library/library.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Library } from '../models/domain/Library.model';
+import { LibraryModel } from '../models/domain/Library.model';
 import { UserService } from '../services/user.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
@@ -14,7 +14,7 @@ import { NavigationConst } from '../../shared/constants/navigation.const';
     styleUrl: './publisher-library.component.scss',
 })
 export class PublisherLibraryComponent implements OnInit {
-    libraryInfo: Library;
+    libraryInfo: LibraryModel;
     libraryId: string | null;
 
     constructor(
