@@ -56,6 +56,17 @@ input {
     margin: 0px 20px;
 }
 
+.link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #a78bfa;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 .text-main {
     color: #a78bfa;
 }

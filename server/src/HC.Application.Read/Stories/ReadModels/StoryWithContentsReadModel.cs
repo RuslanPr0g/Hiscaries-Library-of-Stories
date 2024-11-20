@@ -25,6 +25,7 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
             LibraryId = story.Library.Id,
+            LibraryName = story.Library.PlatformUser.Username,
             Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),
             Contents = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
             ImagePreviewUrl = story.ImagePreviewUrl,

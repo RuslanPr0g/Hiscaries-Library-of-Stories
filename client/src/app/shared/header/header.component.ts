@@ -37,6 +37,10 @@ export class HeaderComponent {
             this.items = [
                 ...this.items,
                 {
+                    Label: 'My Library',
+                    Command: () => this.navigateToMyLibrary(),
+                },
+                {
                     Label: 'Publish story',
                     Command: () => this.navigateToPublishStory(),
                 },
@@ -76,6 +80,10 @@ export class HeaderComponent {
 
     navigateToPublishStory(): void {
         this.router.navigate([NavigationConst.PublishStory]);
+    }
+
+    navigateToMyLibrary(): void {
+        this.router.navigate([NavigationConst.MyLibrary]);
     }
 
     navigateToReadingHistory(): void {

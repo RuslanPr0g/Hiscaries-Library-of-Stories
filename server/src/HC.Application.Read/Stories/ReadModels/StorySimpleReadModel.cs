@@ -13,6 +13,7 @@ public class StorySimpleReadModel
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
     public Guid LibraryId { get; set; }
+    public string LibraryName { get; set; }
     public bool IsEditable { get; set; } = false;
 
     public decimal PercentageRead { get; set; } = 0;
@@ -30,6 +31,7 @@ public class StorySimpleReadModel
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
             LibraryId = story.Library.Id,
+            LibraryName = story.Library.PlatformUser.Username,
             IsEditable = story.Library.PlatformUser?.Username == requesterUsername,
             ImagePreviewUrl = story.ImagePreviewUrl,
             PercentageRead = percentageRead,
