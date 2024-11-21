@@ -19,6 +19,7 @@ import { StoryService } from '../../stories/services/story.service';
 export class MyLibraryComponent implements OnInit {
     libraryInfo: LibraryModel;
     stories: StoryModel[];
+    isLoading: boolean = false;
 
     constructor(
         private router: Router,
@@ -33,14 +34,23 @@ export class MyLibraryComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isLoading = true;
+
         this.userService
             .getLibrary()
             .pipe(take(1))
             .subscribe({
-                next: (library) => {
+                next: (library: LibraryModel) => {
                     if (!library) {
                         this.router.navigate([NavigationConst.Home]);
                         return;
+                    }
+
+                    if (
+                        !library.IsLibraryOwner ||
+                        !this.authService.isTokenOwnerByUsername(library.PlatformUser.Username)
+                    ) {
+                        this.router.navigate([NavigationConst.PublisherLibrary(library.Id)]);
                     }
 
                     this.libraryInfo = library;
@@ -50,6 +60,7 @@ export class MyLibraryComponent implements OnInit {
                         .pipe(take(1))
                         .subscribe((stories) => {
                             this.stories = stories;
+                            this.isLoading = false;
                         });
                 },
                 error: () => {

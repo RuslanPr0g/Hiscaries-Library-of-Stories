@@ -68,6 +68,20 @@ export class AuthService {
         return id === userId;
     }
 
+    isTokenOwnerByUsername(username?: string): boolean {
+        const token = localStorage.getItem(this.access_token_local_storage_key);
+
+        if (!token) {
+            return false;
+        }
+
+        const decodedToken = this.jwtHelper.decodeToken(token);
+
+        const usernameFromToken = decodedToken?.username;
+
+        return username === usernameFromToken;
+    }
+
     isPublisher(): boolean {
         const token = localStorage.getItem(this.access_token_local_storage_key);
 

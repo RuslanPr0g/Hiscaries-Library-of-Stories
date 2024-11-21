@@ -3,42 +3,36 @@ import { LibraryModel } from '../models/domain/Library.model';
 import { StoryModel } from '../../stories/models/domain/story-model';
 import { CommonModule } from '@angular/common';
 import { SearchStoryResultsComponent } from '../../stories/search-story-results/search-story-results.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LibraryGeneralViewComponent } from './library-general-view/library-general-view.component';
+import { LibraryGeneralEditComponent } from './library-general-edit/library-general-edit.component';
 
 @Component({
     selector: 'app-library',
     standalone: true,
-    imports: [CommonModule, SearchStoryResultsComponent],
+    imports: [
+        CommonModule,
+        ProgressSpinnerModule,
+        SearchStoryResultsComponent,
+        LibraryGeneralViewComponent,
+        LibraryGeneralEditComponent,
+    ],
     templateUrl: './library.component.html',
     styleUrl: './library.component.scss',
 })
 export class LibraryComponent {
-    private _socialNetworks: { [key: string]: string } = {
-        tiktok: 'pi-tiktok',
-        youtube: 'pi-youtube',
-        facebook: 'pi-facebook',
-        instagram: 'pi-instagram',
-        twitter: 'pi-twitter',
-        linkedin: 'pi-linkedin',
-        pinterest: 'pi-pinterest',
-    };
-
     @Input() library: LibraryModel;
     @Input() stories: StoryModel[];
     @Input() isLoading: boolean = false;
+    @Input() isAbleToEdit: boolean = false;
 
-    getSocialNetworkIcon(link: string): string {
-        if (!link) {
-            return '';
-        }
+    isEditMode: boolean = false;
 
-        const hostname = new URL(link).hostname.toLowerCase();
+    startEdit(): void {
+        this.isEditMode = true;
+    }
 
-        for (const key in this._socialNetworks) {
-            if (hostname.includes(key)) {
-                return this._socialNetworks[key];
-            }
-        }
-
-        return 'pi-link';
+    cancelEdit(): void {
+        this.isEditMode = false;
     }
 }

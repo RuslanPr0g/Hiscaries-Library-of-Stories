@@ -56,6 +56,13 @@ input {
     margin: 0px 20px;
 }
 
+.center {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
 .link {
     background: none !important;
     border: none;
