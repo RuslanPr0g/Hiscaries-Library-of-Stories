@@ -15,4 +15,6 @@ public interface IPlatformUserWriteService
 
     Task<OperationResult> BookmarkStory(BookmarkStoryCommand command);
     Task<OperationResult> ReadStoryHistory(ReadStoryCommand command);
+
+    Task<OperationResult> EditLibraryInfo(EditLibraryCommand command);
 }

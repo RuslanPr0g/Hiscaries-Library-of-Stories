@@ -1,6 +1,7 @@
 ﻿using HC.Application.Constants;
 using HC.Application.Write.FileStorage;
 using HC.Application.Write.Generators;
+using HC.Application.Write.ImageUploaders;
 using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Stories.Command;
@@ -8,9 +9,6 @@ using HC.Application.Write.Stories.DataAccess;
 using HC.Domain.Genres;
 using HC.Domain.Stories;
 using Microsoft.Extensions.Logging;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Processing;
 
 namespace HC.Application.Write.Stories.Services;
 
@@ -19,6 +17,7 @@ public sealed class StoryWriteService : IStoryWriteService
     private readonly IFileStorageService _fileStorageService;
     private readonly IStoryWriteRepository _repository;
     private readonly IPlatformUserWriteRepository _userRepository;
+    private readonly IImageUploader _imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService;
     private readonly IIdGenerator _idGenerator;
     private readonly ILogger<StoryWriteService> _logger;
@@ -29,7 +28,8 @@ public sealed class StoryWriteService : IStoryWriteService
         IIdGenerator idGenerator,
         ILogger<StoryWriteService> logger,
         IFileStorageService fileStorageService,
-        IPlatformUserWriteRepository userRepository)
+        IPlatformUserWriteRepository userRepository,
+        IImageUploader imageUploader)
     {
         _repository = storyWriteRepository;
         _urlGeneratorService = urlGeneratorService;
@@ -37,6 +37,7 @@ public sealed class StoryWriteService : IStoryWriteService
         _logger = logger;
         _fileStorageService = fileStorageService;
         _userRepository = userRepository;
+        _imageUploader = imageUploader;
     }
 
     public async Task<OperationResult> AddComment(AddCommentCommand command)
@@ -152,7 +153,7 @@ public sealed class StoryWriteService : IStoryWriteService
 
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
 
-        string? imagePreviewUrl = await UploadStoryPreviewAndReturnUrlToIt(storyId, command.ImagePreview);
+        string? imagePreviewUrl = await UploadStoryPreviewAndGetUrlAsync(storyId, command.ImagePreview);
 
         var story = Story.Create(
             storyId,
@@ -192,7 +193,7 @@ public sealed class StoryWriteService : IStoryWriteService
         var existingGenres = await _repository.GetGenresByIds(command.GenreIds.ToArray());
 
         string? imagePreviewUrl = command.ShouldUpdateImage ?
-            await UploadStoryPreviewAndReturnUrlToIt(command.StoryId, command.ImagePreview) :
+            await UploadStoryPreviewAndGetUrlAsync(command.StoryId, command.ImagePreview) :
             story.ImagePreviewUrl;
 
         story.UpdateInformation(
@@ -344,43 +345,14 @@ public sealed class StoryWriteService : IStoryWriteService
         writer.Write(data);
     }
 
-    private async Task<string?> UploadStoryPreviewAndReturnUrlToIt(StoryId storyId, byte[] imagePreview)
+    public async Task<string?> UploadStoryPreviewAndGetUrlAsync(StoryId storyId, byte[] imagePreview)
     {
         if (imagePreview.Length == 0)
         {
             return null;
         }
 
-        string fileName = await UploadImage(storyId, imagePreview);
+        string fileName = await _imageUploader.UploadImageAsync(storyId, imagePreview, "stories");
         return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
-    }
-
-    private async Task<string> UploadImage(StoryId storyId, byte[] imagePreview, string extension = "jpg")
-    {
-        return await UploadImageWithCompression(storyId, imagePreview, extension);
-    }
-
-    // TODO: we need to extract this logic
-    private async Task<string> UploadImageWithCompression(StoryId storyId, byte[] imagePreview, string extension = "jpg")
-    {
-        using (var image = Image.Load(imagePreview))
-        {
-            int maxWidth = 1080;
-            int maxHeight = maxWidth * 9 / 16; // Calculate height for 16:9
-
-            if (image.Width > maxWidth || image.Height > maxHeight)
-            {
-                image.Mutate(x => x.Resize(new ResizeOptions
-                {
-                    Mode = ResizeMode.Max,
-                    Size = new Size(maxWidth, maxHeight)
-                }));
-            }
-
-            using var ms = new MemoryStream();
-            image.Save(ms, new JpegEncoder { Quality = 75 });
-            var fileName = $"stories/{storyId.Value}.{extension}";
-            return await _fileStorageService.SaveFileAsync(ms.ToArray(), fileName);
-        }
     }
 }
