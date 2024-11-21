@@ -1,7 +1,7 @@
 import { AbstractControl, FormArray } from '@angular/forms';
 import { GenreModel } from '../domain/genre.model';
 
-export interface ModifyFormModel {
+export interface ModifyStoryFormModel {
     Title: AbstractControl<string | null>;
     Description: AbstractControl<string | null>;
     AuthorName: AbstractControl<string | null>;

@@ -73,7 +73,7 @@ public static class PlatformUserEndpoints
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var isImageAlreadyUrl = request.AvatarUrl.ImageStringToBytes();
+        var isImageAlreadyUrl = request.Avatar.ImageStringToBytes();
 
         var query = new EditLibraryCommand
         {

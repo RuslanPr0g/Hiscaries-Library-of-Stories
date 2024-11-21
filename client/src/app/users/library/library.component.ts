@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LibraryModel } from '../models/domain/Library.model';
+import { LibraryModel } from '../models/domain/library.model';
 import { StoryModel } from '../../stories/models/domain/story-model';
 import { CommonModule } from '@angular/common';
 import { SearchStoryResultsComponent } from '../../stories/search-story-results/search-story-results.component';
@@ -33,6 +33,11 @@ export class LibraryComponent {
     }
 
     cancelEdit(): void {
+        this.isEditMode = false;
+    }
+
+    saveEdit(model: LibraryModel): void {
+        console.warn(model);
         this.isEditMode = false;
     }
 }

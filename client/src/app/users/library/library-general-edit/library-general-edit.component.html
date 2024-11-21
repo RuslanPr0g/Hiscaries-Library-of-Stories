@@ -1,42 +1,71 @@
 <ng-container *ngIf="library">
-    <div class="library">
-        <div class="profile-card">
-            <div class="avatar-container">
-                <div class="avatar">
-                    <img
-                        [src]="library.AvatarUrl"
-                        alt="User Avatar"
-                    />
+    <form
+        [formGroup]="modifyForm"
+        (ngSubmit)="onSubmit()"
+    >
+        <div class="library">
+            <div class="profile-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <img
+                            [src]="library.AvatarUrl"
+                            alt="User Avatar"
+                        />
+                    </div>
                 </div>
-                <div
-                    class="library-edit"
-                    *ngIf="isAbleToEdit"
-                >
-                    <button
-                        class="link"
-                        (click)="cancelEdit()"
-                    >
-                        <i class="pi pi-user-edit"></i>
-                    </button>
+                <div class="profile-details">
+                    <h2>{{ library.PlatformUser.Username }}</h2>
+
+                    <div class="field-wrapper">
+                        <app-form-textarea
+                            [formGroup]="modifyForm"
+                            controlName="Bio"
+                            label="Bio"
+                            errorMessage="Bio is required"
+                            [rows]="4"
+                        ></app-form-textarea>
+                    </div>
+
+                    <div class="social-links">
+                        <a
+                            *ngFor="let link of library.LinksToSocialMedia"
+                            [href]="link"
+                            target="_blank"
+                        >
+                            <i
+                                class="pi"
+                                [ngClass]="getSocialNetworkIcon(link)"
+                                style="font-size: 2rem"
+                            ></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="profile-details">
-                <h2>{{ library.PlatformUser.Username }}</h2>
-                <p class="bio">{{ library.Bio }}</p>
-                <div class="social-links">
-                    <a
-                        *ngFor="let link of library.LinksToSocialMedia"
-                        [href]="link"
-                        target="_blank"
-                    >
-                        <i
-                            class="pi"
-                            [ngClass]="getSocialNetworkIcon(link)"
-                            style="font-size: 2rem"
-                        ></i>
-                    </a>
-                </div>
+            <div
+                class="library-edit"
+                *ngIf="isAbleToEdit"
+            >
+                <button
+                    class="link"
+                    (click)="cancelEdit()"
+                    type="button"
+                >
+                    <i
+                        class="pi pi-times"
+                        style="font-size: 2rem"
+                    ></i>
+                </button>
+
+                <button
+                    class="link"
+                    type="submit"
+                >
+                    <i
+                        class="pi pi-check"
+                        style="font-size: 2rem"
+                    ></i>
+                </button>
             </div>
         </div>
-    </div>
+    </form>
 </ng-container>

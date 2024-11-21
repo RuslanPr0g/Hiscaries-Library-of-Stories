@@ -9,7 +9,8 @@
     <app-library-general-edit
         [library]="library"
         [isAbleToEdit]="isAbleToEdit"
-        (editStarted)="startEdit()"
+        (editCancelled)="cancelEdit()"
+        (editSaved)="saveEdit($event)"
     >
     </app-library-general-edit>
 </ng-template>

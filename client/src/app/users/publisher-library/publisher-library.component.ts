@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryComponent } from '../library/library.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LibraryModel } from '../models/domain/Library.model';
+import { LibraryModel } from '../models/domain/library.model';
 import { UserService } from '../services/user.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';

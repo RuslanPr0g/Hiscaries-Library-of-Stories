@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LibraryModel } from '../../models/domain/Library.model';
+import { LibraryModel } from '../../models/domain/library.model';
 import { SocialMediaIconMapperService } from '../../../shared/services/social-media-icon-mapper.service';
 
 @Component({

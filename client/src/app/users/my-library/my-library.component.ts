@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { UserService } from '../services/user.service';
-import { LibraryModel } from '../models/domain/Library.model';
+import { LibraryModel } from '../models/domain/library.model';
 import { take } from 'rxjs';
 import { StoryModel } from '../../stories/models/domain/story-model';
 import { StoryService } from '../../stories/services/story.service';
