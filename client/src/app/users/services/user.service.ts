@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LibraryModel } from '../models/domain/library.model';
+import { EditLibraryRequest } from '../models/requests/edit-library.model';
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +24,9 @@ export class UserService {
         }
 
         return this.http.get<LibraryModel>(this.apiUrl + '/libraries');
+    }
+
+    editLibrary(request: EditLibraryRequest): Observable<void> {
+        return this.http.put<void>(this.apiUrl + '/libraries', request);
     }
 }

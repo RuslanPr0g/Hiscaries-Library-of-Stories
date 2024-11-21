@@ -13,8 +13,6 @@
                     *ngIf="backgroundImageUrl"
                 ></div>
                 <div class="profile-details">
-                    <h2>{{ library.PlatformUser.Username }}</h2>
-
                     <div class="field-wrapper">
                         <app-form-textarea
                             [formGroup]="modifyForm"
@@ -42,6 +40,11 @@
                                 ></i>
                             </ng-template>
                         </p-chips>
+                    </div>
+
+                    <div class="field-wrapper">
+                        <h3>Profile image</h3>
+                        <app-upload-file-control [control]="imageControl"></app-upload-file-control>
                     </div>
                 </div>
             </div>

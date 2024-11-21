@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LibraryModel } from '../models/domain/library.model';
 import { StoryModel } from '../../stories/models/domain/story-model';
 import { CommonModule } from '@angular/common';
@@ -26,6 +26,8 @@ export class LibraryComponent {
     @Input() isLoading: boolean = false;
     @Input() isAbleToEdit: boolean = false;
 
+    @Output() libraryEdited = new EventEmitter<LibraryModel>();
+
     isEditMode: boolean = false;
 
     startEdit(): void {
@@ -37,7 +39,7 @@ export class LibraryComponent {
     }
 
     saveEdit(model: LibraryModel): void {
-        console.warn(model);
+        this.libraryEdited?.emit(model);
         this.isEditMode = false;
     }
 }

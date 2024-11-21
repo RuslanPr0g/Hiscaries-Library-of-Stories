@@ -2,15 +2,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LibraryModel } from '../../models/domain/library.model';
 import { SocialMediaIconMapperService } from '../../../shared/services/social-media-icon-mapper.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModifyLibraryFormModel } from '../../models/form/modify-library.model';
 import { FormTextareaComponent } from '../../../shared/components/form-textarea/form-textarea.component';
+import { UploadFileControlComponent } from '../../../shared/components/upload-file-control/upload-file-control.component';
 import { ChipsModule } from 'primeng/chips';
 
 @Component({
     selector: 'app-library-general-edit',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, ChipsModule, FormTextareaComponent],
+    imports: [CommonModule, ReactiveFormsModule, ChipsModule, FormTextareaComponent, UploadFileControlComponent],
     templateUrl: './library-general-edit.component.html',
     styleUrl: './library-general-edit.component.scss',
 })
@@ -32,14 +33,18 @@ export class LibraryGeneralEditComponent implements OnInit {
         if (this.library) {
             this.modifyForm = this.fb.group<ModifyLibraryFormModel>({
                 Bio: this.fb.control<string | null>(this.library.Bio),
-                Avatar: this.fb.control<string | null>(this.library.AvatarUrl),
+                AvatarUrl: this.fb.control<string | null>(this.library.AvatarUrl),
                 LinksToSocialMedia: this.fb.control<string[] | null>(this.library.LinksToSocialMedia),
             });
         }
     }
 
-    get backgroundImageUrl(): string | undefined {
-        return this.library?.AvatarUrl;
+    get backgroundImageUrl(): string | null | undefined {
+        return this.imageControl?.value;
+    }
+
+    get imageControl(): AbstractControl<string | null, string | null> | null {
+        return this.modifyForm.get('AvatarUrl');
     }
 
     getSocialNetworkIcon(link: string): string {

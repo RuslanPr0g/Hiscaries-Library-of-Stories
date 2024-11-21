@@ -34,38 +34,59 @@ export class MyLibraryComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.isLoading = true;
+        this.fetchLibrary(true);
+    }
+
+    editLibrary(model: LibraryModel) {
+        this.userService
+            .editLibrary({
+                LibraryId: model.Id,
+                Bio: model.Bio,
+                Avatar: model.AvatarUrl,
+                LinksToSocialMedia: model.LinksToSocialMedia,
+            })
+            .pipe(take(1))
+            .subscribe(() => {
+                this.fetchLibrary();
+            });
+    }
+
+    private fetchLibrary(shouldFetchStories: boolean = false): void {
+        this.isLoading = shouldFetchStories;
 
         this.userService
             .getLibrary()
             .pipe(take(1))
             .subscribe({
-                next: (library: LibraryModel) => {
-                    if (!library) {
-                        this.router.navigate([NavigationConst.Home]);
-                        return;
-                    }
-
-                    if (
-                        !library.IsLibraryOwner ||
-                        !this.authService.isTokenOwnerByUsername(library.PlatformUser.Username)
-                    ) {
-                        this.router.navigate([NavigationConst.PublisherLibrary(library.Id)]);
-                    }
-
-                    this.libraryInfo = library;
-
-                    this.storyService
-                        .getStoriesByLibraryId(this.libraryInfo.Id)
-                        .pipe(take(1))
-                        .subscribe((stories) => {
-                            this.stories = stories;
-                            this.isLoading = false;
-                        });
-                },
+                next: (library) => this.processLibraryFetch(library, shouldFetchStories),
                 error: () => {
                     this.router.navigate([NavigationConst.Home]);
                 },
             });
+    }
+
+    private processLibraryFetch(library: LibraryModel, shouldFetchStories: boolean = false): void {
+        if (!library) {
+            this.router.navigate([NavigationConst.Home]);
+            return;
+        }
+
+        if (!library.IsLibraryOwner || !this.authService.isTokenOwnerByUsername(library.PlatformUser.Username)) {
+            this.router.navigate([NavigationConst.PublisherLibrary(library.Id)]);
+        }
+
+        this.libraryInfo = library;
+
+        if (shouldFetchStories) {
+            this.storyService
+                .getStoriesByLibraryId(this.libraryInfo.Id)
+                .pipe(take(1))
+                .subscribe((stories) => {
+                    this.stories = stories;
+                    this.isLoading = false;
+                });
+        } else {
+            this.isLoading = false;
+        }
     }
 }
