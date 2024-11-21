@@ -1,7 +1,7 @@
 ﻿using HC.Application.Write.FileStorage;
 using HC.Application.Write.Generators;
-using HC.Application.Write.ImageCompressors;
-using HC.Application.Write.ImageUploaders;
+using HC.Application.Write.ImageCompressorss;
+using HC.Application.Write.ImageUploaderss;
 using HC.Application.Write.JWT;
 using HC.Application.Write.PlatformUsers.Services;
 using HC.Application.Write.Stories.Services;

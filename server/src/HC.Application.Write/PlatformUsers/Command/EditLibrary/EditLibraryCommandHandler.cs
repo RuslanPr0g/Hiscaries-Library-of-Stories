@@ -15,6 +15,6 @@ public class EditLibraryCommandHandler : IRequestHandler<EditLibraryCommand, Ope
 
     public async Task<OperationResult> Handle(EditLibraryCommand request, CancellationToken cancellationToken)
     {
-        return await _userService.PublishReview(request);
+        return await _userService.EditLibraryInfo(request);
     }
 }

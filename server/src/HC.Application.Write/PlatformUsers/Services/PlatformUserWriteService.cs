@@ -1,6 +1,6 @@
 ﻿using HC.Application.Constants;
 using HC.Application.Write.Generators;
-using HC.Application.Write.ImageUploaders;
+using HC.Application.Write.ImageUploaderss;
 using HC.Application.Write.PlatformUsers.Command.DeleteReview;
 using HC.Application.Write.PlatformUsers.Command.PublishReview;
 using HC.Application.Write.PlatformUsers.DataAccess;

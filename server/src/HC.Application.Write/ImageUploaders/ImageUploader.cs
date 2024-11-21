@@ -1,8 +1,7 @@
 ﻿using HC.Application.Write.FileStorage;
-using HC.Application.Write.ImageCompressor;
-using HC.Application.Write.ImageUploader;
+using HC.Application.Write.ImageCompressors;
 
-namespace HC.Application.Write.ImageUploaders;
+namespace HC.Application.Write.ImageUploaderss;
 
 public sealed class ImageUploader : IImageUploader
 {

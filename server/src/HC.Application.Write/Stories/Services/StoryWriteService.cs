@@ -1,7 +1,7 @@
 ﻿using HC.Application.Constants;
 using HC.Application.Write.FileStorage;
 using HC.Application.Write.Generators;
-using HC.Application.Write.ImageUploaders;
+using HC.Application.Write.ImageUploaderss;
 using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Stories.Command;
