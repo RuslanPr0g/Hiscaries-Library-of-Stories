@@ -25,4 +25,8 @@ export class LibraryGeneralViewComponent {
     startEdit(): void {
         this.editStarted?.emit();
     }
+
+    get backgroundImageUrl(): string | undefined {
+        return this.library?.AvatarUrl;
+    }
 }

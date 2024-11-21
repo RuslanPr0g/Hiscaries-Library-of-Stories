@@ -399,6 +399,12 @@ p-dropdown {
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 24px;
+    position: relative;
+
+    .profile-card > * {
+        position: relative;
+        z-index: 2;
+    }
 
     .profile-card {
         display: flex;
@@ -409,6 +415,7 @@ p-dropdown {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         width: 100%;
         max-width: 900px;
+        position: relative;
 
         .avatar {
             width: 80px;
@@ -426,7 +433,9 @@ p-dropdown {
             flex: 1;
             margin-left: 15px;
 
-            h2 {
+            h2,
+            h3,
+            h4 {
                 margin: 0;
                 font-size: 1.5rem;
                 color: #c4c2c2;

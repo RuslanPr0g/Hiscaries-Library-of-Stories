@@ -1,6 +1,13 @@
 <ng-container *ngIf="library">
     <div class="library">
-        <div class="profile-card">
+        <div
+            class="profile-card background-image-configuration"
+            [ngStyle]="{ 'background-image': backgroundImageUrl ? 'url(' + backgroundImageUrl + ')' : 'none' }"
+        >
+            <div
+                class="overlay"
+                *ngIf="backgroundImageUrl"
+            ></div>
             <div class="avatar-container">
                 <div class="avatar">
                     <img

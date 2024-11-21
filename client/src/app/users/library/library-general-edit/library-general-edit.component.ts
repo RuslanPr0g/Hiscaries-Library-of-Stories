@@ -5,11 +5,12 @@ import { SocialMediaIconMapperService } from '../../../shared/services/social-me
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModifyLibraryFormModel } from '../../models/form/modify-library.model';
 import { FormTextareaComponent } from '../../../shared/components/form-textarea/form-textarea.component';
+import { ChipsModule } from 'primeng/chips';
 
 @Component({
     selector: 'app-library-general-edit',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FormTextareaComponent],
+    imports: [CommonModule, ReactiveFormsModule, ChipsModule, FormTextareaComponent],
     templateUrl: './library-general-edit.component.html',
     styleUrl: './library-general-edit.component.scss',
 })
@@ -35,6 +36,10 @@ export class LibraryGeneralEditComponent implements OnInit {
                 LinksToSocialMedia: this.fb.control<string[] | null>(this.library.LinksToSocialMedia),
             });
         }
+    }
+
+    get backgroundImageUrl(): string | undefined {
+        return this.library?.AvatarUrl;
     }
 
     getSocialNetworkIcon(link: string): string {
