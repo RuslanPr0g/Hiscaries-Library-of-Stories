@@ -1,4 +1,7 @@
 <app-library
     [library]="libraryInfo"
     [stories]="stories"
+    [isLoading]="isLoading"
+    [isAbleToEdit]="true"
+    (libraryEdited)="editLibrary($event)"
 ></app-library>

@@ -15,7 +15,7 @@ import { FormMultiselectComponent } from '../../shared/components/form-multisele
 import { MessageModule } from 'primeng/message';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { ModifyFormModel } from '../models/form/modify-story-form.model';
+import { ModifyStoryFormModel } from '../models/form/modify-story-form.model';
 import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { StoryModelWithContents } from '../models/domain/story-model';
 import { NavigationConst } from '../../shared/constants/navigation.const';
@@ -48,7 +48,7 @@ import { TabViewModule } from 'primeng/tabview';
 export class ModifyStoryComponent implements OnInit {
     private storyId: string | null = null;
 
-    modifyForm: FormGroup<ModifyFormModel>;
+    modifyForm: FormGroup<ModifyStoryFormModel>;
     genres: GenreModel[] = [];
     submitted: boolean = false;
     globalError: string | null = null;
@@ -63,7 +63,7 @@ export class ModifyStoryComponent implements OnInit {
         private userService: AuthService,
         private router: Router
     ) {
-        this.modifyForm = this.fb.group<ModifyFormModel>({
+        this.modifyForm = this.fb.group<ModifyStoryFormModel>({
             Title: this.fb.control<string | null>(null, Validators.required),
             Description: this.fb.control<string | null>(null, Validators.required),
             AuthorName: this.fb.control<string | null>(null, Validators.required),

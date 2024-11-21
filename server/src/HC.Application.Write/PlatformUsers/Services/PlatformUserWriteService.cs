@@ -1,5 +1,6 @@
 ﻿using HC.Application.Constants;
 using HC.Application.Write.Generators;
+using HC.Application.Write.ImageUploaderss;
 using HC.Application.Write.PlatformUsers.Command.DeleteReview;
 using HC.Application.Write.PlatformUsers.Command.PublishReview;
 using HC.Application.Write.PlatformUsers.DataAccess;
@@ -15,16 +16,49 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
 {
     private readonly IPlatformUserWriteRepository _repository;
     private readonly IIdGenerator _idGenerator;
+    private readonly IImageUploader _imageUploader;
+    private readonly IResourceUrlGeneratorService _urlGeneratorService;
     private readonly ILogger<PlatformUserWriteService> _logger;
 
     public PlatformUserWriteService(
         IPlatformUserWriteRepository repository,
         IIdGenerator idGenerator,
-        ILogger<PlatformUserWriteService> logger)
+        ILogger<PlatformUserWriteService> logger,
+        IImageUploader imageUploader,
+        IResourceUrlGeneratorService urlGeneratorService)
     {
         _repository = repository;
         _idGenerator = idGenerator;
         _logger = logger;
+        _imageUploader = imageUploader;
+        _urlGeneratorService = urlGeneratorService;
+    }
+
+    public async Task<OperationResult> EditLibraryInfo(EditLibraryCommand command)
+    {
+        _logger.LogInformation("Attempting to edit library for user {UserId}", command.UserId);
+        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
+
+        if (user is null)
+        {
+            _logger.LogWarning("User {UserId} not found when attempting to edit a library", command.UserId);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+        }
+
+        if (!user.Libraries.Any(x => x.Id.Value == command.LibraryId))
+        {
+            _logger.LogWarning("User {UserId} is not an owner of the library {LibraryId}", command.UserId, command.LibraryId);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+        }
+
+        string? imagePreviewUrl = command.ShouldUpdateImage && command.Avatar is not null ?
+            await UploadAvatarAndGetUrlAsync(command.LibraryId, command.Avatar) :
+            user.GetCurrentLibrary()?.AvatarUrl;
+
+        user.EditLibrary(command.LibraryId, command.Bio, imagePreviewUrl, command.LinksToSocialMedia);
+
+        _logger.LogInformation("Successfully edited a library {LibraryId} for user {UserId}", command.LibraryId, command.UserId);
+        return OperationResult.CreateSuccess();
     }
 
     public async Task<OperationResult> BookmarkStory(BookmarkStoryCommand command)
@@ -115,5 +149,16 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
         user.RemoveReview(command.LibraryId);
         _logger.LogInformation("Successfully deleted review {ReviewId} for user {UserId}", command.LibraryId, command.UserId);
         return OperationResult.CreateSuccess();
+    }
+
+    public async Task<string?> UploadAvatarAndGetUrlAsync(LibraryId libraryId, byte[] imagePreview)
+    {
+        if (imagePreview.Length == 0)
+        {
+            return null;
+        }
+
+        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "stories");
+        return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
 }

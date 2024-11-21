@@ -103,6 +103,20 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
+    public void EditLibrary(
+        LibraryId libraryId,
+        string? bio,
+        string? avatarUrl,
+        List<string> linkToSocialMedia)
+    {
+        var library = GetCurrentLibrary();
+
+        if (library is not null && library.Id == libraryId)
+        {
+            library.Edit(bio, avatarUrl, linkToSocialMedia);
+        }
+    }
+
     public void BookmarkStory(StoryBookMarkId id, StoryId storyId)
     {
         if (!Bookmarks.Any(x => x.StoryId == storyId))
