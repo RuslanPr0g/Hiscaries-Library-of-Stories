@@ -72,9 +72,7 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
         }
 
-        user.BookmarkStory(
-            _idGenerator.Generate((id) => new StoryBookMarkId(id)),
-            command.StoryId);
+        user.BookmarkStory(command.StoryId);
 
         _logger.LogInformation("Successfully bookmarked story {StoryId} for user {UserId}", command.StoryId, command.UserId);
         return OperationResult.CreateSuccess();

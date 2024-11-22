@@ -119,11 +119,11 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
-    public void BookmarkStory(StoryBookMarkId id, StoryId storyId)
+    public void BookmarkStory( StoryId storyId)
     {
         if (!Bookmarks.Any(x => x.StoryId == storyId))
         {
-            Bookmarks.Add(new StoryBookMark(id, Id, storyId));
+            Bookmarks.Add(new StoryBookMark(Id, storyId));
         }
     }
 

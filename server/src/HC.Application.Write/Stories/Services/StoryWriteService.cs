@@ -69,9 +69,8 @@ public sealed class StoryWriteService : IStoryWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
-        var ratingId = _idGenerator.Generate((id) => new StoryRatingId(id));
-        story.SetScoreByUser(command.UserId, command.Score, ratingId);
-        _logger.LogInformation("Score set for story {StoryId} with rating ID {RatingId}", command.StoryId, ratingId);
+        story.SetScoreByUser(command.UserId, command.Score);
+        _logger.LogInformation("Score set for story {StoryId} with rating ID {RatingId}", command.StoryId);
 
         return OperationResult.CreateSuccess();
     }
