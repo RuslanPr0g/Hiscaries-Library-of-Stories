@@ -25,6 +25,19 @@ public sealed class Library : Entity<LibraryId>
 
     public int SubscribersCount { get; set; }
 
+    public void SubscribeUser()
+    {
+        SubscribersCount++;
+    }
+
+    public void UnsubscribeUser()
+    {
+        if (SubscribersCount > 0)
+        {
+            SubscribersCount--;
+        }
+    }
+
     public void Edit(string? bio, string? avatarUrl, List<string> linksToSocialMedia)
     {
         Bio = bio;

@@ -21,6 +21,7 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
         .Include(x => x.Libraries)
         .Include(x => x.Bookmarks)
         .Include(x => x.Reviews)
+        .Include(x => x.Subscriptions)
         .FirstOrDefaultAsync(x => x.Id == userId);
 
     public async Task<PlatformUser?> GetByUserAccountId(UserAccountId userId) =>
@@ -29,6 +30,7 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
         .Include(x => x.Libraries)
         .Include(x => x.Bookmarks)
         .Include(x => x.Reviews)
+        .Include(x => x.Subscriptions)
         .FirstOrDefaultAsync(x => x.UserAccountId == userId);
 
     public async Task Add(PlatformUser user) =>
