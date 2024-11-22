@@ -37,6 +37,18 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/libraries/subscriptions", SubscribeToLibrary)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/libraries/subscriptions", UnsubscribeFromLibrary)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
     }
 
     private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)
@@ -84,6 +96,42 @@ public static class PlatformUserEndpoints
             Bio = request.Bio,
             LinksToSocialMedia = request.LinksToSocialMedia,
         };
+        var result = await mediator.Send(query);
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> SubscribeToLibrary([FromBody] LibrarySubscriptionRequest request, HttpContext context, [FromServices] IMediator mediator)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new SubscribeToLibraryCommand
+        {
+            UserId = userIdClaim.Value,
+            LibraryId = request.LibraryId,
+        };
+
+        var result = await mediator.Send(query);
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> UnsubscribeFromLibrary([FromBody] LibrarySubscriptionRequest request, HttpContext context, [FromServices] IMediator mediator)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new UnsubscribeFromLibraryCommand
+        {
+            UserId = userIdClaim.Value,
+            LibraryId = request.LibraryId,
+        };
+
         var result = await mediator.Send(query);
         return result.ToResult();
     }

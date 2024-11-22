@@ -51,6 +51,11 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
 
     public void SubscribeToLibrary(LibraryId libraryId)
     {
+        if (Libraries.Any(x => x.Id == libraryId))
+        {
+            return;
+        }
+
         var subscription = Subscriptions.FirstOrDefault(x => x.LibraryId == libraryId);
 
         if (subscription is null)
