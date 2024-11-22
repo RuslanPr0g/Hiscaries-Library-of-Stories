@@ -49,6 +49,28 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         return Libraries.ElementAt(0);
     }
 
+    public void SubscribeToLibrary(LibraryId libraryId)
+    {
+        var subscription = Subscriptions.FirstOrDefault(x => x.LibraryId == libraryId);
+
+        if (subscription is null)
+        {
+            Subscriptions.Add(new PlatformUserToLibrarySubscription(Id, libraryId));
+            PublishSubscribedToLibrary(libraryId);
+        }
+    }
+
+    public void UnsubscribeFromLibrary(LibraryId libraryId)
+    {
+        var subscription = Subscriptions.FirstOrDefault(x => x.LibraryId == libraryId);
+
+        if (subscription is not null)
+        {
+            Subscriptions.Remove(subscription);
+            PublishUnsubscribedFromLibrary(libraryId);
+        }
+    }
+
     public void BecomePublisher(LibraryId libraryId)
     {
         if (!IsPublisher)
@@ -135,6 +157,16 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     private void PublishUserBecamePublisherEvent()
     {
         PublishEvent(new UserBecamePublisherDomainEvent(Id, UserAccountId));
+    }
+
+    private void PublishSubscribedToLibrary(LibraryId libraryId)
+    {
+        PublishEvent(new UserSubscribedToLibrary(Id, libraryId));
+    }
+
+    private void PublishUnsubscribedFromLibrary(LibraryId libraryId)
+    {
+        PublishEvent(new UserUnsubscribedFromLibrary(Id, libraryId));
     }
 
     private PlatformUser()

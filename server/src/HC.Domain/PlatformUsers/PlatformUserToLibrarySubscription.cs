@@ -2,9 +2,15 @@
 
 public sealed class PlatformUserToLibrarySubscription : Entity
 {
-    public PlatformUserId PlatformUserId { get; set; }
-    public PlatformUser PlatformUser { get; set; }
+    public PlatformUserToLibrarySubscription(PlatformUserId platformUserId, LibraryId libraryId)
+    {
+        PlatformUserId = platformUserId;
+        LibraryId = libraryId;
+    }
 
-    public LibraryId LibraryId { get; set; }
-    public Library Library { get; set; }
+    public PlatformUserId PlatformUserId { get; }
+    public PlatformUser PlatformUser { get; }
+
+    public LibraryId LibraryId { get; }
+    public Library Library { get; }
 }
