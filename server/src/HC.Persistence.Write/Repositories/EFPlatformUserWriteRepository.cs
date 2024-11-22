@@ -21,7 +21,17 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
         .Include(x => x.Libraries)
         .Include(x => x.Bookmarks)
         .Include(x => x.Reviews)
+        .Include(x => x.Subscriptions)
         .FirstOrDefaultAsync(x => x.Id == userId);
+
+    public async Task<PlatformUser?> GetLibraryOwnerByLibraryId(LibraryId libraryId) =>
+        await _context.PlatformUsers
+        .Include(x => x.ReadHistory)
+        .Include(x => x.Libraries)
+        .Include(x => x.Bookmarks)
+        .Include(x => x.Reviews)
+        .Include(x => x.Subscriptions)
+        .FirstOrDefaultAsync(x => x.Libraries.Any(x => x.Id == libraryId));
 
     public async Task<PlatformUser?> GetByUserAccountId(UserAccountId userId) =>
         await _context.PlatformUsers
@@ -29,6 +39,7 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
         .Include(x => x.Libraries)
         .Include(x => x.Bookmarks)
         .Include(x => x.Reviews)
+        .Include(x => x.Subscriptions)
         .FirstOrDefaultAsync(x => x.UserAccountId == userId);
 
     public async Task Add(PlatformUser user) =>

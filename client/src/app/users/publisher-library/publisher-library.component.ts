@@ -20,6 +20,9 @@ export class PublisherLibraryComponent implements OnInit {
     libraryId: string | null;
     stories: StoryModel[];
 
+    isLoading: boolean = false;
+    isSubscribeLoading: boolean = false;
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -35,33 +38,96 @@ export class PublisherLibraryComponent implements OnInit {
             return;
         }
 
-        this.userService
-            .getLibrary(this.libraryId)
-            .pipe(take(1))
-            .subscribe({
-                next: (library) => {
-                    if (!library) {
-                        this.router.navigate([NavigationConst.Home]);
-                        return;
-                    }
+        this.isLoading = true;
 
-                    if (library.IsLibraryOwner) {
-                        this.router.navigate([NavigationConst.MyLibrary]);
-                        return;
-                    }
-
-                    this.libraryInfo = library;
-                },
-                error: () => {
-                    this.router.navigate([NavigationConst.Home]);
-                },
-            });
+        this.fetchLibrary(this.libraryId);
 
         this.storyService
             .getStoriesByLibraryId(this.libraryId)
             .pipe(take(1))
             .subscribe((stories) => {
                 this.stories = stories;
+                this.isLoading = false;
             });
+    }
+
+    get isSubscribed(): boolean {
+        return this.libraryInfo?.IsSubscribed ?? false;
+    }
+
+    subscribeAction(): void {
+        this.subscribeToLibrary(this.libraryId!);
+    }
+
+    unSubscribeAction(): void {
+        this.unSubscribeFromLibrary(this.libraryId!);
+    }
+
+    private subscribeToLibrary(libraryId: string): void {
+        this.isSubscribeLoading = true;
+
+        this.userService
+            .subscribeToLibrary({ LibraryId: libraryId })
+            .pipe(take(1))
+            .subscribe({
+                next: () => {
+                    this.fetchLibrary(this.libraryId!);
+                    this.finishSubscribeLoading();
+                },
+                error: () => {
+                    this.finishSubscribeLoading();
+                },
+            });
+    }
+
+    private unSubscribeFromLibrary(libraryId: string): void {
+        this.isSubscribeLoading = true;
+
+        this.userService
+            .unsubscribeFromLibrary({ LibraryId: libraryId })
+            .pipe(take(1))
+            .subscribe({
+                next: () => {
+                    this.fetchLibrary(this.libraryId!);
+                    this.finishSubscribeLoading();
+                },
+                error: () => {
+                    this.finishSubscribeLoading();
+                },
+            });
+    }
+
+    private finishSubscribeLoading(): void {
+        setTimeout(() => {
+            this.isSubscribeLoading = false;
+        }, 1000);
+    }
+
+    private fetchLibrary(libraryId: string): void {
+        this.userService
+            .getLibrary(libraryId)
+            .pipe(take(1))
+            .subscribe({
+                next: (library) => this.processLibraryFetch(library),
+                error: () => {
+                    this.router.navigate([NavigationConst.Home]);
+                },
+            });
+    }
+
+    private processLibraryFetch(library: LibraryModel): void {
+        this.isLoading = false;
+
+        if (!library) {
+            this.router.navigate([NavigationConst.Home]);
+            return;
+        }
+
+        if (library.IsLibraryOwner) {
+            this.router.navigate([NavigationConst.MyLibrary]);
+            return;
+        }
+
+        this.libraryInfo = library;
     }
 }

@@ -13,8 +13,10 @@ public class LibraryReadModel
     public List<string> LinksToSocialMedia { get; set; } = [];
 
     public bool IsLibraryOwner { get; set; }
+    public bool IsSubscribed { get; set; }
+    public int SubscribersCount { get; set; }
 
-    public static LibraryReadModel FromDomainModel(Library library, UserAccountId requesterId)
+    public static LibraryReadModel FromDomainModel(Library library, UserAccountId requesterId, bool isUserSubscribed)
     {
         return new()
         {
@@ -24,6 +26,8 @@ public class LibraryReadModel
             AvatarUrl = library.AvatarUrl,
             LinksToSocialMedia = library.LinksToSocialMedia,
             IsLibraryOwner = library.PlatformUser.UserAccountId == requesterId,
+            IsSubscribed = isUserSubscribed,
+            SubscribersCount = library.SubscribersCount
         };
     }
 }

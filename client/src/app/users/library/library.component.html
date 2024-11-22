@@ -2,7 +2,12 @@
     <app-library-general-view
         [library]="library"
         [isAbleToEdit]="isAbleToEdit"
+        [isAbleToSubscribe]="isAbleToSubscribe"
+        [isSubscribed]="isSubscribed"
+        [isSubscribeLoading]="isSubscribeLoading"
         (editStarted)="startEdit()"
+        (subscribed)="subscribeAction()"
+        (unSubscribed)="unSubscribeAction()"
     ></app-library-general-view>
 </ng-container>
 <ng-template #editMode>

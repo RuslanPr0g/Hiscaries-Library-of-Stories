@@ -89,7 +89,7 @@ public sealed class Story : AggregateRoot<StoryId>
         Comments.Add(Comment.Create(commentId, Id, userId, content, score));
     }
 
-    public void SetScoreByUser(PlatformUserId userId, int score, StoryRatingId ratingId)
+    public void SetScoreByUser(PlatformUserId userId, int score)
     {
         var existingRating = Ratings.FirstOrDefault(x => x.PlatformUserId == userId);
 
@@ -99,7 +99,7 @@ public sealed class Story : AggregateRoot<StoryId>
         }
         else
         {
-            Ratings.Add(new StoryRating(ratingId, Id, userId, score));
+            Ratings.Add(new StoryRating(Id, userId, score));
         }
     }
 

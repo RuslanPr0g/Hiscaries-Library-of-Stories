@@ -29,6 +29,8 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     public ICollection<ReadingHistory> ReadHistory { get; } = [];
     public ICollection<StoryBookMark> Bookmarks { get; } = [];
 
+    public ICollection<PlatformUserToLibrarySubscription> Subscriptions { get; } = [];
+
     public bool IsPublisher => Libraries.Count > 0;
 
     // For now, we allow only one library to be added, but in the future, we can allow to create multiple libraries
@@ -45,6 +47,33 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
 
         return Libraries.ElementAt(0);
+    }
+
+    public void SubscribeToLibrary(LibraryId libraryId)
+    {
+        if (Libraries.Any(x => x.Id == libraryId))
+        {
+            return;
+        }
+
+        var subscription = Subscriptions.FirstOrDefault(x => x.LibraryId == libraryId);
+
+        if (subscription is null)
+        {
+            Subscriptions.Add(new PlatformUserToLibrarySubscription(Id, libraryId));
+            PublishSubscribedToLibrary(libraryId);
+        }
+    }
+
+    public void UnsubscribeFromLibrary(LibraryId libraryId)
+    {
+        var subscription = Subscriptions.FirstOrDefault(x => x.LibraryId == libraryId);
+
+        if (subscription is not null)
+        {
+            Subscriptions.Remove(subscription);
+            PublishUnsubscribedFromLibrary(libraryId);
+        }
     }
 
     public void BecomePublisher(LibraryId libraryId)
@@ -117,11 +146,11 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
-    public void BookmarkStory(StoryBookMarkId id, StoryId storyId)
+    public void BookmarkStory( StoryId storyId)
     {
         if (!Bookmarks.Any(x => x.StoryId == storyId))
         {
-            Bookmarks.Add(new StoryBookMark(id, Id, storyId));
+            Bookmarks.Add(new StoryBookMark(Id, storyId));
         }
     }
 
@@ -133,6 +162,16 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     private void PublishUserBecamePublisherEvent()
     {
         PublishEvent(new UserBecamePublisherDomainEvent(Id, UserAccountId));
+    }
+
+    private void PublishSubscribedToLibrary(LibraryId libraryId)
+    {
+        PublishEvent(new UserSubscribedToLibrary(Id, libraryId));
+    }
+
+    private void PublishUnsubscribedFromLibrary(LibraryId libraryId)
+    {
+        PublishEvent(new UserUnsubscribedFromLibrary(Id, libraryId));
     }
 
     private PlatformUser()

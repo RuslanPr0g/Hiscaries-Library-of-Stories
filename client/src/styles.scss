@@ -56,6 +56,10 @@ input {
     margin: 0px 20px;
 }
 
+.min-width-150 {
+    min-width: 150px;
+}
+
 .center {
     width: 100%;
     text-align: center;
@@ -443,7 +447,7 @@ p-dropdown {
 
             .bio {
                 margin-top: 5px;
-                color: #6b7280;
+                color: #9fa5b1;
             }
 
             .social-links {

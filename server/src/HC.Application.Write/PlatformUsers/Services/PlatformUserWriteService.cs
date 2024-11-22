@@ -34,6 +34,52 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
         _urlGeneratorService = urlGeneratorService;
     }
 
+    public async Task<OperationResult> SubscribeToLibrary(SubscribeToLibraryCommand command)
+    {
+        _logger.LogInformation("Attempting to subscribe to a library {LibraryId} for a user {UserId}", command.LibraryId, command.UserId);
+        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
+
+        if (user is null)
+        {
+            _logger.LogWarning("User {UserId} not found when attempting to subscribe to a library", command.UserId);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+        }
+
+        if (user.Libraries.Any(x => x.Id.Value == command.LibraryId))
+        {
+            _logger.LogWarning("User {UserId} is an owner of the library, so the subscription is not possible {LibraryId}", command.UserId, command.LibraryId);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+        }
+
+        user.SubscribeToLibrary(command.LibraryId);
+
+        _logger.LogInformation("Successfully subscribed to the library {LibraryId} for the user {UserId}", command.LibraryId, command.UserId);
+        return OperationResult.CreateSuccess();
+    }
+
+    public async Task<OperationResult> UnsubscribeFromLibrary(UnsubscribeFromLibraryCommand command)
+    {
+        _logger.LogInformation("Attempting to unsubscribe from a library {LibraryId} for a user {UserId}", command.LibraryId, command.UserId);
+        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
+
+        if (user is null)
+        {
+            _logger.LogWarning("User {UserId} not found when attempting to unsubscribe from a library", command.UserId);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+        }
+
+        if (!user.Subscriptions.Any(x => x.LibraryId.Value == command.LibraryId))
+        {
+            _logger.LogWarning("User {UserId} is not subscribed to the library {LibraryId}", command.UserId, command.LibraryId);
+            return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+        }
+
+        user.UnsubscribeFromLibrary(command.LibraryId);
+
+        _logger.LogInformation("Successfully unsubscribed from the library {LibraryId} for the user {UserId}", command.LibraryId, command.UserId);
+        return OperationResult.CreateSuccess();
+    }
+
     public async Task<OperationResult> EditLibraryInfo(EditLibraryCommand command)
     {
         _logger.LogInformation("Attempting to edit library for user {UserId}", command.UserId);
@@ -72,9 +118,7 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
             return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
         }
 
-        user.BookmarkStory(
-            _idGenerator.Generate((id) => new StoryBookMarkId(id)),
-            command.StoryId);
+        user.BookmarkStory(command.StoryId);
 
         _logger.LogInformation("Successfully bookmarked story {StoryId} for user {UserId}", command.StoryId, command.UserId);
         return OperationResult.CreateSuccess();
@@ -158,7 +202,7 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
             return null;
         }
 
-        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "stories");
+        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
         return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
 }

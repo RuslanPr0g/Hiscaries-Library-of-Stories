@@ -17,4 +17,7 @@ public interface IPlatformUserWriteService
     Task<OperationResult> ReadStoryHistory(ReadStoryCommand command);
 
     Task<OperationResult> EditLibraryInfo(EditLibraryCommand command);
+
+    Task<OperationResult> SubscribeToLibrary(SubscribeToLibraryCommand command);
+    Task<OperationResult> UnsubscribeFromLibrary(UnsubscribeFromLibraryCommand command);
 }

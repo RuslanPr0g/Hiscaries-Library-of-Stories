@@ -1,4 +1,10 @@
 <app-library
+    [isLoading]="isLoading"
     [library]="libraryInfo"
     [stories]="stories"
+    [isAbleToSubscribe]="!!this.libraryInfo"
+    [isSubscribed]="isSubscribed"
+    [isSubscribeLoading]="isSubscribeLoading"
+    (subscribed)="subscribeAction()"
+    (unSubscribed)="unSubscribeAction()"
 ></app-library>

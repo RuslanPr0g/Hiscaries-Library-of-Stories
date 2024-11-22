@@ -10,7 +10,8 @@ public class StoryRatingConfigurations : IEntityTypeConfiguration<StoryRating>
 {
     public void Configure(EntityTypeBuilder<StoryRating> builder)
     {
-        builder.ConfigureEntity<StoryRating, StoryRatingId, StoryRatingIdentityConverter>();
+        builder.ConfigureEntity();
+        builder.HasKey(sp => new { sp.StoryId, sp.PlatformUserId });
         builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
 

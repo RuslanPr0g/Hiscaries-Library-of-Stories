@@ -26,7 +26,15 @@ export class LibraryComponent {
     @Input() isLoading: boolean = false;
     @Input() isAbleToEdit: boolean = false;
 
+    @Input() isAbleToSubscribe: boolean = false;
+    @Input() isSubscribed: boolean = false;
+
+    @Input() isSubscribeLoading: boolean = false;
+
     @Output() libraryEdited = new EventEmitter<LibraryModel>();
+
+    @Output() subscribed = new EventEmitter<void>();
+    @Output() unSubscribed = new EventEmitter<void>();
 
     isEditMode: boolean = false;
 
@@ -41,5 +49,13 @@ export class LibraryComponent {
     saveEdit(model: LibraryModel): void {
         this.libraryEdited?.emit(model);
         this.isEditMode = false;
+    }
+
+    subscribeAction(): void {
+        this.subscribed?.emit();
+    }
+
+    unSubscribeAction(): void {
+        this.unSubscribed?.emit();
     }
 }

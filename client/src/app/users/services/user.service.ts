@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LibraryModel } from '../models/domain/library.model';
 import { EditLibraryRequest } from '../models/requests/edit-library.model';
+import { LibrarySubscriptionRequest } from '../models/requests/library-subscription.model';
 
 @Injectable({
     providedIn: 'root',
@@ -28,5 +29,13 @@ export class UserService {
 
     editLibrary(request: EditLibraryRequest): Observable<void> {
         return this.http.put<void>(this.apiUrl + '/libraries', request);
+    }
+
+    subscribeToLibrary(request: LibrarySubscriptionRequest): Observable<void> {
+        return this.http.post<void>(this.apiUrl + '/libraries/subscriptions/subscribe', request);
+    }
+
+    unsubscribeFromLibrary(request: LibrarySubscriptionRequest): Observable<void> {
+        return this.http.post<void>(this.apiUrl + '/libraries/subscriptions/unsubscribe', request);
     }
 }

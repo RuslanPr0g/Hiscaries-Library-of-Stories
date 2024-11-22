@@ -36,6 +36,8 @@ public sealed class HiscaryContext(DbContextOptions<HiscaryContext> options) : D
     public DbSet<Story> Stories { get; set; }
     public DbSet<Genre> Genres { get; set; }
 
+    public DbSet<PlatformUserToLibrarySubscription> PlatformUserToLibrarySubscriptions { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
