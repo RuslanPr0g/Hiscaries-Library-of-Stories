@@ -2,9 +2,10 @@
     <app-library-general-view
         [library]="library"
         [isAbleToEdit]="isAbleToEdit"
-        (editStarted)="startEdit()"
         [isAbleToSubscribe]="isAbleToSubscribe"
         [isSubscribed]="isSubscribed"
+        [isSubscribeLoading]="isSubscribeLoading"
+        (editStarted)="startEdit()"
         (subscribed)="subscribeAction()"
         (unSubscribed)="unSubscribeAction()"
     ></app-library-general-view>

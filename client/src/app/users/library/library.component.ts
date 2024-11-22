@@ -29,6 +29,8 @@ export class LibraryComponent {
     @Input() isAbleToSubscribe: boolean = false;
     @Input() isSubscribed: boolean = false;
 
+    @Input() isSubscribeLoading: boolean = false;
+
     @Output() libraryEdited = new EventEmitter<LibraryModel>();
 
     @Output() subscribed = new EventEmitter<void>();

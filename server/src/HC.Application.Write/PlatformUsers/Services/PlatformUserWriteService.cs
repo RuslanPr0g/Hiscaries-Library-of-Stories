@@ -202,7 +202,7 @@ public sealed class PlatformUserWriteService : IPlatformUserWriteService
             return null;
         }
 
-        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "stories");
+        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
         return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
 }

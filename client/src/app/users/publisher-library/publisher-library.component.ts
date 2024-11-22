@@ -20,6 +20,9 @@ export class PublisherLibraryComponent implements OnInit {
     libraryId: string | null;
     stories: StoryModel[];
 
+    isLoading: boolean = false;
+    isSubscribeLoading: boolean = false;
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -35,6 +38,8 @@ export class PublisherLibraryComponent implements OnInit {
             return;
         }
 
+        this.isLoading = true;
+
         this.fetchLibrary(this.libraryId);
 
         this.storyService
@@ -42,6 +47,7 @@ export class PublisherLibraryComponent implements OnInit {
             .pipe(take(1))
             .subscribe((stories) => {
                 this.stories = stories;
+                this.isLoading = false;
             });
     }
 
@@ -58,25 +64,43 @@ export class PublisherLibraryComponent implements OnInit {
     }
 
     private subscribeToLibrary(libraryId: string): void {
+        this.isSubscribeLoading = true;
+
         this.userService
             .subscribeToLibrary({ LibraryId: libraryId })
             .pipe(take(1))
             .subscribe({
                 next: () => {
                     this.fetchLibrary(this.libraryId!);
+                    this.finishSubscribeLoading();
+                },
+                error: () => {
+                    this.finishSubscribeLoading();
                 },
             });
     }
 
     private unSubscribeFromLibrary(libraryId: string): void {
+        this.isSubscribeLoading = true;
+
         this.userService
             .unsubscribeFromLibrary({ LibraryId: libraryId })
             .pipe(take(1))
             .subscribe({
                 next: () => {
                     this.fetchLibrary(this.libraryId!);
+                    this.finishSubscribeLoading();
+                },
+                error: () => {
+                    this.finishSubscribeLoading();
                 },
             });
+    }
+
+    private finishSubscribeLoading(): void {
+        setTimeout(() => {
+            this.isSubscribeLoading = false;
+        }, 1000);
     }
 
     private fetchLibrary(libraryId: string): void {
@@ -92,6 +116,8 @@ export class PublisherLibraryComponent implements OnInit {
     }
 
     private processLibraryFetch(library: LibraryModel): void {
+        this.isLoading = false;
+
         if (!library) {
             this.router.navigate([NavigationConst.Home]);
             return;

@@ -40,6 +40,7 @@
                         <app-form-button
                             label="Unsubscribe"
                             [severity]="'secondary'"
+                            [disabled]="isSubscribeLoading"
                             (onClick)="unSubscribeAction()"
                         ></app-form-button>
                     </ng-container>
@@ -47,6 +48,7 @@
                         <app-form-button
                             label="Subscribe"
                             [severity]="'primary'"
+                            [disabled]="isSubscribeLoading"
                             (onClick)="subscribeAction()"
                         ></app-form-button>
                     </ng-template>

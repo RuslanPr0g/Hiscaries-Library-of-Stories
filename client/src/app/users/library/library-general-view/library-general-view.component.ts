@@ -18,6 +18,8 @@ export class LibraryGeneralViewComponent {
     @Input() isAbleToSubscribe: boolean = false;
     @Input() isSubscribed: boolean = false;
 
+    @Input() isSubscribeLoading: boolean = false;
+
     @Output() editStarted = new EventEmitter<void>();
 
     @Output() subscribed = new EventEmitter<void>();
