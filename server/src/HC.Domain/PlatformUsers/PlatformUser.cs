@@ -29,6 +29,8 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     public ICollection<ReadingHistory> ReadHistory { get; } = [];
     public ICollection<StoryBookMark> Bookmarks { get; } = [];
 
+    public ICollection<PlatformUserToLibrarySubscription> Subscriptions { get; } = [];
+
     public bool IsPublisher => Libraries.Count > 0;
 
     // For now, we allow only one library to be added, but in the future, we can allow to create multiple libraries

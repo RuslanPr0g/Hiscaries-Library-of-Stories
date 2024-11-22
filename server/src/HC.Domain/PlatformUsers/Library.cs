@@ -23,6 +23,8 @@ public sealed class Library : Entity<LibraryId>
     public string? AvatarUrl { get; private set; }
     public List<string> LinksToSocialMedia { get; private set; } = [];
 
+    public int SubscribersCount { get; set; }
+
     public void Edit(string? bio, string? avatarUrl, List<string> linksToSocialMedia)
     {
         Bio = bio;

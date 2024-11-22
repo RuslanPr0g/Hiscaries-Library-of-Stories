@@ -2,14 +2,12 @@
 
 namespace HC.Domain.PlatformUsers;
 
-public sealed class StoryBookMark : Entity<StoryBookMarkId>
+public sealed class StoryBookMark : Entity
 {
     public StoryBookMark(
-        StoryBookMarkId id,
         PlatformUserId user,
-        StoryId story) : base(id)
+        StoryId story)
     {
-        Id = id;
         PlatformUserId = user;
         StoryId = story;
     }

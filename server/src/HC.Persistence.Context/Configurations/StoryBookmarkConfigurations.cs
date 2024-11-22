@@ -10,7 +10,8 @@ public class StoryBookmarkConfigurations : IEntityTypeConfiguration<StoryBookMar
 {
     public void Configure(EntityTypeBuilder<StoryBookMark> builder)
     {
-        builder.ConfigureEntity<StoryBookMark, StoryBookMarkId, StoryBookMarkIdentityConverter>();
+        builder.ConfigureEntity();
+        builder.HasKey(sp => new { sp.StoryId, sp.PlatformUserId });
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
         builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());
     }

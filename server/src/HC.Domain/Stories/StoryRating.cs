@@ -3,15 +3,13 @@ using System;
 
 namespace HC.Domain.Stories;
 
-public sealed class StoryRating : Entity<StoryRatingId>
+public sealed class StoryRating : Entity
 {
     public StoryRating(
-        StoryRatingId id,
         StoryId storyId,
         PlatformUserId userId,
-        int score) : base(id)
+        int score)
     {
-        Id = id;
         StoryId = storyId;
         PlatformUserId = userId;
 
