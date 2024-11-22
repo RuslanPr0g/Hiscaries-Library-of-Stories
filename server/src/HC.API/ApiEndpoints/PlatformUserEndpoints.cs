@@ -38,13 +38,13 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/libraries/subscriptions", SubscribeToLibrary)
+        group.MapPost("/libraries/subscriptions/subscribe", SubscribeToLibrary)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapPost("/libraries/subscriptions", UnsubscribeFromLibrary)
+        group.MapPost("/libraries/subscriptions/unsubscribe", UnsubscribeFromLibrary)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)

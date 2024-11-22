@@ -26,7 +26,7 @@ public sealed class UserSubscribedToLibraryDomainEventHandler
         UserSubscribedToLibrary domainEvent,
         ConsumeContext<UserSubscribedToLibrary> context)
     {
-        var user = await _repository.GetById(domainEvent.PlatformUserId);
+        var user = await _repository.GetLibraryOwnerByLibraryId(domainEvent.LibraryId);
 
         if (user is null)
         {

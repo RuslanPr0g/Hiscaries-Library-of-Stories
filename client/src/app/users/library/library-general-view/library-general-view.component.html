@@ -8,7 +8,10 @@
                 class="overlay"
                 *ngIf="backgroundImageUrl"
             ></div>
-            <div class="avatar-container">
+            <div
+                class="avatar-container"
+                [ngClass]="{ 'min-width-150': isAbleToSubscribe }"
+            >
                 <div class="avatar">
                     <img
                         [src]="library.AvatarUrl"
@@ -43,7 +46,7 @@
                     <ng-template #subscribe>
                         <app-form-button
                             label="Subscribe"
-                            [severity]="'success'"
+                            [severity]="'primary'"
                             (onClick)="subscribeAction()"
                         ></app-form-button>
                     </ng-template>

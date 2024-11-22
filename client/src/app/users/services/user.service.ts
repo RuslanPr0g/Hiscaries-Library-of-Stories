@@ -32,10 +32,10 @@ export class UserService {
     }
 
     subscribeToLibrary(request: LibrarySubscriptionRequest): Observable<void> {
-        return this.http.post<void>(this.apiUrl + '/libraries/subscriptions', request);
+        return this.http.post<void>(this.apiUrl + '/libraries/subscriptions/subscribe', request);
     }
 
     unsubscribeFromLibrary(request: LibrarySubscriptionRequest): Observable<void> {
-        return this.http.post<void>(this.apiUrl + '/libraries/subscriptions', request);
+        return this.http.post<void>(this.apiUrl + '/libraries/subscriptions/unsubscribe', request);
     }
 }
