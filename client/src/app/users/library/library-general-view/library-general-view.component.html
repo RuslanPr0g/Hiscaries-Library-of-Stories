@@ -29,9 +29,31 @@
                         ></i>
                     </button>
                 </div>
+                <div
+                    class="library-subscription"
+                    *ngIf="isAbleToSubscribe"
+                >
+                    <ng-container *ngIf="isSubscribed; else subscribe">
+                        <app-form-button
+                            label="Unsubscribe"
+                            [severity]="'secondary'"
+                            (onClick)="unSubscribeAction()"
+                        ></app-form-button>
+                    </ng-container>
+                    <ng-template #subscribe>
+                        <app-form-button
+                            label="Subscribe"
+                            [severity]="'success'"
+                            (onClick)="subscribeAction()"
+                        ></app-form-button>
+                    </ng-template>
+                </div>
             </div>
             <div class="profile-details">
-                <h2>{{ library.PlatformUser.Username }}</h2>
+                <div class="username-wrapper">
+                    <h2>{{ library.PlatformUser.Username }}</h2>
+                    <p>&nbsp;&#x2022;&nbsp;{{ library.SubscribersCount }} subscribers</p>
+                </div>
                 <p class="bio">{{ library.Bio }}</p>
                 <div class="social-links">
                     <a

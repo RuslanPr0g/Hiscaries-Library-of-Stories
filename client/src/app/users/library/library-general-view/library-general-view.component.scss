@@ -14,3 +14,13 @@
 .overlay {
     border-radius: 15px;
 }
+
+.username-wrapper {
+    display: flex;
+    align-items: center;
+
+    & p {
+        color: #c4c2c2;
+        margin: 0;
+    }
+}

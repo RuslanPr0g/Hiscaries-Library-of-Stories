@@ -1,4 +1,8 @@
 <app-library
     [library]="libraryInfo"
     [stories]="stories"
+    [isAbleToSubscribe]="!!this.libraryInfo"
+    [isSubscribed]="isSubscribed"
+    (subscribed)="subscribeAction()"
+    (unSubscribed)="unSubscribeAction()"
 ></app-library>
