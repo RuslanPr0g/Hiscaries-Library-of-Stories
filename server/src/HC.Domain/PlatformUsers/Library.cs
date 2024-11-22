@@ -14,6 +14,7 @@ public sealed class Library : Entity<LibraryId>
         PlatformUserId userId) : base(id)
     {
         PlatformUserId = userId;
+        SubscribersCount = 0;
     }
 
     public PlatformUserId PlatformUserId { get; init; }

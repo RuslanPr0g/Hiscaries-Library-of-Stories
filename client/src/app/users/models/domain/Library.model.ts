@@ -8,4 +8,6 @@ export interface LibraryModel {
     LinksToSocialMedia: string[];
 
     IsLibraryOwner: boolean;
+    IsSubscribed: boolean;
+    SubscribersCount: number;
 }

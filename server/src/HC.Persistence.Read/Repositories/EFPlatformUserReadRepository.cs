@@ -38,13 +38,15 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
 
     public async Task<LibraryReadModel?> GetLibraryInformation(UserAccountId requesterId, LibraryId? libraryId)
     {
+        var isUserSubscribedToLibrary = libraryId is not null && await IsUserSubscribedToLibrary(requesterId, libraryId);
+
         if (libraryId is null)
         {
             return await _context.Libraries
                 .AsNoTracking()
                 .Include(x => x.PlatformUser)
                 .Where(x => x.PlatformUser.UserAccountId == requesterId)
-                .Select(x => LibraryReadModel.FromDomainModel(x, requesterId))
+                .Select(x => LibraryReadModel.FromDomainModel(x, requesterId, isUserSubscribedToLibrary))
                 .FirstOrDefaultAsync();
         }
 
@@ -52,8 +54,15 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
             .AsNoTracking()
             .Include(x => x.PlatformUser)
             .Where(x => x.Id == libraryId)
-            .Select(x => LibraryReadModel.FromDomainModel(x, requesterId))
+            .Select(x => LibraryReadModel.FromDomainModel(x, requesterId, isUserSubscribedToLibrary))
             .FirstOrDefaultAsync();
+    }
+
+    private async Task<bool> IsUserSubscribedToLibrary(UserAccountId requesterId, LibraryId libraryId)
+    {
+        return await _context.PlatformUserToLibrarySubscriptions
+            .Include(x => x.PlatformUser)
+            .AnyAsync(x => x.LibraryId == libraryId && x.PlatformUser.UserAccountId == requesterId);
     }
 }
 
