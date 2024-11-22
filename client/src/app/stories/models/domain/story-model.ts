@@ -1,4 +1,3 @@
-import { UserModel } from '../../../users/models/domain/user.model';
 import { GenreModel } from './genre.model';
 
 export interface StoryModel {
@@ -10,7 +9,6 @@ export interface StoryModel {
     ImagePreviewUrl: string;
     DatePublished: Date;
     DateWritten: Date;
-    Publisher?: UserModel;
     IsEditable: boolean;
     PercentageRead: number;
     LastPageRead: number;

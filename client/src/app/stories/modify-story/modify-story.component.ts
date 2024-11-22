@@ -106,7 +106,9 @@ export class ModifyStoryComponent implements OnInit {
                         return;
                     }
 
-                    if (!this.userService.isTokenOwner(story.Publisher?.Id)) {
+                    console.warn(story.LibraryName);
+                    // TODO: fix this it sohuld no be username but id
+                    if (!this.userService.isTokenOwnerByUsername(story.LibraryName)) {
                         this.storyNotFound = true;
                         console.warn('User is not a publisher of this story.');
                         this.router.navigate([NavigationConst.Home]);
