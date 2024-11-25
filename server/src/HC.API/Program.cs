@@ -106,6 +106,6 @@ if (app.Environment.IsDevelopment())
     app.MapContentGenerationEndpoints();
 }
 
-app.MapHub<UserNotificationHub>("/notificationhub");
+app.MapHub<UserNotificationHub>("/hubs/usernotifications");
 
 app.Run();

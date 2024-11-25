@@ -4,5 +4,11 @@
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": { "^/api/v1": "/api/v1" }
+    },
+    "/hubs": {
+        "target": "https://localhost:5001",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": { "^/hubs": "^/hubs" }
     }
 }

@@ -7,9 +7,22 @@ import * as signalR from '@microsoft/signalr';
 export class UserNotificationService {
     private hubConnection: signalR.HubConnection;
     constructor() {
-        this.hubConnection = new signalR.HubConnectionBuilder().withUrl('/notificationhub').build();
-        this.hubConnection.on('ReceiveNotification', (user, message) => {
-            console.log(`User: ${user}, Message: ${message}`);
+        this.hubConnection = new signalR.HubConnectionBuilder()
+            .configureLogging(signalR.LogLevel.Trace)
+            .withUrl('/hubs/usernotifications')
+            .build();
+        this.hubConnection.on('ReceiveNotification', (user) => {
+            console.log(`User: ${user}`);
+        });
+        this.hubConnection.onclose((error) => {
+            console.log(error);
+        });
+        this.hubConnection.onreconnecting((error) => {
+            console.warn('Reconnecting...', error);
+        });
+
+        this.hubConnection.onreconnected((connectionId) => {
+            console.log('Reconnected:', connectionId);
         });
         this.hubConnection.start().catch((err) => console.error(err));
     }
