@@ -8,6 +8,7 @@ using HC.Application.Write.Filters;
 using HC.Application.Write.UserAccounts.Command.CreateUser;
 using HC.Infrastructure.EventHandlers;
 using HC.Infrastructure.Jobs;
+using HC.Infrastructure.SignalR.Hubs;
 using HC.Persistence.Context;
 using HC.Persistence.Read;
 using HC.Persistence.Write;
@@ -29,6 +30,7 @@ builder.Services.AddJobs();
 builder.Services.AddEventHandlers();
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
+builder.Services.AddHiscariesSignalR();
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -103,5 +105,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapContentGenerationEndpoints();
 }
+
+app.MapHub<UserNotificationHub>("/notificationhub");
 
 app.Run();

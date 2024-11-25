@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LibraryModel } from '../models/domain/library.model';
 import { EditLibraryRequest } from '../models/requests/edit-library.model';
 import { LibrarySubscriptionRequest } from '../models/requests/library-subscription.model';
+import { LibraryModel } from '../models/domain/library.model';
 
 @Injectable({
     providedIn: 'root',

@@ -2,7 +2,9 @@
 using HC.Application.Write.DataAccess;
 using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Domain.PlatformUsers.Events;
+using HC.Infrastructure.SignalR.Hubs;
 using MassTransit;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;
@@ -12,14 +14,17 @@ public sealed class UserSubscribedToLibraryDomainEventHandler
     : DomainEventHandler<UserSubscribedToLibrary>
 {
     private readonly IPlatformUserWriteRepository _repository;
+    private readonly IHubContext<UserNotificationHub> _hubContext;
 
     public UserSubscribedToLibraryDomainEventHandler(
         IPlatformUserWriteRepository repository,
         ILogger<UserSubscribedToLibraryDomainEventHandler> logger,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IHubContext<UserNotificationHub> hubContext)
         : base(logger, unitOfWork)
     {
         _repository = repository;
+        _hubContext = hubContext;
     }
 
     protected override async Task HandleEventAsync(
@@ -41,5 +46,7 @@ public sealed class UserSubscribedToLibraryDomainEventHandler
         }
 
         library.SubscribeUser();
+
+        await _hubContext.Clients.All.SendAsync("ReceiveNotification", "This is a test notification! 222");
     }
 }
