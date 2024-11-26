@@ -9,7 +9,7 @@ export class UserNotificationService {
     constructor() {
         this.hubConnection = new signalR.HubConnectionBuilder()
             .configureLogging(signalR.LogLevel.Trace)
-            .withUrl('/hubs/usernotifications')
+            .withUrl('/hubs/usernotifications', signalR.HttpTransportType.ServerSentEvents)
             .build();
         this.hubConnection.on('ReceiveNotification', (user) => {
             console.log(`User: ${user}`);
