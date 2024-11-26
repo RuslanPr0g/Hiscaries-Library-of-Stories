@@ -9,7 +9,7 @@ using HC.Application.Write.UserAccounts.Command.LoginUser;
 using HC.Application.Write.UserAccounts.Command.RefreshToken;
 using HC.Application.Write.UserAccounts.Command.UpdateUserData;
 using HC.Application.Write.UserAccounts.DataAccess;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 

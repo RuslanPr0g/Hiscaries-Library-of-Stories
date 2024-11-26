@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
 import { AuthService } from './users/services/auth.service';
 import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
+import { UserNotificationService } from './users/services/notification.service';
 
 @Component({
     selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent {
 
     constructor(
         private router: Router,
-        public userService: AuthService
+        public userService: AuthService,
+        private notificationService: UserNotificationService
     ) {}
 
     ngOnInit() {

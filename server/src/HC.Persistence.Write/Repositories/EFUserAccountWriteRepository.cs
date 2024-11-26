@@ -1,5 +1,5 @@
 ﻿using HC.Application.Write.UserAccounts.DataAccess;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 

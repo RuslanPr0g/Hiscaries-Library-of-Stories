@@ -1,8 +1,9 @@
 ﻿using HC.Domain;
 using HC.Domain.Genres;
+using HC.Domain.Notifications;
 using HC.Domain.PlatformUsers;
 using HC.Domain.Stories;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,7 @@ public sealed class HiscaryContext(DbContextOptions<HiscaryContext> options) : D
     public DbSet<Library> Libraries { get; set; }
     public DbSet<Story> Stories { get; set; }
     public DbSet<Genre> Genres { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
 
     public DbSet<PlatformUserToLibrarySubscription> PlatformUserToLibrarySubscriptions { get; set; }
 

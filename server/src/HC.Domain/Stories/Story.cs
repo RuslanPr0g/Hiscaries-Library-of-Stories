@@ -1,5 +1,6 @@
 ﻿using HC.Domain.Genres;
 using HC.Domain.PlatformUsers;
+using HC.Domain.Stories.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ public sealed class Story : AggregateRoot<StoryId>
         DateWritten = dateWritten;
 
         ImagePreviewUrl = imagePreviewUrl;
+
+        PublishEvent(new StoryPublishedDomainEvent(LibraryId, Id, Title));
     }
 
     public static Story Create(

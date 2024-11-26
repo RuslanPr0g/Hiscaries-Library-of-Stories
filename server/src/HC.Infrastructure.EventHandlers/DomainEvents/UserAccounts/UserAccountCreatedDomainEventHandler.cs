@@ -3,7 +3,7 @@ using HC.Application.Write.DataAccess;
 using HC.Application.Write.Generators;
 using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts.Events;
+using HC.Domain.Notifications.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 

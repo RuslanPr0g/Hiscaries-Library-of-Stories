@@ -1,6 +1,6 @@
 ﻿using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +14,13 @@ public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
     {
         _context = context;
     }
+
+    public async Task<IEnumerable<UserAccountId>> GetLibrarySubscribersUserAccountIds(LibraryId libraryId) =>
+        await _context.PlatformUsers
+        .Include(x => x.Subscriptions)
+        .Where(x => x.Subscriptions.Any(y => y.LibraryId == libraryId))
+        .Select(x => x.UserAccountId)
+        .ToListAsync();
 
     public async Task<PlatformUser?> GetById(PlatformUserId userId) =>
         await _context.PlatformUsers

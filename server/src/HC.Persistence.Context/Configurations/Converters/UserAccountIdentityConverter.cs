@@ -1,4 +1,4 @@
-﻿using HC.Domain.UserAccounts;
+﻿using HC.Domain.Notifications;
 
 namespace HC.Persistence.Context.Configurations.Converters;
 

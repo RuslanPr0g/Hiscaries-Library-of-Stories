@@ -3,7 +3,7 @@ using HC.Application.Write.UserAccounts.Command.CreateUser;
 using HC.Application.Write.UserAccounts.Command.LoginUser;
 using HC.Application.Write.UserAccounts.Command.RefreshToken;
 using HC.Application.Write.UserAccounts.Command.UpdateUserData;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 
 namespace HC.Application.Write.Users.Services;
 

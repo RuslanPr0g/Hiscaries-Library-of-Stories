@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HC.Domain.UserAccounts;
+namespace HC.Domain.Notifications;
 
 [NotMapped]
 public sealed record UserAccountId(Guid Value) : Identity(Value)

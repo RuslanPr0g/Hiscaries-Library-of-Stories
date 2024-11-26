@@ -7,7 +7,7 @@ using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.Stories.Command;
 using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 using Microsoft.Extensions.Logging;
 
 namespace HC.Application.Write.PlatformUsers.Services;

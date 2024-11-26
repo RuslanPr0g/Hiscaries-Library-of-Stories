@@ -1,5 +1,5 @@
 ﻿using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 
 namespace HC.Application.Write.PlatformUsers.DataAccess;
 
@@ -9,4 +9,5 @@ public interface IPlatformUserWriteRepository
     Task<PlatformUser?> GetLibraryOwnerByLibraryId(LibraryId libraryId);
     Task<PlatformUser?> GetByUserAccountId(UserAccountId userId);
     Task Add(PlatformUser user);
+    Task<IEnumerable<UserAccountId>> GetLibrarySubscribersUserAccountIds(LibraryId libraryId);
 }

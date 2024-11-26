@@ -7,7 +7,6 @@ import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { StoryService } from '../../stories/services/story.service';
 import { StoryModel } from '../../stories/models/domain/story-model';
-import { UserNotificationService } from '../services/notification.service';
 
 @Component({
     selector: 'app-publisher-library',
@@ -28,8 +27,7 @@ export class PublisherLibraryComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private userService: UserService,
-        private storyService: StoryService,
-        private notificationService: UserNotificationService
+        private storyService: StoryService
     ) {
         this.libraryId = this.route.snapshot.paramMap.get('id');
     }

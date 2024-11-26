@@ -1,6 +1,6 @@
 ﻿using HC.Application.Options;
 using HC.Application.Tokens;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HC.Application.Write.JWT;

@@ -1,5 +1,5 @@
 ﻿using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
+using HC.Domain.Notifications;
 
 namespace HC.Application.Read.Users.ReadModels;
 
