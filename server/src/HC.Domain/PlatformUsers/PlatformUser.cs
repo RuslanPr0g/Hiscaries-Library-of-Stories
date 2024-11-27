@@ -1,6 +1,6 @@
 ﻿using HC.Domain.PlatformUsers.Events;
 using HC.Domain.Stories;
-using HC.Domain.Notifications;
+using HC.Domain.UserAccounts;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -166,12 +166,12 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
 
     private void PublishSubscribedToLibrary(LibraryId libraryId)
     {
-        PublishEvent(new UserSubscribedToLibraryDomainEvent(Id, libraryId));
+        PublishEvent(new UserSubscribedToLibraryDomainEvent(UserAccountId, libraryId));
     }
 
     private void PublishUnsubscribedFromLibrary(LibraryId libraryId)
     {
-        PublishEvent(new UserUnsubscribedFromLibraryDomainEvent(Id, libraryId));
+        PublishEvent(new UserUnsubscribedFromLibraryDomainEvent(UserAccountId, libraryId));
     }
 
     private PlatformUser()

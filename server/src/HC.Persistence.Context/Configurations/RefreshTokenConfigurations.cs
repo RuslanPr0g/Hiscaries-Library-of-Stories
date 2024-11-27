@@ -1,4 +1,4 @@
-﻿using HC.Domain.Notifications;
+﻿using HC.Domain.UserAccounts;
 using HC.Persistence.Context.Configurations.Converters;
 using HC.Persistence.Context.Extensions;
 using Microsoft.EntityFrameworkCore;

@@ -3,7 +3,7 @@ using HC.Domain.Genres;
 using HC.Domain.Notifications;
 using HC.Domain.PlatformUsers;
 using HC.Domain.Stories;
-using HC.Domain.Notifications;
+using HC.Domain.UserAccounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

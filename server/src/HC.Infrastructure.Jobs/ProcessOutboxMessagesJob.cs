@@ -1,5 +1,5 @@
 ﻿using HC.Application.Common.Outbox;
-using HC.Domain.Notifications.Events;
+using HC.Domain.UserAccounts.Events;
 using HC.Persistence.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;

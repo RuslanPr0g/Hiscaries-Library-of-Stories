@@ -1,6 +1,6 @@
-﻿using HC.Domain.Notifications.Events;
-using HC.Domain.PlatformUsers.Events;
+﻿using HC.Domain.PlatformUsers.Events;
 using HC.Domain.Stories.Events;
+using HC.Domain.UserAccounts.Events;
 using HC.Infrastructure.EventHandlers.DomainEvents.Users;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;

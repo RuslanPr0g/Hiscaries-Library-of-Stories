@@ -1,6 +1,6 @@
 ﻿using HC.Application.Read.Users.DataAccess;
 using HC.Application.Read.Users.ReadModels;
-using HC.Domain.Notifications;
+using HC.Domain.UserAccounts;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
