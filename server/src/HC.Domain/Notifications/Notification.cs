@@ -1,4 +1,5 @@
 ﻿using HC.Domain.Notifications.Events;
+using HC.Domain.UserAccounts;
 
 namespace HC.Domain.Notifications;
 
@@ -7,7 +8,7 @@ namespace HC.Domain.Notifications;
 /// </summary>
 public sealed class Notification : AggregateRoot<NotificationId>
 {
-    public Notification(
+    private Notification(
         NotificationId id,
         UserAccountId userId,
         string message,
@@ -20,6 +21,14 @@ public sealed class Notification : AggregateRoot<NotificationId>
         IsRead = false;
 
         PublishNotificationCreatedEvent();
+    }
+
+    public static Notification CreateStoryPublishedNotification(
+        NotificationId id,
+        UserAccountId userId,
+        string storyTitle)
+    {
+        return new Notification(id, userId, $"Story was published: {storyTitle}", "StoryPublished");
     }
 
     public UserAccountId UserId { get; }

@@ -33,7 +33,7 @@ public sealed class StoryPublishedDomainEventHandler
 
     protected override async Task HandleEventAsync(StoryPublishedDomainEvent domainEvent, ConsumeContext<StoryPublishedDomainEvent> context)
     {
-        // TODO: we need to realize a batch here, as a library can have millions of users...
+        // TODO: we need to realize a batch here, as a library can have millions of subs...
         // also we do not need to make it acid, if some notification fails, other should be saved anyway...
 
         var userIds = await _platformUserRepository.GetLibrarySubscribersUserAccountIds(domainEvent.LibraryId);
@@ -41,7 +41,7 @@ public sealed class StoryPublishedDomainEventHandler
         foreach (var userId in userIds)
         {
             var notificationId = _idGenerator.Generate((val) => new NotificationId(val));
-            var notification = new Notification(notificationId, userId, $"Story was published: {domainEvent.Title}", "StoryPublished");
+            var notification = Notification.CreateStoryPublishedNotification(notificationId, userId, domainEvent.Title);
             await _notificationRepository.Add(notification);
         }
     }

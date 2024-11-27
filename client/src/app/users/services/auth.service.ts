@@ -43,6 +43,10 @@ export class AuthService {
         localStorage.removeItem(this.refresh_token_local_storage_key);
     }
 
+    getToken(): string | null {
+        return localStorage.getItem(this.access_token_local_storage_key);
+    }
+
     isAuthenticated(): boolean {
         const token = localStorage.getItem(this.access_token_local_storage_key);
         const authenticated = token != null && !this.jwtHelper.isTokenExpired(token);

@@ -1,7 +1,7 @@
-﻿using HC.Domain.Notifications.Events;
+﻿using HC.Domain.UserAccounts.Events;
 using System;
 
-namespace HC.Domain.Notifications;
+namespace HC.Domain.UserAccounts;
 
 /// <summary>
 /// Represents the identity and authentication details of a user on the platform. 

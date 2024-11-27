@@ -1,4 +1,5 @@
-﻿using HC.Application.Read.Stories.DataAccess;
+﻿using HC.Application.Read.Notifications.DataAccess;
+using HC.Application.Read.Stories.DataAccess;
 using HC.Application.Read.Users.DataAccess;
 using HC.Persistence.Read.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ public static class DiExtensions
     {
         services.AddScoped<IPlatformUserReadRepository, EFPlatformUserReadRepository>();
         services.AddScoped<IStoryReadRepository, EFStoryReadRepository>();
+        services.AddScoped<INotificationReadRepository, EFNotificationReadRepository>();
 
         // TODO: "connection" is it really needed? probably yes, especially if we're going to use dapper for read operations
 
