@@ -18,7 +18,7 @@ public class EFNotificationReadRepository : INotificationReadRepository
     public async Task<IEnumerable<NotificationReadModel>> GetMissedNotificationsByUserId(UserAccountId userId) =>
         await _context.Notifications
             .AsNoTracking()
-            .Where(x => x.UserId == userId && !x.IsRead)
+            .Where(x => x.UserId == userId && x.IsRead == false)
             .Select(user => NotificationReadModel.FromDomainModel(user))
             .ToListAsync();
 }

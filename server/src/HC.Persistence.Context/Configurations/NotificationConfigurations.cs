@@ -12,5 +12,8 @@ public class NotificationConfigurations : IEntityTypeConfiguration<Notification>
     {
         builder.ConfigureEntity<Notification, NotificationId, NotificationIdentityConverter>();
         builder.Property(c => c.UserId).HasConversion(new UserAccountIdentityConverter());
+        builder.Property(c => c.Type).IsRequired();
+        builder.Property(c => c.Message).IsRequired();
+        builder.Property(c => c.IsRead).IsRequired();
     }
 }
