@@ -16,7 +16,7 @@ public sealed class UserNotificationHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        var userId = Context.User?.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+        var userId = Context.UserIdentifier;
 
         if (Guid.TryParse(userId, out var id))
         {

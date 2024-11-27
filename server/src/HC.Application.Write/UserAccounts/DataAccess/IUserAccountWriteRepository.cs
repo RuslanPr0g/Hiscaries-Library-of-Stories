@@ -1,4 +1,4 @@
-﻿using HC.Domain.Notifications;
+﻿using HC.Domain.UserAccounts;
 
 namespace HC.Application.Write.UserAccounts.DataAccess;
 
