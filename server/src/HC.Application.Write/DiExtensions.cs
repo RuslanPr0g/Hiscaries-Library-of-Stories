@@ -3,6 +3,7 @@ using HC.Application.Write.Generators;
 using HC.Application.Write.ImageCompressors;
 using HC.Application.Write.ImageUploaderss;
 using HC.Application.Write.JWT;
+using HC.Application.Write.Notifications.Services;
 using HC.Application.Write.PlatformUsers.Services;
 using HC.Application.Write.Stories.Services;
 using HC.Application.Write.Users.Services;
@@ -19,6 +20,7 @@ public static class DIExtensions
         services.AddScoped<IPlatformUserWriteService, PlatformUserWriteService>();
         services.AddScoped<IUserAccountWriteService, UserAccountWriteService>();
         services.AddScoped<IStoryWriteService, StoryWriteService>();
+        services.AddScoped<INotificationWriteService, NotificationWriteService>();
         services.AddScoped<IJWTTokenHandler, JWTTokenHandler>();
 
         services.AddScoped<IImageCompressor, DefaultImageCompressor>();

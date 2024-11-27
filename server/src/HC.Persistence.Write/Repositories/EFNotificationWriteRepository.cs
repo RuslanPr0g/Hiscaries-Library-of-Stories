@@ -18,6 +18,11 @@ public class EFNotificationWriteRepository : INotificationWriteRepository
         await _context.Notifications
         .FirstOrDefaultAsync(x => x.Id == id);
 
+    public async Task<IEnumerable<Notification>> GetByIds(NotificationId[] ids) =>
+        await _context.Notifications
+        .Where(x => ids.Contains(x.Id))
+        .ToListAsync();
+
     public async Task Add(Notification notification) =>
         await _context.Notifications.AddAsync(notification);
 }

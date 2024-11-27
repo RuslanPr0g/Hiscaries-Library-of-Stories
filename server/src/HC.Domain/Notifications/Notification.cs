@@ -33,8 +33,13 @@ public sealed class Notification : AggregateRoot<NotificationId>
 
     public UserAccountId UserId { get; }
     public string Message { get; }
-    public bool IsRead { get; }
+    public bool IsRead { get; private set; }
     public string Type { get; }
+
+    public void Read()
+    {
+        IsRead = true;
+    }
 
     private void PublishNotificationCreatedEvent()
     {
