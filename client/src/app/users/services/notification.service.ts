@@ -19,6 +19,8 @@ export class UserNotificationService {
     private hubConnection: signalR.HubConnection;
     private readonly hubUrl = '/hubs/usernotifications';
 
+    disconnected: boolean = true;
+
     constructor(
         private authService: AuthService,
         private userService: UserService,
@@ -61,7 +63,8 @@ export class UserNotificationService {
     }
 
     disconnect(): void {
-        if (this.hubConnection) {
+        if (this.hubConnection && !this.disconnected) {
+            this.disconnected = true;
             this.hubConnection.stop().then(() => console.log('SignalR connection stopped.'));
         }
     }
@@ -80,6 +83,7 @@ export class UserNotificationService {
 
         this.hubConnection.onclose((error) => {
             console.error('SignalR connection closed.', error);
+            this.disconnected = true;
         });
 
         this.hubConnection.onreconnecting((error) => {
@@ -88,6 +92,7 @@ export class UserNotificationService {
 
         this.hubConnection.onreconnected((connectionId) => {
             console.log('SignalR reconnected with connectionId:', connectionId);
+            this.disconnected = false;
         });
     }
 
