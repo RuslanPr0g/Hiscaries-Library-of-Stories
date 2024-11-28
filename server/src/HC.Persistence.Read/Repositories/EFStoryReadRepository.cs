@@ -104,6 +104,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
 
         var stories = (await _context.Stories
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
             .Where(x => x.Contents.Any())
@@ -125,6 +126,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     {
         var stories = (await _context.Stories
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
             .Where(x => x.LibraryId == libraryId)
@@ -161,6 +163,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     {
         var stories = (await _context.Stories
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
             .Include(x => x.ReadHistory)
@@ -185,6 +188,7 @@ public sealed class EFStoryReadRepository : IStoryReadRepository
     {
         var stories = (await _context.Stories
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(x => x.Library)
                 .ThenInclude(x => x.PlatformUser)
             .Include(x => x.ReadHistory)
