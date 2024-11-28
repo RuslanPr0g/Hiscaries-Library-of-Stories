@@ -1,0 +1,89 @@
+:host {
+    position: relative;
+    width: 100%;
+}
+
+// Define color scheme
+$primary-color: #a78bfa;
+$background-color: #1e1e2e;
+$secondary-background: #313244;
+$hover-background: #45475a;
+$text-color: #ffffff;
+$subtext-color: #cdd6f4;
+
+.notifications-bar {
+    // position: absolute;
+    // left: 0;
+    // top: 0;
+    max-width: 500px;
+    min-width: 180px;
+
+    padding: 16px;
+    background-color: $background-color;
+    border-radius: 8px;
+    color: $text-color;
+    margin: auto;
+    margin-top: 24px;
+    width: max-content;
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        margin-top: 0;
+        color: $subtext-color;
+    }
+
+    .notifications-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: $secondary-background;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &.unread {
+                background-color: $primary-color;
+            }
+
+            &:hover {
+                background-color: $hover-background;
+            }
+
+            .notification-content {
+                flex-grow: 1;
+
+                .notification-message {
+                    font-size: 1rem;
+                    margin: 0;
+                    color: $text-color;
+                }
+
+                .notification-type {
+                    font-size: 0.875rem;
+                    color: $text-color;
+                }
+            }
+
+            .mark-read-btn {
+                background: none;
+                border: none;
+                color: $text-color;
+                font-size: 0.875rem;
+                cursor: pointer;
+                transition: color 0.2s ease;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
