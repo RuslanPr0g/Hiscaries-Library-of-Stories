@@ -22,6 +22,7 @@
         "@angular/platform-browser-dynamic": "^18.1.0",
         "@angular/router": "^18.1.0",
         "@auth0/angular-jwt": "^5.2.0",
+        "@microsoft/signalr": "^8.0.7",
         "@ngrx/store": "^18.0.2",
         "husky-init": "^8.0.0",
         "prettier": "^3.3.3",

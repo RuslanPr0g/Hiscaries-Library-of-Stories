@@ -1,4 +1,5 @@
-﻿using HC.Application.Read.Stories.Services;
+﻿using HC.Application.Read.Notifications.Services;
+using HC.Application.Read.Stories.Services;
 using HC.Application.Read.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class DIExtensions
     {
         services.AddScoped<IPlatformUserReadService, PlatformUserReadService>();
         services.AddScoped<IStoryReadService, StoryReadService>();
+        services.AddScoped<INotificationReadService, NotificationReadService>();
 
         return services;
     }

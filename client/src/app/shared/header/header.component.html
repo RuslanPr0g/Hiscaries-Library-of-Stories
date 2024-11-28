@@ -1,11 +1,16 @@
 <header class="header">
-    <ng-container *ngFor="let item of items">
-        <div class="header__option">
-            <button (click)="callItemCommand(item)">
-                {{ item.Label }}
-            </button>
-        </div>
-    </ng-container>
+    <div class="header__options-grid">
+        <ng-container *ngFor="let item of items">
+            <div class="header__option">
+                <button
+                    (click)="callItemCommand(item)"
+                    [ngClass]="{ warning: item.Label === 'Sign out' }"
+                >
+                    {{ item.Label }}
+                </button>
+            </div>
+        </ng-container>
+    </div>
     <button
         *ngIf="!isUserPublisher"
         (click)="navigateToBecomePublisherPage()"
@@ -13,4 +18,5 @@
     >
         I want to be a publisher!
     </button>
+    <app-notifications-bar> </app-notifications-bar>
 </header>

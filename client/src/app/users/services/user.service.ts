@@ -2,9 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LibraryModel } from '../models/domain/library.model';
 import { EditLibraryRequest } from '../models/requests/edit-library.model';
 import { LibrarySubscriptionRequest } from '../models/requests/library-subscription.model';
+import { NotificationModel } from '../../shared/models/notification.model';
+import { LibraryModel } from '../models/domain/library.model';
+import { ReadNotificationsRequest } from '../models/requests/read-notifications.model';
 
 @Injectable({
     providedIn: 'root',
@@ -25,6 +27,14 @@ export class UserService {
         }
 
         return this.http.get<LibraryModel>(this.apiUrl + '/libraries');
+    }
+
+    notifications(): Observable<NotificationModel[]> {
+        return this.http.get<NotificationModel[]>(this.apiUrl + '/notifications');
+    }
+
+    readNotifications(request: ReadNotificationsRequest): Observable<void> {
+        return this.http.post<void>(this.apiUrl + '/notifications', request);
     }
 
     editLibrary(request: EditLibraryRequest): Observable<void> {

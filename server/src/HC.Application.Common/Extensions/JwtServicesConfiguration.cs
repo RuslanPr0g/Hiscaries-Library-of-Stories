@@ -41,24 +41,40 @@ public static class JwtServicesConfiguration
              options.RequireHttpsMetadata = false;
              options.TokenValidationParameters = tokenValidationParameters;
 
+             options.Authority = "Authority URL";
+
              var loggerFactory = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
              var logger = loggerFactory.CreateLogger<JwtBearerEvents>();
 
              options.Events = new JwtBearerEvents
              {
+                 OnMessageReceived = SetUpSignalRAuth,
                  OnAuthenticationFailed = context =>
                  {
-                     logger.LogError("Authentication failed: {Message}", context.Exception.Message);
+                     logger.LogDebug("Authentication failed: {Message}", context.Exception.Message);
                      return Task.CompletedTask;
                  },
                  OnTokenValidated = context =>
                  {
-                     logger.LogInformation("Token validated successfully.");
+                     logger.LogDebug("Token validated successfully.");
                      return Task.CompletedTask;
                  }
              };
          });
 
         return services;
+    }
+
+    private static Task SetUpSignalRAuth(MessageReceivedContext context)
+    {
+        var accessToken = context.Request.Query["access_token"];
+
+        var path = context.HttpContext.Request.Path;
+        if (!string.IsNullOrEmpty(accessToken) &&
+            (path.StartsWithSegments("/hubs")))
+        {
+            context.Token = accessToken;
+        }
+        return Task.CompletedTask;
     }
 }

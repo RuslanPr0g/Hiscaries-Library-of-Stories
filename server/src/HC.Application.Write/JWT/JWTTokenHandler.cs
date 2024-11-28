@@ -36,9 +36,10 @@ public sealed class JWTTokenHandler : IJWTTokenHandler
         {
             Subject = new ClaimsIdentity(new[]
             {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, jti),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Username),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.Value.ToString()),
                     new Claim("id", user.Id.Value.ToString()),
                     new Claim("username", user.Username),
                     new Claim("role", user.Role),

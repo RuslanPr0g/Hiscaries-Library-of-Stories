@@ -18,6 +18,7 @@
 		<PackageReference Include="FluentValidation" Version="11.10.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 		<PackageReference Include="MediatR" Version="12.4.1" />
+		<PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
 			<PrivateAssets>all</PrivateAssets>
@@ -41,6 +42,7 @@
 		<ProjectReference Include="..\HC.Domain\HC.Domain.csproj" />
 		<ProjectReference Include="..\HC.Infrastructure.EventHandlers\HC.Infrastructure.EventHandlers.csproj" />
 		<ProjectReference Include="..\HC.Infrastructure.Jobs\HC.Infrastructure.Jobs.csproj" />
+		<ProjectReference Include="..\HC.Infrastructure.SignalR\HC.Infrastructure.SignalR.csproj" />
 		<ProjectReference Include="..\HC.Persistence.Read\HC.Persistence.Read.csproj" />
 		<ProjectReference Include="..\HC.Persistence.Write\HC.Persistence.Write.csproj" />
 	</ItemGroup>

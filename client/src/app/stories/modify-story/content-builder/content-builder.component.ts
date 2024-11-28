@@ -6,7 +6,7 @@ import { EditorModule } from 'primeng/editor';
 import { TextEditorComponent } from '../../../shared/components/text-editor/text-editor.component';
 import { FormButtonComponent } from '../../../shared/components/form-button/form-button.component';
 import { ButtonModule } from 'primeng/button';
-import { IteratorService } from '../../../shared/services/iterator.service';
+import { IteratorService } from '../../../shared/services/statefull/iterator.service';
 
 @Component({
     selector: 'app-content-builder',

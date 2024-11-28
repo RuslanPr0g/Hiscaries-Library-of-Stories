@@ -166,12 +166,12 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
 
     private void PublishSubscribedToLibrary(LibraryId libraryId)
     {
-        PublishEvent(new UserSubscribedToLibrary(Id, libraryId));
+        PublishEvent(new UserSubscribedToLibraryDomainEvent(UserAccountId, libraryId));
     }
 
     private void PublishUnsubscribedFromLibrary(LibraryId libraryId)
     {
-        PublishEvent(new UserUnsubscribedFromLibrary(Id, libraryId));
+        PublishEvent(new UserUnsubscribedFromLibraryDomainEvent(UserAccountId, libraryId));
     }
 
     private PlatformUser()

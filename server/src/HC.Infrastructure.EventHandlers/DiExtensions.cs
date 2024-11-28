@@ -1,4 +1,6 @@
 ﻿using HC.Domain.PlatformUsers.Events;
+using HC.Domain.Stories.Events;
+using HC.Domain.UserAccounts.Events;
 using HC.Infrastructure.EventHandlers.DomainEvents.Users;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +13,12 @@ public static class DiExtensions
     public static IServiceCollection AddEventHandlers(this IServiceCollection services)
     {
         // TODO: subscribe everything using reflection
-        services.AddScoped<IConsumer<StoryPageReadDomainEvent>, StoryPageReadDomainEventHandler>();
+        services.AddScoped<IConsumer<StoryPublishedDomainEvent>, StoryPublishedDomainEventHandler>();
+        services.AddScoped<IConsumer<UserSubscribedToLibraryDomainEvent>, UserSubscribedToLibraryDomainEventHandler>();
+        services.AddScoped<IConsumer<UserUnsubscribedFromLibraryDomainEvent>, UserUnsubscribedFromLibraryDomainEventHandler>();
+        services.AddScoped<IConsumer<StoryPublishedDomainEvent>, StoryPublishedDomainEventHandler>();
+        services.AddScoped<IConsumer<UserAccountCreatedDomainEvent>, UserAccountCreatedDomainEventHandler>();
+        services.AddScoped<IConsumer<UserBecamePublisherDomainEvent>, UserBecamePublisherDomainEventHandler>();
 
         services.AddMassTransit(x =>
         {

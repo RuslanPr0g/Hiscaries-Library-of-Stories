@@ -15,6 +15,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\HC.Application.Common\HC.Application.Common.csproj" />
 	  <ProjectReference Include="..\HC.Application.Write\HC.Application.Write.csproj" />
+	  <ProjectReference Include="..\HC.Infrastructure.SignalR\HC.Infrastructure.SignalR.csproj" />
 	</ItemGroup>
 
 </Project>

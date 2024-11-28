@@ -1,8 +1,12 @@
 ﻿using HC.API.Extensions;
 using HC.API.Requests.Libraries;
+using HC.API.Requests.Notifications;
+using HC.Application.Read.Notifications.Queries;
 using HC.Application.Read.Users.Queries;
+using HC.Application.Write.Notifications.Command.BecomePublisher;
 using HC.Application.Write.PlatformUsers.Command.BecomePublisher;
 using HC.Application.Write.PlatformUsers.Command.PublishReview;
+using HC.Application.Write.ResultModels.Response;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -49,6 +53,40 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/notifications", GetNotifications)
+            .Produces<UserWithTokenResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/notifications", ReadNotifications)
+            .Produces<UserWithTokenResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+    }
+
+    private static async Task<IResult> GetNotifications(HttpContext context, [FromServices] IMediator mediator)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetUserNotificationsQuery { UserId = userIdClaim.Value };
+        var result = await mediator.Send(query);
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> ReadNotifications([FromBody] ReadNotificationsRequest request, HttpContext context, [FromServices] IMediator mediator)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var command = new ReadNotificationCommand { UserId = userIdClaim.Value, NotificationIds = request.NotificationIds };
+
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)
@@ -60,8 +98,8 @@ public static class PlatformUserEndpoints
         }
 
         var command = new BecomePublisherCommand { Id = userIdClaim.Value };
-        var result = await mediator.Send(command);
-        return result.ToResult();
+
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> GetLibrary([FromQuery] Guid? libraryId, HttpContext context, [FromServices] IMediator mediator)

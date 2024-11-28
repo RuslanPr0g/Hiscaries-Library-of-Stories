@@ -1,0 +1,30 @@
+<div
+    class="notifications-bar"
+    *ngIf="notifications.length > 0"
+>
+    <div class="notifications-bar__header">
+        <h2>Notifications</h2>
+        <button
+            class="link"
+            (click)="markAllAsRead()"
+        >
+            Mark all as read
+        </button>
+    </div>
+    <ul class="notifications-list">
+        <li
+            *ngFor="let notification of notifications"
+            [class.unread]="!notification.IsRead"
+        >
+            <div class="notification-content">
+                <p class="notification-message">{{ notification.Message }}</p>
+            </div>
+            <div
+                class="mark-read-btn"
+                *ngIf="!notification.IsRead"
+            >
+                Unread
+            </div>
+        </li>
+    </ul>
+</div>

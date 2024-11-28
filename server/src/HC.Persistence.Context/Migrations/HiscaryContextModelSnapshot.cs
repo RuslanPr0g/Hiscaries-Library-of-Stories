@@ -97,6 +97,39 @@ namespace HC.Persistence.Context.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("HC.Domain.Notifications.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EditedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("HC.Domain.PlatformUsers.Library", b =>
                 {
                     b.Property<Guid>("Id")
@@ -549,19 +582,11 @@ namespace HC.Persistence.Context.Migrations
 
             modelBuilder.Entity("HC.Domain.PlatformUsers.PlatformUserToLibrarySubscription", b =>
                 {
-                    b.HasOne("HC.Domain.PlatformUsers.Library", "Library")
-                        .WithMany()
-                        .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HC.Domain.PlatformUsers.PlatformUser", "PlatformUser")
                         .WithMany("Subscriptions")
                         .HasForeignKey("PlatformUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Library");
 
                     b.Navigation("PlatformUser");
                 });

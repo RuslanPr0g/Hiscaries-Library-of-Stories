@@ -60,6 +60,24 @@ input {
     min-width: 150px;
 }
 
+.notification-wrapper {
+    position: relative;
+
+    &__circle {
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        z-index: 9 !important;
+
+        width: 12px !important;
+        min-width: 12px !important;
+        height: 12px !important;
+        min-height: 12px !important;
+        background-color: #ff0000;
+        border-radius: 50%;
+    }
+}
+
 .center {
     width: 100%;
     text-align: center;
@@ -468,3 +486,7 @@ p-dropdown {
 }
 
 // LIBRARY PROFILE SHARED **************************************
+
+.p-sidebar-left {
+    width: auto !important;
+}

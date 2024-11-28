@@ -54,8 +54,7 @@ public static class UserAccountEndpoints
             Password = request.Password
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> LoginUser([FromBody] UserLoginRequest request, [FromServices] IMediator mediator)
@@ -66,8 +65,7 @@ public static class UserAccountEndpoints
             Password = request.Password
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> RefreshToken([FromBody] RefreshTokenRequest request, [FromServices] IMediator mediator)
@@ -78,8 +76,7 @@ public static class UserAccountEndpoints
             RefreshToken = request.RefreshToken
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> UpdateUserData([FromBody] UpdateUserDataRequest request, HttpContext context, [FromServices] IMediator mediator)
@@ -99,7 +96,7 @@ public static class UserAccountEndpoints
             PreviousPassword = request.PreviousPassword,
             NewPassword = request.NewPassword,
         };
-        var result = await mediator.Send(command);
-        return result.ToResult();
+
+        return await mediator.SendMessageGetResult(command);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HC.Application.Write.DataAccess;
+using HC.Application.Write.Notifications.DataAccess;
 using HC.Application.Write.PlatformUsers.DataAccess;
 using HC.Application.Write.Stories.DataAccess;
 using HC.Application.Write.UserAccounts.DataAccess;
@@ -15,6 +16,7 @@ public static class DiExtensions
         services.AddScoped<IUserAccountWriteRepository, EFUserAccountWriteRepository>();
         services.AddScoped<IPlatformUserWriteRepository, EFPlatformUserWriteRepository>();
         services.AddScoped<IStoryWriteRepository, EFStoryWriteRepository>();
+        services.AddScoped<INotificationWriteRepository, EFNotificationWriteRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

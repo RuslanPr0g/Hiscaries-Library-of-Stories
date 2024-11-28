@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from '../constants/navigation.const';
+import { NotificationsBarComponent } from '../components/notifications-bar/notifications-bar.component';
 
 export interface MenuItem {
     Label: string;
@@ -13,7 +14,7 @@ export interface MenuItem {
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [CommonModule, ButtonModule],
+    imports: [CommonModule, ButtonModule, NotificationsBarComponent],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
 })

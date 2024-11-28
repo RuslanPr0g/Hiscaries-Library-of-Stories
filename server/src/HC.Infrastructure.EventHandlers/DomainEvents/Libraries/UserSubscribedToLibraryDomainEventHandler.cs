@@ -9,7 +9,7 @@ namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;
 
 // TODO: do I want to allow one domain handler to handle multiple domain events? if no, then this approach is kinda okay
 public sealed class UserSubscribedToLibraryDomainEventHandler
-    : DomainEventHandler<UserSubscribedToLibrary>
+    : DomainEventHandler<UserSubscribedToLibraryDomainEvent>
 {
     private readonly IPlatformUserWriteRepository _repository;
 
@@ -23,8 +23,8 @@ public sealed class UserSubscribedToLibraryDomainEventHandler
     }
 
     protected override async Task HandleEventAsync(
-        UserSubscribedToLibrary domainEvent,
-        ConsumeContext<UserSubscribedToLibrary> context)
+        UserSubscribedToLibraryDomainEvent domainEvent,
+        ConsumeContext<UserSubscribedToLibraryDomainEvent> context)
     {
         var user = await _repository.GetLibraryOwnerByLibraryId(domainEvent.LibraryId);
 
@@ -39,7 +39,6 @@ public sealed class UserSubscribedToLibraryDomainEventHandler
         {
             return;
         }
-
         library.SubscribeUser();
     }
 }

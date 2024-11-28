@@ -9,4 +9,5 @@ public interface IPlatformUserWriteRepository
     Task<PlatformUser?> GetLibraryOwnerByLibraryId(LibraryId libraryId);
     Task<PlatformUser?> GetByUserAccountId(UserAccountId userId);
     Task Add(PlatformUser user);
+    Task<IEnumerable<UserAccountId>> GetLibrarySubscribersUserAccountIds(LibraryId libraryId);
 }

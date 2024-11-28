@@ -254,8 +254,7 @@ public static class StoryEndpoints
             ShouldUpdateImage = isImageAlreadyUrl.IsUpdated
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> UpdateStoryInformation([FromBody] StoryUpdateInfoRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
@@ -288,8 +287,7 @@ public static class StoryEndpoints
             Contents = request.Contents,
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> ReadStory([FromBody] ReadStoryRequest request, [FromServices] IMediator mediator, HttpContext httpContext)
@@ -307,8 +305,7 @@ public static class StoryEndpoints
             Page = request.PageRead
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> BookmarkStory([FromBody] BookmarkStoryRequest request, [FromServices] IMediator mediator)
@@ -319,8 +316,7 @@ public static class StoryEndpoints
             StoryId = new Guid()
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> AddComment([FromBody] CreateCommentRequest request, [FromServices] IMediator mediator)
@@ -332,8 +328,7 @@ public static class StoryEndpoints
             Content = request.Content
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> ScoreStory([FromBody] ScoreStoryRequest request, [FromServices] IMediator mediator)
@@ -345,8 +340,7 @@ public static class StoryEndpoints
             UserId = new Guid()
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> DeleteComment(Guid commentId, [FromServices] IMediator mediator)
@@ -356,8 +350,7 @@ public static class StoryEndpoints
             StoryId = commentId
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> DeleteStory(Guid storyId, [FromServices] IMediator mediator)
@@ -367,8 +360,7 @@ public static class StoryEndpoints
             StoryId = storyId
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> UpdateComment([FromBody] UpdateCommentRequest request, [FromServices] IMediator mediator)
@@ -380,8 +372,7 @@ public static class StoryEndpoints
             Content = request.Content
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> DeleteAudioForStory(Guid storyId, [FromServices] IMediator mediator)
@@ -391,7 +382,6 @@ public static class StoryEndpoints
             StoryId = storyId
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 }

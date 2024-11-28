@@ -2,7 +2,7 @@
 <main>
     <div
         class="left-panel"
-        *ngIf="userService.isAuthenticated()"
+        *ngIf="authService.isAuthenticated()"
     >
         <p-sidebar [(visible)]="sidebarVisible">
             <app-header (commandExecuted)="sidebarVisible = false"></app-header>
@@ -13,10 +13,16 @@
         >
             HISCARIES
         </div>
-        <p-button
-            (onClick)="sidebarVisible = true"
-            icon="pi pi-arrow-right"
-        />
+        <div class="notification-wrapper">
+            <p-button
+                (onClick)="sidebarVisible = true"
+                icon="pi pi-arrow-right"
+            />
+            <span
+                class="notification-wrapper__circle"
+                *ngIf="unreadCount > 0"
+            ></span>
+        </div>
         <app-search-bar></app-search-bar>
     </div>
     <div class="right-panel">
