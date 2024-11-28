@@ -1,8 +1,10 @@
 ﻿using HC.API.Extensions;
 using HC.API.Requests.Libraries;
+using HC.Application.Read.Notifications.Queries;
 using HC.Application.Read.Users.Queries;
 using HC.Application.Write.PlatformUsers.Command.BecomePublisher;
 using HC.Application.Write.PlatformUsers.Command.PublishReview;
+using HC.Application.Write.ResultModels.Response;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -49,6 +51,23 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/notifications", GetNotifications)
+            .Produces<UserWithTokenResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+    }
+
+    private static async Task<IResult> GetNotifications(HttpContext context, [FromServices] IMediator mediator)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetUserNotificationsQuery { UserId = userIdClaim.Value };
+        var result = await mediator.Send(query);
+        return result.ToResult();
     }
 
     private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)
