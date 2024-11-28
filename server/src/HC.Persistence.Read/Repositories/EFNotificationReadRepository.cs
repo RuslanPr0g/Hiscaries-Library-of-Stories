@@ -1,5 +1,5 @@
 ﻿using HC.Application.Read.Notifications.DataAccess;
-using HC.Application.Read.Users.ReadModels;
+using HC.Application.Read.Notifications.ReadModels;
 using HC.Domain.UserAccounts;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +19,13 @@ public class EFNotificationReadRepository : INotificationReadRepository
         await _context.Notifications
             .AsNoTracking()
             .Where(x => x.UserId == userId && x.IsRead == false)
+            .Select(user => NotificationReadModel.FromDomainModel(user))
+            .ToListAsync();
+
+    public async Task<IEnumerable<NotificationReadModel>> GetNotificationsByUserId(UserAccountId userId) =>
+        await _context.Notifications
+            .AsNoTracking()
+            .Where(x => x.UserId == userId)
             .Select(user => NotificationReadModel.FromDomainModel(user))
             .ToListAsync();
 }

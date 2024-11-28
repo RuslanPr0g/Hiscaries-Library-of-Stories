@@ -1,9 +1,27 @@
-﻿using System;
+﻿using HC.Application.Write.ResultModels.Response;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Threading.Tasks;
 
 namespace HC.API.Extensions;
 
 public static class CommonExtensions
 {
+    public static async Task<IResult> SendMessageGetResult<T>(this IMediator mediatr, IRequest<T> message)
+        where T : OperationResult
+    {
+        var result = await mediatr.Send(message);
+        return result.ToResult<T>();
+    }
+
+    public static async Task<IResult> SendMessageGetResult<T>(this IMediator mediatr, IRequest<OperationResult<T>> message)
+        where T : class
+    {
+        var result = await mediatr.Send(message);
+        return result.ToResult<T>();
+    }
+
     public static byte[]? GetImageBytes(this string image)
     {
         byte[]? imageInBytes = null;
@@ -16,7 +34,7 @@ public static class CommonExtensions
     }
 
     // TODO: I hate myself
-    public static (byte[] Image, bool IsUpdated) ImageStringToBytes (this string? imageAsString)
+    public static (byte[] Image, bool IsUpdated) ImageStringToBytes(this string? imageAsString)
     {
         if (string.IsNullOrEmpty(imageAsString))
         {
@@ -29,5 +47,5 @@ public static class CommonExtensions
         bool isImageUpdated = imageAsBytes.Length > 0 || imageWasRemoved;
 
         return (imageAsBytes, isImageUpdated);
-    } 
+    }
 }

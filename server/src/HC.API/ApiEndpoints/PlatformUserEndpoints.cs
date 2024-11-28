@@ -60,8 +60,8 @@ public static class PlatformUserEndpoints
         }
 
         var command = new BecomePublisherCommand { Id = userIdClaim.Value };
-        var result = await mediator.Send(command);
-        return result.ToResult();
+
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> GetLibrary([FromQuery] Guid? libraryId, HttpContext context, [FromServices] IMediator mediator)

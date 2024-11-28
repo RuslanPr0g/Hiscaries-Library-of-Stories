@@ -1,5 +1,6 @@
 ﻿using HC.API.Extensions;
 using HC.API.Requests.Users;
+using HC.Application.Read.Notifications.Queries;
 using HC.Application.Read.Users.ReadModels;
 using HC.Application.Write.ResultModels.Response;
 using HC.Application.Write.UserAccounts.Command.CreateUser;
@@ -42,6 +43,23 @@ public static class UserAccountEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/notifications", GetNotifications)
+            .Produces<UserWithTokenResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+    }
+
+    private static async Task<IResult> GetNotifications([FromServices] IMediator mediator, [FromServices] HttpContext context)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (userIdClaim is null)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var query = new GetUserNotificationsQuery { UserId = userIdClaim.Value };
+        var result = await mediator.Send(query);
+        return result.ToResult();
     }
 
     private static async Task<IResult> RegisterUser([FromBody] RegisterUserRequest request, [FromServices] IMediator mediator)
@@ -54,8 +72,7 @@ public static class UserAccountEndpoints
             Password = request.Password
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> LoginUser([FromBody] UserLoginRequest request, [FromServices] IMediator mediator)
@@ -66,8 +83,7 @@ public static class UserAccountEndpoints
             Password = request.Password
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> RefreshToken([FromBody] RefreshTokenRequest request, [FromServices] IMediator mediator)
@@ -78,8 +94,7 @@ public static class UserAccountEndpoints
             RefreshToken = request.RefreshToken
         };
 
-        var result = await mediator.Send(command);
-        return result.ToResult();
+        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> UpdateUserData([FromBody] UpdateUserDataRequest request, HttpContext context, [FromServices] IMediator mediator)
@@ -99,7 +114,7 @@ public static class UserAccountEndpoints
             PreviousPassword = request.PreviousPassword,
             NewPassword = request.NewPassword,
         };
-        var result = await mediator.Send(command);
-        return result.ToResult();
+
+        return await mediator.SendMessageGetResult(command);
     }
 }

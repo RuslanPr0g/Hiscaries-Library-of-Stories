@@ -1,6 +1,6 @@
 ﻿using HC.Domain.Notifications;
 
-namespace HC.Application.Read.Users.ReadModels;
+namespace HC.Application.Read.Notifications.ReadModels;
 
 public class NotificationReadModel
 {
