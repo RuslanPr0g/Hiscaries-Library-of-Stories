@@ -16,7 +16,7 @@ $subtext-color: #cdd6f4;
     // left: 0;
     // top: 0;
     max-width: 500px;
-    min-width: 180px;
+    min-width: 500px;
 
     padding: 16px;
     background-color: $background-color;
@@ -24,12 +24,18 @@ $subtext-color: #cdd6f4;
     color: $text-color;
     margin: auto;
     margin-top: 24px;
-    width: max-content;
+    width: 500px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 55px;
+    }
 
     h2 {
         font-size: 1.5rem;
-        margin-bottom: 1rem;
-        margin-top: 0;
+        margin: 0;
         color: $subtext-color;
     }
 
@@ -46,7 +52,6 @@ $subtext-color: #cdd6f4;
             margin-bottom: 8px;
             border-radius: 8px;
             background-color: $secondary-background;
-            cursor: pointer;
             transition: all 0.2s ease;
 
             &.unread {
@@ -75,14 +80,9 @@ $subtext-color: #cdd6f4;
             .mark-read-btn {
                 background: none;
                 border: none;
-                color: $text-color;
+                color: $primary-color;
                 font-size: 0.875rem;
-                cursor: pointer;
                 transition: color 0.2s ease;
-
-                &:hover {
-                    color: $primary-color;
-                }
             }
         }
     }

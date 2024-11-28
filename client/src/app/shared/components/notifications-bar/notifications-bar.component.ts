@@ -27,22 +27,6 @@ export class NotificationsBarComponent implements OnInit {
             .pipe(takeUntil(this.destroyService.subject$))
             .subscribe((notifications) => {
                 this.notifications = notifications;
-                this.notifications = [
-                    {
-                        Id: '1',
-                        UserId: '1',
-                        Type: 'DD',
-                        Message: 'Ffrdsafgsr gsedrg serg seg srdgserfg vsdrgh drg esgvdfg sedrgsegsdfgsdf',
-                        IsRead: false,
-                    },
-                    {
-                        Id: '2',
-                        UserId: '1',
-                        Type: 'DD 2',
-                        Message: 'message 2',
-                        IsRead: true,
-                    },
-                ];
             });
     }
 

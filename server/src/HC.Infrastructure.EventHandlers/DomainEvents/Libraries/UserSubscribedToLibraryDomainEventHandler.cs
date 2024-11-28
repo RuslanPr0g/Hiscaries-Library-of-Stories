@@ -39,7 +39,6 @@ public sealed class UserSubscribedToLibraryDomainEventHandler
         {
             return;
         }
-
         library.SubscribeUser();
     }
 }
