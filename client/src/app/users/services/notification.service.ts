@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import { SignalRConnectionFactoryService } from '../../shared/services/statefull/signalr-connection-factory.service';
 import { NotificationHandler } from '../../shared/models/notification-handler.model';
 import { NotificationStateService } from '../../shared/services/statefull/notification-state.service';
+import { take } from 'rxjs';
+import { UserService } from './user.service';
 
 class UserNotificationTypes {
     static readonly StoryPublished = 'StoryPublished';
@@ -19,6 +21,7 @@ export class UserNotificationService {
 
     constructor(
         private authService: AuthService,
+        private userService: UserService,
         private connectionFactory: SignalRConnectionFactoryService,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         private notificationStateService: NotificationStateService<any>
@@ -32,6 +35,8 @@ export class UserNotificationService {
             return;
         }
 
+        this.fetchNotificationsAndSetInState();
+
         this.hubConnection = this.connectionFactory.createSSEConnection(this.hubUrl, token);
 
         this.registerEventListeners();
@@ -42,12 +47,32 @@ export class UserNotificationService {
             .catch((err) => console.error('Error starting SignalR connection:', err));
 
         this.notificationHandlers = handlers;
+
+        this.notificationStateService.notificationMarkedAsRead$.subscribe((notifications) => {
+            this.userService
+                .readNotifications({
+                    NotificationIds: notifications.map((x) => x.Id),
+                })
+                .pipe(take(1))
+                .subscribe(() => {
+                    this.fetchNotificationsAndSetInState();
+                });
+        });
     }
 
     disconnect(): void {
         if (this.hubConnection) {
             this.hubConnection.stop().then(() => console.log('SignalR connection stopped.'));
         }
+    }
+
+    private fetchNotificationsAndSetInState(): void {
+        this.userService
+            .notifications()
+            .pipe(take(1))
+            .subscribe((notifications) => {
+                this.notificationStateService.setNotifications(notifications);
+            });
     }
 
     private registerEventListeners(): void {

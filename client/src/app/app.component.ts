@@ -10,6 +10,7 @@ import { AuthService } from './users/services/auth.service';
 import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 import { NotificationLifecycleManagerService } from './users/services/notification-lifecycle-manager.service';
 import { StoryPublishedHandler } from './users/notification-handlers/story-published-notification.handler';
+import { NotificationStateService } from './shared/services/statefull/notification-state.service';
 
 @Component({
     selector: 'app-root',
@@ -32,10 +33,14 @@ export class AppComponent {
     loading: boolean = true;
     sidebarVisible: boolean = false;
 
+    unreadCount: number = 0;
+
     constructor(
         private router: Router,
         public authService: AuthService,
-        private notificationManagerService: NotificationLifecycleManagerService
+        private notificationManagerService: NotificationLifecycleManagerService,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        private notificationStateService: NotificationStateService<any>
         // TODO: make it work
         // @Inject(NOTIFICATION_HANDLERS) private notificationHandlers: NotificationHandler[]
     ) {}
@@ -57,6 +62,10 @@ export class AppComponent {
 
         this.authService.logoutEvent$.subscribe(() => {
             this.notificationManagerService.stop();
+        });
+
+        this.notificationStateService.unreadCount$.subscribe((count) => {
+            this.unreadCount = count;
         });
     }
 
