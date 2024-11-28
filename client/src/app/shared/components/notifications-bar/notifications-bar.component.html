@@ -1,4 +1,7 @@
-<div class="notifications-bar">
+<div
+    class="notifications-bar"
+    *ngIf="notifications.length > 0"
+>
     <div class="notifications-bar__header">
         <h2>Notifications</h2>
         <button

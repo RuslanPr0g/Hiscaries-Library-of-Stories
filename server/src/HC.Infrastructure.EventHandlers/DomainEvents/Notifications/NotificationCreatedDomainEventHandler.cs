@@ -16,9 +16,11 @@ public sealed class NotificationCreatedDomainEventHandler
 
     public NotificationCreatedDomainEventHandler(
         ILogger<NotificationCreatedDomainEventHandler> logger,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IHubContext<UserNotificationHub> hubContext)
         : base(logger, unitOfWork)
     {
+        _hubContext = hubContext;
     }
 
     protected override async Task HandleEventAsync(NotificationCreatedDomainEvent domainEvent, ConsumeContext<NotificationCreatedDomainEvent> context)
