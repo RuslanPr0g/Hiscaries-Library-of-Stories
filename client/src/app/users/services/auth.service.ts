@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { RegisterUserRequest } from '../models/requests/register-user.model';
 import { UserWithTokenResponse } from '../models/response/user-with-token.model';
@@ -15,6 +15,12 @@ export class AuthService {
     private access_token_local_storage_key: string = environment.localStorageKeys.ACCESS_TOKEN_KEY;
     private refresh_token_local_storage_key: string = environment.localStorageKeys.REFRESH_TOKEN_KEY;
 
+    private loginSubject = new Subject<void>();
+    private logoutSubject = new Subject<void>();
+
+    loginEvent$ = this.loginSubject.asObservable();
+    logoutEvent$ = this.logoutSubject.asObservable();
+
     constructor(
         private http: HttpClient,
         private jwtHelper: JwtHelperService
@@ -25,6 +31,7 @@ export class AuthService {
             tap((tokenData: UserWithTokenResponse) => {
                 localStorage.setItem(this.access_token_local_storage_key, tokenData.Token);
                 localStorage.setItem(this.refresh_token_local_storage_key, tokenData.RefreshToken);
+                this.loginSubject.next();
             })
         );
     }
@@ -34,6 +41,7 @@ export class AuthService {
             tap((tokenData: UserWithTokenResponse) => {
                 localStorage.setItem(this.access_token_local_storage_key, tokenData.Token);
                 localStorage.setItem(this.refresh_token_local_storage_key, tokenData.RefreshToken);
+                this.loginSubject.next();
             })
         );
     }
@@ -41,6 +49,7 @@ export class AuthService {
     logOut(): void {
         localStorage.removeItem(this.access_token_local_storage_key);
         localStorage.removeItem(this.refresh_token_local_storage_key);
+        this.logoutSubject.next();
     }
 
     getToken(): string | null {

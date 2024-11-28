@@ -2,7 +2,7 @@
 <main>
     <div
         class="left-panel"
-        *ngIf="userService.isAuthenticated()"
+        *ngIf="authService.isAuthenticated()"
     >
         <p-sidebar [(visible)]="sidebarVisible">
             <app-header (commandExecuted)="sidebarVisible = false"></app-header>

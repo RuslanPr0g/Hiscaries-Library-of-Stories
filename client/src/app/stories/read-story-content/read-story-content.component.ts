@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
-import { IteratorService } from '../../shared/services/iterator.service';
+import { IteratorService } from '../../shared/services/statefull/iterator.service';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 

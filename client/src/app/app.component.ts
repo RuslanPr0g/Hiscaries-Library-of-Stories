@@ -8,6 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
 import { AuthService } from './users/services/auth.service';
 import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
+import { NotificationLifecycleManagerService } from './users/services/notification-lifecycle-manager.service';
+import { StoryPublishedHandler } from './users/notification-handlers/story-published-notification.handler';
 
 @Component({
     selector: 'app-root',
@@ -32,13 +34,30 @@ export class AppComponent {
 
     constructor(
         private router: Router,
-        public userService: AuthService
+        public authService: AuthService,
+        private notificationManagerService: NotificationLifecycleManagerService
+        // TODO: make it work
+        // @Inject(NOTIFICATION_HANDLERS) private notificationHandlers: NotificationHandler[]
     ) {}
 
     ngOnInit() {
         setTimeout(() => {
             this.fadeOutLoading();
+
+            if (this.authService.isAuthenticated()) {
+                // TODO: fix DI
+                this.notificationManagerService.initialize([new StoryPublishedHandler()]);
+            }
         }, 1501);
+
+        this.authService.loginEvent$.subscribe(() => {
+            // TODO: fix DI
+            this.notificationManagerService.initialize([new StoryPublishedHandler()]);
+        });
+
+        this.authService.logoutEvent$.subscribe(() => {
+            this.notificationManagerService.stop();
+        });
     }
 
     fadeOutLoading() {
