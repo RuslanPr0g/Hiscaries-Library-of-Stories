@@ -10,6 +10,7 @@ public class StoryConfigurations : IEntityTypeConfiguration<Story>
 {
     public void Configure(EntityTypeBuilder<Story> builder)
     {
+        builder.ToTable("Stories");
         builder.ConfigureEntity<Story, StoryId, StoryIdentityConverter>();
         builder.Property(c => c.LibraryId).HasConversion(new LibraryIdentityConverter());
 

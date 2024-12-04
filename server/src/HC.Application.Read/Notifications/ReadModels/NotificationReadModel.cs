@@ -9,6 +9,8 @@ public class NotificationReadModel
     public string Message { get; set; }
     public bool IsRead { get; set; }
     public string Type { get; set; }
+    public Guid? RelatedObjectId { get; set; }
+    public string? PreviewUrl { get; set; }
 
     public static NotificationReadModel FromDomainModel(Notification notification)
     {
@@ -19,6 +21,8 @@ public class NotificationReadModel
             Message = notification.Message,
             IsRead = notification.IsRead,
             Type = notification.Type,
+            RelatedObjectId = notification.RelatedObjectId,
+            PreviewUrl = notification.PreviewUrl
         };
     }
 }

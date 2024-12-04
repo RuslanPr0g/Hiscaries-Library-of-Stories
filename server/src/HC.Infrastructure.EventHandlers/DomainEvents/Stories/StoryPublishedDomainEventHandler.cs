@@ -41,7 +41,12 @@ public sealed class StoryPublishedDomainEventHandler
         foreach (var userId in userIds)
         {
             var notificationId = _idGenerator.Generate((val) => new NotificationId(val));
-            var notification = Notification.CreateStoryPublishedNotification(notificationId, userId, domainEvent.Title);
+            var notification = Notification.CreateStoryPublishedNotification(
+                notificationId,
+                userId,
+                domainEvent.Title,
+                domainEvent.StoryId,
+                domainEvent.PreviewUrl);
             await _notificationRepository.Add(notification);
         }
     }

@@ -10,6 +10,7 @@ public class UserAccountConfigurations : IEntityTypeConfiguration<UserAccount>
 {
     public void Configure(EntityTypeBuilder<UserAccount> builder)
     {
+        builder.ToTable("UserAccounts");
         builder.ConfigureEntity<UserAccount, UserAccountId, UserAccountIdentityConverter>();
         builder.Property(c => c.RefreshTokenId).HasConversion(new RefreshTokenIdentityConverter());
 

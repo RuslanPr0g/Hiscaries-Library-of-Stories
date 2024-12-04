@@ -31,7 +31,7 @@ public sealed class Story : AggregateRoot<StoryId>
 
         ImagePreviewUrl = imagePreviewUrl;
 
-        PublishEvent(new StoryPublishedDomainEvent(LibraryId, Id, Title));
+        PublishEvent(new StoryPublishedDomainEvent(LibraryId, Id, Title, imagePreviewUrl));
     }
 
     public static Story Create(

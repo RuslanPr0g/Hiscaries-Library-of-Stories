@@ -1,5 +1,7 @@
 ﻿using HC.Domain.Notifications.Events;
+using HC.Domain.Stories;
 using HC.Domain.UserAccounts;
+using System;
 
 namespace HC.Domain.Notifications;
 
@@ -12,11 +14,15 @@ public sealed class Notification : AggregateRoot<NotificationId>
         NotificationId id,
         UserAccountId userId,
         string message,
-        string type) : base(id)
+        string type,
+        Guid? refId = null,
+        string? previewUrl = null) : base(id)
     {
         UserId = userId;
         Message = message;
         Type = type;
+        RelatedObjectId = refId;
+        PreviewUrl = previewUrl;
 
         IsRead = false;
 
@@ -26,15 +32,25 @@ public sealed class Notification : AggregateRoot<NotificationId>
     public static Notification CreateStoryPublishedNotification(
         NotificationId id,
         UserAccountId userId,
-        string storyTitle)
+        string storyTitle,
+        StoryId storyId,
+        string? previewUrl)
     {
-        return new Notification(id, userId, $"Story was published: {storyTitle}", "StoryPublished");
+        return new Notification(
+            id,
+            userId,
+            $"{storyTitle}",
+            "StoryPublished",
+            storyId,
+            previewUrl);
     }
 
     public UserAccountId UserId { get; }
     public string Message { get; }
     public bool IsRead { get; private set; }
     public string Type { get; }
+    public Guid? RelatedObjectId { get; }
+    public string? PreviewUrl { get; }
 
     public void Read()
     {
@@ -43,7 +59,7 @@ public sealed class Notification : AggregateRoot<NotificationId>
 
     private void PublishNotificationCreatedEvent()
     {
-        PublishEvent(new NotificationCreatedDomainEvent(UserId, Type, Message));
+        PublishEvent(new NotificationCreatedDomainEvent(Id, UserId, Type, Message));
     }
 
     private Notification()

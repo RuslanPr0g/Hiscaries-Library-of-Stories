@@ -10,6 +10,7 @@ public class UserReadHistoryConfigurations : IEntityTypeConfiguration<ReadingHis
 {
     public void Configure(EntityTypeBuilder<ReadingHistory> builder)
     {
+        builder.ToTable("ReadingHistories");
         builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.StoryId, sp.PlatformUserId });
         builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());

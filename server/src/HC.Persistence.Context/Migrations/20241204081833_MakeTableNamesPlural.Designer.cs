@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HC.Persistence.Context.Migrations
 {
     [DbContext(typeof(HiscaryContext))]
-    partial class HiscaryContextModelSnapshot : ModelSnapshot
+    [Migration("20241204081833_MakeTableNamesPlural")]
+    partial class MakeTableNamesPlural
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,12 +117,6 @@ namespace HC.Persistence.Context.Migrations
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("PreviewUrl")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("RelatedObjectId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Type")
                         .IsRequired()

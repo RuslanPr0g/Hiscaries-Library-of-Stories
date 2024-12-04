@@ -1,4 +1,5 @@
 ﻿using HC.Application.Common.EventHandlers;
+using HC.Application.Read.Notifications.DataAccess;
 using HC.Application.Write.DataAccess;
 using HC.Domain.Notifications.Events;
 using HC.Infrastructure.SignalR.Hubs;
@@ -13,18 +14,26 @@ public sealed class NotificationCreatedDomainEventHandler
     : DomainEventHandler<NotificationCreatedDomainEvent>
 {
     private readonly IHubContext<UserNotificationHub> _hubContext;
+    private readonly INotificationReadRepository _repo;
 
     public NotificationCreatedDomainEventHandler(
         ILogger<NotificationCreatedDomainEventHandler> logger,
         IUnitOfWork unitOfWork,
-        IHubContext<UserNotificationHub> hubContext)
+        IHubContext<UserNotificationHub> hubContext,
+        INotificationReadRepository repo)
         : base(logger, unitOfWork)
     {
         _hubContext = hubContext;
+        _repo = repo;
     }
 
     protected override async Task HandleEventAsync(NotificationCreatedDomainEvent domainEvent, ConsumeContext<NotificationCreatedDomainEvent> context)
     {
-        await _hubContext.Clients.User(domainEvent.UserId.ToString()).SendAsync(domainEvent.Type, domainEvent.Message);
+        var notification = await _repo.GetById(domainEvent.Id);
+
+        if (notification is not null)
+        {
+            await _hubContext.Clients.User(domainEvent.UserId.ToString()).SendAsync(domainEvent.Type, notification);
+        }
     }
 }

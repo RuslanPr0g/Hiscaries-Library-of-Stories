@@ -4,4 +4,6 @@ export interface NotificationModel {
     Message: string;
     IsRead: boolean;
     Type: string;
+    RelatedObjectId?: string;
+    PreviewUrl?: string;
 }

@@ -24,7 +24,7 @@ public sealed class UserNotificationHub : Hub
 
             foreach (var notification in missedNotifications)
             {
-                await Clients.Caller.SendAsync(notification.Type, notification.Message);
+                await Clients.Caller.SendAsync(notification.Type, notification);
             }
 
             await base.OnConnectedAsync();
