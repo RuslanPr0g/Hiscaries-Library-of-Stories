@@ -1,5 +1,6 @@
 ﻿using HC.Application.Read.Notifications.DataAccess;
 using HC.Application.Read.Notifications.ReadModels;
+using HC.Domain.Notifications;
 using HC.Domain.UserAccounts;
 using HC.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,20 @@ public class EFNotificationReadRepository : INotificationReadRepository
     public EFNotificationReadRepository(HiscaryContext context)
     {
         _context = context;
+    }
+
+    public async Task<NotificationReadModel?> GetById(NotificationId id)
+    {
+        var result = await _context.Notifications
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (result is null)
+        {
+            return null;
+        }
+
+        return NotificationReadModel.FromDomainModel(result);
     }
 
     public async Task<IEnumerable<NotificationReadModel>> GetMissedNotificationsByUserId(UserAccountId userId) =>

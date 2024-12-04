@@ -1,6 +1,6 @@
 ﻿using HC.Application.Common.EventHandlers;
+using HC.Application.Read.Notifications.DataAccess;
 using HC.Application.Write.DataAccess;
-using HC.Application.Write.Notifications.DataAccess;
 using HC.Domain.Notifications.Events;
 using HC.Infrastructure.SignalR.Hubs;
 using MassTransit;
@@ -14,13 +14,13 @@ public sealed class NotificationCreatedDomainEventHandler
     : DomainEventHandler<NotificationCreatedDomainEvent>
 {
     private readonly IHubContext<UserNotificationHub> _hubContext;
-    private readonly INotificationWriteRepository _repo;
+    private readonly INotificationReadRepository _repo;
 
     public NotificationCreatedDomainEventHandler(
         ILogger<NotificationCreatedDomainEventHandler> logger,
         IUnitOfWork unitOfWork,
         IHubContext<UserNotificationHub> hubContext,
-        INotificationWriteRepository repo)
+        INotificationReadRepository repo)
         : base(logger, unitOfWork)
     {
         _hubContext = hubContext;
