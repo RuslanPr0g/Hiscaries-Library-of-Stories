@@ -10,6 +10,7 @@ public class ReviewConfigurations : IEntityTypeConfiguration<Review>
 {
     public void Configure(EntityTypeBuilder<Review> builder)
     {
+        builder.ToTable("Reviews");
         builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.LibraryId, sp.PlatformUserId });
         builder.Property(c => c.LibraryId).HasConversion(new LibraryIdentityConverter());

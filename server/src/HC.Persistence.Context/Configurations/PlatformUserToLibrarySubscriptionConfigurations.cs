@@ -10,6 +10,7 @@ public class PlatformUserToLibrarySubscriptionConfigurations : IEntityTypeConfig
 {
     public void Configure(EntityTypeBuilder<PlatformUserToLibrarySubscription> builder)
     {
+        builder.ToTable("PlatformUserToLibrarySubscription");
         builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.LibraryId, sp.PlatformUserId });
         builder.Property(c => c.LibraryId).HasConversion(new LibraryIdentityConverter());

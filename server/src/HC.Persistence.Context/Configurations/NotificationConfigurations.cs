@@ -10,6 +10,7 @@ public class NotificationConfigurations : IEntityTypeConfiguration<Notification>
 {
     public void Configure(EntityTypeBuilder<Notification> builder)
     {
+        builder.ToTable("Notifications");
         builder.ConfigureEntity<Notification, NotificationId, NotificationIdentityConverter>();
         builder.Property(c => c.UserId).HasConversion(new UserAccountIdentityConverter());
         builder.Property(c => c.Type).IsRequired();
