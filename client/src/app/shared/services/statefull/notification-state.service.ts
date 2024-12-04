@@ -16,6 +16,11 @@ export class NotificationStateService<T extends NotificationModel> {
 
     addNotification(notification: T): void {
         const currentNotifications = this.notifications.value;
+
+        if (currentNotifications.some((x) => x.Id === notification.Id)) {
+            return;
+        }
+
         this.notifications.next([notification, ...currentNotifications]);
 
         const currentUnreadCount = this.unreadNotificationsCount.value;

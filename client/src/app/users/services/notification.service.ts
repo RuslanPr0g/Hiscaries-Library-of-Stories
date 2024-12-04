@@ -105,6 +105,12 @@ export class UserNotificationService {
     private dispatchNotification<T>(eventType: string, payload: T): void {
         this.notificationHandlers.forEach((handler) => handler.handleNotification(eventType, payload));
 
-        this.notificationStateService.addNotification({ eventType, payload });
+        const convertToPascalCase = (obj: T) =>
+            Object.fromEntries(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                Object.entries(obj as any).map(([key, value]) => [key.replace(/^\w/, (c) => c.toUpperCase()), value])
+            );
+
+        this.notificationStateService.addNotification(convertToPascalCase(payload));
     }
 }
