@@ -1,5 +1,6 @@
 ﻿using HC.Domain.Notifications.Events;
 using HC.Domain.UserAccounts;
+using System;
 
 namespace HC.Domain.Notifications;
 
@@ -35,6 +36,8 @@ public sealed class Notification : AggregateRoot<NotificationId>
     public string Message { get; }
     public bool IsRead { get; private set; }
     public string Type { get; }
+    public Guid? RelatedObjectId { get; }
+    public string? PreviewUrl { get; }
 
     public void Read()
     {
