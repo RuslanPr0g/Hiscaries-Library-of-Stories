@@ -15,11 +15,12 @@
         <li
             *ngFor="let notification of notifications"
             [class.unread]="!notification.IsRead"
+            [class.pointer]="notification.RelatedObjectId"
             (onClick)="clickNotification(notification)"
         >
             <div class="notification-content">
                 <p class="notification-message">
-                    {{ notification.Message }} + {{ notification.RelatedObjectId ?? 'NO story id linked' }}
+                    {{ notification.Message }}
                 </p>
                 <img
                     *ngIf="notification.PreviewUrl"
