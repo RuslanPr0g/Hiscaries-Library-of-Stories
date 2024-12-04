@@ -16,7 +16,7 @@
             *ngFor="let notification of notifications"
             [class.unread]="!notification.IsRead"
             [class.pointer]="notification.RelatedObjectId"
-            (onClick)="clickNotification(notification)"
+            (click)="clickNotification(notification)"
         >
             <div class="notification-content">
                 <p class="notification-message">
