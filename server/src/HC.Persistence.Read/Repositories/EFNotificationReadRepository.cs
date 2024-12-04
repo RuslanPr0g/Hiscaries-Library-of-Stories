@@ -19,7 +19,7 @@ public class EFNotificationReadRepository : INotificationReadRepository
         await _context.Notifications
             .AsNoTracking()
             .Where(x => x.UserId == userId && x.IsRead == false)
-            .OrderBy(x => x.CreatedAt)
+            .OrderByDescending(x => x.CreatedAt)
             .Select(user => NotificationReadModel.FromDomainModel(user))
             .ToListAsync();
 
@@ -27,7 +27,7 @@ public class EFNotificationReadRepository : INotificationReadRepository
         await _context.Notifications
             .AsNoTracking()
             .Where(x => x.UserId == userId)
-            .OrderBy(x => x.CreatedAt)
+            .OrderByDescending(x => x.CreatedAt)
             .Select(user => NotificationReadModel.FromDomainModel(user))
             .ToListAsync();
 }
