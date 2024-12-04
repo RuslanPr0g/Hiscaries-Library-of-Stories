@@ -16,5 +16,7 @@ public class NotificationConfigurations : IEntityTypeConfiguration<Notification>
         builder.Property(c => c.Type).IsRequired();
         builder.Property(c => c.Message).IsRequired();
         builder.Property(c => c.IsRead).IsRequired();
+        builder.Property(c => c.RelatedObjectId);
+        builder.Property(c => c.PreviewUrl);
     }
 }
