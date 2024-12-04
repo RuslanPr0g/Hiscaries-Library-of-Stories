@@ -17,8 +17,6 @@ export class NotificationStateService {
     addNotification(notification: NotificationModel): void {
         const currentNotifications = this.notifications.value;
 
-        console.warn(notification);
-
         if (currentNotifications.some((x) => x.Id === notification.Id)) {
             return;
         }
