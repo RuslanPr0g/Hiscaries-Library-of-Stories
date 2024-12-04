@@ -11,6 +11,13 @@ $hover-background: #45475a;
 $text-color: #ffffff;
 $subtext-color: #cdd6f4;
 
+.notification-image {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 .notifications-bar {
     // position: absolute;
     // left: 0;
@@ -63,12 +70,16 @@ $subtext-color: #cdd6f4;
             }
 
             .notification-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
                 flex-grow: 1;
 
                 .notification-message {
                     font-size: 1rem;
                     margin: 0;
                     color: $text-color;
+                    max-width: 85%;
                 }
 
                 .notification-type {

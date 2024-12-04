@@ -26,14 +26,8 @@
                     *ngIf="notification.PreviewUrl"
                     [src]="notification.PreviewUrl"
                     alt="{{ notification.Message }}"
-                    class="story-image"
+                    class="notification-image"
                 />
-            </div>
-            <div
-                class="mark-read-btn"
-                *ngIf="!notification.IsRead"
-            >
-                Unread
             </div>
         </li>
     </ul>
