@@ -15,9 +15,18 @@
         <li
             *ngFor="let notification of notifications"
             [class.unread]="!notification.IsRead"
+            (onClick)="clickNotification(notification)"
         >
             <div class="notification-content">
-                <p class="notification-message">{{ notification.Message }}</p>
+                <p class="notification-message">
+                    {{ notification.Message }} + {{ notification.RelatedObjectId ?? 'NO story id linked' }}
+                </p>
+                <img
+                    *ngIf="notification.PreviewUrl"
+                    [src]="notification.PreviewUrl"
+                    alt="{{ notification.Message }}"
+                    class="story-image"
+                />
             </div>
             <div
                 class="mark-read-btn"

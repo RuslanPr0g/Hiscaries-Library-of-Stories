@@ -39,8 +39,7 @@ export class AppComponent {
         private router: Router,
         public authService: AuthService,
         private notificationManagerService: NotificationLifecycleManagerService,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        private notificationStateService: NotificationStateService<any>
+        private notificationStateService: NotificationStateService
         // TODO: make it work
         // @Inject(NOTIFICATION_HANDLERS) private notificationHandlers: NotificationHandler[]
     ) {}

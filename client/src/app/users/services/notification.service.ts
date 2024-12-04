@@ -6,10 +6,8 @@ import { NotificationHandler } from '../../shared/models/notification-handler.mo
 import { NotificationStateService } from '../../shared/services/statefull/notification-state.service';
 import { take } from 'rxjs';
 import { UserService } from './user.service';
-
-class UserNotificationTypes {
-    static readonly StoryPublished = 'StoryPublished';
-}
+import { NotificationModel } from '../../shared/models/notification.model';
+import { UserNotificationTypes } from '../../shared/constants/notification-type.const';
 
 @Injectable({
     providedIn: 'root',
@@ -25,8 +23,7 @@ export class UserNotificationService {
         private authService: AuthService,
         private userService: UserService,
         private connectionFactory: SignalRConnectionFactoryService,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        private notificationStateService: NotificationStateService<any>
+        private notificationStateService: NotificationStateService
     ) {}
 
     initialize(handlers: NotificationHandler[]): void {
@@ -102,13 +99,13 @@ export class UserNotificationService {
         );
     }
 
-    private dispatchNotification<T>(eventType: string, payload: T): void {
+    private dispatchNotification(eventType: string, payload: NotificationModel): void {
         this.notificationHandlers.forEach((handler) => handler.handleNotification(eventType, payload));
 
-        const convertToPascalCase = (obj: T) =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const convertToPascalCase = (obj: any): any =>
             Object.fromEntries(
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                Object.entries(obj as any).map(([key, value]) => [key.replace(/^\w/, (c) => c.toUpperCase()), value])
+                Object.entries(obj).map(([key, value]) => [key.replace(/^\w/, (c) => c.toUpperCase()), value])
             );
 
         this.notificationStateService.addNotification(convertToPascalCase(payload));
