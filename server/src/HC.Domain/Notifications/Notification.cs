@@ -59,7 +59,7 @@ public sealed class Notification : AggregateRoot<NotificationId>
 
     private void PublishNotificationCreatedEvent()
     {
-        PublishEvent(new NotificationCreatedDomainEvent(UserId, Type, Message));
+        PublishEvent(new NotificationCreatedDomainEvent(Id, UserId, Type, Message));
     }
 
     private Notification()
