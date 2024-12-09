@@ -1,71 +1,70 @@
 {
-  "name": "hiscaries-client",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "prepare": "cd .. && husky install client/.husky",
-    "lintall": "npx eslint . --ignore-pattern \".angular/*\"",
-    "lint": "ng lint",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
-    "build": "ng build --prod"
-  },
-  "private": true,
-  "dependencies": {
-    "@angular/animations": "^18.1.0",
-    "@angular/cdk": "^18.2.8",
-    "@angular/common": "^18.1.0",
-    "@angular/compiler": "^18.1.0",
-    "@angular/core": "^18.1.0",
-    "@angular/forms": "^18.1.0",
-    "@angular/platform-browser": "^18.1.0",
-    "@angular/platform-browser-dynamic": "^18.1.0",
-    "@angular/router": "^18.1.0",
-    "@auth0/angular-jwt": "^5.2.0",
-    "@microsoft/signalr": "^8.0.7",
-    "@ngrx/store": "^18.0.2",
-    "husky-init": "^8.0.0",
-    "prettier": "^3.3.3",
-    "primeicons": "^7.0.0",
-    "primeng": "^17.18.11",
-    "quill": "^2.0.2",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^18.1.2",
-    "@angular/cli": "^18.1.2",
-    "@angular/compiler-cli": "^18.1.0",
-    "@eslint/js": "^9.13.0",
-    "@types/jasmine": "~5.1.0",
-    "angular-eslint": "19.0.0",
-    "eslint": "^9.15.0",
-    "globals": "^15.11.0",
-    "husky": "^8.0.3",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "lint-staged": "^15.2.10",
-    "typescript": "~5.5.2",
-    "typescript-eslint": "8.16.0"
-  },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "eslint --fix --ignore-pattern \".angular/*\"",
-      "prettier --write"
-    ],
-    "*.scss": [
-      "prettier --write"
-    ],
-    "*.html": [
-      "prettier --write"
-    ]
-  }
+    "name": "hiscaries-client",
+    "version": "0.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve --proxy-config proxy.conf.json",
+        "watch": "ng build --watch --configuration development",
+        "test": "ng test",
+        "prepare": "cd .. && husky install client/.husky",
+        "lintall": "npx eslint . --ignore-pattern \".angular/*\"",
+        "lint": "ng lint",
+        "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+        "build": "ng build --prod"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "^18.1.0",
+        "@angular/cdk": "^18.2.8",
+        "@angular/common": "^18.1.0",
+        "@angular/compiler": "^18.1.0",
+        "@angular/core": "^18.1.0",
+        "@angular/forms": "^18.1.0",
+        "@angular/platform-browser": "^18.1.0",
+        "@angular/platform-browser-dynamic": "^18.1.0",
+        "@angular/router": "^18.1.0",
+        "@auth0/angular-jwt": "^5.2.0",
+        "@microsoft/signalr": "^8.0.7",
+        "@ngrx/store": "^18.0.2",
+        "husky-init": "^8.0.0",
+        "prettier": "^3.3.3",
+        "primeicons": "^7.0.0",
+        "primeng": "^17.18.11",
+        "quill": "^2.0.2",
+        "rxjs": "~7.8.0",
+        "tslib": "^2.3.0",
+        "zone.js": "~0.14.3"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "^18.1.2",
+        "@angular/cli": "^18.1.2",
+        "@angular/compiler-cli": "^18.1.0",
+        "@eslint/js": "^9.13.0",
+        "@types/jasmine": "~5.1.0",
+        "angular-eslint": "19.0.0",
+        "eslint": "^9.15.0",
+        "globals": "^15.11.0",
+        "husky": "^8.0.3",
+        "jasmine-core": "~5.1.0",
+        "karma": "~6.4.0",
+        "karma-chrome-launcher": "~3.2.0",
+        "karma-coverage": "~2.2.0",
+        "karma-jasmine": "~5.1.0",
+        "karma-jasmine-html-reporter": "~2.1.0",
+        "lint-staged": "^15.2.10",
+        "typescript": "~5.5.2",
+        "typescript-eslint": "8.16.0"
+    },
+    "lint-staged": {
+        "*.{ts,js}": [
+            "eslint --fix --ignore-pattern \".angular/*\"",
+            "prettier --write"
+        ],
+        "*.scss": [
+            "prettier --write"
+        ],
+        "*.html": [
+            "prettier --write"
+        ]
+    }
 }
