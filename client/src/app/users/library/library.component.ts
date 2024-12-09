@@ -23,20 +23,20 @@ import { LibraryGeneralEditComponent } from './library-general-edit/library-gene
 export class LibraryComponent {
     @Input() library: LibraryModel;
     @Input() stories: StoryModel[];
-    @Input() isLoading: boolean = false;
-    @Input() isAbleToEdit: boolean = false;
+    @Input() isLoading = false;
+    @Input() isAbleToEdit = false;
 
-    @Input() isAbleToSubscribe: boolean = false;
-    @Input() isSubscribed: boolean = false;
+    @Input() isAbleToSubscribe = false;
+    @Input() isSubscribed = false;
 
-    @Input() isSubscribeLoading: boolean = false;
+    @Input() isSubscribeLoading = false;
 
     @Output() libraryEdited = new EventEmitter<LibraryModel>();
 
     @Output() subscribed = new EventEmitter<void>();
     @Output() unSubscribed = new EventEmitter<void>();
 
-    isEditMode: boolean = false;
+    isEditMode = false;
 
     startEdit(): void {
         this.isEditMode = true;

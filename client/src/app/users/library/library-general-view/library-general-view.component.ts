@@ -13,12 +13,12 @@ import { FormButtonComponent } from '../../../shared/components/form-button/form
 })
 export class LibraryGeneralViewComponent {
     @Input() library: LibraryModel;
-    @Input() isAbleToEdit: boolean = false;
+    @Input() isAbleToEdit = false;
 
-    @Input() isAbleToSubscribe: boolean = false;
-    @Input() isSubscribed: boolean = false;
+    @Input() isAbleToSubscribe = false;
+    @Input() isSubscribed = false;
 
-    @Input() isSubscribeLoading: boolean = false;
+    @Input() isSubscribeLoading = false;
 
     @Output() editStarted = new EventEmitter<void>();
 

@@ -14,8 +14,8 @@ import { SkeletonOrStoryContentComponent } from '../load-story-or-content/skelet
 })
 export class SearchStoryResultsComponent implements OnInit {
     @Input() stories: StoryModel[] = [];
-    @Input() isLoading: boolean = true;
-    @Input() isCarousel: boolean = false;
+    @Input() isLoading = true;
+    @Input() isCarousel = false;
 
     responsiveOptions: CarouselResponsiveOptions[] | undefined;
 

@@ -22,10 +22,10 @@ export class FormButtonComponent {
         | 'contrast'
         | null
         | undefined = null;
-    @Input() disabled: boolean = false;
-    @Output() onClick = new EventEmitter<void>();
+    @Input() disabled = false;
+    @Output() clicked = new EventEmitter<void>();
 
     handleClick() {
-        this.onClick.emit();
+        this.clicked.emit();
     }
 }

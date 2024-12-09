@@ -38,17 +38,17 @@
         <app-form-button
             label="See library"
             severity="warning"
-            (onClick)="navigateToLibrary()"
+            (clicked)="navigateToLibrary()"
         ></app-form-button>
         <app-form-button
             label="Read"
-            (onClick)="readStory()"
+            (clicked)="readStory()"
         ></app-form-button>
         <app-form-button
             *ngIf="isEditable"
             label="Modify"
             severity="warning"
-            (onClick)="modifyStory()"
+            (clicked)="modifyStory()"
         ></app-form-button>
     </div>
 </div>

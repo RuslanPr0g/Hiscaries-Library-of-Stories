@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     providedIn: 'root',
 })
 export class AuthService {
-    private apiUrl: string = `${environment.apiUrl}/accounts`;
+    private apiUrl = `${environment.apiUrl}/accounts`;
     private access_token_local_storage_key: string = environment.localStorageKeys.ACCESS_TOKEN_KEY;
     private refresh_token_local_storage_key: string = environment.localStorageKeys.REFRESH_TOKEN_KEY;
 

@@ -11,6 +11,6 @@ import { TemplateMessageModel } from '../models/template-message.model';
     styleUrl: './skeleton-or-story-content.component.scss',
 })
 export class SkeletonOrStoryContentComponent {
-    @Input() dataLoaded: boolean = false;
+    @Input() dataLoaded = false;
     @Input() errorMessage?: TemplateMessageModel | null;
 }

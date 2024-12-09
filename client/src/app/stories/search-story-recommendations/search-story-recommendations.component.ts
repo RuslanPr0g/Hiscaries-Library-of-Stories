@@ -18,9 +18,9 @@ import { SearchStoryResultsComponent } from '../search-story-results/search-stor
 export class SearchStoryRecommendationsComponent implements OnInit {
     private _stories: StoryModel[] = [];
     private readonly _chunkSize: number = 6;
-    private _isCooldown: boolean = false;
+    private _isCooldown = false;
 
-    isLoading: boolean = false;
+    isLoading = false;
 
     constructor(private storyService: StoryService) {}
 
@@ -62,7 +62,7 @@ export class SearchStoryRecommendationsComponent implements OnInit {
         // window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    private fetchRecommendations(shouldSetLoading: boolean = true): void {
+    private fetchRecommendations(shouldSetLoading = true): void {
         this.isLoading = shouldSetLoading;
 
         this.storyService

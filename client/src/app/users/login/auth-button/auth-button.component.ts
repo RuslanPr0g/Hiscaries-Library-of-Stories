@@ -10,8 +10,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrls: ['./auth-button.component.scss'],
 })
 export class AuthButtonComponent {
-    @Input() type: string = 'button';
-    @Input() disabled: boolean = false;
+    @Input() type = 'button';
+    @Input() disabled = false;
 
     @Output() clicked = new EventEmitter<void>();
 

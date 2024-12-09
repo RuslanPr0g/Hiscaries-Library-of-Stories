@@ -44,7 +44,7 @@ import { AuthService } from '../../users/services/auth.service';
 export class PublishStoryComponent implements OnInit {
     publishForm: FormGroup<PublishFormModel>;
     genres: GenreModel[] = [];
-    submitted: boolean = false;
+    submitted = false;
     globalError: string | null = null;
 
     constructor(

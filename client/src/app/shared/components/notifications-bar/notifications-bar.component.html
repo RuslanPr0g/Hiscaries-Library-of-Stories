@@ -17,6 +17,8 @@
             [class.unread]="!notification.IsRead"
             [class.pointer]="notification.RelatedObjectId"
             (click)="clickNotification(notification)"
+            (keydown)="clickNotification(notification)"
+            tabindex="0"
         >
             <div class="notification-content">
                 <p class="notification-message">

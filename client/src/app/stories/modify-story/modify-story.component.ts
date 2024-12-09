@@ -50,11 +50,11 @@ export class ModifyStoryComponent implements OnInit {
 
     modifyForm: FormGroup<ModifyStoryFormModel>;
     genres: GenreModel[] = [];
-    submitted: boolean = false;
+    submitted = false;
     globalError: string | null = null;
 
     story: StoryModelWithContents | null = null;
-    storyNotFound: boolean = false;
+    storyNotFound = false;
 
     constructor(
         private route: ActivatedRoute,

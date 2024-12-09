@@ -15,11 +15,11 @@ export class UploadFileControlComponent {
     @ViewChild('fileUpload') fileUpload!: FileUpload;
 
     @Input() control: AbstractControl<string | null, string | null> | null;
-    @Input() centered: boolean = false;
+    @Input() centered = false;
 
-    requiredErrorMessage: string = 'Image is required.';
+    requiredErrorMessage = 'Image is required.';
 
-    maxFileSize: number = 1048576;
+    maxFileSize = 1048576;
 
     get hasImageSelected(): boolean {
         return !!this.control?.value;

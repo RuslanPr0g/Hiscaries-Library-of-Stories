@@ -19,7 +19,7 @@ export class PreviewStoryComponent implements OnInit {
     private storyId: string | null = null;
 
     story: StoryModel | null = null;
-    storyNotFound: boolean = false;
+    storyNotFound = false;
 
     constructor(
         private route: ActivatedRoute,

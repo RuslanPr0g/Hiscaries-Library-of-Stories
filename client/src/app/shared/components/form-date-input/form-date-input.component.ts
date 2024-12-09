@@ -16,5 +16,5 @@ export class FormDateInputComponent {
     @Input() controlName!: string;
     @Input() label!: string;
     @Input() errorMessage!: string;
-    @Input() centered: boolean = false;
+    @Input() centered = false;
 }

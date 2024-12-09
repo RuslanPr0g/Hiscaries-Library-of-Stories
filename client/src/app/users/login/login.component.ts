@@ -22,12 +22,12 @@ export interface ApiError {
 export class LoginComponent implements OnInit {
     formlogin: FormGroup;
     formregister: FormGroup;
-    isLoginState: boolean = true;
+    isLoginState = true;
     errorMessage: string | null;
 
     username: string;
 
-    submitted: boolean = false;
+    submitted = false;
 
     constructor(
         private service: AuthService,

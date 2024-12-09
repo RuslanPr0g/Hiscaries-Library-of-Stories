@@ -26,7 +26,7 @@ export class SearchInputComponent implements AfterViewInit {
 
     @Output() searchAction = new EventEmitter<string>();
 
-    isHighlighted: boolean = true;
+    isHighlighted = true;
 
     constructor() {
         setTimeout(() => (this.isHighlighted = false), 15000);

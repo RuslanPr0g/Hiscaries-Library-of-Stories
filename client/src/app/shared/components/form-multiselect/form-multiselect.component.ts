@@ -15,10 +15,10 @@ import { BaseOptionModel } from '../../models/base-option.model';
 export class FormMultiselectComponent {
     @Input() formGroup!: FormGroup;
     @Input() controlName!: string;
-    @Input() centered: boolean = false;
+    @Input() centered = false;
     @Input() items: BaseOptionModel[] = [];
 
-    errorMessage: string = 'At least one item should be selected from the list.';
+    errorMessage = 'At least one item should be selected from the list.';
 
     get placeholder(): string {
         return `Select ${this.controlName}`;

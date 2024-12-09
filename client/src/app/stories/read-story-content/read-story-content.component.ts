@@ -22,9 +22,9 @@ export class ReadStoryContentComponent implements OnInit {
 
     globalError: string | null = null;
     story: StoryModelWithContents | null = null;
-    storyNotFound: boolean = false;
+    storyNotFound = false;
 
-    maximized: boolean = false;
+    maximized = false;
 
     constructor(
         private route: ActivatedRoute,

@@ -10,6 +10,4 @@ import { SearchStoryResumeReadingComponent } from '../../stories/search-story-re
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-    constructor() {}
-}
+export class HomeComponent {}

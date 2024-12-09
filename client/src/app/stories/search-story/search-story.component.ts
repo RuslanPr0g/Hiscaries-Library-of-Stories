@@ -24,7 +24,7 @@ export class SearchStoryComponent implements OnInit {
     stories: StoryModel[] = [];
     errorMessage: TemplateMessageModel | null;
 
-    isLoading: boolean = false;
+    isLoading = false;
 
     constructor(
         private store: Store<StoryStateModel>,

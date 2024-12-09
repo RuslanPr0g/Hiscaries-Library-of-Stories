@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, forwardRef, Input, Provider } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -16,7 +17,7 @@ export const CUSTOM_CONROL_VALUE_ACCESSOR: Provider = {
 })
 export class AuthInputComponent implements ControlValueAccessor {
     @Input({ required: true }) formControlName?: string;
-    @Input() type: string = 'text';
+    @Input() type = 'text';
     @Input() placeholder?: string;
     value: string;
 

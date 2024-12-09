@@ -11,5 +11,5 @@ import { DestroyService } from '../../services/destroy.service';
     providers: [DestroyService],
 })
 export class ProgressBarComponent {
-    @Input() percentage: number = 0;
+    @Input() percentage = 0;
 }

@@ -19,7 +19,7 @@ export class LibraryGeneralEditComponent implements OnInit {
     modifyForm: FormGroup<ModifyLibraryFormModel>;
 
     @Input() library: LibraryModel;
-    @Input() isAbleToEdit: boolean = false;
+    @Input() isAbleToEdit = false;
 
     @Output() editCancelled = new EventEmitter<void>();
     @Output() editSaved = new EventEmitter<LibraryModel>();

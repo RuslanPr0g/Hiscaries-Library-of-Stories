@@ -17,7 +17,7 @@ import { SearchStoryResultsComponent } from '../search-story-results/search-stor
 export class SearchStoryResumeReadingComponent implements OnInit {
     private _stories: StoryModel[] = [];
 
-    isLoading: boolean = false;
+    isLoading = false;
 
     constructor(private storyService: StoryService) {}
 
@@ -29,7 +29,7 @@ export class SearchStoryResumeReadingComponent implements OnInit {
         return this._stories;
     }
 
-    private fetchStories(shouldSetLoading: boolean = true): void {
+    private fetchStories(shouldSetLoading = true): void {
         this.isLoading = shouldSetLoading;
 
         this.storyService

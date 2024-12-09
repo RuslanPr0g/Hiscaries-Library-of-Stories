@@ -16,7 +16,7 @@ import { SearchStoryResultsComponent } from '../search-story-results/search-stor
 })
 export class ReadingHistoryComponent implements OnInit {
     stories: StoryModel[] = [];
-    isLoading: boolean = false;
+    isLoading = false;
 
     constructor(private storyService: StoryService) {}
 
