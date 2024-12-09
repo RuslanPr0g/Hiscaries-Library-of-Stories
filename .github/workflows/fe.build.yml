@@ -26,8 +26,10 @@ jobs:
 
       - name: Clean install dependencies
         run: |
-          rm -rf node_modules
+          rm -rf client/node_modules
+          cd client
           npm ci
+        working-directory: client
 
       - name: Run tests
         working-directory: client
