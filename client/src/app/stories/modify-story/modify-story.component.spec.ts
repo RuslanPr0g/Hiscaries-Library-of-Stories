@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PublishStoryComponent } from './publish-story.component';
+import { PublishStoryComponent } from '../publish-story/publish-story.component';
 
 describe('PublishStoryComponent', () => {
     let component: PublishStoryComponent;
