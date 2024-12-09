@@ -9,7 +9,7 @@
         "prepare": "cd .. && husky install client/.husky",
         "lintall": "npx eslint . --ignore-pattern \".angular/*\"",
         "lint": "ng lint",
-        "test:ci": "ng test --watch=false",
+        "test:ci": "ng test --watch=false --no-sandbox",
         "build": "ng build"
     },
     "private": true,
