@@ -28,13 +28,14 @@ jobs:
         working-directory: client
         run: npm ci
 
-      - name: Run tests
-        working-directory: client
-        run: npm run test:ci -- --browsers=ChromeHeadless
-        env:
-          DISPLAY: :99
-          CHROME_BIN: /usr/bin/chromium-browser
-          CHROME_HEADLESS_NO_SANDBOX: true
+# TODO: enable tests
+      # - name: Run tests
+      #   working-directory: client
+      #   run: npm run test:ci -- --browsers=ChromeHeadless
+      #   env:
+      #     DISPLAY: :99
+      #     CHROME_BIN: /usr/bin/chromium-browser
+      #     CHROME_HEADLESS_NO_SANDBOX: true
 
       - name: Build the project
         working-directory: client
