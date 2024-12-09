@@ -25,11 +25,8 @@ jobs:
           cache-dependency-path: client/package-lock.json
 
       - name: Clean install dependencies
-        run: |
-          rm -rf client/node_modules
-          cd client
-          npm ci
         working-directory: client
+        run: npm ci
 
       - name: Run tests
         working-directory: client
