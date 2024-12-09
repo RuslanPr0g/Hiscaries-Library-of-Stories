@@ -39,4 +39,4 @@ jobs:
 
       - name: Build the project
         working-directory: client
-        run: npm run build -- --prod
+        run: npm run build
