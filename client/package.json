@@ -9,7 +9,9 @@
     "test": "ng test",
     "prepare": "cd .. && husky install client/.husky",
     "lintall": "npx eslint . --ignore-pattern \".angular/*\"",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "build": "ng build --prod"
   },
   "private": true,
   "dependencies": {
