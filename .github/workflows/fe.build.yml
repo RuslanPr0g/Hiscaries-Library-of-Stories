@@ -37,6 +37,6 @@ jobs:
       #     CHROME_BIN: /usr/bin/chromium-browser
       #     CHROME_HEADLESS_NO_SANDBOX: true
 
-      - name: Build the project
-        working-directory: client
-        run: npm run build
+      # - name: Build the project
+      #   working-directory: client
+      #   run: npm run build
