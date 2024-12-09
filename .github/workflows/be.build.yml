@@ -19,13 +19,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore server/src/Hiscary.sln
       working-directory: server/src
+      run: dotnet restore Hiscary.sln
 
     - name: Build
-      run: dotnet build server/src/Hiscary.sln --no-restore
       working-directory: server/src
+      run: dotnet build Hiscary.sln --no-restore
 
     - name: Test
-      run: dotnet test server/src/Hiscary.sln --no-build --verbosity normal
       working-directory: server/src
+      run: dotnet test Hiscary.sln --no-build --verbosity normal
