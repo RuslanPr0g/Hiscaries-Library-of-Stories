@@ -14,7 +14,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     styleUrl: './become-publisher.component.scss',
 })
 export class BecomePublisherComponent {
-    agreed: boolean = false;
+    agreed = false;
 
     constructor(
         public authService: AuthService,

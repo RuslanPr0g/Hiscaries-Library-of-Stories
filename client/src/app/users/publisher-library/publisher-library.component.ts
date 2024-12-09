@@ -20,8 +20,8 @@ export class PublisherLibraryComponent implements OnInit {
     libraryId: string | null;
     stories: StoryModel[];
 
-    isLoading: boolean = false;
-    isSubscribeLoading: boolean = false;
+    isLoading = false;
+    isSubscribeLoading = false;
 
     constructor(
         private router: Router,

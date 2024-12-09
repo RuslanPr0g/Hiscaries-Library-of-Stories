@@ -1,1 +1,4 @@
-export type TemplateMessageModel = { Title: string; Description: string };
+export interface TemplateMessageModel {
+    Title: string;
+    Description: string;
+}

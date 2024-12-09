@@ -17,7 +17,7 @@ export class UserNotificationService {
     private hubConnection: signalR.HubConnection;
     private readonly hubUrl = '/hubs/usernotifications';
 
-    disconnected: boolean = true;
+    disconnected = true;
 
     constructor(
         private authService: AuthService,

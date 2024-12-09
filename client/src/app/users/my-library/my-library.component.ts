@@ -19,7 +19,7 @@ import { StoryService } from '../../stories/services/story.service';
 export class MyLibraryComponent implements OnInit {
     libraryInfo: LibraryModel;
     stories: StoryModel[];
-    isLoading: boolean = false;
+    isLoading = false;
 
     constructor(
         private router: Router,
@@ -51,7 +51,7 @@ export class MyLibraryComponent implements OnInit {
             });
     }
 
-    private fetchLibrary(shouldFetchStories: boolean = false): void {
+    private fetchLibrary(shouldFetchStories = false): void {
         this.isLoading = shouldFetchStories;
 
         this.userService
@@ -65,7 +65,7 @@ export class MyLibraryComponent implements OnInit {
             });
     }
 
-    private processLibraryFetch(library: LibraryModel, shouldFetchStories: boolean = false): void {
+    private processLibraryFetch(library: LibraryModel, shouldFetchStories = false): void {
         if (!library) {
             this.router.navigate([NavigationConst.Home]);
             return;

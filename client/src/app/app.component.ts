@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { LoadingOverlayComponent } from './shared/components/loading-overlay/loading-overlay.component';
@@ -27,13 +27,13 @@ import { NotificationStateService } from './shared/services/statefull/notificati
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'hiscaries';
 
-    loading: boolean = true;
-    sidebarVisible: boolean = false;
+    loading = true;
+    sidebarVisible = false;
 
-    unreadCount: number = 0;
+    unreadCount = 0;
 
     constructor(
         private router: Router,

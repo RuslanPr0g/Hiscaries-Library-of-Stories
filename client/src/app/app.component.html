@@ -7,12 +7,12 @@
         <p-sidebar [(visible)]="sidebarVisible">
             <app-header (commandExecuted)="sidebarVisible = false"></app-header>
         </p-sidebar>
-        <div
-            class="logo"
-            (click)="home()"
+        <button
+            class="logo link"
+            (keydown)="home()"
         >
             HISCARIES
-        </div>
+        </button>
         <div class="notification-wrapper">
             <p-button
                 (onClick)="sidebarVisible = true"

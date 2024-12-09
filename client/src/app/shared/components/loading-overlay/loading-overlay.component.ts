@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./loading-overlay.component.scss'],
 })
 export class LoadingOverlayComponent implements OnInit {
-    hide: boolean = false;
+    hide = false;
 
     ngOnInit() {
         setTimeout(() => {

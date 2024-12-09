@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class IteratorService {
-    private _upperBoundary: number = 0;
-    private _currentIndex: number = 0;
+    private _upperBoundary = 0;
+    private _currentIndex = 0;
 
     set upperBoundary(value: number) {
         this._upperBoundary = value;

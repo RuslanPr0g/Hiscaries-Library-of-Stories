@@ -21,6 +21,8 @@
     <div
         class="story-hover-details"
         (click)="previewStory(story)"
+        (keydown)="previewStory(story)"
+        tabindex="0"
     >
         <h3 class="story-title">{{ story.Title | slice: 0 : 100 }}{{ story.Title.length > 100 ? '...' : '' }}</h3>
         <p class="full-description">

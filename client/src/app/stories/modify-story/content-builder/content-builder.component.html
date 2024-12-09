@@ -10,7 +10,7 @@
         <app-form-button
             severity="danger"
             label="Remove Page"
-            (onClick)="removeContent()"
+            (clicked)="removeContent()"
         ></app-form-button>
         <div class="pagination">
             <p-button
@@ -18,7 +18,7 @@
                 [rounded]="true"
                 [text]="true"
                 severity="secondary"
-                (onClick)="movePrev()"
+                (clicked)="movePrev()"
             />
             <span class="message">{{ currentPageLabel }}</span>
             <p-button

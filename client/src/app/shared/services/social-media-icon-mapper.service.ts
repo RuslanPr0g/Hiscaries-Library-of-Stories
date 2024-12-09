@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class SocialMediaIconMapperService {
-    private _socialNetworks: { [key: string]: string } = {
+    private _socialNetworks: Record<string, string> = {
         tiktok: 'pi-tiktok',
         youtube: 'pi-youtube',
         facebook: 'pi-facebook',

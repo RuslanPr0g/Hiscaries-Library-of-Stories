@@ -15,6 +15,6 @@ export class FormTextareaComponent {
     @Input() formGroup!: FormGroup;
     @Input() controlName!: string;
     @Input() label!: string;
-    @Input() errorMessage: string = 'This field is required';
-    @Input() rows: number = 4;
+    @Input() errorMessage = 'This field is required';
+    @Input() rows = 4;
 }

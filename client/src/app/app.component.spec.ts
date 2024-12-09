@@ -1,10 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from './users/services/auth.service';
 
 describe('AppComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [AppComponent],
+            providers: [
+                AuthService,
+                JwtHelperService,
+                { provide: JWT_OPTIONS, useValue: {} },
+                provideHttpClient(),
+                provideHttpClientTesting(),
+            ],
         }).compileComponents();
     });
 
@@ -17,13 +28,6 @@ describe('AppComponent', () => {
     it(`should have the 'hiscaries-client' title`, () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
-        expect(app.title).toEqual('hiscaries-client');
-    });
-
-    it('should render title', () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector('h1')?.textContent).toContain('Hello, hiscaries-client');
+        expect(app.title).toContain('hiscaries');
     });
 });

@@ -12,7 +12,7 @@ import { ReadNotificationsRequest } from '../models/requests/read-notifications.
     providedIn: 'root',
 })
 export class UserService {
-    private apiUrl: string = `${environment.apiUrl}/users`;
+    private apiUrl = `${environment.apiUrl}/users`;
 
     constructor(private http: HttpClient) {}
 
