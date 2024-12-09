@@ -5,8 +5,22 @@ import { environment } from '../../../environments/environment';
 import { EditLibraryRequest } from '../models/requests/edit-library.model';
 import { LibrarySubscriptionRequest } from '../models/requests/library-subscription.model';
 import { NotificationModel } from '../../shared/models/notification.model';
-import { LibraryModel } from '../models/domain/library.model';
+// import { LibraryModel } from '../models/domain/library.model';
 import { ReadNotificationsRequest } from '../models/requests/read-notifications.model';
+import { UserModel } from '../models/domain/user.model';
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type LibraryModel = {
+    PlatformUser: UserModel;
+    Id: string;
+    Bio: string;
+    AvatarUrl: string;
+    LinksToSocialMedia: string[];
+
+    IsLibraryOwner: boolean;
+    IsSubscribed: boolean;
+    SubscribersCount: number;
+};
 
 @Injectable({
     providedIn: 'root',
