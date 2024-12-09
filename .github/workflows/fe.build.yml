@@ -12,22 +12,29 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.18]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [20.x]
     steps:
       - name: Checkout the source code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 20.18
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20.18
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: client/package-lock.json
 
       - name: Install dependencies
+        working-directory: client
         run: npm ci
+
       - name: Run tests
-        run: npm run test:ci
-      - name: Build
-        run: npm run build
+        working-directory: client
+        run: npm run test:ci -- --watch=false --browsers=ChromeHeadless
+        env:
+          DISPLAY: :99
+          CHROME_BIN: /usr/bin/chromium-browser
+
+      - name: Build the project
+        working-directory: client
+        run: npm run build -- --prod
