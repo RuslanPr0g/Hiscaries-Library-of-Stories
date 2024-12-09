@@ -10,7 +10,7 @@
         "lintall": "npx eslint . --ignore-pattern \".angular/*\"",
         "lint": "ng lint",
         "test:ci": "ng test --watch=false",
-        "build": "ng build --prod"
+        "build": "ng build"
     },
     "private": true,
     "dependencies": {
