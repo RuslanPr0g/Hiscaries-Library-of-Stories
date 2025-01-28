@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9AAE3DB4-AA9E-4407-B712-01C28AC8C9FD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HC.Core", "HC.Core", "{963A15C3-773A-423D-A489-DD142B1AA3B2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{963A15C3-773A-423D-A489-DD142B1AA3B2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HC.Infrastructure", "HC.Infrastructure", "{72E3648D-8890-402D-B3C7-EE727C5B12E3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{72E3648D-8890-402D-B3C7-EE727C5B12E3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HC.Presentation", "HC.Presentation", "{1400D5C0-A4AF-43BF-84C8-E4B595B82F91}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{1400D5C0-A4AF-43BF-84C8-E4B595B82F91}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.API", "HC.API\HC.API.csproj", "{95AFDB3C-A6D6-4754-87DC-707EEFBDFBFD}"
 EndProject
@@ -40,7 +40,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.Infrastructure.Jobs", "H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.Infrastructure.EventHandlers", "HC.Infrastructure.EventHandlers\HC.Infrastructure.EventHandlers.csproj", "{6AE08808-87AF-4E4A-9913-81E08B6ACF13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.Infrastructure.SignalR", "HC.Infrastructure.SignalR\HC.Infrastructure.SignalR.csproj", "{806D06DE-56B0-4A8A-9E33-4F8B06A1143F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.Infrastructure.SignalR", "HC.Infrastructure.SignalR\HC.Infrastructure.SignalR.csproj", "{806D06DE-56B0-4A8A-9E33-4F8B06A1143F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{3F23DD59-4E3F-412E-AE85-ACF9FA441DA9}"
 EndProject

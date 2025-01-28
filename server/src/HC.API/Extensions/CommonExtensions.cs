@@ -33,7 +33,6 @@ public static class CommonExtensions
         return imageInBytes;
     }
 
-    // TODO: I hate myself
     public static (byte[] Image, bool IsUpdated) ImageStringToBytes(this string? imageAsString)
     {
         if (string.IsNullOrEmpty(imageAsString))
