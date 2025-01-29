@@ -2,6 +2,10 @@
 
 ---
 
+[Open Draw.io File](https://drive.google.com/file/d/1YVpVJS43djNFkMbAwFCGF1CzXhPL_sf-/view?usp=sharing)
+
+---
+
 ## 🛠️ Configuration Settings!!
 
 Configure your settings in your chosen config file as follows:
