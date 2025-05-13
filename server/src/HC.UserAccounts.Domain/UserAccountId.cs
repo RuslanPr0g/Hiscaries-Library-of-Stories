@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Enterprise.Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HC.UserAccounts.Domain.UserAccounts;
+namespace HC.UserAccounts.Domain;
 
+// TODO: why not mapped?
 [NotMapped]
 public sealed record UserAccountId(Guid Value) : Identity(Value)
 {

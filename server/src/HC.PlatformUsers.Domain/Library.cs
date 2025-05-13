@@ -1,4 +1,4 @@
-﻿namespace HC.PlatformUsers.Domain.PlatformUsers;
+﻿namespace HC.PlatformUsers.Domain;
 
 /// <summary>
 /// Represents a collection of stories published by a <see cref="PlatformUser"/>. Each story

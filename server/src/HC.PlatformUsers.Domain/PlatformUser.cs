@@ -1,4 +1,7 @@
-﻿namespace HC.PlatformUsers.Domain.PlatformUsers;
+﻿using Enterprise.Domain;
+using HC.PlatformUsers.Domain.Events;
+
+namespace HC.PlatformUsers.Domain;
 
 /// <summary>
 /// Represents a general user of the platform who can perform actions such as 
@@ -10,14 +13,14 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
 {
     public PlatformUser(
         PlatformUserId id,
-        UserAccountId userId,
+        Guid userId,
         string username) : base(id)
     {
         UserAccountId = userId;
         Username = username;
     }
 
-    public UserAccountId UserAccountId { get; init; }
+    public Guid UserAccountId { get; init; }
 
     public ICollection<Review> Reviews { get; } = [];
     public ICollection<ReadingHistory> ReadHistory { get; } = [];
@@ -79,7 +82,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
-    public void ReadStoryPage(StoryId storyId, int page)
+    public void ReadStoryPage(Guid storyId, int page)
     {
         var historyItem = ReadHistory.FirstOrDefault(x => x.StoryId == storyId);
 
@@ -140,7 +143,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
-    public void BookmarkStory(StoryId storyId)
+    public void BookmarkStory(Guid storyId)
     {
         if (!Bookmarks.Any(x => x.StoryId == storyId))
         {
@@ -148,7 +151,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
-    private void PublishStoryPageReadEvent(StoryId storyId, int page)
+    private void PublishStoryPageReadEvent(Guid storyId, int page)
     {
         PublishEvent(new StoryPageReadDomainEvent(Id, storyId, page));
     }

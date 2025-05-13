@@ -1,4 +1,6 @@
-﻿namespace HC.Stories.Domain.Genres;
+﻿using Enterprise.Domain;
+
+namespace HC.Stories.Domain.Genres;
 
 public sealed class Genre : AggregateRoot<GenreId>
 {

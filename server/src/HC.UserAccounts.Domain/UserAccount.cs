@@ -1,4 +1,7 @@
-﻿namespace HC.UserAccounts.Domain.UserAccounts;
+﻿using Enterprise.Domain;
+using HC.UserAccounts.Domain.Events;
+
+namespace HC.UserAccounts.Domain;
 
 /// <summary>
 /// Represents the identity and authentication details of a user on the platform. 

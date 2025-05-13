@@ -4,7 +4,7 @@ public sealed class StoryRating : Entity
 {
     public StoryRating(
         StoryId storyId,
-        PlatformUserId userId,
+        Guid userId,
         int score)
     {
         StoryId = storyId;
@@ -21,8 +21,7 @@ public sealed class StoryRating : Entity
     }
 
     public StoryId StoryId { get; init; }
-    public PlatformUserId PlatformUserId { get; init; }
-    public PlatformUser PlatformUser { get; init; }
+    public Guid PlatformUserId { get; init; }
     public int Score { get; private set; }
 
     internal void UpdateScore(int score)

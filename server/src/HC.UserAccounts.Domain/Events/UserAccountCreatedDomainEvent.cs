@@ -1,6 +1,7 @@
-﻿namespace HC.UserAccounts.Domain.UserAccounts.Events;
+﻿using Enterprise.Domain;
 
-// TODO: maybe record is not the best choice for domain event representation?
+namespace HC.UserAccounts.Domain.Events;
+
 public sealed class UserAccountCreatedDomainEvent(Guid UserAccountId, string Username) : IDomainEvent
 {
     public Guid UserAccountId { get; } = UserAccountId;

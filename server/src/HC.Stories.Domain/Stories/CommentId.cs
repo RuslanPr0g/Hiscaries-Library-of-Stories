@@ -1,4 +1,6 @@
-﻿namespace HC.Stories.Domain.Stories;
+﻿using Enterprise.Domain;
+
+namespace HC.Stories.Domain.Stories;
 
 public record CommentId(Guid Value) : Identity(Value)
 {

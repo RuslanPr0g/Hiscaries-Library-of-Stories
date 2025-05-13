@@ -1,13 +1,13 @@
-﻿namespace HC.Notifications.Domain.Notifications;
+﻿using Enterprise.Domain;
+using HC.Notifications.Domain.Notifications.Events;
 
-/// <summary>
-/// Represents a notification in the system
-/// </summary>
+namespace HC.Notifications.Domain.Notifications;
+
 public sealed class Notification : AggregateRoot<NotificationId>
 {
     private Notification(
         NotificationId id,
-        UserAccountId userId,
+        Guid userId,
         string message,
         string type,
         Guid? refId = null,
@@ -24,23 +24,24 @@ public sealed class Notification : AggregateRoot<NotificationId>
         PublishNotificationCreatedEvent();
     }
 
-    public static Notification CreateStoryPublishedNotification(
+    public static Notification CreatePublishedNotification(
         NotificationId id,
-        UserAccountId userId,
-        string storyTitle,
-        StoryId storyId,
+        Guid userId,
+        string message,
+        string type,
+        Guid objectReferenceId,
         string? previewUrl)
     {
         return new Notification(
             id,
             userId,
-            $"{storyTitle}",
-            "StoryPublished",
-            storyId,
+            message,
+            type,
+            objectReferenceId,
             previewUrl);
     }
 
-    public UserAccountId UserId { get; }
+    public Guid UserId { get; }
     public string Message { get; }
     public bool IsRead { get; private set; }
     public string Type { get; }

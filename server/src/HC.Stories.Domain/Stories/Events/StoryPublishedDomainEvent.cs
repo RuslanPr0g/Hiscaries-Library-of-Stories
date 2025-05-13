@@ -1,7 +1,12 @@
-﻿namespace HC.Stories.Domain.Stories.Events;
+﻿using Enterprise.Domain;
 
-// TODO: maybe record is not the best choice for domain event representation?
-public sealed class StoryPublishedDomainEvent(Guid LibraryId, Guid StoryId, string Title, string? PreviewUrl) : IDomainEvent
+namespace HC.Stories.Domain.Stories.Events;
+
+public sealed class StoryPublishedDomainEvent(
+    Guid LibraryId,
+    Guid StoryId,
+    string Title,
+    string? PreviewUrl) : IDomainEvent
 {
     public Guid LibraryId { get; } = LibraryId;
     public Guid StoryId { get; } = StoryId;

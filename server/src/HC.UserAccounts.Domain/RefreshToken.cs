@@ -1,4 +1,4 @@
-﻿namespace HC.UserAccounts.Domain.UserAccounts;
+﻿namespace HC.UserAccounts.Domain;
 
 public sealed class RefreshToken : Entity<RefreshTokenId>
 {

@@ -1,10 +1,10 @@
-﻿namespace HC.PlatformUsers.Domain.PlatformUsers;
+﻿namespace HC.PlatformUsers.Domain;
 
 public sealed class ReadingHistory : Entity
 {
     public ReadingHistory(
         PlatformUserId userId,
-        StoryId storyId,
+        Guid storyId,
         int pageRead)
     {
         PlatformUserId = userId;
@@ -14,7 +14,7 @@ public sealed class ReadingHistory : Entity
     }
 
     public PlatformUserId PlatformUserId { get; init; }
-    public StoryId StoryId { get; init; }
+    public Guid StoryId { get; init; }
     public int LastPageRead { get; private set; }
     public bool SoftDeleted { get; init; }
 

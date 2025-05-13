@@ -1,4 +1,6 @@
-﻿using HC.Stories.Domain.Genres;
+﻿using Enterprise.Domain;
+using HC.Stories.Domain.Genres;
+using HC.Stories.Domain.Stories.Events;
 
 namespace HC.Stories.Domain.Stories;
 
@@ -6,7 +8,7 @@ public sealed class Story : AggregateRoot<StoryId>
 {
     private Story(
         StoryId id,
-        LibraryId libraryId,
+        Guid libraryId,
         string title,
         string description,
         string authorName,
@@ -31,7 +33,7 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public static Story Create(
         StoryId id,
-        LibraryId libraryId,
+        Guid libraryId,
         string title,
         string description,
         string authorName,
@@ -49,15 +51,13 @@ public sealed class Story : AggregateRoot<StoryId>
             ageLimit,
             dateWritten);
 
-    public LibraryId LibraryId { get; init; }
-    public Library Library { get; init; }
+    public Guid LibraryId { get; init; }
 
     public ICollection<Genre> Genres { get; init; } = [];
     public List<StoryPage> Contents { get; private set; } = [];
     public ICollection<Comment> Comments { get; init; } = [];
     public ICollection<StoryAudio> Audios { get; init; } = [];
     public ICollection<StoryRating> Ratings { get; init; } = [];
-    public ICollection<ReadingHistory> ReadHistory { get; } = [];
 
     public string Title { get; private set; }
     public string Description { get; private set; }
@@ -82,12 +82,12 @@ public sealed class Story : AggregateRoot<StoryId>
         AgeLimit = value;
     }
 
-    public void AddComment(CommentId commentId, PlatformUserId userId, string content, int score)
+    public void AddComment(CommentId commentId, Guid userId, string content, int score)
     {
         Comments.Add(Comment.Create(commentId, Id, userId, content, score));
     }
 
-    public void SetScoreByUser(PlatformUserId userId, int score)
+    public void SetScoreByUser(Guid userId, int score)
     {
         var existingRating = Ratings.FirstOrDefault(x => x.PlatformUserId == userId);
 
@@ -205,9 +205,7 @@ public sealed class Story : AggregateRoot<StoryId>
         }
     }
 
-#pragma warning disable CS0628 // New protected member declared in sealed type
-    protected Story()
-#pragma warning restore CS0628 // New protected member declared in sealed type
+    private Story()
     {
     }
 }
