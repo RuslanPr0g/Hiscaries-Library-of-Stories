@@ -15,8 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\HC.Application.Write\HC.Application.Write.csproj" />
-	  <ProjectReference Include="..\HC.Domain\HC.Domain.csproj" />
 	  <ProjectReference Include="..\HC.Persistence.Context\HC.Persistence.Context.csproj" />
 	</ItemGroup>
 

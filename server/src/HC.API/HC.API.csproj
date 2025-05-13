@@ -9,10 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\.editorconfig" Link=".editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="Bogus" Version="35.6.1" />
 		<PackageReference Include="FluentValidation" Version="11.10.0" />
@@ -33,18 +29,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.9.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.9.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\HC.Application.Common\HC.Application.Common.csproj" />
-		<ProjectReference Include="..\HC.Application.Read\HC.Application.Read.csproj" />
-		<ProjectReference Include="..\HC.Application.Write\HC.Application.Write.csproj" />
-		<ProjectReference Include="..\HC.Domain\HC.Domain.csproj" />
-		<ProjectReference Include="..\HC.Infrastructure.EventHandlers\HC.Infrastructure.EventHandlers.csproj" />
-		<ProjectReference Include="..\HC.Infrastructure.Jobs\HC.Infrastructure.Jobs.csproj" />
-		<ProjectReference Include="..\HC.Infrastructure.SignalR\HC.Infrastructure.SignalR.csproj" />
-		<ProjectReference Include="..\HC.Persistence.Read\HC.Persistence.Read.csproj" />
-		<ProjectReference Include="..\HC.Persistence.Write\HC.Persistence.Write.csproj" />
 	</ItemGroup>
 
 </Project>

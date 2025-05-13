@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\HC.Domain\HC.Domain.csproj" />
+	  <Folder Include="Extensions\" />
 	</ItemGroup>
 
 </Project>

@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\HC.Application.Read\HC.Application.Read.csproj" />
 		<ProjectReference Include="..\HC.Persistence.Context\HC.Persistence.Context.csproj" />
 	</ItemGroup>
 
