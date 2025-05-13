@@ -1,6 +1,4 @@
-﻿using HC.Domain.UserAccounts;
-
-namespace HC.Persistence.Context.Configurations.Converters;
+﻿namespace HC.Persistence.Context.Configurations.Converters;
 
 public class UserAccountIdentityConverter : IdentityConverter<UserAccountId>
 {

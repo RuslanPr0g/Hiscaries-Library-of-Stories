@@ -1,6 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.Users.Services;
-using MediatR;
+﻿using HC.Application.Write.Users.Services;
 
 namespace HC.Application.Write.UserAccounts.Command.UpdateUserData;
 

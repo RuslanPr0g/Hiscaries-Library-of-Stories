@@ -1,6 +1,4 @@
-﻿using HC.Domain.Genres;
-
-namespace HC.Application.Read.Genres.ReadModels;
+﻿namespace HC.Application.Read.Genres.ReadModels;
 
 public sealed class GenreReadModel
 {

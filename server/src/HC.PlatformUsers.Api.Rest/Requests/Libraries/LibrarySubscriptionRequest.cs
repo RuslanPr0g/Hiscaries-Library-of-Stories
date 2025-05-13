@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.API.Requests.Libraries;
+﻿namespace HC.API.Requests.Libraries;
 
 public sealed class LibrarySubscriptionRequest
 {

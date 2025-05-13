@@ -1,8 +1,4 @@
-﻿using HC.Application.Read.Users.DataAccess;
-using HC.Application.Read.Users.ReadModels;
-using HC.Domain.UserAccounts;
-using HC.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Read.Repositories;
 

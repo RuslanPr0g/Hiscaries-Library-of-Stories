@@ -1,14 +1,6 @@
-﻿using HC.Application.Constants;
-using HC.Application.Write.Generators;
-using HC.Application.Write.ImageUploaderss;
-using HC.Application.Write.PlatformUsers.Command.DeleteReview;
+﻿using HC.Application.Write.PlatformUsers.Command.DeleteReview;
 using HC.Application.Write.PlatformUsers.Command.PublishReview;
 using HC.Application.Write.PlatformUsers.DataAccess;
-using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.Stories.Command;
-using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
-using Microsoft.Extensions.Logging;
 
 namespace HC.Application.Write.PlatformUsers.Services;
 

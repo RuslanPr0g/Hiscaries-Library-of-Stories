@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace HC.Application.Write.Generators;
+﻿namespace HC.Application.Write.Generators;
 
 public class ResourceUrlGeneratorService : IResourceUrlGeneratorService
 {

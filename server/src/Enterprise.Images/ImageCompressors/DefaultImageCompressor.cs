@@ -1,8 +1,4 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Processing;
-
-namespace HC.Application.Write.ImageCompressors;
+﻿namespace HC.Application.Write.ImageCompressors;
 
 public sealed class DefaultImageCompressor : IImageCompressor
 {

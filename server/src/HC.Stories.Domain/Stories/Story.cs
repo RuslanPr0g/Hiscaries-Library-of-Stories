@@ -1,9 +1,5 @@
 ﻿using HC.Domain.Genres;
-using HC.Domain.PlatformUsers;
 using HC.Domain.Stories.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HC.Domain.Stories;
 

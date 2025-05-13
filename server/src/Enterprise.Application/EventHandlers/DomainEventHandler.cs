@@ -1,5 +1,4 @@
-﻿using HC.Application.Write.DataAccess;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace HC.Application.Common.EventHandlers;

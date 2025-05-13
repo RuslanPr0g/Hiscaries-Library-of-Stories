@@ -1,6 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.Stories.Services;
-using MediatR;
+﻿using HC.Application.Write.Stories.Services;
 
 namespace HC.Application.Write.Stories.Command;
 

@@ -1,7 +1,4 @@
-﻿using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
-
-namespace HC.Application.Write.PlatformUsers.DataAccess;
+﻿namespace HC.Application.Write.PlatformUsers.DataAccess;
 
 public interface IPlatformUserWriteRepository
 {

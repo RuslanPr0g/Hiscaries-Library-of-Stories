@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HC.API.Requests.Libraries;
+﻿namespace HC.API.Requests.Libraries;
 
 public sealed class EditLibraryRequest
 {

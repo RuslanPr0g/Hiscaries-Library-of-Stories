@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.Domain;
+﻿namespace HC.Domain;
 
 public interface IAuditableEntity
 {

@@ -1,10 +1,4 @@
-﻿using HC.Application.Common.EventHandlers;
-using HC.Application.Read.Notifications.DataAccess;
-using HC.Application.Write.DataAccess;
-using HC.Domain.Notifications.Events;
-using HC.Infrastructure.SignalR.Hubs;
-using MassTransit;
-using Microsoft.AspNetCore.SignalR;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;

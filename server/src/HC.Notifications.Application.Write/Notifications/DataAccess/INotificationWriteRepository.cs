@@ -1,6 +1,4 @@
-﻿using HC.Domain.Notifications;
-
-namespace HC.Application.Write.Notifications.DataAccess;
+﻿namespace HC.Application.Write.Notifications.DataAccess;
 
 public interface INotificationWriteRepository
 {

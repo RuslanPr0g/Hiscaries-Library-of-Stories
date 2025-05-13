@@ -1,6 +1,4 @@
-﻿using HC.Domain.PlatformUsers;
-
-namespace HC.Application.Read.Users.ReadModels;
+﻿namespace HC.Application.Read.Users.ReadModels;
 
 public class PlatformUserReadModel
 {

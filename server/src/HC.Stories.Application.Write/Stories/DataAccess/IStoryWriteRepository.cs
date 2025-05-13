@@ -1,7 +1,4 @@
-﻿using HC.Domain.Genres;
-using HC.Domain.Stories;
-
-namespace HC.Application.Write.Stories.DataAccess;
+﻿namespace HC.Application.Write.Stories.DataAccess;
 
 public interface IStoryWriteRepository
 {

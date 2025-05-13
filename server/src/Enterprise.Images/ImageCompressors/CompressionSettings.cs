@@ -6,5 +6,5 @@ public sealed class CompressionSettings
     public int FormatHeight { get; set; } = 9;
     public int MaxWidth { get; set; } = 1080;
 
-    public static CompressionSettings Default = new CompressionSettings();
+    public static CompressionSettings Default = new();
 }

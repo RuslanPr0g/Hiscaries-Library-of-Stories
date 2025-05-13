@@ -1,17 +1,5 @@
-﻿using HC.API.Extensions;
-using HC.API.Requests.Users;
-using HC.Application.Read.Users.ReadModels;
-using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.UserAccounts.Command.CreateUser;
-using HC.Application.Write.UserAccounts.Command.LoginUser;
-using HC.Application.Write.UserAccounts.Command.RefreshToken;
-using HC.Application.Write.UserAccounts.Command.UpdateUserData;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿using HC.API.Requests.Users;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using System.Threading.Tasks;
 
 namespace HC.API.ApiEndpoints;
 

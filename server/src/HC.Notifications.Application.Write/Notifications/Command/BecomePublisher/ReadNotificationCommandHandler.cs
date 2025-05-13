@@ -1,6 +1,4 @@
 ﻿using HC.Application.Write.Notifications.Services;
-using HC.Application.Write.ResultModels.Response;
-using MediatR;
 
 namespace HC.Application.Write.Notifications.Command.BecomePublisher;
 

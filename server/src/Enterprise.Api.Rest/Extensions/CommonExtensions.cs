@@ -1,10 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Threading.Tasks;
-
-namespace HC.API.Extensions;
+﻿namespace HC.API.Extensions;
 
 public static class CommonExtensions
 {

@@ -1,6 +1,4 @@
 ﻿using HC.Application.Read.Notifications.ReadModels;
-using HC.Domain.Notifications;
-using HC.Domain.UserAccounts;
 
 namespace HC.Application.Read.Notifications.DataAccess;
 

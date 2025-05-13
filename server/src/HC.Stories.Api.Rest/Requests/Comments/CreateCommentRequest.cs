@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.API.Requests.Comments;
+﻿namespace HC.API.Requests.Comments;
 
 public class CreateCommentRequest
 {

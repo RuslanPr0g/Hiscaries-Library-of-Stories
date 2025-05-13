@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace HC.Domain.PlatformUsers;
+﻿namespace HC.Domain.PlatformUsers;
 
 /// <summary>
 /// Represents a collection of stories published by a <see cref="PlatformUser"/>. Each story

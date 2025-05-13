@@ -1,5 +1,4 @@
-﻿using HC.Domain;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HC.Persistence.Context.Configurations.Converters;
 

@@ -1,5 +1,4 @@
 ﻿using HC.Domain.UserAccounts.Events;
-using System;
 
 namespace HC.Domain.UserAccounts;
 
@@ -10,9 +9,9 @@ namespace HC.Domain.UserAccounts;
 /// </summary>
 public sealed class UserAccount : AggregateRoot<UserAccountId>
 {
-    private static string ReaderRole = "reader";
-    private static string PublisherRole = "publisher";
-    private static string AdminRole = "admin";
+    private static readonly string ReaderRole = "reader";
+    private static readonly string PublisherRole = "publisher";
+    private static readonly string AdminRole = "admin";
 
     public UserAccount(
         UserAccountId id,

@@ -1,9 +1,4 @@
-﻿using HC.Application.Common.Outbox;
-using HC.Domain.UserAccounts.Events;
-using HC.Persistence.Context;
-using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+﻿using MassTransit;
 using Quartz;
 
 namespace HC.Infrastructure.Jobs;

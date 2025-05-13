@@ -1,6 +1,4 @@
-﻿using HC.Domain;
-using HC.Persistence.Context.Configurations.Converters;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace HC.Persistence.Context.Extensions;

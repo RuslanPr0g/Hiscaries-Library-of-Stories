@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.UserAccounts.Command.LoginUser;
+﻿namespace HC.Application.Write.UserAccounts.Command.LoginUser;
 
 public class LoginUserCommand : IRequest<OperationResult<TokenMetadata>>
 {

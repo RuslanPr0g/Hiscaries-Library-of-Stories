@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.Stories.Command;
+﻿namespace HC.Application.Write.Stories.Command;
 
 public class AddCommentCommand : IRequest<OperationResult>
 {

@@ -1,5 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.Stories.Command;
+﻿using HC.Application.Write.Stories.Command;
 
 namespace HC.Application.Write.Stories.Services;
 

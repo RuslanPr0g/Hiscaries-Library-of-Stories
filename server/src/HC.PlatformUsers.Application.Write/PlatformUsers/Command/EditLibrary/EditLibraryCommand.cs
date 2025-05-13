@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.PlatformUsers.Command.PublishReview;
+﻿namespace HC.Application.Write.PlatformUsers.Command.PublishReview;
 
 public sealed class EditLibraryCommand : IRequest<OperationResult>
 {

@@ -1,23 +1,3 @@
-using FluentValidation.AspNetCore;
-using HC.API.ApiEndpoints;
-using HC.Application.Common;
-using HC.Application.Read;
-using HC.Application.Read.Users.Queries;
-using HC.Application.Write;
-using HC.Application.Write.Filters;
-using HC.Application.Write.UserAccounts.Command.CreateUser;
-using HC.Infrastructure.EventHandlers;
-using HC.Infrastructure.Jobs;
-using HC.Infrastructure.SignalR.Hubs;
-using HC.Persistence.Context;
-using HC.Persistence.Read;
-using HC.Persistence.Write;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddApplicationCommonLayer();

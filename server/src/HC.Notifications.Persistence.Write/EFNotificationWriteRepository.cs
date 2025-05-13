@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.Notifications.DataAccess;
-using HC.Domain.Notifications;
-using HC.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Write.Repositories;
 

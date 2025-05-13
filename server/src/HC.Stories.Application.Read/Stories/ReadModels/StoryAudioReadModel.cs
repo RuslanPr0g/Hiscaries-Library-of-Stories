@@ -1,6 +1,4 @@
-﻿using HC.Domain.Stories;
-
-namespace HC.Application.Read.Stories.ReadModels;
+﻿namespace HC.Application.Read.Stories.ReadModels;
 
 public class StoryAudioReadModel
 {

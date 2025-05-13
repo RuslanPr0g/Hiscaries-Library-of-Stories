@@ -1,8 +1,5 @@
 ﻿using HC.Application.Write.PlatformUsers.Command.DeleteReview;
 using HC.Application.Write.PlatformUsers.Command.PublishReview;
-using HC.Application.Write.ResultModels.Response;
-using HC.Application.Write.Stories.Command;
-using HC.Domain.UserAccounts;
 
 namespace HC.Application.Write.PlatformUsers.Services;
 

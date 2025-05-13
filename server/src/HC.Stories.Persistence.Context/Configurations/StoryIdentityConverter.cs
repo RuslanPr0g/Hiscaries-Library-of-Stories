@@ -1,6 +1,4 @@
-﻿using HC.Domain.Stories;
-
-namespace HC.Persistence.Context.Configurations.Converters;
+﻿namespace HC.Persistence.Context.Configurations.Converters;
 
 public class StoryIdentityConverter : IdentityConverter<StoryId>
 {

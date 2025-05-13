@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.UserAccounts.Command.UpdateUserData;
+﻿namespace HC.Application.Write.UserAccounts.Command.UpdateUserData;
 
 public sealed class UpdateUserDataCommand : IRequest<OperationResult>
 {

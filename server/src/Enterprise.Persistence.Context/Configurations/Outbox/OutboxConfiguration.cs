@@ -1,5 +1,4 @@
-﻿using HC.Application.Common.Outbox;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 internal class OutboxConfiguration : IEntityTypeConfiguration<OutboxMessage>

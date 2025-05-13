@@ -1,6 +1,4 @@
-﻿using HC.Domain.Stories;
-
-namespace HC.Domain.PlatformUsers;
+﻿namespace HC.Domain.PlatformUsers;
 
 public sealed class StoryBookMark : Entity
 {

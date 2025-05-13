@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.API.Requests.Reviews;
+﻿namespace HC.API.Requests.Reviews;
 
 public sealed class PublishReviewRequest
 {

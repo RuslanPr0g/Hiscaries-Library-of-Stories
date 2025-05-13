@@ -1,10 +1,4 @@
-﻿using HC.Application.Common.EventHandlers;
-using HC.Application.Write.DataAccess;
-using HC.Application.Write.Generators;
-using HC.Application.Write.PlatformUsers.DataAccess;
-using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts.Events;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;

@@ -1,7 +1,4 @@
-﻿using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
-
-namespace HC.Application.Read.Users.ReadModels;
+﻿namespace HC.Application.Read.Users.ReadModels;
 
 public class LibraryReadModel
 {

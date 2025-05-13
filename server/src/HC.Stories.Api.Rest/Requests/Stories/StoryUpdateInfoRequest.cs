@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HC.API.Requests.Stories;
+﻿namespace HC.API.Requests.Stories;
 
 public class StoryUpdateInfoRequest
 {

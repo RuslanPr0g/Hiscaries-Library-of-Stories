@@ -1,6 +1,4 @@
-﻿using HC.Application.Write.DataAccess;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 public class SaveChangesPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

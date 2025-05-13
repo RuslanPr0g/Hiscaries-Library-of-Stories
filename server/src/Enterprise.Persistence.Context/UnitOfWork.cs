@@ -1,5 +1,4 @@
-﻿using HC.Application.Write.DataAccess;
-using HC.Persistence.Context;
+﻿using HC.Persistence.Context;
 
 namespace HC.Persistence.Write;
 

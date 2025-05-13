@@ -1,9 +1,5 @@
-﻿using HC.Application.Constants;
-using HC.Application.Write.Notifications.Command.BecomePublisher;
+﻿using HC.Application.Write.Notifications.Command.BecomePublisher;
 using HC.Application.Write.Notifications.DataAccess;
-using HC.Application.Write.ResultModels.Response;
-using HC.Domain.Notifications;
-using Microsoft.Extensions.Logging;
 
 namespace HC.Application.Write.Notifications.Services;
 

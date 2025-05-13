@@ -1,8 +1,4 @@
-﻿using HC.Application.Read.Notifications.DataAccess;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
-
-namespace HC.Infrastructure.SignalR.Hubs;
+﻿namespace HC.Infrastructure.SignalR.Hubs;
 
 [Authorize]
 public sealed class UserNotificationHub : Hub

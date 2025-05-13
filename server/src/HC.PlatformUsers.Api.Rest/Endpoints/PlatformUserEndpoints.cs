@@ -1,19 +1,5 @@
-﻿using HC.API.Extensions;
-using HC.API.Requests.Libraries;
-using HC.API.Requests.Notifications;
-using HC.Application.Read.Notifications.Queries;
-using HC.Application.Read.Users.Queries;
-using HC.Application.Write.Notifications.Command.BecomePublisher;
-using HC.Application.Write.PlatformUsers.Command.BecomePublisher;
-using HC.Application.Write.PlatformUsers.Command.PublishReview;
-using HC.Application.Write.ResultModels.Response;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿using HC.API.Requests.Libraries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using System;
-using System.Threading.Tasks;
 
 namespace HC.API.ApiEndpoints;
 

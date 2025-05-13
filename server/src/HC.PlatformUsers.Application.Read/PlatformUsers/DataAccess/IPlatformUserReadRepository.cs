@@ -1,5 +1,4 @@
 ﻿using HC.Application.Read.Users.ReadModels;
-using HC.Domain.UserAccounts;
 
 namespace HC.Application.Read.Users.DataAccess;
 

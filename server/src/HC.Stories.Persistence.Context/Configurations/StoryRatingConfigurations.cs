@@ -1,8 +1,4 @@
-﻿using HC.Domain.Stories;
-using HC.Persistence.Context.Configurations.Converters;
-using HC.Persistence.Context.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using HC.Persistence.Context.Configurations.Converters;
 
 namespace HC.Persistence.Context.Configurations;
 

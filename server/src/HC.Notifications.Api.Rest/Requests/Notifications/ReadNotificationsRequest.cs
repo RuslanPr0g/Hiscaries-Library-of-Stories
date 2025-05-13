@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.API.Requests.Notifications;
+﻿namespace HC.API.Requests.Notifications;
 
 public class ReadNotificationsRequest
 {

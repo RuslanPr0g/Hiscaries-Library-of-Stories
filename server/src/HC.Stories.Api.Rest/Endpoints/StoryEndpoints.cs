@@ -1,20 +1,6 @@
-﻿using HC.API.Extensions;
-using HC.API.Requests.Comments;
+﻿using HC.API.Requests.Comments;
 using HC.API.Requests.Stories;
-using HC.Application.Read.Extensions;
-using HC.Application.Read.Genres.ReadModels;
-using HC.Application.Read.Stories.Queries;
-using HC.Application.Read.Stories.ReadModels;
-using HC.Application.Write.Stories.Command;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HC.API.ApiEndpoints;
 

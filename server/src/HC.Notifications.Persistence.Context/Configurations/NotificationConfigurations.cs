@@ -1,6 +1,4 @@
-﻿using HC.Domain.Notifications;
-using HC.Persistence.Context.Configurations.Converters;
-using HC.Persistence.Context.Extensions;
+﻿using HC.Persistence.Context.Configurations.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

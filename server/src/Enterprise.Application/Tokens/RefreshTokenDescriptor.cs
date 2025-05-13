@@ -1,6 +1,4 @@
-﻿using HC.Domain.UserAccounts;
-
-namespace HC.Application.Tokens;
+﻿namespace HC.Application.Tokens;
 
 public sealed class RefreshTokenDescriptor
 {

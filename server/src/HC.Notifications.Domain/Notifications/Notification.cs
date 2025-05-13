@@ -1,7 +1,4 @@
 ﻿using HC.Domain.Notifications.Events;
-using HC.Domain.Stories;
-using HC.Domain.UserAccounts;
-using System;
 
 namespace HC.Domain.Notifications;
 

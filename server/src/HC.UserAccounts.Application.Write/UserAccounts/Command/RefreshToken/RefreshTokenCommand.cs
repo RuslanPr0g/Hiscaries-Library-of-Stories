@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.UserAccounts.Command.RefreshToken;
+﻿namespace HC.Application.Write.UserAccounts.Command.RefreshToken;
 
 public class RefreshTokenCommand : IRequest<OperationResult<TokenMetadata>>
 {

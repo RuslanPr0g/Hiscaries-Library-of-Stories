@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.Domain.Notifications;
+﻿namespace HC.Domain.Notifications;
 
 public sealed record NotificationId(Guid Value) : Identity(Value)
 {

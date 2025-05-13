@@ -1,6 +1,4 @@
-﻿using HC.Domain.PlatformUsers;
-
-namespace HC.Domain.Stories;
+﻿namespace HC.Domain.Stories;
 
 public sealed class Comment : Entity<CommentId>
 {

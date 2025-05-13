@@ -2,7 +2,6 @@
 using HC.Application.Read.Stories.DataAccess;
 using HC.Application.Read.Stories.Queries;
 using HC.Application.Read.Stories.ReadModels;
-using HC.Application.Read.Users.DataAccess;
 
 namespace HC.Application.Read.Stories.Services;
 

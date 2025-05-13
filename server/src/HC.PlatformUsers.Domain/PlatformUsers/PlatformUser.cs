@@ -1,8 +1,4 @@
 ﻿using HC.Domain.PlatformUsers.Events;
-using HC.Domain.Stories;
-using HC.Domain.UserAccounts;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HC.Domain.PlatformUsers;
 
@@ -146,7 +142,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         }
     }
 
-    public void BookmarkStory( StoryId storyId)
+    public void BookmarkStory(StoryId storyId)
     {
         if (!Bookmarks.Any(x => x.StoryId == storyId))
         {

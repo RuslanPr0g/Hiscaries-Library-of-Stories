@@ -1,5 +1,4 @@
 ﻿using HC.Domain;
-using System;
 
 public abstract class Entity : IAuditableEntity
 {
@@ -8,7 +7,7 @@ public abstract class Entity : IAuditableEntity
     public int Version { get; set; }
 }
 
-public abstract class Entity<T> : 
+public abstract class Entity<T> :
     Entity,
     IEquatable<Entity<T>> where T : Identity
 {

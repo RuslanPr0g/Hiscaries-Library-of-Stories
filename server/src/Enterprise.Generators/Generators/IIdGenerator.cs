@@ -1,6 +1,4 @@
-﻿using HC.Domain;
-
-namespace HC.Application.Write.Generators;
+﻿namespace HC.Application.Write.Generators;
 
 public interface IIdGenerator
 {

@@ -1,7 +1,4 @@
-﻿using HC.Domain.PlatformUsers;
-using System;
-
-namespace HC.Domain.Stories;
+﻿namespace HC.Domain.Stories;
 
 public sealed class StoryRating : Entity
 {

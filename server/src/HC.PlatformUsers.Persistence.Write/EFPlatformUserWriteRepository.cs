@@ -1,8 +1,4 @@
-﻿using HC.Application.Write.PlatformUsers.DataAccess;
-using HC.Domain.PlatformUsers;
-using HC.Domain.UserAccounts;
-using HC.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Write.Repositories;
 

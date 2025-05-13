@@ -1,11 +1,4 @@
-﻿using HC.Application.Common.Extensions;
-using HC.Application.Read.Genres.ReadModels;
-using HC.Application.Read.Stories.DataAccess;
-using HC.Application.Read.Stories.ReadModels;
-using HC.Domain.Stories;
-using HC.Persistence.Context;
-using MassTransit.Initializers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Read.Repositories;
 

@@ -1,6 +1,4 @@
-﻿using HC.Domain.Genres;
-
-namespace HC.Persistence.Context.Configurations.Converters;
+﻿namespace HC.Persistence.Context.Configurations.Converters;
 
 public class GenreIdentityConverter : IdentityConverter<GenreId>
 {

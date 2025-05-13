@@ -1,6 +1,4 @@
-﻿using HC.Domain.PlatformUsers;
-
-namespace HC.Application.Read.Stories.ReadModels;
+﻿namespace HC.Application.Read.Stories.ReadModels;
 
 public sealed class StoryBookMarkReadModel
 {

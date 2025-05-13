@@ -1,7 +1,4 @@
-﻿using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.UserAccounts.Command.CreateUser;
+﻿namespace HC.Application.Write.UserAccounts.Command.CreateUser;
 
 public class RegisterUserCommand : IRequest<OperationResult<TokenMetadata>>
 {

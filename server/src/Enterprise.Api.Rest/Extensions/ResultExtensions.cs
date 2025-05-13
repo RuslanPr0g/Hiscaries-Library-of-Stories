@@ -1,8 +1,5 @@
 #nullable enable
 
-using HC.Application.Write.ResultModels.Response;
-using Microsoft.AspNetCore.Http;
-
 namespace HC.API.Extensions;
 
 public static class ResultExtensions

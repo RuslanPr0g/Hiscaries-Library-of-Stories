@@ -1,7 +1,4 @@
-﻿using HC.Domain;
-using System;
-
-public sealed record LibraryId(Guid Value) : Identity(Value)
+﻿public sealed record LibraryId(Guid Value) : Identity(Value)
 {
     public static implicit operator LibraryId(Guid identity) => new(identity);
     public static implicit operator Guid(LibraryId identity) => identity.Value;

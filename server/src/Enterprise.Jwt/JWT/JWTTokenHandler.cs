@@ -1,9 +1,4 @@
-﻿using HC.Application.Options;
-using HC.Application.Tokens;
-using HC.Domain.UserAccounts;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text;
 
 namespace HC.Application.Write.JWT;

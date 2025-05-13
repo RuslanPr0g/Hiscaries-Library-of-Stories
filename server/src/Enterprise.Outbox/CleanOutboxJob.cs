@@ -1,8 +1,4 @@
-﻿using HC.Application.Common.Outbox;
-using HC.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Quartz;
+﻿using Quartz;
 
 namespace HC.Infrastructure.Jobs;
 

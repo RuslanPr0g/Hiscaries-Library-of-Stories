@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.Domain.Notifications.Events;
+﻿namespace HC.Domain.Notifications.Events;
 
 // TODO: maybe record is not the best choice for domain event representation?
 public sealed class NotificationCreatedDomainEvent(Guid Id, Guid UserId, string Type, string Message) : IDomainEvent

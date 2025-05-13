@@ -1,6 +1,5 @@
 ﻿using HC.Application.Read.Notifications.ReadModels;
 using HC.Application.Read.Notifications.Services;
-using MediatR;
 
 namespace HC.Application.Read.Notifications.Queries;
 

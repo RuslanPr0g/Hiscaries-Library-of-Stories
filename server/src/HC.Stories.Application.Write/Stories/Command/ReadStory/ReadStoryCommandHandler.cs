@@ -1,8 +1,4 @@
-﻿using HC.Application.Write.PlatformUsers.Services;
-using HC.Application.Write.ResultModels.Response;
-using MediatR;
-
-namespace HC.Application.Write.Stories.Command;
+﻿namespace HC.Application.Write.Stories.Command;
 
 internal class ReadStoryCommandHandler : IRequestHandler<ReadStoryCommand, OperationResult>
 {

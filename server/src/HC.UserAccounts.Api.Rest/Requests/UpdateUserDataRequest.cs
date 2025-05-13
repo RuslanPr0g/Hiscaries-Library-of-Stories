@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HC.API.Requests.Users;
+﻿namespace HC.API.Requests.Users;
 
 public class UpdateUserDataRequest
 {

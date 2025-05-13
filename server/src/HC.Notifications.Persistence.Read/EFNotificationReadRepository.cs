@@ -1,9 +1,4 @@
-﻿using HC.Application.Read.Notifications.DataAccess;
-using HC.Application.Read.Notifications.ReadModels;
-using HC.Domain.Notifications;
-using HC.Domain.UserAccounts;
-using HC.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HC.Persistence.Read.Repositories;
 

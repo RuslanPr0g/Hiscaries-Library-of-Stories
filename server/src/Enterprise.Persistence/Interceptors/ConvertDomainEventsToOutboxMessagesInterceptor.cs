@@ -1,8 +1,5 @@
-﻿using HC.Application.Common.Outbox;
-using HC.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Newtonsoft.Json;
 
 namespace HC.Persistence.Context.Interceptors;
 

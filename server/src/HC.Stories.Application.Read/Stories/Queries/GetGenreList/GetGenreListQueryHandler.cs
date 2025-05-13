@@ -1,6 +1,5 @@
 ﻿using HC.Application.Read.Genres.ReadModels;
 using HC.Application.Read.Stories.Services;
-using MediatR;
 
 namespace HC.Application.Read.Stories.Queries;
 
