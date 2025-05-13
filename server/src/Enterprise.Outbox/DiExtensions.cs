@@ -5,7 +5,7 @@ namespace Enterprise.Outbox;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddJobs(this IServiceCollection serviceDescriptors)
+    public static IServiceCollection AddEnterpriseOutbox(this IServiceCollection serviceDescriptors)
     {
         serviceDescriptors.AddQuartz(conf =>
         {

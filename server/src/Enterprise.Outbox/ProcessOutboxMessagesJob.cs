@@ -1,14 +1,18 @@
-﻿using MassTransit;
+﻿using Enterprise.Persistence.Context;
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Quartz;
+using System.Reflection;
 
 namespace Enterprise.Outbox;
 
 public class ProcessOutboxMessagesJob : IJob
 {
-    private readonly HiscaryContext _context;
+    private readonly EnterpriseContext _context;
     private readonly IPublishEndpoint _publisher;
 
-    public ProcessOutboxMessagesJob(HiscaryContext context, IPublishEndpoint publisher)
+    public ProcessOutboxMessagesJob(EnterpriseContext context, IPublishEndpoint publisher)
     {
         _context = context;
         _publisher = publisher;
@@ -17,7 +21,7 @@ public class ProcessOutboxMessagesJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
         var messages = await _context
-        .Set<OutboxMessage>()
+        .OutboxMessages
         .Where(m => m.ProcessedOnUtc == null)
         .Take(20)
         .ToListAsync();
@@ -26,7 +30,9 @@ public class ProcessOutboxMessagesJob : IJob
         {
             try
             {
-                var messageType = typeof(UserAccountBannedDomainEvent).Assembly.GetType(message.Type);
+                // TODO: GetCallingAssembly may not work, check!
+                // here we need to get event type to properly send the event to message broker
+                var messageType = Assembly.GetCallingAssembly().GetType(message.Type);
 
                 if (messageType is null)
                 {
@@ -34,10 +40,13 @@ public class ProcessOutboxMessagesJob : IJob
                     continue;
                 }
 
-                var domainEvent = JsonConvert.DeserializeObject(message.Content, messageType, new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.All,
-                });
+                var domainEvent = JsonConvert.DeserializeObject(
+                    message.Content,
+                    messageType,
+                    new JsonSerializerSettings()
+                    {
+                        TypeNameHandling = TypeNameHandling.All,
+                    });
 
                 if (domainEvent is null)
                 {

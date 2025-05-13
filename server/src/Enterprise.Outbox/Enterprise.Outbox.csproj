@@ -11,4 +11,8 @@
 		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.9.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Enterprise.Persistence.Context\Enterprise.Persistence.Context.csproj" />
+	</ItemGroup>
+
 </Project>

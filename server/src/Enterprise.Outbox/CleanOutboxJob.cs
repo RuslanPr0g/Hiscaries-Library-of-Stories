@@ -1,12 +1,15 @@
-﻿using Quartz;
+﻿using Enterprise.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Quartz;
 
 namespace Enterprise.Outbox;
 
 public class CleanOutboxJob : IJob
 {
-    private readonly HiscaryContext _context;
+    private readonly EnterpriseContext _context;
 
-    public CleanOutboxJob(HiscaryContext context)
+    public CleanOutboxJob(EnterpriseContext context)
     {
         _context = context;
     }
@@ -14,7 +17,7 @@ public class CleanOutboxJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
         var messages = await _context
-        .Set<OutboxMessage>()
+        .OutboxMessages
         .Where(m => m.ProcessedOnUtc != null)
         .Take(5)
         .ToListAsync();

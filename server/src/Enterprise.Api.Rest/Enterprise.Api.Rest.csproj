@@ -16,7 +16,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Enterprise.Application\Enterprise.Application.csproj" />
 		<ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
+		<ProjectReference Include="..\Enterprise.FileStorage\Enterprise.FileStorage.csproj" />
+		<ProjectReference Include="..\Enterprise.Generators\Enterprise.Generators.csproj" />
+		<ProjectReference Include="..\Enterprise.Images\Enterprise.Images.csproj" />
+		<ProjectReference Include="..\Enterprise.Jwt\Enterprise.Jwt.csproj" />
+		<ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
+		<ProjectReference Include="..\Enterprise.Persistence.Context\Enterprise.Persistence.Context.csproj" />
+		<ProjectReference Include="..\Enterprise.Persistence\Enterprise.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>
