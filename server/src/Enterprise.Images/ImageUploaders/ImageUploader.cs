@@ -1,4 +1,5 @@
-﻿using Enterprise.Images.ImageCompressors;
+﻿using Enterprise.Domain.FileStorage;
+using Enterprise.Domain.Images;
 
 namespace Enterprise.Images.ImageUploaders;
 

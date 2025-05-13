@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Enterprise.Domain;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Enterprise.Persistence.Context.Configurations;
 

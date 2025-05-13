@@ -8,7 +8,7 @@ namespace Enterprise.Application;
 
 public static class DIExtensions
 {
-    public static WebApplicationBuilder AddApplicationCommonLayer(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddEnterpriseApplicationServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddOptions<DbConnectionStrings>()
             .Bind(builder.Configuration.GetSection("ConnectionStrings"));

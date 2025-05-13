@@ -1,4 +1,9 @@
-﻿namespace Enterprise.Images.ImageCompressors;
+﻿using Enterprise.Domain.Images;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
+
+namespace Enterprise.Images.ImageCompressors;
 
 public sealed class DefaultImageCompressor : IImageCompressor
 {

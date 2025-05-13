@@ -1,4 +1,4 @@
-﻿using Enterprise.Application.Options;
+﻿using Enterprise.Domain.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

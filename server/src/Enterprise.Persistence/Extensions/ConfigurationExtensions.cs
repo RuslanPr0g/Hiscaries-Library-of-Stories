@@ -1,4 +1,5 @@
-﻿using Enterprise.Persistence.Extensions;
+﻿using Enterprise.Domain;
+using Enterprise.Persistence.Context.Configurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 

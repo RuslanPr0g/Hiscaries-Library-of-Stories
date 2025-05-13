@@ -1,4 +1,6 @@
-﻿namespace Enterprise.FileStorage;
+﻿using Enterprise.Domain.FileStorage;
+
+namespace Enterprise.FileStorage;
 
 public class LocalFileStorageService : IFileStorageService
 {

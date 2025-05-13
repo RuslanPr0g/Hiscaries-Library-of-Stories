@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using Enterprise.Domain.DataAccess;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace Enterprise.Application.EventHandlers;
