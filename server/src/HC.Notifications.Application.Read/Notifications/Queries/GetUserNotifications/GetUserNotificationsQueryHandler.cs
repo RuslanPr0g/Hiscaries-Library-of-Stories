@@ -1,7 +1,7 @@
-﻿using HC.Application.Read.Notifications.ReadModels;
-using HC.Application.Read.Notifications.Services;
+﻿using HC.Notifications.Application.Read.Notifications.ReadModels;
+using HC.Notifications.Application.Read.Notifications.Services;
 
-namespace HC.Application.Read.Notifications.Queries;
+namespace HC.Notifications.Application.Read.Notifications.Queries.GetUserNotifications;
 
 public class GetUserNotificationsQueryHandler : IRequestHandler<GetUserNotificationsQuery, IEnumerable<NotificationReadModel>>
 {

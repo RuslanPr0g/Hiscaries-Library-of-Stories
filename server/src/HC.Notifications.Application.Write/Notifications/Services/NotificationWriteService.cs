@@ -1,7 +1,7 @@
-﻿using HC.Application.Write.Notifications.Command.BecomePublisher;
-using HC.Application.Write.Notifications.DataAccess;
+﻿using HC.Notifications.Application.Write.Notifications.Command.BecomePublisher;
+using HC.Notifications.Application.Write.Notifications.DataAccess;
 
-namespace HC.Application.Write.Notifications.Services;
+namespace HC.Notifications.Application.Write.Notifications.Services;
 
 public sealed class NotificationWriteService : INotificationWriteService
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests.Stories;
+﻿namespace HC.Stories.Api.Rest.Requests.Stories;
 
 public sealed class GetStoryWithContentsRequest
 {

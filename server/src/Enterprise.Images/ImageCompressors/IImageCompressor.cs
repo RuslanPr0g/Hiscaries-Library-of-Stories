@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.ImageCompressors;
+﻿namespace Enterprise.Images.ImageCompressors;
 
 /// <summary>
 /// Defines the contract for compressing images with customizable settings.

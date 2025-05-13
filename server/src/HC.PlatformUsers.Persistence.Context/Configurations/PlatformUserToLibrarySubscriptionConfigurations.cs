@@ -1,6 +1,4 @@
-﻿using HC.Persistence.Context.Configurations.Converters;
-
-namespace HC.Persistence.Context.Configurations;
+﻿namespace HC.PlatformUsers.Persistence.Context.Configurations;
 
 public class PlatformUserToLibrarySubscriptionConfigurations : IEntityTypeConfiguration<PlatformUserToLibrarySubscription>
 {

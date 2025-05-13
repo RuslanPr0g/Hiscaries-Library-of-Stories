@@ -1,7 +1,7 @@
-﻿using HC.Application.Read.Genres.ReadModels;
-using HC.Application.Read.Stories.ReadModels;
+﻿using HC.Stories.Application.Read.Genres.ReadModels;
+using HC.Stories.Application.Read.Stories.ReadModels;
 
-namespace HC.Application.Read.Stories.DataAccess;
+namespace HC.Stories.Application.Read.Stories.DataAccess;
 
 public interface IStoryReadRepository
 {

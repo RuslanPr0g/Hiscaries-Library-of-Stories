@@ -1,6 +1,6 @@
-﻿using HC.Application.Read.Notifications.ReadModels;
+﻿using HC.Notifications.Application.Read.Notifications.ReadModels;
 
-namespace HC.Application.Read.Notifications.Services;
+namespace HC.Notifications.Application.Read.Notifications.Services;
 
 public interface INotificationReadService
 {

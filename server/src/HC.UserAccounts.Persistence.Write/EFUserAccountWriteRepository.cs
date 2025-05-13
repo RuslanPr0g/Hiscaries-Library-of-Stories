@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Write.Repositories;
+namespace HC.UserAccounts.Persistence.Write;
 
 public class EFUserAccountWriteRepository : IUserAccountWriteRepository
 {

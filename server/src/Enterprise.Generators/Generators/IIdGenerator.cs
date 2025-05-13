@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Generators;
+﻿namespace Enterprise.Generators.Generators;
 
 public interface IIdGenerator
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.PlatformUsers.DataAccess;
+﻿namespace HC.PlatformUsers.Application.Write.PlatformUsers.DataAccess;
 
 public interface IPlatformUserWriteRepository
 {

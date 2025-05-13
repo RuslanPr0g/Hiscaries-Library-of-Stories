@@ -1,6 +1,6 @@
-﻿using HC.Application.Read.Users.ReadModels;
+﻿using HC.PlatformUsers.Application.Read.PlatformUsers.ReadModels;
 
-namespace HC.Application.Read.Users.DataAccess;
+namespace HC.PlatformUsers.Application.Read.PlatformUsers.DataAccess;
 
 public interface IPlatformUserReadRepository
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Domain.Genres;
+﻿namespace HC.Stories.Domain.Genres;
 
 public record GenreId(Guid Value) : Identity(Value)
 {

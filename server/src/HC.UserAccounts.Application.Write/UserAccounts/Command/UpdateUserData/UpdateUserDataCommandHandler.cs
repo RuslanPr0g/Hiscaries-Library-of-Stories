@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.Users.Services;
+﻿using HC.UserAccounts.Application.Write.UserAccounts.Services;
 
-namespace HC.Application.Write.UserAccounts.Command.UpdateUserData;
+namespace HC.UserAccounts.Application.Write.UserAccounts.Command.UpdateUserData;
 
 public class UpdateUserDataCommandHandler : IRequestHandler<UpdateUserDataCommand, OperationResult>
 {

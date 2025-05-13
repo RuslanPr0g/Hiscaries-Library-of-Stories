@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.Notifications.Services;
+﻿using HC.Notifications.Application.Write.Notifications.Services;
 
-namespace HC.Application.Write.Notifications.Command.BecomePublisher;
+namespace HC.Notifications.Application.Write.Notifications.Command.BecomePublisher;
 
 public class ReadNotificationCommandHandler : IRequestHandler<ReadNotificationCommand, OperationResult>
 {

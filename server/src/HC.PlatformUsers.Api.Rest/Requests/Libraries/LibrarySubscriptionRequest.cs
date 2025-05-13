@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests.Libraries;
+﻿namespace HC.PlatformUsers.Api.Rest.Requests.Libraries;
 
 public sealed class LibrarySubscriptionRequest
 {

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HC.Persistence.Context;
+namespace Enterprise.Persistence.Context;
 
 public static class DiExtensions
 {

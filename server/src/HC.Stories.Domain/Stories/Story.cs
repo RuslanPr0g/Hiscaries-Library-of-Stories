@@ -1,7 +1,6 @@
-﻿using HC.Domain.Genres;
-using HC.Domain.Stories.Events;
+﻿using HC.Stories.Domain.Genres;
 
-namespace HC.Domain.Stories;
+namespace HC.Stories.Domain.Stories;
 
 public sealed class Story : AggregateRoot<StoryId>
 {

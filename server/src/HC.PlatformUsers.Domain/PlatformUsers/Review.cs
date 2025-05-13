@@ -1,4 +1,4 @@
-﻿namespace HC.Domain.PlatformUsers;
+﻿namespace HC.PlatformUsers.Domain.PlatformUsers;
 
 /// <summary>
 /// Represents a review of a <see cref="PlatformUser"/> about a library.

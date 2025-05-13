@@ -1,4 +1,4 @@
-﻿namespace HC.API.Extensions;
+﻿namespace Enterprise.Api.Rest.Extensions;
 
 public static class CommonExtensions
 {

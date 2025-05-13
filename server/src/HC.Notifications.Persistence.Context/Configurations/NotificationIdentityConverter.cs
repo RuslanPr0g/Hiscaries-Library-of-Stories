@@ -1,4 +1,4 @@
-﻿namespace HC.Persistence.Context.Configurations.Converters;
+﻿namespace HC.Notifications.Persistence.Context.Configurations;
 
 public class NotificationIdentityConverter : IdentityConverter<NotificationId>
 {

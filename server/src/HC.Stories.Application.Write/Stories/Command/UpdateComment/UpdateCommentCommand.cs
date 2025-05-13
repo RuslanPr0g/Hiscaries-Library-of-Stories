@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Stories.Command;
+﻿namespace HC.Stories.Application.Write.Stories.Command.UpdateComment;
 
 public class UpdateCommentCommand : IRequest<OperationResult>
 {

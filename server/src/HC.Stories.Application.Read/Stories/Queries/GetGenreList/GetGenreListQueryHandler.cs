@@ -1,7 +1,7 @@
-﻿using HC.Application.Read.Genres.ReadModels;
-using HC.Application.Read.Stories.Services;
+﻿using HC.Stories.Application.Read.Genres.ReadModels;
+using HC.Stories.Application.Read.Stories.Services;
 
-namespace HC.Application.Read.Stories.Queries;
+namespace HC.Stories.Application.Read.Stories.Queries.GetGenreList;
 
 public class GetGenreListQueryHandler : IRequestHandler<GetGenreListQuery, IEnumerable<GenreReadModel>>
 {

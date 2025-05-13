@@ -1,6 +1,6 @@
-﻿using HC.Application.Read.Genres.ReadModels;
+﻿using HC.Stories.Application.Read.Genres.ReadModels;
 
-namespace HC.Application.Read.Stories.ReadModels;
+namespace HC.Stories.Application.Read.Stories.ReadModels;
 
 public sealed class StoryWithContentsReadModel : StorySimpleReadModel
 {

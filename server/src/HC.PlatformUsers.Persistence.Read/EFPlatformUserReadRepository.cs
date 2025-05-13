@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Read.Repositories;
+namespace HC.PlatformUsers.Persistence.Read;
 
 public class EFPlatformUserReadRepository : IPlatformUserReadRepository
 {

@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.Stories.Services;
+﻿using HC.Stories.Application.Write.Stories.Services;
 
-namespace HC.Application.Write.Stories.Command;
+namespace HC.Stories.Application.Write.Stories.Command.CreateGenre;
 
 public sealed class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, OperationResult>
 {

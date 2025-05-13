@@ -1,7 +1,7 @@
-﻿using HC.API.Requests.Users;
+﻿using HC.UserAccounts.Api.Rest.Requests;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HC.API.ApiEndpoints;
+namespace HC.UserAccounts.Api.Rest.Endpoints;
 
 public static class UserAccountEndpoints
 {

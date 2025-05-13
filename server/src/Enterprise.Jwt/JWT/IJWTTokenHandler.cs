@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.JWT;
+﻿namespace Enterprise.Jwt.JWT;
 
 public interface IJWTTokenHandler
 {

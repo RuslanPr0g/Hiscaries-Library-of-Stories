@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.UserAccounts.Command.LoginUser;
+﻿namespace HC.UserAccounts.Application.Write.UserAccounts.Command.LoginUser;
 
 public class LoginUserCommand : IRequest<OperationResult<TokenMetadata>>
 {

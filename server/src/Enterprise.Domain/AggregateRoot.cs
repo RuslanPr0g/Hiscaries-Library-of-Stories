@@ -1,4 +1,4 @@
-﻿namespace HC.Domain;
+﻿namespace Enterprise.Domain;
 
 public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot
     where T : Identity

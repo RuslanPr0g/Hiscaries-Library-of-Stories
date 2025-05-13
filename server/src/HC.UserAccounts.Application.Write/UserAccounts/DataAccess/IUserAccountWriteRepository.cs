@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.UserAccounts.DataAccess;
+﻿namespace HC.UserAccounts.Application.Write.UserAccounts.DataAccess;
 
 public interface IUserAccountWriteRepository
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace HC.Infrastructure.Jobs;
+namespace Enterprise.Outbox;
 
 public static class DiExtensions
 {

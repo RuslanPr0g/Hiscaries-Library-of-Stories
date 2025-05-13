@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Stories.Command;
+﻿namespace HC.Stories.Application.Write.Stories.Command.ReadStory;
 
 public class ReadStoryCommand : IRequest<OperationResult>
 {

@@ -1,7 +1,7 @@
-﻿using HC.Application.Read.Users.ReadModels;
-using HC.Application.Read.Users.Services;
+﻿using HC.PlatformUsers.Application.Read.PlatformUsers.ReadModels;
+using HC.PlatformUsers.Application.Read.PlatformUsers.Services;
 
-namespace HC.Application.Read.Users.Queries;
+namespace HC.PlatformUsers.Application.Read.PlatformUsers.Queries.GetUserInfo;
 
 public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, PlatformUserReadModel?>
 {

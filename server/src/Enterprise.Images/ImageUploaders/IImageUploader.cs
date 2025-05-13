@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.ImageCompressors;
+﻿using Enterprise.Images.ImageCompressors;
 
-namespace HC.Application.Write.ImageUploaderss;
+namespace Enterprise.Images.ImageUploaders;
 
 /// <summary>
 /// Defines the contract for uploading images to a storage system with optional compression.

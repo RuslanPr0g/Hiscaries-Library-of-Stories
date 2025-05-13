@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.PlatformUsers.Services;
+﻿using HC.PlatformUsers.Application.Write.PlatformUsers.Services;
 
-namespace HC.Application.Write.PlatformUsers.Command.BecomePublisher;
+namespace HC.PlatformUsers.Application.Write.PlatformUsers.Command.BecomePublisher;
 
 public class BecomePublisherCommandHandler : IRequestHandler<BecomePublisherCommand, OperationResult>
 {

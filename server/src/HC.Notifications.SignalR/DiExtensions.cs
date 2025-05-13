@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace HC.Infrastructure.Jobs;
+namespace HC.Notifications.SignalR;
 
 public static class DiExtensions
 {

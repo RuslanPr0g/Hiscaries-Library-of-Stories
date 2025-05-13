@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests.Comments;
+﻿namespace HC.Stories.Api.Rest.Requests.Comments;
 
 public class CreateCommentRequest
 {

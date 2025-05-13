@@ -1,4 +1,4 @@
-﻿namespace HC.Domain;
+﻿namespace Enterprise.Domain;
 public record Identity(Guid Value)
 {
     public static implicit operator Identity(Guid identity) => new(identity);

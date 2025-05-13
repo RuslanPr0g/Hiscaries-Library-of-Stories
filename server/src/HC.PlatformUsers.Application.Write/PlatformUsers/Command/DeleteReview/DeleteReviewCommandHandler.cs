@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.PlatformUsers.Services;
+﻿using HC.PlatformUsers.Application.Write.PlatformUsers.Services;
 
-namespace HC.Application.Write.PlatformUsers.Command.DeleteReview;
+namespace HC.PlatformUsers.Application.Write.PlatformUsers.Command.DeleteReview;
 
 public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand, OperationResult>
 {

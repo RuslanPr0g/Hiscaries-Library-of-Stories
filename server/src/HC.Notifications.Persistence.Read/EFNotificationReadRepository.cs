@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Read.Repositories;
+namespace HC.Notifications.Persistence.Read;
 
 public class EFNotificationReadRepository : INotificationReadRepository
 {

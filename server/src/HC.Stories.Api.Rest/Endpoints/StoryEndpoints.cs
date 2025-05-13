@@ -1,8 +1,8 @@
-﻿using HC.API.Requests.Comments;
-using HC.API.Requests.Stories;
+﻿using HC.Stories.Api.Rest.Requests.Comments;
+using HC.Stories.Api.Rest.Requests.Stories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HC.API.ApiEndpoints;
+namespace HC.Stories.Api.Rest.Endpoints;
 
 public static class StoryEndpoints
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.PlatformUsers.Command.PublishReview;
+﻿namespace HC.PlatformUsers.Application.Write.PlatformUsers.Command.EditLibrary;
 
 public sealed class EditLibraryCommand : IRequest<OperationResult>
 {

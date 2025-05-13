@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.UserAccounts.Command.CreateUser;
+﻿namespace HC.UserAccounts.Application.Write.UserAccounts.Command.RegisterUser;
 
 public class RegisterUserCommand : IRequest<OperationResult<TokenMetadata>>
 {

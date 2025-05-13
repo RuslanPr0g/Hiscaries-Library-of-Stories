@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Read.Users.ReadModels;
+﻿namespace HC.PlatformUsers.Application.Read.PlatformUsers.ReadModels;
 
 public class LibraryReadModel
 {

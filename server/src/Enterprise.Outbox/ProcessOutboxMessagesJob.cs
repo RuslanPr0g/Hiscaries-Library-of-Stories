@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Quartz;
 
-namespace HC.Infrastructure.Jobs;
+namespace Enterprise.Outbox;
 
 public class ProcessOutboxMessagesJob : IJob
 {

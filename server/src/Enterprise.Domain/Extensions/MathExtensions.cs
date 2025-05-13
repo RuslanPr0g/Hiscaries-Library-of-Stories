@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Common.Extensions;
+﻿namespace Enterprise.Domain.Extensions;
 
 public static class MathExtensions
 {
@@ -14,6 +14,6 @@ public static class MathExtensions
             return 0;
         }
 
-        return ((currentCount * 1m) / (totalCount * 1m)) * 100;
+        return currentCount * 1m / (totalCount * 1m) * 100;
     }
 }

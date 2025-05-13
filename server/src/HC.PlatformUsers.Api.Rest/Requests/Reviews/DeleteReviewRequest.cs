@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests.Reviews;
+﻿namespace HC.PlatformUsers.Api.Rest.Requests.Reviews;
 
 public sealed class DeleteReviewRequest
 {

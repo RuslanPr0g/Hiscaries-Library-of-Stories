@@ -1,6 +1,4 @@
-﻿using HC.Persistence.Context;
-
-namespace HC.Persistence.Write;
+﻿namespace Enterprise.Persistence.Context;
 
 public sealed class UnitOfWork : IUnitOfWork
 {

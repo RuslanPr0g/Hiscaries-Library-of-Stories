@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Read.Reviews.ReadModels;
+﻿namespace HC.PlatformUsers.Application.Read.Reviews.ReadModels;
 
 public sealed class ReviewReadModel
 {

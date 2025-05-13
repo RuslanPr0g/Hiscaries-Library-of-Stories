@@ -1,4 +1,4 @@
-﻿namespace HC.API.Constants;
+﻿namespace HC.PlatformUsers.Api.Rest.Constants;
 
 public static class APIConstants
 {

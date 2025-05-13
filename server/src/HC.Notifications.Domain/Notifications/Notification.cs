@@ -1,6 +1,4 @@
-﻿using HC.Domain.Notifications.Events;
-
-namespace HC.Domain.Notifications;
+﻿namespace HC.Notifications.Domain.Notifications;
 
 /// <summary>
 /// Represents a notification in the system

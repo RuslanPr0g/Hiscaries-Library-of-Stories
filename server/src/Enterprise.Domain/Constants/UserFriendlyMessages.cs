@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Constants;
+﻿namespace Enterprise.Domain.Constants;
 public static class UserFriendlyMessages
 {
     public static string UsernameEmpty = "The username field cannot be empty. Please provide a valid username.";

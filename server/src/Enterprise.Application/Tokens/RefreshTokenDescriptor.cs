@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Tokens;
+﻿namespace Enterprise.Application.Tokens;
 
 public sealed class RefreshTokenDescriptor
 {

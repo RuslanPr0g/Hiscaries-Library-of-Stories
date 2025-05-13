@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Read.Repositories;
+namespace HC.Stories.Persistence.Read;
 
 public sealed class EFStoryReadRepository : IStoryReadRepository
 {

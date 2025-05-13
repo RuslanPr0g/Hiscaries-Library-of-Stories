@@ -1,7 +1,18 @@
-﻿using HC.Application.Write.Stories.Command;
-using HC.Application.Write.Stories.DataAccess;
+﻿using HC.Stories.Application.Write.Stories.Command.AddComment;
+using HC.Stories.Application.Write.Stories.Command.CreateGenre;
+using HC.Stories.Application.Write.Stories.Command.DeleteComment;
+using HC.Stories.Application.Write.Stories.Command.DeleteGenre;
+using HC.Stories.Application.Write.Stories.Command.DeleteStory;
+using HC.Stories.Application.Write.Stories.Command.DeleteStoryAudio;
+using HC.Stories.Application.Write.Stories.Command.PublishStory;
+using HC.Stories.Application.Write.Stories.Command.ScoreStory;
+using HC.Stories.Application.Write.Stories.Command.UpdateComment;
+using HC.Stories.Application.Write.Stories.Command.UpdateGenre;
+using HC.Stories.Application.Write.Stories.Command.UpdateStory;
+using HC.Stories.Application.Write.Stories.Command.UpdateStoryAudio;
+using HC.Stories.Application.Write.Stories.DataAccess;
 
-namespace HC.Application.Write.Stories.Services;
+namespace HC.Stories.Application.Write.Stories.Services;
 
 public sealed class StoryWriteService : IStoryWriteService
 {

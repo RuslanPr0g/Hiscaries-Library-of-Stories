@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.FileStorage;
+﻿namespace Enterprise.FileStorage;
 
 public class LocalFileStorageService : IFileStorageService
 {

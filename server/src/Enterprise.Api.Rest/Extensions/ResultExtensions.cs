@@ -1,6 +1,6 @@
 #nullable enable
 
-namespace HC.API.Extensions;
+namespace Enterprise.Api.Rest.Extensions;
 
 public static class ResultExtensions
 {

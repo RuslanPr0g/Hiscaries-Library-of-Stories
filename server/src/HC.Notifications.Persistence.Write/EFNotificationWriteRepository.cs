@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Write.Repositories;
+namespace HC.Notifications.Persistence.Write;
 
 public class EFNotificationWriteRepository : INotificationWriteRepository
 {

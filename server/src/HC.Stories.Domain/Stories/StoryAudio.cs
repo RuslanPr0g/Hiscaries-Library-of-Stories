@@ -1,4 +1,4 @@
-﻿namespace HC.Domain.Stories;
+﻿namespace HC.Stories.Domain.Stories;
 
 /// <summary>
 /// Represents audio of a story, the actual data is on the disk,

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.PlatformUsers.Command.DeleteReview;
+﻿namespace HC.PlatformUsers.Application.Write.PlatformUsers.Command.DeleteReview;
 
 public sealed class DeleteReviewCommand : IRequest<OperationResult>
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Write.Repositories;
+namespace HC.Stories.Persistence.Write;
 
 public sealed class EFStoryWriteRepository : IStoryWriteRepository
 {

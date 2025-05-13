@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.UserAccounts.Command.RefreshToken;
+﻿namespace HC.UserAccounts.Application.Write.UserAccounts.Command.RefreshToken;
 
 public class RefreshTokenCommand : IRequest<OperationResult<TokenMetadata>>
 {

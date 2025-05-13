@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HC.Persistence.Write.Repositories;
+namespace HC.PlatformUsers.Persistence.Write;
 
 public class EFPlatformUserWriteRepository : IPlatformUserWriteRepository
 {

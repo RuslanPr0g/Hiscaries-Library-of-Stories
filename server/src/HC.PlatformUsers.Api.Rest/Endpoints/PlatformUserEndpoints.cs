@@ -1,7 +1,7 @@
-﻿using HC.API.Requests.Libraries;
+﻿using HC.PlatformUsers.Api.Rest.Requests.Libraries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HC.API.ApiEndpoints;
+namespace HC.PlatformUsers.Api.Rest.Endpoints;
 
 public static class PlatformUserEndpoints
 {

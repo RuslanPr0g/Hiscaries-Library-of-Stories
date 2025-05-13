@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HC.Domain.UserAccounts;
+namespace HC.UserAccounts.Domain.UserAccounts;
 
 [NotMapped]
 public sealed record UserAccountId(Guid Value) : Identity(Value)

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.UserAccounts.Command.UpdateUserData;
+﻿namespace HC.UserAccounts.Application.Write.UserAccounts.Command.UpdateUserData;
 
 public sealed class UpdateUserDataCommand : IRequest<OperationResult>
 {

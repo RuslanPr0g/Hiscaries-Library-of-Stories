@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Stories.Command;
+﻿namespace HC.Stories.Application.Write.Stories.Command.DeleteComment;
 
 public class DeleteCommentCommand : IRequest<OperationResult>
 {

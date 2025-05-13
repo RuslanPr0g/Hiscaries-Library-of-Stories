@@ -1,7 +1,10 @@
-﻿using HC.Application.Write.PlatformUsers.Command.DeleteReview;
-using HC.Application.Write.PlatformUsers.Command.PublishReview;
+﻿using HC.PlatformUsers.Application.Write.PlatformUsers.Command.DeleteReview;
+using HC.PlatformUsers.Application.Write.PlatformUsers.Command.EditLibrary;
+using HC.PlatformUsers.Application.Write.PlatformUsers.Command.PublishReview;
+using HC.PlatformUsers.Application.Write.PlatformUsers.Command.SubscribeToLibrary;
+using HC.PlatformUsers.Application.Write.PlatformUsers.Command.UnsubscribeFromLibrary;
 
-namespace HC.Application.Write.PlatformUsers.Services;
+namespace HC.PlatformUsers.Application.Write.PlatformUsers.Services;
 
 public interface IPlatformUserWriteService
 {

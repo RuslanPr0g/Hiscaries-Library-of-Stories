@@ -1,6 +1,6 @@
 ﻿using Quartz;
 
-namespace HC.Infrastructure.Jobs;
+namespace Enterprise.Outbox;
 
 public class CleanOutboxJob : IJob
 {

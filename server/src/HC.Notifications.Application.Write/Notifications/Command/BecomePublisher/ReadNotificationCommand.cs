@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Notifications.Command.BecomePublisher;
+﻿namespace HC.Notifications.Application.Write.Notifications.Command.BecomePublisher;
 
 public sealed class ReadNotificationCommand : IRequest<OperationResult>
 {

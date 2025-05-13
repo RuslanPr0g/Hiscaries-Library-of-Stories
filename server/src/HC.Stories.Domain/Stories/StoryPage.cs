@@ -1,4 +1,4 @@
-﻿namespace HC.Domain.Stories;
+﻿namespace HC.Stories.Domain.Stories;
 
 public sealed class StoryPage : Entity
 {

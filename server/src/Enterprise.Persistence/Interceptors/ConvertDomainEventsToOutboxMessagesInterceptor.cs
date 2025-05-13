@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace HC.Persistence.Context.Interceptors;
+namespace Enterprise.Persistence.Interceptors;
 
 public sealed class ConvertDomainEventsToOutboxMessagesInterceptor
     : SaveChangesInterceptor

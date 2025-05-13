@@ -1,9 +1,9 @@
-﻿using HC.Application.Write.ResultModels.Message;
-using HC.Application.Write.ResultModels.Response;
+﻿using Enterprise.Application.ResultModels.Message;
+using Enterprise.Application.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace HC.Application.Write.Filters;
+namespace Enterprise.Application.Filters;
 
 public class ValidationFilter : IAsyncActionFilter
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Domain.PlatformUsers;
+﻿namespace HC.PlatformUsers.Domain.PlatformUsers;
 
 public sealed class PlatformUserToLibrarySubscription : Entity
 {

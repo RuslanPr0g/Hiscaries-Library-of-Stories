@@ -1,10 +1,10 @@
-﻿using HC.Application.Extensions;
-using HC.Application.Options;
+﻿using Enterprise.Application.Extensions;
+using Enterprise.Application.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HC.Application.Common;
+namespace Enterprise.Application;
 
 public static class DIExtensions
 {

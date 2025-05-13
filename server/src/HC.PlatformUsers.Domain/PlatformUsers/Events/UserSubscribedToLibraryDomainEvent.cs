@@ -1,4 +1,4 @@
-﻿namespace HC.Domain.PlatformUsers.Events;
+﻿namespace HC.PlatformUsers.Domain.PlatformUsers.Events;
 
 // TODO: maybe record is not the best choice for domain event representation?
 public sealed class UserSubscribedToLibraryDomainEvent(Guid SubscriberUserAccountId, Guid LibraryId) : IDomainEvent

@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace HC.Application.Common.EventHandlers;
+namespace Enterprise.Application.EventHandlers;
 
 public abstract class DomainEventHandler<TEvent> : IConsumer<TEvent>
     where TEvent : class

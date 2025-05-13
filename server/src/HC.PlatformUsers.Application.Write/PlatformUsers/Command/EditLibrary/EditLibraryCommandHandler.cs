@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.PlatformUsers.Services;
+﻿using HC.PlatformUsers.Application.Write.PlatformUsers.Services;
 
-namespace HC.Application.Write.PlatformUsers.Command.PublishReview;
+namespace HC.PlatformUsers.Application.Write.PlatformUsers.Command.EditLibrary;
 
 public class EditLibraryCommandHandler : IRequestHandler<EditLibraryCommand, OperationResult>
 {

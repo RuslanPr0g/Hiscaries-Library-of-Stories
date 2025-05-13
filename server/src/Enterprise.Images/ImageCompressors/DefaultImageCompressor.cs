@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.ImageCompressors;
+﻿namespace Enterprise.Images.ImageCompressors;
 
 public sealed class DefaultImageCompressor : IImageCompressor
 {

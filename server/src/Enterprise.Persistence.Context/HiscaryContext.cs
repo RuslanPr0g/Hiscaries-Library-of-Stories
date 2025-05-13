@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-namespace HC.Persistence.Context;
+namespace Enterprise.Persistence.Context;
 
 // TODO: CREATE ENTERPRISE CONTEXT AND THEN NEST IT EVERYWHERE
 

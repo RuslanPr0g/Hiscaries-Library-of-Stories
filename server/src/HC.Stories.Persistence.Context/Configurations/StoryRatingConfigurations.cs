@@ -1,6 +1,4 @@
-﻿using HC.Persistence.Context.Configurations.Converters;
-
-namespace HC.Persistence.Context.Configurations;
+﻿namespace HC.Stories.Persistence.Context.Configurations;
 
 public class StoryRatingConfigurations : IEntityTypeConfiguration<StoryRating>
 {

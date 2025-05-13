@@ -1,5 +1,5 @@
-﻿using HC.Application.Write.ResultModels.Message;
+﻿using Enterprise.Application.ResultModels.Message;
 
-namespace HC.Application.Write.ResultModels.Response;
+namespace Enterprise.Application.ResultModels.Response;
 
 public record ErrorResult(List<ErrorMessage> Errors);

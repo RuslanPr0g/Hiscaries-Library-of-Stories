@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.ResultModels.Message;
+﻿namespace Enterprise.Application.ResultModels.Message;
 
 public class ErrorMessage
 {

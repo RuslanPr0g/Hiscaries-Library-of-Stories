@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Read.Stories.ReadModels;
+﻿namespace HC.Stories.Application.Read.Stories.ReadModels;
 
 public class StorySimpleReadModel
 {

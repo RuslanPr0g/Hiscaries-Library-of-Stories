@@ -1,7 +1,7 @@
-﻿using HC.Application.Read.Notifications.DataAccess;
-using HC.Application.Read.Notifications.ReadModels;
+﻿using HC.Notifications.Application.Read.Notifications.DataAccess;
+using HC.Notifications.Application.Read.Notifications.ReadModels;
 
-namespace HC.Application.Read.Notifications.Services;
+namespace HC.Notifications.Application.Read.Notifications.Services;
 
 public sealed class NotificationReadService : INotificationReadService
 {

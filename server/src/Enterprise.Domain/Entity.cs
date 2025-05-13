@@ -1,4 +1,4 @@
-﻿using HC.Domain;
+﻿using Enterprise.Domain;
 
 public abstract class Entity : IAuditableEntity
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Read.Extensions;
+﻿namespace Enterprise.Domain.Extensions;
 
 public static class IEnumerableExtensions
 {

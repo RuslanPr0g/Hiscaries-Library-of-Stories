@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Options;
+﻿namespace Enterprise.Application.Options;
 
 public class JwtSettings
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Stories.DataAccess;
+﻿namespace HC.Stories.Application.Write.Stories.DataAccess;
 
 public interface IStoryWriteRepository
 {

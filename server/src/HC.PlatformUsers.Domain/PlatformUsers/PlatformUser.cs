@@ -1,6 +1,4 @@
-﻿using HC.Domain.PlatformUsers.Events;
-
-namespace HC.Domain.PlatformUsers;
+﻿namespace HC.PlatformUsers.Domain.PlatformUsers;
 
 /// <summary>
 /// Represents a general user of the platform who can perform actions such as 

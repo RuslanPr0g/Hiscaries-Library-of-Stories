@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Read.Genres.ReadModels;
+﻿namespace HC.Stories.Application.Read.Genres.ReadModels;
 
 public sealed class GenreReadModel
 {

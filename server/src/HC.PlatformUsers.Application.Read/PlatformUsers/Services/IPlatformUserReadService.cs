@@ -1,6 +1,6 @@
-﻿using HC.Application.Read.Users.ReadModels;
+﻿using HC.PlatformUsers.Application.Read.PlatformUsers.ReadModels;
 
-namespace HC.Application.Read.Users.Services;
+namespace HC.PlatformUsers.Application.Read.PlatformUsers.Services;
 
 public interface IPlatformUserReadService
 {

@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.Notifications.Command.BecomePublisher;
+﻿using HC.Notifications.Application.Write.Notifications.Command.BecomePublisher;
 
-namespace HC.Application.Write.Notifications.Services;
+namespace HC.Notifications.Application.Write.Notifications.Services;
 
 public interface INotificationWriteService
 {

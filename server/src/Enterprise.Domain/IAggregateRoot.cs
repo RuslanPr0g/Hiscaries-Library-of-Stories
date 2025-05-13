@@ -1,4 +1,4 @@
-﻿namespace HC.Domain;
+﻿namespace Enterprise.Domain;
 
 public interface IAggregateRoot
 {

@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.DataAccess;
+﻿namespace Enterprise.Domain.DataAccess;
 
 /// <summary>
 /// EF Core already implements the unit of work pattern.

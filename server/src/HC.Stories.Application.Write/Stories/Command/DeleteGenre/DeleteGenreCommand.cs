@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.Stories.Command;
+﻿namespace HC.Stories.Application.Write.Stories.Command.DeleteGenre;
 
 public sealed class DeleteGenreCommand : IRequest<OperationResult>
 {

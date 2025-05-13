@@ -1,6 +1,6 @@
-﻿using HC.Application.Write.Users.Services;
+﻿using HC.UserAccounts.Application.Write.UserAccounts.Services;
 
-namespace HC.Application.Write.UserAccounts.Command.LoginUser;
+namespace HC.UserAccounts.Application.Write.UserAccounts.Command.LoginUser;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, OperationResult<TokenMetadata>>
 {

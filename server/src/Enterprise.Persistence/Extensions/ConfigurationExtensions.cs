@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Enterprise.Persistence.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 
-namespace HC.Persistence.Context.Extensions;
+namespace Enterprise.Persistence.Extensions;
 
 public static class ConfigurationExtensions
 {

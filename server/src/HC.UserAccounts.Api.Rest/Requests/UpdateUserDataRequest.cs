@@ -1,4 +1,4 @@
-﻿namespace HC.API.Requests.Users;
+﻿namespace HC.UserAccounts.Api.Rest.Requests;
 
 public class UpdateUserDataRequest
 {

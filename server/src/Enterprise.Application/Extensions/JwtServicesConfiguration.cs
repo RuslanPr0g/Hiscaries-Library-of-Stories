@@ -1,11 +1,11 @@
-﻿using HC.Application.Options;
+﻿using Enterprise.Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace HC.Application.Extensions;
+namespace Enterprise.Application.Extensions;
 
 public static class JwtServicesConfiguration
 {
@@ -71,7 +71,7 @@ public static class JwtServicesConfiguration
 
         var path = context.HttpContext.Request.Path;
         if (!string.IsNullOrEmpty(accessToken) &&
-            (path.StartsWithSegments("/hubs")))
+            path.StartsWithSegments("/hubs"))
         {
             context.Token = accessToken;
         }

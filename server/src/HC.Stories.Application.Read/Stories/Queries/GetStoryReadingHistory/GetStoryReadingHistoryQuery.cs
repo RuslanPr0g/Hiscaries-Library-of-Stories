@@ -1,6 +1,6 @@
-﻿using HC.Application.Read.Stories.ReadModels;
+﻿using HC.Stories.Application.Read.Stories.ReadModels;
 
-namespace HC.Application.Read.Stories.Queries;
+namespace HC.Stories.Application.Read.Stories.Queries.GetStoryReadingHistory;
 
 public sealed class GetStoryReadingHistoryQuery : IRequest<IEnumerable<StorySimpleReadModel>>
 {

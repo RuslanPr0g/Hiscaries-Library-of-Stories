@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text;
 
-namespace HC.Application.Write.JWT;
+namespace Enterprise.Jwt.JWT;
 
 public sealed class JWTTokenHandler : IJWTTokenHandler
 {

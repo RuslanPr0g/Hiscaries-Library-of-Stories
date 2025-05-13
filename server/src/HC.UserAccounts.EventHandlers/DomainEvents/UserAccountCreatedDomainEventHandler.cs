@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace HC.Infrastructure.EventHandlers.DomainEvents.Users;
+namespace HC.UserAccounts.EventHandlers.DomainEvents;
 
 // TODO: do I want to allow one domain handler to handle multiple domain events? if no, then this approach is kinda okay
 public sealed class UserAccountCreatedDomainEventHandler

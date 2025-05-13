@@ -1,8 +1,7 @@
-﻿using HC.Persistence.Context.Configurations.Converters;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HC.Persistence.Context.Configurations;
+namespace HC.Notifications.Persistence.Context.Configurations;
 
 public class NotificationConfigurations : IEntityTypeConfiguration<Notification>
 {

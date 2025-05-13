@@ -1,10 +1,10 @@
-﻿using HC.Application.Write.UserAccounts.Command.CreateUser;
-using HC.Application.Write.UserAccounts.Command.LoginUser;
-using HC.Application.Write.UserAccounts.Command.RefreshToken;
-using HC.Application.Write.UserAccounts.Command.UpdateUserData;
-using HC.Application.Write.UserAccounts.DataAccess;
+﻿using HC.UserAccounts.Application.Write.UserAccounts.Command.LoginUser;
+using HC.UserAccounts.Application.Write.UserAccounts.Command.RefreshToken;
+using HC.UserAccounts.Application.Write.UserAccounts.Command.RegisterUser;
+using HC.UserAccounts.Application.Write.UserAccounts.Command.UpdateUserData;
+using HC.UserAccounts.Application.Write.UserAccounts.DataAccess;
 
-namespace HC.Application.Write.Users.Services;
+namespace HC.UserAccounts.Application.Write.UserAccounts.Services;
 
 public sealed class UserAccountWriteService : IUserAccountWriteService
 {

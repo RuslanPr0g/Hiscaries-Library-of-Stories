@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Write.FileStorage;
+﻿namespace Enterprise.Domain.FileStorage;
 
 public interface IFileStorageService
 {

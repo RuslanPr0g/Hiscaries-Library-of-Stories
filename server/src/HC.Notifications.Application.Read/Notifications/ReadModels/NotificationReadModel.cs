@@ -1,4 +1,4 @@
-﻿namespace HC.Application.Read.Notifications.ReadModels;
+﻿namespace HC.Notifications.Application.Read.Notifications.ReadModels;
 
 public class NotificationReadModel
 {

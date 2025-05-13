@@ -1,4 +1,4 @@
-﻿namespace HC.Infrastructure.SignalR.Hubs;
+﻿namespace HC.Notifications.SignalR.Hubs;
 
 [Authorize]
 public sealed class UserNotificationHub : Hub

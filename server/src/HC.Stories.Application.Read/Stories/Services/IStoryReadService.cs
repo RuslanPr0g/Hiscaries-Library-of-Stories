@@ -1,8 +1,11 @@
-﻿using HC.Application.Read.Genres.ReadModels;
-using HC.Application.Read.Stories.Queries;
-using HC.Application.Read.Stories.ReadModels;
+﻿using HC.Stories.Application.Read.Genres.ReadModels;
+using HC.Stories.Application.Read.Stories.Queries.GetStoryList;
+using HC.Stories.Application.Read.Stories.Queries.GetStoryReadingHistory;
+using HC.Stories.Application.Read.Stories.Queries.GetStoryRecommendations;
+using HC.Stories.Application.Read.Stories.Queries.GetStoryResumeReading;
+using HC.Stories.Application.Read.Stories.ReadModels;
 
-namespace HC.Application.Read.Stories.Services;
+namespace HC.Stories.Application.Read.Stories.Services;
 
 public interface IStoryReadService
 {

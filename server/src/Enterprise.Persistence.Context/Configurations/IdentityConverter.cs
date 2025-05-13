@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace HC.Persistence.Context.Configurations.Converters;
+namespace Enterprise.Persistence.Context.Configurations;
 
 public class IdentityConverter<TIdentity> : ValueConverter<TIdentity, Guid>
     where TIdentity : Identity
