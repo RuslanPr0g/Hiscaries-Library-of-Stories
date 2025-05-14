@@ -1,44 +1,45 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HC.PlatformUsers.Domain.DataAccess;
+using HC.PlatformUsers.Domain.ReadModels;
+using HC.PlatformUsers.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace HC.PlatformUsers.Persistence.Read;
 
-public class EFPlatformUserReadRepository : IPlatformUserReadRepository
+public class PlatformUserReadRepository(PlatformUsersContext context) :
+    BaseReadRepository<PlatformUserReadModel>,
+    IPlatformUserReadRepository
 {
-    private readonly HiscaryContext _context;
+    private PlatformUsersContext Context { get; init; } = context;
 
-    public EFPlatformUserReadRepository(HiscaryContext context)
-    {
-        _context = context;
-    }
 
     public async Task<PlatformUserReadModel?> GetUserById(PlatformUserId userId) =>
-        await _context.PlatformUsers
+        await Context.PlatformUsers
+            .AsNoTracking()
+            .Where(x => x.UserAccountId == userId.Value)
+            .Select(user => PlatformUserReadModel.FromDomainModel(user))
+            .FirstOrDefaultAsync();
+
+    public async Task<PlatformUserReadModel?> GetPlatformUserByAccountUserId(Guid userId) =>
+        await Context.PlatformUsers
             .AsNoTracking()
             .Where(x => x.UserAccountId == userId)
             .Select(user => PlatformUserReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 
-    public async Task<PlatformUserReadModel?> GetPlatformUserByAccountUserId(UserAccountId userId) =>
-        await _context.PlatformUsers
-            .AsNoTracking()
-            .Where(x => x.UserAccountId == userId)
-            .Select(user => PlatformUserReadModel.FromDomainModel(user))
-            .FirstOrDefaultAsync();
-
-    public async Task<PlatformUserId?> GetPlatformUserIdByUserAccountId(UserAccountId userId) =>
-        await _context.PlatformUsers
+    public async Task<PlatformUserId?> GetPlatformUserIdByUserAccountId(Guid userId) =>
+        await Context.PlatformUsers
             .AsNoTracking()
             .Where(x => x.UserAccountId == userId)
             .Select(user => user.Id)
             .FirstOrDefaultAsync();
 
-    public async Task<LibraryReadModel?> GetLibraryInformation(UserAccountId requesterId, LibraryId? libraryId)
+    public async Task<LibraryReadModel?> GetLibraryInformation(Guid requesterId, LibraryId? libraryId)
     {
         var isUserSubscribedToLibrary = libraryId is not null && await IsUserSubscribedToLibrary(requesterId, libraryId);
 
         if (libraryId is null)
         {
-            return await _context.Libraries
+            return await Context.Libraries
                 .AsNoTracking()
                 .Include(x => x.PlatformUser)
                 .Where(x => x.PlatformUser.UserAccountId == requesterId)
@@ -46,7 +47,7 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
                 .FirstOrDefaultAsync();
         }
 
-        return await _context.Libraries
+        return await Context.Libraries
             .AsNoTracking()
             .Include(x => x.PlatformUser)
             .Where(x => x.Id == libraryId)
@@ -54,11 +55,10 @@ public class EFPlatformUserReadRepository : IPlatformUserReadRepository
             .FirstOrDefaultAsync();
     }
 
-    private async Task<bool> IsUserSubscribedToLibrary(UserAccountId requesterId, LibraryId libraryId)
+    private async Task<bool> IsUserSubscribedToLibrary(Guid requesterId, LibraryId libraryId)
     {
-        return await _context.PlatformUserToLibrarySubscriptions
+        return await Context.PlatformUserToLibrarySubscriptions
             .Include(x => x.PlatformUser)
             .AnyAsync(x => x.LibraryId == libraryId && x.PlatformUser.UserAccountId == requesterId);
     }
 }
-

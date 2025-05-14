@@ -1,8 +1,9 @@
-﻿using HC.Notifications.Domain.Notifications;
+﻿using Enterprise.Domain.ReadModels;
+using HC.Notifications.Domain.Notifications;
 
 namespace HC.Notifications.Domain.ReadModels;
 
-public class NotificationReadModel
+public class NotificationReadModel : IReadModel
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }

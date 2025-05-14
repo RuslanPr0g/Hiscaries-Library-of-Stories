@@ -1,4 +1,5 @@
 ﻿using Enterprise.Persistence.Context;
+using HC.Stories.Domain.Genres;
 using HC.Stories.Domain.Stories;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -11,6 +12,7 @@ public sealed class StoriesContext(DbContextOptions<StoriesContext> options)
     public override string SchemaName => "stories";
 
     public DbSet<Story> Stories { get; set; }
+    public DbSet<Genre> Genres { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

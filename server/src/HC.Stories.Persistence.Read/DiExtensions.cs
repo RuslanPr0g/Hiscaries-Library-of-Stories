@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using HC.Stories.Domain.DataAccess;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace HC.Notifications.Persistence.Read;
+namespace HC.Stories.Persistence.Read;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddNotificationsPersistenceReadLayer(
+    public static IServiceCollection AddStorysPersistenceReadLayer(
         this IServiceCollection services)
     {
-        services.AddScoped<INotificationReadRepository, NotificationReadRepository>();
+        services.AddScoped<IStoryReadRepository, StoryReadRepository>();
         return services;
     }
 }

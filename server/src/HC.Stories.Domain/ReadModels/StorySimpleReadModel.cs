@@ -1,8 +1,9 @@
-﻿using HC.Stories.Domain.Stories;
+﻿using Enterprise.Domain.ReadModels;
+using HC.Stories.Domain.Stories;
 
 namespace HC.Stories.Domain.ReadModels;
 
-public class StorySimpleReadModel
+public class StorySimpleReadModel : IReadModel
 {
     public Guid Id { get; set; }
     public string Title { get; set; }

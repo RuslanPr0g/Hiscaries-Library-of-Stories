@@ -1,6 +1,8 @@
-﻿namespace HC.PlatformUsers.Domain.ReadModels;
+﻿using Enterprise.Domain.ReadModels;
 
-public class PlatformUserReadModel
+namespace HC.PlatformUsers.Domain.ReadModels;
+
+public class PlatformUserReadModel : IReadModel
 {
     public Guid Id { get; set; }
     public string Username { get; set; }

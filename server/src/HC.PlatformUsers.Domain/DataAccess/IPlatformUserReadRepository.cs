@@ -1,8 +1,9 @@
-﻿using HC.PlatformUsers.Domain.ReadModels;
+﻿using Enterprise.Domain.DataAccess;
+using HC.PlatformUsers.Domain.ReadModels;
 
 namespace HC.PlatformUsers.Domain.DataAccess;
 
-public interface IPlatformUserReadRepository
+public interface IPlatformUserReadRepository : IBaseReadRepository<PlatformUserReadModel>
 {
     Task<PlatformUserReadModel?> GetUserById(PlatformUserId userId);
     Task<PlatformUserReadModel?> GetPlatformUserByAccountUserId(Guid userAccountId);

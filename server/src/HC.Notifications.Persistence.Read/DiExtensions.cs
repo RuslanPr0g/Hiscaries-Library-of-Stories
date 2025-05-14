@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using HC.Notifications.Domain.DataAccess;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HC.Notifications.Persistence.Read;
 
