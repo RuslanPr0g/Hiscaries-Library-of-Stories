@@ -1,14 +1,13 @@
-﻿namespace HC.Notifications.SignalR.Hubs;
+﻿using HC.Notifications.Domain.DataAccess;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+
+namespace HC.Notifications.SignalR.Hubs;
 
 [Authorize]
-public sealed class UserNotificationHub : Hub
+public sealed class UserNotificationHub(INotificationReadRepository notificationRepository) : Hub
 {
-    private readonly INotificationReadRepository _notificationRepository;
-
-    public UserNotificationHub(INotificationReadRepository notificationRepository)
-    {
-        _notificationRepository = notificationRepository;
-    }
+    private readonly INotificationReadRepository _notificationRepository = notificationRepository;
 
     public override async Task OnConnectedAsync()
     {
