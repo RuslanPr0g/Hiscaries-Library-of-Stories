@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Enterprise.Persistence.Context;
+using HC.Notifications.Domain.Notifications;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HC.Notifications.Persistence.Context.Configurations;
@@ -9,7 +11,7 @@ public class NotificationConfigurations : IEntityTypeConfiguration<Notification>
     {
         builder.ToTable("Notifications");
         builder.ConfigureEntity<Notification, NotificationId, NotificationIdentityConverter>();
-        builder.Property(c => c.UserId).HasConversion(new UserAccountIdentityConverter());
+        builder.Property(c => c.UserId).IsRequired();
         builder.Property(c => c.Type).IsRequired();
         builder.Property(c => c.Message).IsRequired();
         builder.Property(c => c.IsRead).IsRequired();

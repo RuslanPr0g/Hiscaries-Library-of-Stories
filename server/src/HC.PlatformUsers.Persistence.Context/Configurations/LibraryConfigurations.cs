@@ -1,4 +1,9 @@
-﻿namespace HC.PlatformUsers.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.PlatformUsers.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.PlatformUsers.Persistence.Context.Configurations;
 
 public class LibraryConfigurations : IEntityTypeConfiguration<Library>
 {

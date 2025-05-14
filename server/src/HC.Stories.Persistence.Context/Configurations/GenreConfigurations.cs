@@ -1,4 +1,9 @@
-﻿namespace HC.Stories.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.Stories.Domain.Genres;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.Stories.Persistence.Context.Configurations;
 
 public class GenreConfigurations : IEntityTypeConfiguration<Genre>
 {

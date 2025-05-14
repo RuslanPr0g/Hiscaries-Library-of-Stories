@@ -1,4 +1,9 @@
-﻿namespace HC.PlatformUsers.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.PlatformUsers.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.PlatformUsers.Persistence.Context.Configurations;
 
 public class PlatformUserConfigurations : IEntityTypeConfiguration<PlatformUser>
 {
@@ -6,7 +11,7 @@ public class PlatformUserConfigurations : IEntityTypeConfiguration<PlatformUser>
     {
         builder.ToTable("PlatformUsers");
         builder.ConfigureEntity<PlatformUser, PlatformUserId, PlatformUserIdentityConverter>();
-        builder.Property(c => c.UserAccountId).HasConversion(new UserAccountIdentityConverter());
+        builder.Property(c => c.UserAccountId).IsRequired();
         builder.HasIndex(x => x.UserAccountId)
             .HasDatabaseName("IX_UserAccountId")
             .IsUnique();

@@ -1,4 +1,9 @@
-﻿namespace HC.Stories.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.Stories.Domain.Stories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.Stories.Persistence.Context.Configurations;
 
 public class StoryConfigurations : IEntityTypeConfiguration<Story>
 {
@@ -6,13 +11,7 @@ public class StoryConfigurations : IEntityTypeConfiguration<Story>
     {
         builder.ToTable("Stories");
         builder.ConfigureEntity<Story, StoryId, StoryIdentityConverter>();
-        builder.Property(c => c.LibraryId).HasConversion(new LibraryIdentityConverter());
-
-        builder
-            .HasOne(s => s.Library)
-            .WithMany()
-            .HasForeignKey(s => s.LibraryId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(c => c.LibraryId).IsRequired();
 
         builder
             .HasMany(s => s.Genres)
@@ -42,16 +41,8 @@ public class StoryConfigurations : IEntityTypeConfiguration<Story>
             .HasForeignKey(sr => sr.StoryId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder
-            .HasMany(s => s.ReadHistory)
-            .WithOne()
-            .HasForeignKey(sr => sr.StoryId)
-            .OnDelete(DeleteBehavior.Cascade);
-
         builder.Navigation(x => x.Genres).AutoInclude();
-        builder.Navigation(x => x.Library).AutoInclude();
         builder.Navigation(x => x.Ratings).AutoInclude();
-        builder.Navigation(x => x.ReadHistory).AutoInclude();
         builder.Navigation(x => x.Comments).AutoInclude();
         builder.Navigation(x => x.Contents).AutoInclude();
     }

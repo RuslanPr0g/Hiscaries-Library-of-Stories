@@ -1,4 +1,6 @@
-﻿namespace HC.PlatformUsers.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context.Configurations;
+
+namespace HC.PlatformUsers.Persistence.Context.Configurations;
 
 public class ReviewIdentityConverter : IdentityConverter<ReviewId>
 {

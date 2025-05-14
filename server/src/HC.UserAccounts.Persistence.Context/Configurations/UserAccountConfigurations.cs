@@ -1,4 +1,9 @@
-﻿namespace HC.UserAccounts.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.UserAccounts.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.UserAccounts.Persistence.Context.Configurations;
 
 public class UserAccountConfigurations : IEntityTypeConfiguration<UserAccount>
 {

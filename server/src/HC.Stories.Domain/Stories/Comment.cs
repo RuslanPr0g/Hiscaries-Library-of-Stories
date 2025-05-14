@@ -29,6 +29,8 @@ public sealed class Comment : Entity<CommentId>
     }
 
     public StoryId StoryId { get; init; }
+    public Story Story { get; init; }
+
     public Guid PlatformUserId { get; init; }
 
     public string Content { get; private set; }

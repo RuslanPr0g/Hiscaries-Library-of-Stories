@@ -20,4 +20,9 @@
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Enterprise.Persistence.Context\Enterprise.Persistence.Context.csproj" />
+	  <ProjectReference Include="..\HC.Notifications.Domain\HC.Notifications.Domain.csproj" />
+	</ItemGroup>
+
 </Project>

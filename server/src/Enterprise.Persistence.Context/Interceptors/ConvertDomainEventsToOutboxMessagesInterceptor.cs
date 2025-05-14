@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 
-namespace Enterprise.Persistence.Interceptors;
+namespace Enterprise.Persistence.Context.Interceptors;
 
 public sealed class ConvertDomainEventsToOutboxMessagesInterceptor
     : SaveChangesInterceptor

@@ -1,4 +1,9 @@
-﻿namespace HC.Stories.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.PlatformUsers.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.PlatformUsers.Persistence.Context.Configurations;
 
 public class StoryBookmarkConfigurations : IEntityTypeConfiguration<StoryBookMark>
 {
@@ -7,7 +12,7 @@ public class StoryBookmarkConfigurations : IEntityTypeConfiguration<StoryBookMar
         builder.ToTable("StoryBookMarks");
         builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.StoryId, sp.PlatformUserId });
-        builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
+        builder.Property(c => c.StoryId).IsRequired();
         builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());
     }
 }

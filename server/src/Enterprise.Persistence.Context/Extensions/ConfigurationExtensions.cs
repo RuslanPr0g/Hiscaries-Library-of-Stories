@@ -3,7 +3,7 @@ using Enterprise.Persistence.Context.Configurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 
-namespace Enterprise.Persistence.Extensions;
+namespace Enterprise.Persistence.Context;
 
 public static class ConfigurationExtensions
 {

@@ -1,4 +1,9 @@
-﻿namespace HC.Stories.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.Stories.Domain.Stories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.Stories.Persistence.Context.Configurations;
 
 public class CommentConfigurations : IEntityTypeConfiguration<Comment>
 {
@@ -7,12 +12,6 @@ public class CommentConfigurations : IEntityTypeConfiguration<Comment>
         builder.ToTable("Comments");
         builder.ConfigureEntity<Comment, CommentId, CommentIdentityConverter>();
         builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
-        builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());
-
-        builder
-            .HasOne(c => c.PlatformUser)
-            .WithMany()
-            .HasForeignKey(c => c.PlatformUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(c => c.PlatformUserId).IsRequired();
     }
 }

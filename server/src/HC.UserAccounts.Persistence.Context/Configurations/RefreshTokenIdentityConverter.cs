@@ -1,4 +1,6 @@
-﻿namespace HC.UserAccounts.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context.Configurations;
+
+namespace HC.UserAccounts.Persistence.Context.Configurations;
 
 public class RefreshTokenIdentityConverter : IdentityConverter<RefreshTokenId>
 {

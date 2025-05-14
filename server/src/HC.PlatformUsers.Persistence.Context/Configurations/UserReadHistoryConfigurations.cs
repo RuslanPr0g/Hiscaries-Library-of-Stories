@@ -1,4 +1,9 @@
-﻿namespace HC.PlatformUsers.Persistence.Context.Configurations;
+﻿using Enterprise.Persistence.Context;
+using HC.PlatformUsers.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HC.PlatformUsers.Persistence.Context.Configurations;
 
 public class UserReadHistoryConfigurations : IEntityTypeConfiguration<ReadingHistory>
 {
@@ -8,6 +13,6 @@ public class UserReadHistoryConfigurations : IEntityTypeConfiguration<ReadingHis
         builder.ConfigureEntity();
         builder.HasKey(sp => new { sp.StoryId, sp.PlatformUserId });
         builder.Property(c => c.PlatformUserId).HasConversion(new PlatformUserIdentityConverter());
-        builder.Property(c => c.StoryId).HasConversion(new StoryIdentityConverter());
+        builder.Property(c => c.StoryId).IsRequired();
     }
 }
