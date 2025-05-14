@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace Enterprise.Application.EventHandlers;
+namespace Enterprise.EventHandlers;
 
 public interface IDomainEventHandler<TMessage> :
     IConsumer<TMessage>

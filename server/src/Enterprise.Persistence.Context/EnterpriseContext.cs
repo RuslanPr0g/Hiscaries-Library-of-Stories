@@ -7,12 +7,12 @@ namespace Enterprise.Persistence.Context;
 /// <summary>
 /// Handles outbox pattern.
 /// </summary>
-internal sealed class EnterpriseContext(DbContextOptions<EnterpriseContext> options) 
+public sealed class EnterpriseContext(DbContextOptions<EnterpriseContext> options) 
     : BaseEnterpriseContext<EnterpriseContext>(options)
 {
     public override string SchemaName => "enterprise";
 
-    internal DbSet<OutboxMessage> OutboxMessages { get; set; }
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

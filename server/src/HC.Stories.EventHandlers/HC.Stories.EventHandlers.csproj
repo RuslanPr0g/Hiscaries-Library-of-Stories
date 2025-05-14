@@ -12,4 +12,9 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
+	  <ProjectReference Include="..\HC.Stories.Domain.Events\HC.Stories.Domain.Events.csproj" />
+	</ItemGroup>
+
 </Project>

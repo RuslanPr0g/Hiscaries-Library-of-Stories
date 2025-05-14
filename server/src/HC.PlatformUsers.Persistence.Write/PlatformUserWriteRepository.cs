@@ -11,7 +11,7 @@ public class PlatformUserWriteRepository(PlatformUsersContext context) :
 {
     protected override PlatformUsersContext Context { get; init; } = context;
 
-    public async Task<IEnumerable<Guid>> GetLibrarySubscribersUserAccountIds(LibraryId libraryId) =>
+    public async Task<List<Guid>> GetLibrarySubscribersUserAccountIds(LibraryId libraryId) =>
         await Context.PlatformUsers
         .Include(x => x.Subscriptions)
         .Where(x => x.Subscriptions.Any(y => y.LibraryId == libraryId))

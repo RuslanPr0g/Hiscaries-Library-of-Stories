@@ -1,22 +1,17 @@
-﻿using MassTransit;
+﻿using Enterprise.EventHandlers;
+using HC.PlatformUsers.Domain.Events;
+using HC.UserAccounts.Domain.DataAccess;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace HC.PlatformUsers.EventHandlers.DomainEvents;
 
-// TODO: do I want to allow one domain handler to handle multiple domain events? if no, then this approach is kinda okay
-public sealed class UserBecamePublisherDomainEventHandler
-    : DomainEventHandler<UserBecamePublisherDomainEvent>
+public sealed class UserBecamePublisherDomainEventHandler(
+    IUserAccountWriteRepository repository,
+    ILogger<UserBecamePublisherDomainEventHandler> logger)
+        : BaseEventHandler<UserBecamePublisherDomainEvent>(logger)
 {
-    private readonly IUserAccountWriteRepository _repository;
-
-    public UserBecamePublisherDomainEventHandler(
-        IUserAccountWriteRepository repository,
-        ILogger<UserBecamePublisherDomainEventHandler> logger,
-        IUnitOfWork unitOfWork)
-        : base(logger, unitOfWork)
-    {
-        _repository = repository;
-    }
+    private readonly IUserAccountWriteRepository _repository = repository;
 
     protected override async Task HandleEventAsync(
         UserBecamePublisherDomainEvent domainEvent,
@@ -30,5 +25,7 @@ public sealed class UserBecamePublisherDomainEventHandler
         }
 
         user.BecomePublisher();
+
+        await _repository.SaveChanges();
     }
 }
