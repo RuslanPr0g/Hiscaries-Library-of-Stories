@@ -14,4 +14,10 @@
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Enterprise.Persistence\Enterprise.Persistence.csproj" />
+	  <ProjectReference Include="..\HC.UserAccounts.Domain\HC.UserAccounts.Domain.csproj" />
+	  <ProjectReference Include="..\HC.UserAccounts.Persistence.Context\HC.UserAccounts.Persistence.Context.csproj" />
+	</ItemGroup>
+
 </Project>
