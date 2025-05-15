@@ -1,7 +1,7 @@
 ﻿using Enterprise.Domain;
 using HC.Notifications.Domain.Notifications.Events;
 
-namespace HC.Notifications.Domain.Notifications;
+namespace HC.Notifications.Domain;
 
 public sealed class Notification : AggregateRoot<NotificationId>
 {

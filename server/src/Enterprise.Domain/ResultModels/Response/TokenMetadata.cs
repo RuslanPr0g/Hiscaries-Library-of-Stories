@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain.ResultModels;
+﻿namespace Enterprise.Domain.ResultModels.Response;
 
 public sealed class TokenMetadata
 {

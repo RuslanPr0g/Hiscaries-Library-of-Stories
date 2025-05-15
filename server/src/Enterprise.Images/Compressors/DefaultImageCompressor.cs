@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
 
-namespace Enterprise.Images.ImageCompressors;
+namespace Enterprise.Images.Compressors;
 
 public sealed class DefaultImageCompressor : IImageCompressor
 {

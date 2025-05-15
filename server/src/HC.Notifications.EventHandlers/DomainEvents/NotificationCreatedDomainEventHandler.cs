@@ -1,6 +1,6 @@
 ﻿using Enterprise.EventHandlers;
 using HC.Notifications.Domain.DataAccess;
-using HC.Notifications.Domain.Notifications.Events;
+using HC.Notifications.Domain.Events;
 using HC.Notifications.SignalR.Hubs;
 using MassTransit;
 using Microsoft.AspNetCore.SignalR;

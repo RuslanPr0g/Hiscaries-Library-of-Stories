@@ -39,40 +39,6 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapGet("/notifications", GetNotifications)
-            .Produces<TokenMetadata>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapPost("/notifications", ReadNotifications)
-            .Produces<TokenMetadata>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status401Unauthorized);
-    }
-
-    private static async Task<IResult> GetNotifications(HttpContext context, [FromServices] IMediator mediator)
-    {
-        var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var query = new GetUserNotificationsQuery { UserId = userIdClaim.Value };
-        var result = await mediator.Send(query);
-        return result.ToResult();
-    }
-
-    private static async Task<IResult> ReadNotifications([FromBody] ReadNotificationsRequest request, HttpContext context, [FromServices] IMediator mediator)
-    {
-        var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var command = new ReadNotificationCommand { UserId = userIdClaim.Value, NotificationIds = request.NotificationIds };
-
-        return await mediator.SendMessageGetResult(command);
     }
 
     private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)

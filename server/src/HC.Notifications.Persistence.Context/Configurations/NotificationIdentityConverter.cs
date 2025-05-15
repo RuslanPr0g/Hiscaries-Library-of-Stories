@@ -1,5 +1,5 @@
 ﻿using Enterprise.Persistence.Context.Configurations;
-using HC.Notifications.Domain.Notifications;
+using HC.Notifications.Domain;
 
 namespace HC.Notifications.Persistence.Context.Configurations;
 

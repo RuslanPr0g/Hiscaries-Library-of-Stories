@@ -1,5 +1,5 @@
-﻿using Enterprise.EventHandlers;
-using Enterprise.Generators;
+﻿using Enterprise.Domain.Generators;
+using Enterprise.EventHandlers;
 using HC.PlatformUsers.Domain;
 using HC.PlatformUsers.Domain.DataAccess;
 using HC.UserAccounts.Domain.Events;

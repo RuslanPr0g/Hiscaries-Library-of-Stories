@@ -1,7 +1,7 @@
 ﻿using Enterprise.Domain.FileStorage;
 using Enterprise.Domain.Images;
 
-namespace Enterprise.Images.ImageUploaders;
+namespace Enterprise.Images.Uploaders;
 
 public sealed class ImageUploader : IImageUploader
 {

@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.ResultModels;
+﻿using Enterprise.Domain.ResultModels.Response;
 
 namespace HC.PlatformUsers.Domain.Services;
 

@@ -1,5 +1,5 @@
 ﻿using Enterprise.Application.ResultModels.Message;
-using Enterprise.Application.ResultModels.Response;
+using Enterprise.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

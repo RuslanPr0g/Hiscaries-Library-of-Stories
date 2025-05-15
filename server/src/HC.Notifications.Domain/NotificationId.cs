@@ -1,6 +1,6 @@
 ﻿using Enterprise.Domain;
 
-namespace HC.Notifications.Domain.Notifications;
+namespace HC.Notifications.Domain;
 
 public sealed record NotificationId(Guid Value) : Identity(Value)
 {

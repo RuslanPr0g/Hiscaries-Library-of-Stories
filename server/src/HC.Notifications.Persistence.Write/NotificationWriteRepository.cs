@@ -1,5 +1,5 @@
-﻿using HC.Notifications.Domain.DataAccess;
-using HC.Notifications.Domain.Notifications;
+﻿using HC.Notifications.Domain;
+using HC.Notifications.Domain.DataAccess;
 using HC.Notifications.Persistence.Context;
 
 namespace HC.Notifications.Persistence.Write;

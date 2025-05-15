@@ -1,12 +1,12 @@
-﻿using Enterprise.EventHandlers;
-using Enterprise.Generators;
+﻿using Enterprise.Domain.Generators;
+using Enterprise.EventHandlers;
+using HC.Notifications.Domain;
 using HC.Notifications.Domain.DataAccess;
-using HC.Notifications.Domain.Notifications;
 using HC.PlatformUsers.Domain.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace HC.Stories.EventHandlers.DomainEvents;
+namespace HC.Notifications.EventHandlers.IntegrationEvents;
 
 public sealed class UserPublishedStoryIntegrationEventHandler(
     INotificationWriteRepository repository,

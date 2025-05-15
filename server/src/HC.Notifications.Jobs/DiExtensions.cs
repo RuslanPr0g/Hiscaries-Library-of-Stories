@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace Enterprise.Outbox;
+namespace HC.Notifications.Jobs;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEnterpriseOutbox(this IServiceCollection serviceDescriptors)
+    public static IServiceCollection AddJobs(this IServiceCollection serviceDescriptors)
     {
         serviceDescriptors.AddQuartz(conf =>
         {

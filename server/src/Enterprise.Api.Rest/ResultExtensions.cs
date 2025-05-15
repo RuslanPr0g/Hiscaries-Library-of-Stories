@@ -1,9 +1,10 @@
 #nullable enable
 
-using Enterprise.Domain.ResultModels;
+using Enterprise;
+using Enterprise.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Http;
 
-namespace Enterprise.Api.Rest.Extensions;
+namespace Enterprise.Api.Rest;
 
 public static class ResultExtensions
 {

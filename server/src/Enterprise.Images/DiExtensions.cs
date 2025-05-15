@@ -1,6 +1,6 @@
 ﻿using Enterprise.Domain.Images;
-using Enterprise.Images.ImageCompressors;
-using Enterprise.Images.ImageUploaders;
+using Enterprise.Images.Compressors;
+using Enterprise.Images.Uploaders;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enterprise.Images;

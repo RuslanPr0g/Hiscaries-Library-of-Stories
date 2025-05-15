@@ -1,4 +1,4 @@
-﻿namespace HC.Notifications.Api.Rest.Requests.Notifications;
+﻿namespace HC.Notifications.Api.Rest.Requests;
 
 public class ReadNotificationsRequest
 {

@@ -1,4 +1,7 @@
-﻿using HC.UserAccounts.Api.Rest.Requests;
+﻿using Enterprise.Api.Rest;
+using Enterprise.Domain.ResultModels.Response;
+using HC.UserAccounts.Api.Rest.Requests;
+using HC.UserAccounts.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HC.UserAccounts.Api.Rest.Endpoints;
@@ -12,7 +15,7 @@ public static class UserAccountEndpoints
 
         group.MapPost("/register", RegisterUser)
             .AllowAnonymous()
-            .Produces<PlatformUserReadModel>(StatusCodes.Status201Created)
+            .Produces<TokenMetadata>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
 
         group.MapPost("/login", LoginUser)
@@ -32,59 +35,68 @@ public static class UserAccountEndpoints
             .Produces(StatusCodes.Status401Unauthorized);
     }
 
-    private static async Task<IResult> RegisterUser([FromBody] RegisterUserRequest request, [FromServices] IMediator mediator)
+    private static async Task<IResult> RegisterUser(
+        [FromBody] RegisterUserRequest request,
+        [FromServices] IUserAccountWriteService service)
     {
-        var command = new RegisterUserCommand
-        {
-            Username = request.Username,
-            Email = request.Email,
-            BirthDate = request.BirthDate,
-            Password = request.Password
-        };
+        var result = await service.RegisterUser(
+            request.Username,
+            request.Email,
+            request.Password,
+            request.BirthDate);
 
-        return await mediator.SendMessageGetResult(command);
+        return result.ToResult();
     }
 
-    private static async Task<IResult> LoginUser([FromBody] UserLoginRequest request, [FromServices] IMediator mediator)
+    private static async Task<IResult> LoginUser(
+        [FromBody] UserLoginRequest request,
+        [FromServices] IUserAccountWriteService service)
     {
-        var command = new LoginUserCommand
-        {
-            Username = request.Username,
-            Password = request.Password
-        };
+        var result = await service.LoginUser(
+            request.Username,
+            request.Password);
 
-        return await mediator.SendMessageGetResult(command);
+        return result.ToResult();
     }
 
-    private static async Task<IResult> RefreshToken([FromBody] RefreshTokenRequest request, [FromServices] IMediator mediator)
+    private static async Task<IResult> RefreshToken(
+        [FromBody] RefreshTokenRequest request,
+        HttpContext context,
+        [FromServices] IUserAccountWriteService service)
     {
-        var command = new RefreshTokenCommand
+        var username = context.User.GetUsername();
+        if (username is null)
         {
-            Token = request.Token,
-            RefreshToken = request.RefreshToken
-        };
+            return Results.BadRequest("Invalid or missing username claim in the token.");
+        }
 
-        return await mediator.SendMessageGetResult(command);
+        var result = await service.RefreshToken(
+            username,
+            request.Token,
+            request.RefreshToken);
+
+        return result.ToResult();
     }
 
-    private static async Task<IResult> UpdateUserData([FromBody] UpdateUserDataRequest request, HttpContext context, [FromServices] IMediator mediator)
+    private static async Task<IResult> UpdateUserData(
+        [FromBody] UpdateUserDataRequest request,
+        HttpContext context,
+        [FromServices] IUserAccountWriteService service)
     {
-        var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
+        var userId = context.User.GetUserId();
+        if (!userId.HasValue)
         {
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var command = new UpdateUserDataCommand
-        {
-            Id = userIdClaim.Value,
-            Username = request.UpdatedUsername,
-            Email = request.Email,
-            BirthDate = request.BirthDate,
-            PreviousPassword = request.PreviousPassword,
-            NewPassword = request.NewPassword,
-        };
+        var result = await service.UpdateUserData(
+            userId.Value,
+            request.UpdatedUsername,
+            request.Email,
+            request.BirthDate,
+            request.PreviousPassword,
+            request.NewPassword);
 
-        return await mediator.SendMessageGetResult(command);
+        return result.ToResult();
     }
 }

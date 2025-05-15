@@ -1,5 +1,5 @@
-﻿using Enterprise.Persistence.Context;
-using HC.Notifications.Domain.Notifications;
+﻿using Enterprise.Persistence.Context.Extensions;
+using HC.Notifications.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

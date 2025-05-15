@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Generators;
+﻿namespace Enterprise.Domain.Generators;
 
 public interface IResourceUrlGeneratorService
 {

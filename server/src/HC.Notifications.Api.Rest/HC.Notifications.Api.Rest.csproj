@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -12,6 +12,21 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
+    <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Application.Read\HC.Notifications.Application.Read.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Application.Write\HC.Notifications.Application.Write.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Domain.Events\HC.Notifications.Domain.Events.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Domain\HC.Notifications.Domain.csproj" />
+    <ProjectReference Include="..\HC.Notifications.EventHandlers\HC.Notifications.EventHandlers.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Jobs\HC.Notifications.Jobs.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Persistence.Context\HC.Notifications.Persistence.Context.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Persistence.Read\HC.Notifications.Persistence.Read.csproj" />
+    <ProjectReference Include="..\HC.Notifications.Persistence.Write\HC.Notifications.Persistence.Write.csproj" />
+    <ProjectReference Include="..\HC.Notifications.SignalR\HC.Notifications.SignalR.csproj" />
   </ItemGroup>
 
 </Project>

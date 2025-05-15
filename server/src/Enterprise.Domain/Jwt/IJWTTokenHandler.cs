@@ -1,8 +1,7 @@
-﻿using Enterprise.Domain.Jwt;
-using Enterprise.Domain.Options;
+﻿using Enterprise.Domain.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Enterprise.Jwt;
+namespace Enterprise.Domain.Jwt;
 
 public interface IJWTTokenHandler
 {

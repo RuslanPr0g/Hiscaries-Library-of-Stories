@@ -1,4 +1,5 @@
 ﻿using Enterprise.Domain;
+using Enterprise.Domain.Generators;
 
 namespace Enterprise.Generators;
 

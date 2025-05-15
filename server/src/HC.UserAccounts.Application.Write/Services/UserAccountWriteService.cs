@@ -1,9 +1,8 @@
 ﻿using Enterprise.Domain.Constants;
+using Enterprise.Domain.Generators;
 using Enterprise.Domain.Jwt;
 using Enterprise.Domain.Options;
-using Enterprise.Domain.ResultModels;
-using Enterprise.Generators;
-using Enterprise.Jwt;
+using Enterprise.Domain.ResultModels.Response;
 using HC.UserAccounts.Application.Write.Extensions;
 using HC.UserAccounts.Domain;
 using HC.UserAccounts.Domain.DataAccess;

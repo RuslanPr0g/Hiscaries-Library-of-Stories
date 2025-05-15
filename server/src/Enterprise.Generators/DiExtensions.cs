@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Enterprise.Domain.Generators;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enterprise.Generators;
 

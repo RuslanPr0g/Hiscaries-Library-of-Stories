@@ -106,15 +106,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.Stories.Api.Rest", "HC.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.PlatformUsers.Api.Rest", "HC.PlatformUsers.Api.Rest\HC.PlatformUsers.Api.Rest.csproj", "{A6D18CC6-4E24-4032-A9D3-B4C6F7C4F97D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.EventHandlers", "Enterprise.EventHandlers\Enterprise.EventHandlers.csproj", "{E9C94369-302D-4D1E-963A-A0CC35B33F9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.EventHandlers", "Enterprise.EventHandlers\Enterprise.EventHandlers.csproj", "{E9C94369-302D-4D1E-963A-A0CC35B33F9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.Notifications.Domain.Events", "HC.Notifications.Domain.Events\HC.Notifications.Domain.Events.csproj", "{BD01E706-FD7A-4142-B3F2-99FDDEFAA5FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.Notifications.Domain.Events", "HC.Notifications.Domain.Events\HC.Notifications.Domain.Events.csproj", "{BD01E706-FD7A-4142-B3F2-99FDDEFAA5FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.PlatformUsers.Domain.Events", "HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj", "{AC321D91-D800-4780-9E3D-7D829D9BBEED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.PlatformUsers.Domain.Events", "HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj", "{AC321D91-D800-4780-9E3D-7D829D9BBEED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.Stories.Domain.Events", "HC.Stories.Domain.Events\HC.Stories.Domain.Events.csproj", "{3567C459-ED52-4346-9471-8BC377D03B3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.Stories.Domain.Events", "HC.Stories.Domain.Events\HC.Stories.Domain.Events.csproj", "{3567C459-ED52-4346-9471-8BC377D03B3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.UserAccounts.Domain.Events", "HC.UserAccounts.Domain.Events\HC.UserAccounts.Domain.Events.csproj", "{A9A1E808-B982-4B97-B0D8-DD1036B2D86C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HC.UserAccounts.Domain.Events", "HC.UserAccounts.Domain.Events\HC.UserAccounts.Domain.Events.csproj", "{A9A1E808-B982-4B97-B0D8-DD1036B2D86C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.Notifications.Jobs", "HC.Notifications.Jobs\HC.Notifications.Jobs.csproj", "{F4BACE40-319D-4301-8231-48CE873C43CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC.UserAccounts.Jobs", "HC.UserAccounts.Jobs\HC.UserAccounts.Jobs.csproj", "{D31A67D8-3E1E-4BC9-9671-4BB11143D44F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -310,6 +314,14 @@ Global
 		{A9A1E808-B982-4B97-B0D8-DD1036B2D86C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9A1E808-B982-4B97-B0D8-DD1036B2D86C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9A1E808-B982-4B97-B0D8-DD1036B2D86C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4BACE40-319D-4301-8231-48CE873C43CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4BACE40-319D-4301-8231-48CE873C43CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4BACE40-319D-4301-8231-48CE873C43CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4BACE40-319D-4301-8231-48CE873C43CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D31A67D8-3E1E-4BC9-9671-4BB11143D44F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D31A67D8-3E1E-4BC9-9671-4BB11143D44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D31A67D8-3E1E-4BC9-9671-4BB11143D44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D31A67D8-3E1E-4BC9-9671-4BB11143D44F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -368,6 +380,8 @@ Global
 		{AC321D91-D800-4780-9E3D-7D829D9BBEED} = {0FBB1A22-74C6-4E28-8485-426252190149}
 		{3567C459-ED52-4346-9471-8BC377D03B3D} = {2B1DBBE8-A0FB-4AE1-A0C4-7C9F9D467490}
 		{A9A1E808-B982-4B97-B0D8-DD1036B2D86C} = {6965F227-1239-403E-98F1-D99F95BEF4FD}
+		{F4BACE40-319D-4301-8231-48CE873C43CC} = {4AC27199-4CF8-4409-930D-A028210E98B7}
+		{D31A67D8-3E1E-4BC9-9671-4BB11143D44F} = {6965F227-1239-403E-98F1-D99F95BEF4FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16994D4B-7F71-40F8-90BD-7BF9D9A9EAE9}

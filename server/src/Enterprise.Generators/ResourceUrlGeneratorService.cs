@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Enterprise.Domain.Generators;
+using Microsoft.AspNetCore.Http;
 
 namespace Enterprise.Generators;
 

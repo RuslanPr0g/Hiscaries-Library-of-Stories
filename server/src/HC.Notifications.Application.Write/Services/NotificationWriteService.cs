@@ -1,7 +1,7 @@
 ﻿using Enterprise.Domain.Constants;
-using Enterprise.Domain.ResultModels;
+using Enterprise.Domain.ResultModels.Response;
+using HC.Notifications.Domain;
 using HC.Notifications.Domain.DataAccess;
-using HC.Notifications.Domain.Notifications;
 using HC.Notifications.Domain.Services;
 using Microsoft.Extensions.Logging;
 

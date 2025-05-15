@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain.ResultModels;
+﻿namespace Enterprise.Domain.ResultModels.Response;
 
 // TODO: is it too bad? maybe look up for best practices?
 

@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain.ResultModels;
+﻿namespace Enterprise.Domain.ResultModels.Message;
 
 public class ErrorMessage
 {

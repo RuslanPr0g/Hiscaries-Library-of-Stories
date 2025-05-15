@@ -1,23 +1,19 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Enterprise.Domain.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 
 namespace Enterprise.Outbox;
 
-public class CleanOutboxJob : IJob
+public abstract class BaseCleanOutboxJob<TContext> : IJob
+    where TContext : DbContext
 {
-    private readonly EnterpriseContext _context;
-
-    public CleanOutboxJob(EnterpriseContext context)
-    {
-        _context = context;
-    }
+    protected abstract TContext Context { get; init; }
 
     public async Task Execute(IJobExecutionContext context)
     {
-        var messages = await _context
-        .OutboxMessages
+        var messages = await Context
+        .Set<OutboxMessage>()
         .Where(m => m.ProcessedOnUtc != null)
         .Take(5)
         .ToListAsync();
@@ -26,7 +22,7 @@ public class CleanOutboxJob : IJob
         {
             try
             {
-                _context.Remove(message);
+                Context.Remove(message);
             }
             catch (Exception ex)
             {
@@ -35,6 +31,6 @@ public class CleanOutboxJob : IJob
             }
         }
 
-        await _context.SaveChangesAsync();
+        await Context.SaveChangesAsync();
     }
 }

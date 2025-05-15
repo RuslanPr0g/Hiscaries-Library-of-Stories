@@ -1,11 +1,11 @@
 ﻿using Enterprise.EventHandlers;
 using HC.PlatformUsers.Domain.DataAccess;
 using HC.PlatformUsers.Domain.Events;
-using HC.Stories.Domain.Stories.Events;
+using HC.Stories.Domain.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace HC.Stories.EventHandlers.DomainEvents;
+namespace HC.PlatformUsers.EventHandlers.IntegrationEvents;
 
 public sealed class StoryPublishedIntegrationEventHandler(
     IPlatformUserWriteRepository repository,

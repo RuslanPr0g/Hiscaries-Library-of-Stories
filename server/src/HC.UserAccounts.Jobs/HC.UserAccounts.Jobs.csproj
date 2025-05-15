@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Domain.Events\HC.UserAccounts.Domain.Events.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Persistence.Context\HC.UserAccounts.Persistence.Context.csproj" />
+  </ItemGroup>
+
+</Project>

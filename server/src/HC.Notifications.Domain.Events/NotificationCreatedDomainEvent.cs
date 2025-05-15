@@ -1,6 +1,6 @@
 ﻿using Enterprise.Domain;
 
-namespace HC.Notifications.Domain.Notifications.Events;
+namespace HC.Notifications.Domain.Events;
 
 public sealed class NotificationCreatedDomainEvent(
     Guid Id,

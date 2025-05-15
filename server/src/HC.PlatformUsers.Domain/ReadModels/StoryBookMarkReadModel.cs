@@ -1,4 +1,4 @@
-﻿namespace HC.Stories.Domain.ReadModels;
+﻿namespace HC.PlatformUsers.Domain.ReadModels;
 
 public sealed class StoryBookMarkReadModel
 {

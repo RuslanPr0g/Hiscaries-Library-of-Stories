@@ -1,5 +1,4 @@
 ﻿using Enterprise.Domain.ReadModels;
-using HC.Notifications.Domain.Notifications;
 
 namespace HC.Notifications.Domain.ReadModels;
 

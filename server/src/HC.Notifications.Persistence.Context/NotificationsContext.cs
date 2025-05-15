@@ -1,5 +1,5 @@
 ﻿using Enterprise.Persistence.Context;
-using HC.Notifications.Domain.Notifications;
+using HC.Notifications.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

@@ -1,6 +1,6 @@
 ﻿using Enterprise.Domain;
 
-namespace HC.Stories.Domain.Stories.Events;
+namespace HC.Stories.Domain.Events;
 
 public sealed class StoryPublishedDomainEvent(
     Guid LibraryId,

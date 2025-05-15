@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Enterprise.Persistence.Context.Extensions;
 using HC.UserAccounts.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

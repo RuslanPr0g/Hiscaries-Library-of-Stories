@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enterprise.Outbox;
+namespace Enterprise.Api.Rest;
 
 public static class DiExtensions
 {

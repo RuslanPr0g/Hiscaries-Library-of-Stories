@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Enterprise.Domain.Outbox;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -7,21 +7,19 @@ using System.Reflection;
 
 namespace Enterprise.Outbox;
 
-public class ProcessOutboxMessagesJob : IJob
+public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublishEndpoint publisher) : IJob
+    where TContext : DbContext
+    where TAssembly : Assembly
 {
-    private readonly EnterpriseContext _context;
-    private readonly IPublishEndpoint _publisher;
+    protected abstract TContext Context { get; init; }
+    protected abstract TAssembly MessagesAssembly { get; init; }
 
-    public ProcessOutboxMessagesJob(EnterpriseContext context, IPublishEndpoint publisher)
-    {
-        _context = context;
-        _publisher = publisher;
-    }
+    private readonly IPublishEndpoint _publisher = publisher;
 
     public async Task Execute(IJobExecutionContext context)
     {
-        var messages = await _context
-        .OutboxMessages
+        var messages = await Context
+        .Set<OutboxMessage>()
         .Where(m => m.ProcessedOnUtc == null)
         .Take(20)
         .ToListAsync();
@@ -30,9 +28,7 @@ public class ProcessOutboxMessagesJob : IJob
         {
             try
             {
-                // TODO: GetCallingAssembly may not work, check!
-                // here we need to get event type to properly send the event to message broker
-                var messageType = Assembly.GetCallingAssembly().GetType(message.Type);
+                var messageType = MessagesAssembly.GetType(message.Type);
 
                 if (messageType is null)
                 {
@@ -66,6 +62,6 @@ public class ProcessOutboxMessagesJob : IJob
             }
         }
 
-        await _context.SaveChangesAsync();
+        await Context.SaveChangesAsync();
     }
 }

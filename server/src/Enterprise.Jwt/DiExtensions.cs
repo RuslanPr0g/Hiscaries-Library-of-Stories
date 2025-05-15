@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Enterprise.Domain.Jwt;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enterprise.Jwt;
 

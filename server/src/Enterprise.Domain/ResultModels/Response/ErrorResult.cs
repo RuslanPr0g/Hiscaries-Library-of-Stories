@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.ResultModels;
+﻿using Enterprise.Domain.ResultModels.Message;
 
-namespace Enterprise.Application.ResultModels.Response;
+namespace Enterprise.Domain.ResultModels.Response;
 
 public record ErrorResult(List<ErrorMessage> Errors);

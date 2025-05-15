@@ -1,7 +1,7 @@
 ﻿using HC.Stories.Application.Write.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HC.Storys.Application.Write;
+namespace HC.Stories.Application.Write;
 
 public static class DIExtensions
 {

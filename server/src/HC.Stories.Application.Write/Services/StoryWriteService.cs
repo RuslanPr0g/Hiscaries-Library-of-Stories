@@ -1,7 +1,7 @@
 ﻿using Enterprise.Domain.Constants;
-using Enterprise.Domain.ResultModels;
-using Enterprise.Generators;
-using Enterprise.Images.ImageUploaders;
+using Enterprise.Domain.Generators;
+using Enterprise.Domain.Images;
+using Enterprise.Domain.ResultModels.Response;
 using HC.Stories.Domain.DataAccess;
 using HC.Stories.Domain.Genres;
 using HC.Stories.Domain.Stories;
