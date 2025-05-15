@@ -1,203 +1,202 @@
-﻿using HC.PlatformUsers.Application.Write.PlatformUsers.Command.DeleteReview;
-using HC.PlatformUsers.Application.Write.PlatformUsers.Command.EditLibrary;
-using HC.PlatformUsers.Application.Write.PlatformUsers.Command.PublishReview;
-using HC.PlatformUsers.Application.Write.PlatformUsers.Command.SubscribeToLibrary;
-using HC.PlatformUsers.Application.Write.PlatformUsers.Command.UnsubscribeFromLibrary;
-using HC.PlatformUsers.Application.Write.PlatformUsers.DataAccess;
+﻿using Enterprise.Domain.Constants;
+using Enterprise.Domain.ResultModels;
+using Enterprise.Generators;
+using Enterprise.Images.ImageUploaders;
+using HC.PlatformUsers.Domain;
+using HC.PlatformUsers.Domain.DataAccess;
+using HC.PlatformUsers.Domain.Services;
+using Microsoft.Extensions.Logging;
 
-namespace HC.PlatformUsers.Application.Write.PlatformUsers.Services;
-
-public sealed class PlatformUserWriteService : IPlatformUserWriteService
+namespace HC.PlatformUsers.Application.Write.Services
 {
-    private readonly IPlatformUserWriteRepository _repository;
-    private readonly IIdGenerator _idGenerator;
-    private readonly IImageUploader _imageUploader;
-    private readonly IResourceUrlGeneratorService _urlGeneratorService;
-    private readonly ILogger<PlatformUserWriteService> _logger;
-
-    public PlatformUserWriteService(
+    public sealed class PlatformUserWriteService(
         IPlatformUserWriteRepository repository,
         IIdGenerator idGenerator,
         ILogger<PlatformUserWriteService> logger,
         IImageUploader imageUploader,
-        IResourceUrlGeneratorService urlGeneratorService)
+        IResourceUrlGeneratorService urlGeneratorService) : IPlatformUserWriteService
     {
-        _repository = repository;
-        _idGenerator = idGenerator;
-        _logger = logger;
-        _imageUploader = imageUploader;
-        _urlGeneratorService = urlGeneratorService;
-    }
+        private readonly IPlatformUserWriteRepository _repository = repository;
+        private readonly IIdGenerator _idGenerator = idGenerator;
+        private readonly IImageUploader _imageUploader = imageUploader;
+        private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
+        private readonly ILogger<PlatformUserWriteService> _logger = logger;
 
-    public async Task<OperationResult> SubscribeToLibrary(SubscribeToLibraryCommand command)
-    {
-        _logger.LogInformation("Attempting to subscribe to a library {LibraryId} for a user {UserId}", command.LibraryId, command.UserId);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
-
-        if (user is null)
+        public async Task<OperationResult> BecomePublisher(Guid id)
         {
-            _logger.LogWarning("User {UserId} not found when attempting to subscribe to a library", command.UserId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            _logger.LogInformation("Attempting to make user {id} a publisher", id);
+            PlatformUser? user = await _repository.GetByUserAccountId(id);
+
+            if (user is null)
+            {
+                _logger.LogWarning("Failed to make user a publisher: User {id} not found", id);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            var libraryId = _idGenerator.Generate((id) => new LibraryId(id));
+            user.BecomePublisher(libraryId);
+            await _repository.SaveChanges();
+            _logger.LogInformation("Successfully made user {id} a publisher", id);
+            return OperationResult.CreateSuccess();
         }
 
-        if (user.Libraries.Any(x => x.Id.Value == command.LibraryId))
+        public async Task<OperationResult> PublishReview(Guid libraryId, Guid reviewerId, string? message, Guid? reviewId)
         {
-            _logger.LogWarning("User {UserId} is an owner of the library, so the subscription is not possible {LibraryId}", command.UserId, command.LibraryId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+            _logger.LogInformation("Attempting to publish review for reviewer {ReviewerId}, publisher {LibraryId}", reviewerId, libraryId);
+            PlatformUser? user = await _repository.GetByUserAccountId(reviewerId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("Failed to publish review: User {ReviewerId} not found", reviewerId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            user.PublishReview(libraryId, message);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully published review for reviewer {ReviewerId}, publisher {LibraryId}", reviewerId, libraryId);
+            return OperationResult.CreateSuccess();
         }
 
-        user.SubscribeToLibrary(command.LibraryId);
-
-        _logger.LogInformation("Successfully subscribed to the library {LibraryId} for the user {UserId}", command.LibraryId, command.UserId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> UnsubscribeFromLibrary(UnsubscribeFromLibraryCommand command)
-    {
-        _logger.LogInformation("Attempting to unsubscribe from a library {LibraryId} for a user {UserId}", command.LibraryId, command.UserId);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
-
-        if (user is null)
+        public async Task<OperationResult> DeleteReview(Guid userId, Guid libraryId)
         {
-            _logger.LogWarning("User {UserId} not found when attempting to unsubscribe from a library", command.UserId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            _logger.LogInformation("Attempting to delete review {LibraryId} for user {UserId}", libraryId, userId);
+            PlatformUser? user = await _repository.GetByUserAccountId(userId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("Failed to delete review: User {UserId} not found", userId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            user.RemoveReview(libraryId);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully deleted review {LibraryId} for user {UserId}", libraryId, userId);
+            return OperationResult.CreateSuccess();
         }
 
-        if (!user.Subscriptions.Any(x => x.LibraryId.Value == command.LibraryId))
+        public async Task<OperationResult> BookmarkStory(Guid userId, Guid storyId)
         {
-            _logger.LogWarning("User {UserId} is not subscribed to the library {LibraryId}", command.UserId, command.LibraryId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+            _logger.LogInformation("Attempting to bookmark story for user {UserId}", userId);
+            PlatformUser? user = await _repository.GetByUserAccountId(userId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("User {UserId} not found when attempting to bookmark story", userId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            user.BookmarkStory(storyId);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully bookmarked story {StoryId} for user {UserId}", storyId, userId);
+            return OperationResult.CreateSuccess();
         }
 
-        user.UnsubscribeFromLibrary(command.LibraryId);
-
-        _logger.LogInformation("Successfully unsubscribed from the library {LibraryId} for the user {UserId}", command.LibraryId, command.UserId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> EditLibraryInfo(EditLibraryCommand command)
-    {
-        _logger.LogInformation("Attempting to edit library for user {UserId}", command.UserId);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
-
-        if (user is null)
+        public async Task<OperationResult> ReadStoryHistory(Guid userId, Guid storyId, int page)
         {
-            _logger.LogWarning("User {UserId} not found when attempting to edit a library", command.UserId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            _logger.LogInformation("Attempting to record read story history for user {UserId}, story {StoryId}, page {Page}", userId, storyId, page);
+            PlatformUser? user = await _repository.GetByUserAccountId(userId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("Failed to record read story history: User {UserId} not found", userId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            user.ReadStoryPage(storyId, page);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully recorded read story history for user {UserId}, story {StoryId}, page {Page}", userId, storyId, page);
+            return OperationResult.CreateSuccess();
         }
 
-        if (!user.Libraries.Any(x => x.Id.Value == command.LibraryId))
+        public async Task<OperationResult> EditLibraryInfo(Guid userId, Guid libraryId, string? bio, byte[]? avatar, bool shouldUpdateImage, List<string> linksToSocialMedia)
         {
-            _logger.LogWarning("User {UserId} is not an owner of the library {LibraryId}", command.UserId, command.LibraryId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+            _logger.LogInformation("Attempting to edit library for user {UserId}", userId);
+            PlatformUser? user = await _repository.GetByUserAccountId(userId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("User {UserId} not found when attempting to edit a library", userId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            if (!user.Libraries.Any(x => x.Id.Value == libraryId))
+            {
+                _logger.LogWarning("User {UserId} is not an owner of the library {LibraryId}", userId, libraryId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+            }
+
+            string? imagePreviewUrl = shouldUpdateImage && avatar is not null ?
+                await UploadAvatarAndGetUrlAsync(libraryId, avatar) :
+                user.GetCurrentLibrary()?.AvatarUrl;
+
+            user.EditLibrary(libraryId, bio, imagePreviewUrl, linksToSocialMedia);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully edited a library {LibraryId} for user {UserId}", libraryId, userId);
+            return OperationResult.CreateSuccess();
         }
 
-        string? imagePreviewUrl = command.ShouldUpdateImage && command.Avatar is not null ?
-            await UploadAvatarAndGetUrlAsync(command.LibraryId, command.Avatar) :
-            user.GetCurrentLibrary()?.AvatarUrl;
-
-        user.EditLibrary(command.LibraryId, command.Bio, imagePreviewUrl, command.LinksToSocialMedia);
-
-        _logger.LogInformation("Successfully edited a library {LibraryId} for user {UserId}", command.LibraryId, command.UserId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> BookmarkStory(BookmarkStoryCommand command)
-    {
-        _logger.LogInformation("Attempting to bookmark story for user {UserId}", command.UserId);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
-
-        if (user is null)
+        public async Task<OperationResult> SubscribeToLibrary(Guid userId, Guid libraryId)
         {
-            _logger.LogWarning("User {UserId} not found when attempting to bookmark story", command.UserId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            _logger.LogInformation("Attempting to subscribe to a library {LibraryId} for a user {UserId}", libraryId, userId);
+            PlatformUser? user = await _repository.GetByUserAccountId(userId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("User {UserId} not found when attempting to subscribe to a library", userId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            if (user.Libraries.Any(x => x.Id.Value == libraryId))
+            {
+                _logger.LogWarning("User {UserId} is an owner of the library, so the subscription is not possible {LibraryId}", userId, libraryId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+            }
+
+            user.SubscribeToLibrary(libraryId);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully subscribed to the library {LibraryId} for the user {UserId}", libraryId, userId);
+            return OperationResult.CreateSuccess();
         }
 
-        user.BookmarkStory(command.StoryId);
-
-        _logger.LogInformation("Successfully bookmarked story {StoryId} for user {UserId}", command.StoryId, command.UserId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> ReadStoryHistory(ReadStoryCommand command)
-    {
-        _logger.LogInformation("Attempting to record read story history for user {UserId}, story {StoryId}, page {Page}", command.UserId, command.StoryId, command.Page);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
-
-        if (user is null)
+        public async Task<OperationResult> UnsubscribeFromLibrary(Guid userId, Guid libraryId)
         {
-            _logger.LogWarning("Failed to record read story history: User {UserId} not found", command.UserId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            _logger.LogInformation("Attempting to unsubscribe from a library {LibraryId} for a user {UserId}", libraryId, userId);
+            PlatformUser? user = await _repository.GetByUserAccountId(userId);
+
+            if (user is null)
+            {
+                _logger.LogWarning("User {UserId} not found when attempting to unsubscribe from a library", userId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            }
+
+            if (!user.Subscriptions.Any(x => x.LibraryId.Value == libraryId))
+            {
+                _logger.LogWarning("User {UserId} is not subscribed to the library {LibraryId}", userId, libraryId);
+                return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
+            }
+
+            user.UnsubscribeFromLibrary(libraryId);
+            await _repository.SaveChanges();
+
+            _logger.LogInformation("Successfully unsubscribed from the library {LibraryId} for the user {UserId}", libraryId, userId);
+            return OperationResult.CreateSuccess();
         }
 
-        user.ReadStoryPage(
-            command.StoryId,
-            command.Page);
-
-        _logger.LogInformation("Successfully recorded read story history for user {UserId}, story {StoryId}, page {Page}", command.UserId, command.StoryId, command.Page);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> BecomePublisher(UserAccountId userId)
-    {
-        _logger.LogInformation("Attempting to make user {id} a publisher", userId);
-        PlatformUser? user = await _repository.GetByUserAccountId(userId);
-
-        if (user is null)
+        private async Task<string?> UploadAvatarAndGetUrlAsync(Guid libraryId, byte[] imagePreview)
         {
-            _logger.LogWarning("Failed to make user a publisher: User {id} not found", userId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
+            if (imagePreview.Length == 0)
+            {
+                return null;
+            }
+
+            string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
+            return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
         }
-
-        var libraryId = _idGenerator.Generate((Guid id) => new LibraryId(id));
-        user.BecomePublisher(libraryId);
-        _logger.LogInformation("Successfully made user {id} a publisher", userId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> PublishReview(PublishReviewCommand command)
-    {
-        _logger.LogInformation("Attempting to publish review for reviewer {ReviewerId}, publisher {LibraryId}", command.ReviewerId, command.LibraryId);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.ReviewerId);
-
-        if (user is null)
-        {
-            _logger.LogWarning("Failed to publish review: User {ReviewerId} not found", command.ReviewerId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
-        }
-
-        user.PublishReview(
-            command.LibraryId,
-            command.Message);
-
-        _logger.LogInformation("Successfully published review for reviewer {ReviewerId}, publisher {LibraryId}", command.ReviewerId, command.LibraryId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<OperationResult> DeleteReview(DeleteReviewCommand command)
-    {
-        _logger.LogInformation("Attempting to delete review {ReviewId} for user {UserId}", command.LibraryId, command.UserId);
-        PlatformUser? user = await _repository.GetByUserAccountId(command.UserId);
-
-        if (user is null)
-        {
-            _logger.LogWarning("Failed to delete review: User {UserId} not found", command.UserId);
-            return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
-        }
-
-        user.RemoveReview(command.LibraryId);
-        _logger.LogInformation("Successfully deleted review {ReviewId} for user {UserId}", command.LibraryId, command.UserId);
-        return OperationResult.CreateSuccess();
-    }
-
-    public async Task<string?> UploadAvatarAndGetUrlAsync(LibraryId libraryId, byte[] imagePreview)
-    {
-        if (imagePreview.Length == 0)
-        {
-            return null;
-        }
-
-        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
-        return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
 }

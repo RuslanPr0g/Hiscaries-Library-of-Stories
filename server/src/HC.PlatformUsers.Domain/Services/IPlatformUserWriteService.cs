@@ -1,17 +1,30 @@
-﻿namespace HC.PlatformUsers.Domain.Services;
+﻿using Enterprise.Domain.ResultModels;
+
+namespace HC.PlatformUsers.Domain.Services;
 
 public interface IPlatformUserWriteService
 {
-    Task<OperationResult> BecomePublisher(UserAccountId userId);
+    Task<OperationResult> BecomePublisher(Guid id);
 
-    Task<OperationResult> PublishReview(PublishReviewCommand command);
-    Task<OperationResult> DeleteReview(DeleteReviewCommand command);
+    Task<OperationResult> PublishReview(
+        Guid libraryId,
+        Guid reviewerId,
+        string? message,
+        Guid? reviewId);
 
-    Task<OperationResult> BookmarkStory(BookmarkStoryCommand command);
-    Task<OperationResult> ReadStoryHistory(ReadStoryCommand command);
+    Task<OperationResult> DeleteReview(Guid userId, Guid libraryId);
 
-    Task<OperationResult> EditLibraryInfo(EditLibraryCommand command);
+    Task<OperationResult> BookmarkStory(Guid userId, Guid storyId);
+    Task<OperationResult> ReadStoryHistory(Guid userId, Guid storyId, int page);
 
-    Task<OperationResult> SubscribeToLibrary(SubscribeToLibraryCommand command);
-    Task<OperationResult> UnsubscribeFromLibrary(UnsubscribeFromLibraryCommand command);
+    Task<OperationResult> EditLibraryInfo(
+        Guid userId,
+        Guid libraryId,
+        string? bio,
+        byte[]? avatar,
+        bool shouldUpdateImage,
+        List<string> linksToSocialMedia);
+
+    Task<OperationResult> SubscribeToLibrary(Guid userId, Guid libraryId);
+    Task<OperationResult> UnsubscribeFromLibrary(Guid userId, Guid libraryId);
 }
