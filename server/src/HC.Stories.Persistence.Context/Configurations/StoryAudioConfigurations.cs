@@ -1,4 +1,5 @@
-﻿using HC.Stories.Domain.Stories;
+﻿using Enterprise.Persistence.Context.Extensions;
+using HC.Stories.Domain.Stories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

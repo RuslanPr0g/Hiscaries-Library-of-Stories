@@ -40,7 +40,7 @@ public class StoryReadRepository(StoriesContext context) :
                 //storyInformation.LastPageRead,
                 null));
 
-        return stories;
+        return stories!;
     }
 
     public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId, Guid searchedBy)
@@ -126,7 +126,7 @@ public class StoryReadRepository(StoriesContext context) :
                 //storyInformation.LastPageRead,
                 null));
 
-        return stories;
+        return stories!;
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>?> GetStorySimpleInfoByLibraryId(
@@ -153,7 +153,7 @@ public class StoryReadRepository(StoriesContext context) :
                 //storyInformation.LastPageRead,
                 null));
 
-        return stories;
+        return stories!;
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetLastNStories(int n)
@@ -166,7 +166,7 @@ public class StoryReadRepository(StoriesContext context) :
             .ToListAsync())
             .Select(story => StoryDomainToSimpleReadDto(story, null, null));
 
-        return stories;
+        return stories!;
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(Guid searchedBy)
@@ -191,7 +191,7 @@ public class StoryReadRepository(StoriesContext context) :
                 //storyInformation.LastPageRead,
                 null));
 
-        return stories;
+        return stories!;
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(Guid searchedBy)
@@ -219,7 +219,7 @@ public class StoryReadRepository(StoriesContext context) :
                 //storyInformation.LastPageRead?.PageNumber ?? 0,
                 null));
 
-        return stories;
+        return stories!;
     }
 
     private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
@@ -228,7 +228,7 @@ public class StoryReadRepository(StoriesContext context) :
         return currentPage.PercentageOf(totalPages);
     }
 
-    private static StorySimpleReadModel StoryDomainToSimpleReadDto(
+    private static StorySimpleReadModel? StoryDomainToSimpleReadDto(
         Story? story,
         int? lastPageReadByUser,
         string? requesterUsername = null)
