@@ -1,5 +1,5 @@
 ﻿using Enterprise.Application.Extensions;
-using Enterprise.Application.Options;
+using Enterprise.Domain.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

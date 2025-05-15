@@ -198,4 +198,9 @@ public sealed class PlatformUserWriteService(
         string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
         return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
+
+    public Task<OperationResult> ReadStoryPage(Guid userId, Guid storyId, int page)
+    {
+        throw new NotImplementedException();
+    }
 }

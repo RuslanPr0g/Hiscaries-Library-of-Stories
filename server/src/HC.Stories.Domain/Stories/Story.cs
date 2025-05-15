@@ -1,6 +1,5 @@
 ﻿using Enterprise.Domain;
 using HC.Stories.Domain.Genres;
-using HC.Stories.Domain.Stories.Events;
 
 namespace HC.Stories.Domain.Stories;
 

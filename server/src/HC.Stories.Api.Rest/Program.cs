@@ -1,44 +1,74 @@
+using Enterprise.Application.Filters;
+using HC.Stories.Api.Rest.Endpoints;
+using HC.Stories.Application.Read;
+using HC.Stories.Application.Write;
+using HC.Stories.Jobs;
+using HC.Stories.Persistence.Context;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddStoriesPersistenceContext(builder.Configuration);
+builder.Services.AddStoriesApplicationWriteLayer();
+builder.Services.AddStoriesApplicationReadLayer();
+builder.Services.AddJobs();
+builder.Services.AddSerilog();
+builder.Services.AddLogging();
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services
+    .AddControllers(options => { options.Filters.Add<ValidationFilter>(); })
+    .AddJsonOptions(jsonOptions =>
+    {
+        jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = null;
+    options.SerializerOptions.DictionaryKeyPolicy = null;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseStaticFiles();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+app.UseRouting();
+
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapStoriesEndpoints();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

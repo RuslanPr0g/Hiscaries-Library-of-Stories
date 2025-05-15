@@ -1,6 +1,4 @@
-﻿using Enterprise.Domain;
-
-namespace Enterprise.Domain.Generators;
+﻿namespace Enterprise.Domain.Generators;
 
 public interface IIdGenerator
 {

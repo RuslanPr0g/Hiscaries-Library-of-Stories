@@ -1,5 +1,5 @@
 ﻿using Enterprise.Domain;
-using HC.Notifications.Domain.Notifications.Events;
+using HC.Notifications.Domain.Events;
 
 namespace HC.Notifications.Domain;
 

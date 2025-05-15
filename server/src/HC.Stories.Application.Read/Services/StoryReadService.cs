@@ -37,25 +37,30 @@ public sealed class StoryReadService : IStoryReadService
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
-        Guid? id,
-        Guid? libraryId,
-        string searchTerm,
-        string genre,
-        string? requesterUsername,
-        Guid userId)
+        Guid userId,
+        Guid? storyId = null,
+        Guid? libraryId = null,
+        string? searchTerm = null,
+        string? genre = null,
+        string? requesterUsername = null)
     {
-        if (libraryId.HasValue && Guid.Empty != id)
+        if (libraryId.HasValue && Guid.Empty != storyId)
         {
             var foundStories = await _repository.GetStorySimpleInfoByLibraryId(libraryId.Value, userId, requesterUsername);
             return foundStories is null ? [] : foundStories;
         }
 
-        if (id.HasValue && Guid.Empty != id)
+        if (storyId.HasValue && Guid.Empty != storyId)
         {
-            var foundStory = await _repository.GetStorySimpleInfo(id.Value, userId, requesterUsername);
+            var foundStory = await _repository.GetStorySimpleInfo(storyId.Value, userId, requesterUsername);
             return foundStory is null ? [] : [foundStory];
         }
 
-        return await _repository.GetStoriesBy(searchTerm, genre, userId);
+        if (searchTerm is null)
+        {
+            return [];
+        }
+
+        return await _repository.GetStoriesBy(searchTerm, genre ?? string.Empty, userId);
     }
 }

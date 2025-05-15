@@ -1,6 +1,5 @@
 #nullable enable
 
-using Enterprise;
 using Enterprise.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Http;
 

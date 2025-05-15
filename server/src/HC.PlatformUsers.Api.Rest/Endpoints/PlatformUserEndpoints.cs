@@ -1,11 +1,15 @@
-﻿using HC.PlatformUsers.Api.Rest.Requests.Libraries;
+﻿using Enterprise.Api.Rest;
+using Enterprise.Domain.Extensions;
+using HC.PlatformUsers.Api.Rest.Requests;
+using HC.PlatformUsers.Api.Rest.Requests.Libraries;
+using HC.PlatformUsers.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HC.PlatformUsers.Api.Rest.Endpoints;
 
 public static class PlatformUserEndpoints
 {
-    public static void MapPlatformUserEndpoints(this IEndpointRouteBuilder app)
+    public static void MapPlatformUsersEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/v1/users")
             .WithTags("Users");
@@ -39,90 +43,139 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/read", ReadStory)
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/bookmark", BookmarkStory)
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
     }
 
-    private static async Task<IResult> BecomePublisher(HttpContext context, [FromServices] IMediator mediator)
+    private static async Task<IResult> BookmarkStory(
+        [FromBody] BookmarkStoryRequest request,
+        [FromServices] IPlatformUserWriteService service,
+        HttpContext httpContext)
     {
-        var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
+        var userIdClaim = httpContext.User.GetUserId();
+        if (!userIdClaim.HasValue)
         {
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var command = new BecomePublisherCommand { Id = userIdClaim.Value };
+        var result = await service.BookmarkStory(userIdClaim.Value, request.StoryId);
 
-        return await mediator.SendMessageGetResult(command);
-    }
-
-    private static async Task<IResult> GetLibrary([FromQuery] Guid? libraryId, HttpContext context, [FromServices] IMediator mediator)
-    {
-        var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var query = new GetLibraryInfoQuery { UserId = userIdClaim.Value, LibraryId = libraryId };
-        var result = await mediator.Send(query);
         return result.ToResult();
     }
 
-    private static async Task<IResult> EditLibrary([FromBody] EditLibraryRequest request, HttpContext context, [FromServices] IMediator mediator)
+
+    private static async Task<IResult> ReadStory(
+        [FromBody] ReadStoryRequest request,
+        [FromServices] IPlatformUserWriteService service,
+        HttpContext httpContext)
     {
-        var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
+        var userIdClaim = httpContext.User.GetUserId();
+        if (!userIdClaim.HasValue)
         {
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var isImageAlreadyUrl = request.Avatar.ImageStringToBytes();
+        var result = await service.ReadStoryPage(userIdClaim.Value, request.StoryId, request.PageRead);
 
-        var query = new EditLibraryCommand
-        {
-            UserId = userIdClaim.Value,
-            LibraryId = request.LibraryId,
-            Avatar = isImageAlreadyUrl.Image,
-            ShouldUpdateImage = isImageAlreadyUrl.IsUpdated,
-            Bio = request.Bio,
-            LinksToSocialMedia = request.LinksToSocialMedia,
-        };
-        var result = await mediator.Send(query);
         return result.ToResult();
     }
 
-    private static async Task<IResult> SubscribeToLibrary([FromBody] LibrarySubscriptionRequest request, HttpContext context, [FromServices] IMediator mediator)
+    private static async Task<IResult> BecomePublisher(
+        HttpContext context,
+        [FromServices] IPlatformUserWriteService service)
     {
         var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
+        if (!userIdClaim.HasValue)
         {
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var query = new SubscribeToLibraryCommand
-        {
-            UserId = userIdClaim.Value,
-            LibraryId = request.LibraryId,
-        };
+        var result = await service.BecomePublisher(userIdClaim.Value);
 
-        var result = await mediator.Send(query);
         return result.ToResult();
     }
 
-    private static async Task<IResult> UnsubscribeFromLibrary([FromBody] LibrarySubscriptionRequest request, HttpContext context, [FromServices] IMediator mediator)
+    private static async Task<IResult> GetLibrary(
+        [FromQuery] Guid? libraryId,
+        HttpContext context,
+        [FromServices] IPlatformUserReadService service)
     {
         var userIdClaim = context.User.GetUserId();
-        if (userIdClaim is null)
+        if (!userIdClaim.HasValue)
         {
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var query = new UnsubscribeFromLibraryCommand
-        {
-            UserId = userIdClaim.Value,
-            LibraryId = request.LibraryId,
-        };
+        var result = await service.GetLibraryInformation(userIdClaim.Value, libraryId);
 
-        var result = await mediator.Send(query);
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> EditLibrary(
+        [FromBody] EditLibraryRequest request,
+        HttpContext context,
+        [FromServices] IPlatformUserWriteService service)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (!userIdClaim.HasValue)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var (Image, IsUpdated) = request.Avatar.ImageStringToBytes();
+
+        var result = await service.EditLibraryInfo(
+            userIdClaim.Value,
+            request.LibraryId,
+            request.Bio,
+            Image,
+            IsUpdated,
+            request.LinksToSocialMedia);
+
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> SubscribeToLibrary(
+        [FromBody] LibrarySubscriptionRequest request,
+        HttpContext context,
+        [FromServices] IPlatformUserWriteService service)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (!userIdClaim.HasValue)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var result = await service.SubscribeToLibrary(
+            userIdClaim.Value,
+            request.LibraryId);
+
+        return result.ToResult();
+    }
+
+    private static async Task<IResult> UnsubscribeFromLibrary(
+        [FromBody] LibrarySubscriptionRequest request,
+        HttpContext context,
+        [FromServices] IPlatformUserWriteService service)
+    {
+        var userIdClaim = context.User.GetUserId();
+        if (!userIdClaim.HasValue)
+        {
+            return Results.BadRequest("Invalid or missing ID claim in the token.");
+        }
+
+        var result = await service.UnsubscribeFromLibrary(
+            userIdClaim.Value,
+            request.LibraryId);
+
         return result.ToResult();
     }
 }

@@ -2,7 +2,9 @@
 
 public class StoryUpdateInfoRequest
 {
-    public Guid? StoryId { get; set; }
+    public Guid StoryId { get; set; }
+
+    public Guid LibraryId { get; set; }
 
     public string Title { get; set; }
 

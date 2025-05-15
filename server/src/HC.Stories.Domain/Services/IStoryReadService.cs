@@ -13,10 +13,10 @@ public interface IStoryReadService
     Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(Guid userId);
 
     Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
-        Guid? id,
-        Guid? libraryId,
-        string searchTerm,
-        string genre,
-        string? requesterUsername,
-        Guid userId);
+        Guid userId,
+        Guid? storyId = null,
+        Guid? libraryId = null,
+        string? searchTerm = null,
+        string? genre = null,
+        string? requesterUsername = null);
 }

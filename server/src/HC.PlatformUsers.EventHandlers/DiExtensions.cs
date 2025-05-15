@@ -7,7 +7,7 @@ using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace HC.Infrastructure.EventHandlers;
+namespace HC.PlatformUsers.EventHandlers;
 
 public static class DiExtensions
 {

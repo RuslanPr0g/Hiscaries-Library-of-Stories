@@ -1,4 +1,4 @@
-﻿using Enterprise.Application.ResultModels.Message;
+﻿using Enterprise.Domain.ResultModels.Message;
 using Enterprise.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

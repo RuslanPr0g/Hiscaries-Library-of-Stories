@@ -1,4 +1,4 @@
-﻿namespace HC.Stories.Api.Rest.Requests.Stories;
+﻿namespace HC.PlatformUsers.Api.Rest.Requests;
 
 public class ReadStoryRequest
 {

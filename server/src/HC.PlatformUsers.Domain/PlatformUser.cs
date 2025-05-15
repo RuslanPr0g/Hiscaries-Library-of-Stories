@@ -1,5 +1,4 @@
 ﻿using Enterprise.Domain;
-using HC.PlatformUsers.Domain.Events;
 
 namespace HC.PlatformUsers.Domain;
 
