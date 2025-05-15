@@ -27,6 +27,11 @@ public abstract class BaseWriteRepository<TEntity, TIdentifier, TContext> : IBas
         await Context.Set<TEntity>().AddAsync(entity);
     }
 
+    public async Task AddRange(params TEntity[] entities)
+    {
+        await Context.Set<TEntity>().AddRangeAsync(entities);
+    }
+
     public void Delete(TEntity entity)
     {
         Context.Set<TEntity>().Remove(entity);

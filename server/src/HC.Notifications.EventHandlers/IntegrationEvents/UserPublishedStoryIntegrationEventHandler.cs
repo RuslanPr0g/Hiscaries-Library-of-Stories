@@ -23,6 +23,8 @@ public sealed class UserPublishedStoryIntegrationEventHandler(
     {
         var userIds = integrationEvent.SubscriberIds;
 
+        var notifications = new List<Notification>();
+
         foreach (var userId in userIds)
         {
             var notificationId = _idGenerator.Generate((val) => new NotificationId(val));
@@ -34,8 +36,10 @@ public sealed class UserPublishedStoryIntegrationEventHandler(
                 "StoryPublished",
                 integrationEvent.StoryId,
                 integrationEvent.PreviewUrl);
-            await _repository.Add(notification);
+            notifications.Add(notification);
         }
+
+        await _repository.AddRange(notifications.ToArray());
 
         await _repository.SaveChanges();
     }
