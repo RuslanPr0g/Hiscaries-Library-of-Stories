@@ -1,38 +1,34 @@
-﻿using HC.UserAccounts.Application.Write.Services.LoginUser;
-using HC.UserAccounts.Application.Write.Services.RefreshToken;
-using HC.UserAccounts.Application.Write.Services.RegisterUser;
-using HC.UserAccounts.Application.Write.Services.UpdateUserData;
-using HC.UserAccounts.Application.Write.UserAccounts.DataAccess;
+﻿using Enterprise.Domain.Constants;
+using Enterprise.Domain.Jwt;
+using Enterprise.Domain.Options;
+using Enterprise.Domain.ResultModels;
+using Enterprise.Generators;
+using Enterprise.Jwt;
+using HC.UserAccounts.Application.Write.Extensions;
+using HC.UserAccounts.Domain;
+using HC.UserAccounts.Domain.DataAccess;
+using HC.UserAccounts.Domain.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HC.UserAccounts.Application.Write.Services;
 
-public sealed class UserAccountWriteService : IUserAccountWriteService
+public sealed class UserAccountWriteService(
+    IUserAccountWriteRepository repository,
+    JwtSettings jwtSettings,
+    TokenValidationParameters tokenValidationParameters,
+    IIdGenerator idGenerator,
+    IJWTTokenHandler tokenHandler,
+    ILogger<UserAccountWriteService> logger,
+    SaltSettings saltSettings) : IUserAccountWriteService
 {
-    private readonly IUserAccountWriteRepository _repository;
-    private readonly IIdGenerator _idGenerator;
-    private readonly JwtSettings _jwtSettings;
-    private readonly TokenValidationParameters _tokenValidationParameters;
-    private readonly IJWTTokenHandler _tokenHandler;
-    private readonly ILogger<UserAccountWriteService> _logger;
-    private readonly SaltSettings _saltSettings;
-
-    public UserAccountWriteService(
-        IUserAccountWriteRepository repository,
-        JwtSettings jwtSettings,
-        TokenValidationParameters tokenValidationParameters,
-        IIdGenerator idGenerator,
-        IJWTTokenHandler tokenHandler,
-        ILogger<UserAccountWriteService> logger,
-        SaltSettings saltSettings)
-    {
-        _repository = repository;
-        _jwtSettings = jwtSettings;
-        _tokenValidationParameters = tokenValidationParameters;
-        _idGenerator = idGenerator;
-        _tokenHandler = tokenHandler;
-        _logger = logger;
-        _saltSettings = saltSettings;
-    }
+    private readonly IUserAccountWriteRepository _repository = repository;
+    private readonly IIdGenerator _idGenerator = idGenerator;
+    private readonly JwtSettings _jwtSettings = jwtSettings;
+    private readonly TokenValidationParameters _tokenValidationParameters = tokenValidationParameters;
+    private readonly IJWTTokenHandler _tokenHandler = tokenHandler;
+    private readonly ILogger<UserAccountWriteService> _logger = logger;
+    private readonly SaltSettings _saltSettings = saltSettings;
 
     public async Task<OperationResult> BanUser(UserAccountId userId)
     {
@@ -50,37 +46,44 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
         return OperationResult.CreateSuccess();
     }
 
-    public async Task<OperationResult<TokenMetadata>> LoginUser(LoginUserCommand command)
+    public async Task<OperationResult<TokenMetadata>> LoginUser(
+        string username,
+        string password)
     {
-        _logger.LogInformation("Attempting to log in user {Username}", command.Username);
-        UserAccount? user = await _repository.GetByUsername(command.Username);
+        _logger.LogInformation("Attempting to log in user {username}", username);
+        UserAccount? user = await _repository.GetByUsername(username);
 
         if (user is null)
         {
-            _logger.LogWarning("Login attempt failed: User {Username} not found", command.Username);
+            _logger.LogWarning("Login attempt failed: User {username} not found", username);
             return OperationResult<TokenMetadata>.CreateNotFound(UserFriendlyMessages.UserIsNotFound);
         }
 
-        var passwordMatch = HashPassword(command.Password, _saltSettings.StoredSalt) == user.Password;
+        var passwordMatch = HashPassword(password, _saltSettings.StoredSalt) == user.Password;
 
         if (passwordMatch is false)
         {
-            _logger.LogWarning("Login attempt failed: Password mismatch for user {Username}", command.Username);
+            _logger.LogWarning("Login attempt failed: Password mismatch for user {username}", username);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.PasswordMismatch);
         }
 
         if (user.IsBanned)
         {
-            _logger.LogWarning("Login attempt failed: User {Username} is banned", command.Username);
+            _logger.LogWarning("Login attempt failed: User {username} is banned", username);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.UserIsBanned);
         }
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
-            await _tokenHandler.GenerateJwtToken(user, _jwtSettings);
+            await _tokenHandler.GenerateJwtToken(
+                user.Id,
+                user.Email,
+                user.Username,
+                user.Role,
+                _jwtSettings);
 
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
-            _logger.LogError("Failed to generate JWT token for user {Username}", command.Username);
+            _logger.LogError("Failed to generate JWT token for user {username}", username);
             return OperationResult<TokenMetadata>.CreateServerSideError(UserFriendlyMessages.TryAgainLater);
         }
 
@@ -88,7 +91,7 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
             generatedRefreshToken.ToDomainModel(
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
 
-        _logger.LogInformation("User {Username} successfully logged in", command.Username);
+        _logger.LogInformation("User {username} successfully logged in", username);
         return OperationResult<TokenMetadata>.CreateSuccess(new TokenMetadata
         {
             Token = generatedToken,
@@ -96,43 +99,52 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
         });
     }
 
-    public async Task<OperationResult<TokenMetadata>> RegisterUser(RegisterUserCommand command)
+    public async Task<OperationResult<TokenMetadata>> RegisterUser(
+        string username,
+        string email,
+        string password,
+        DateTime birthDate)
     {
-        _logger.LogInformation("Attempting to register new user with username {Username}", command.Username);
+        _logger.LogInformation("Attempting to register new user with username {username}", username);
 
-        UserAccount? existingUser = await _repository.GetByUsername(command.Username);
+        UserAccount? existingUser = await _repository.GetByUsername(username);
 
         if (existingUser is not null)
         {
-            _logger.LogWarning("Registration failed: Username {Username} already exists", command.Username);
+            _logger.LogWarning("Registration failed: username {username} already exists", username);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.UserWithUsernameExists);
         }
 
-        var exists = await _repository.IsExistByEmail(command.Email);
+        var exists = await _repository.IsExistByEmail(email);
 
         if (exists)
         {
-            _logger.LogWarning("Registration failed: Email {Email} already in use", command.Email);
+            _logger.LogWarning("Registration failed: Email {Email} already in use", email);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.UserWithEmailExists);
         }
 
-        string encryptedpassword = HashPassword(command.Password, _saltSettings.StoredSalt);
+        string encryptedpassword = HashPassword(password, _saltSettings.StoredSalt);
 
         var userId = _idGenerator.Generate((id) => new UserAccountId(id));
         var createdUser = new UserAccount(
             userId,
-            command.Username,
-            command.Email,
+            username,
+            email,
             encryptedpassword,
-            command.BirthDate
+            birthDate
             );
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
-            await _tokenHandler.GenerateJwtToken(createdUser, _jwtSettings);
+            await _tokenHandler.GenerateJwtToken(
+                createdUser.Id,
+                createdUser.Email,
+                createdUser.Username,
+                createdUser.Role,
+                _jwtSettings);
 
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
-            _logger.LogError("Failed to generate JWT token for new user {Username}", command.Username);
+            _logger.LogError("Failed to generate JWT token for new user {username}", username);
             return OperationResult<TokenMetadata>.CreateServerSideError(UserFriendlyMessages.TryAgainLater);
         }
 
@@ -142,7 +154,7 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
 
         await _repository.Add(createdUser);
 
-        _logger.LogInformation("Successfully registered new user {Username} with ID {UserId}", command.Username, userId);
+        _logger.LogInformation("Successfully registered new user {username} with ID {UserId}", username, userId);
         return OperationResult<TokenMetadata>.CreateSuccess(new TokenMetadata
         {
             Token = generatedToken,
@@ -150,28 +162,31 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
         });
     }
 
-    public async Task<OperationResult<TokenMetadata>> RefreshToken(RefreshTokenCommand command)
+    public async Task<OperationResult<TokenMetadata>> RefreshToken(
+        string username,
+        string token,
+        string refreshToken)
     {
-        _logger.LogInformation("Attempting to refresh token for user {Username}", command.Username);
-        UserAccount? user = await _repository.GetByUsername(command.Username);
+        _logger.LogInformation("Attempting to refresh token for user {username}", username);
+        UserAccount? user = await _repository.GetByUsername(username);
 
         if (user is null)
         {
-            _logger.LogWarning("Token refresh failed: User {Username} not found", command.Username);
+            _logger.LogWarning("Token refresh failed: User {username} not found", username);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.UserIsNotFound);
         }
 
-        var validatedToken = _tokenHandler.GetTokenWithClaims(command.Token, _tokenValidationParameters);
+        var validatedToken = _tokenHandler.GetTokenWithClaims(token, _tokenValidationParameters);
 
         if (validatedToken is null)
         {
-            _logger.LogWarning("Token refresh failed: Invalid token for user {Username}", command.Username);
+            _logger.LogWarning("Token refresh failed: Invalid token for user {username}", username);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.PleaseRelogin);
         }
 
         if (validatedToken.ExpiryDate > DateTime.UtcNow)
         {
-            _logger.LogWarning("Token refresh failed: Token not expired for user {Username}", command.Username);
+            _logger.LogWarning("Token refresh failed: Token not expired for user {username}", username);
             return OperationResult<TokenMetadata>.CreateValidationsError(UserFriendlyMessages.RefreshTokenIsNotExpired);
         }
 
@@ -179,16 +194,21 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
 
         if (!validated)
         {
-            _logger.LogWarning("Token refresh failed: Invalid refresh token for user {Username}", command.Username);
+            _logger.LogWarning("Token refresh failed: Invalid refresh token for user {username}", username);
             return OperationResult<TokenMetadata>.CreateClientSideError(UserFriendlyMessages.RefreshTokenIsExpired);
         }
 
         (string generatedToken, RefreshTokenDescriptor generatedRefreshToken) =
-            await _tokenHandler.GenerateJwtToken(user, _jwtSettings);
+            await _tokenHandler.GenerateJwtToken(
+                user.Id,
+                user.Email,
+                user.Username,
+                user.Role,
+                _jwtSettings);
 
         if (string.IsNullOrEmpty(generatedToken) || string.IsNullOrEmpty(generatedRefreshToken.Token))
         {
-            _logger.LogError("Failed to generate new JWT token for user {Username}", command.Username);
+            _logger.LogError("Failed to generate new JWT token for user {username}", username);
             return OperationResult<TokenMetadata>.CreateServerSideError(UserFriendlyMessages.TryAgainLater);
         }
 
@@ -196,7 +216,7 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
             generatedRefreshToken.ToDomainModel(
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
 
-        _logger.LogInformation("Successfully refreshed token for user {Username}", command.Username);
+        _logger.LogInformation("Successfully refreshed token for user {username}", username);
         return OperationResult<TokenMetadata>.CreateSuccess(new TokenMetadata
         {
             Token = generatedToken,
@@ -204,60 +224,66 @@ public sealed class UserAccountWriteService : IUserAccountWriteService
         });
     }
 
-    public async Task<OperationResult> UpdateUserData(UpdateUserDataCommand command)
+    public async Task<OperationResult> UpdateUserData(
+        Guid id,
+        string username,
+        string email,
+        DateTime birthDate,
+        string previousPassword,
+        string newPassword)
     {
-        _logger.LogInformation("Attempting to update user data for {Username}", command.Username);
-        UserAccount? user = await _repository.GetById(command.Id);
+        _logger.LogInformation("Attempting to update user data for {username}", username);
+        UserAccount? user = await _repository.GetById(id);
 
         if (user is null)
         {
-            _logger.LogWarning("Update user data failed: User {Username} not found", command.Username);
+            _logger.LogWarning("Update user data failed: User {username} not found", username);
             return OperationResult.CreateValidationsError(UserFriendlyMessages.UserIsNotFound);
         }
 
-        if (!string.IsNullOrEmpty(command.Username))
+        if (!string.IsNullOrEmpty(username))
         {
-            _logger.LogInformation("Checking if new username {Username} is available", command.Username);
-            var newUsernameUser = await _repository.GetByUsername(command.Username);
+            _logger.LogInformation("Checking if new username {username} is available", username);
+            var newusernameUser = await _repository.GetByUsername(username);
 
-            if (newUsernameUser is not null)
+            if (newusernameUser is not null)
             {
-                _logger.LogWarning("Update user data failed: New username {Username} already exists", command.Username);
+                _logger.LogWarning("Update user data failed: New username {username} already exists", username);
                 return OperationResult.CreateValidationsError(UserFriendlyMessages.UserWithUsernameExists);
             }
         }
 
-        var existsWithEmail = await _repository.IsExistByEmail(command.Email);
+        var existsWithEmail = await _repository.IsExistByEmail(email);
 
         if (existsWithEmail)
         {
-            _logger.LogWarning("Update user data failed: Email {Email} already in use", command.Email);
+            _logger.LogWarning("Update user data failed: Email {Email} already in use", email);
             return OperationResult.CreateValidationsError(UserFriendlyMessages.UserWithEmailExists);
         }
 
-        if (!string.IsNullOrEmpty(command.NewPassword))
+        if (!string.IsNullOrEmpty(newPassword))
         {
-            _logger.LogInformation("Attempting to update password for user {Username}", command.Username);
-            var result = UpdateUserPassword(user, command.PreviousPassword, command.NewPassword);
+            _logger.LogInformation("Attempting to update password for user {username}", username);
+            var result = UpdateUserPassword(user, previousPassword, newPassword);
 
             if (result.ResultStatus is ResultStatus.Success)
             {
-                _logger.LogInformation("Password updated successfully for user {Username}", command.Username);
-                user.UpdatePersonalInformation(command.Username, command.Email, command.BirthDate);
+                _logger.LogInformation("Password updated successfully for user {username}", username);
+                user.UpdatePersonalInformation(username, email, birthDate);
             }
             else
             {
-                _logger.LogWarning("Password update failed for user {Username}", command.Username);
+                _logger.LogWarning("Password update failed for user {username}", username);
             }
 
             return result;
         }
         else
         {
-            user.UpdatePersonalInformation(command.Username, command.Email, command.BirthDate);
+            user.UpdatePersonalInformation(username, email, birthDate);
         }
 
-        _logger.LogInformation("Successfully updated user data for {Username}", command.Username);
+        _logger.LogInformation("Successfully updated user data for {username}", username);
         return OperationResult.CreateSuccess();
     }
 
