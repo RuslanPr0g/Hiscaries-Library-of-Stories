@@ -2,14 +2,9 @@
 
 namespace Enterprise.Generators;
 
-public class ResourceUrlGeneratorService : IResourceUrlGeneratorService
+public class ResourceUrlGeneratorService(IHttpContextAccessor httpContextAccessor) : IResourceUrlGeneratorService
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public ResourceUrlGeneratorService(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     public string GenerateImageUrlByFileName(string fileName)
     {

@@ -7,13 +7,6 @@ namespace Enterprise.Persistence.Context;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEnterprisePersistenceContext(this IServiceCollection services, IConfiguration configuration)
-    {
-        return services.AddBaseEnterprisePersistenceContext<EnterpriseContext>(
-            configuration,
-            "Enterprise.Persistence.Context");
-    }
-
     public static IServiceCollection AddBaseEnterprisePersistenceContext<TContext>(
         this IServiceCollection services,
         IConfiguration configuration,
@@ -24,7 +17,7 @@ public static class DiExtensions
         services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
 
         var mainConnectionString = configuration.GetConnectionString(connectionStringName);
-        services.AddDbContext<EnterpriseContext>((sp, builder) =>
+        services.AddDbContext<TContext>((sp, builder) =>
         {
             var intetrceptor = sp.GetService<ConvertDomainEventsToOutboxMessagesInterceptor>();
             builder.UseNpgsql(mainConnectionString, b => { b.MigrationsAssembly(migrationsAssemblyName); })

@@ -1,4 +1,5 @@
 ﻿using Enterprise.Domain;
+using Enterprise.Domain.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace Enterprise.Persistence.Context;
@@ -6,16 +7,19 @@ namespace Enterprise.Persistence.Context;
 /// <summary>
 /// Base context class.
 /// </summary>
-public abstract class BaseEnterpriseContext<TContext>(DbContextOptions<TContext> options) 
+public abstract class BaseEnterpriseContext<TContext>(DbContextOptions<TContext> options)
     : DbContext(options)
     where TContext : DbContext
 {
     public abstract string SchemaName { get; }
 
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema(SchemaName);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(OutboxConfiguration).Assembly);
     }
 
     public override int SaveChanges()

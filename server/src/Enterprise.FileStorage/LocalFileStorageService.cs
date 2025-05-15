@@ -2,14 +2,9 @@
 
 namespace Enterprise.FileStorage;
 
-public class LocalFileStorageService : IFileStorageService
+public class LocalFileStorageService(string baseDirectory) : IFileStorageService
 {
-    private readonly string _baseDirectory;
-
-    public LocalFileStorageService(string baseDirectory)
-    {
-        _baseDirectory = baseDirectory;
-    }
+    private readonly string _baseDirectory = baseDirectory;
 
     public async Task<string> SaveFileAsync(byte[] fileData, string fileName)
     {
