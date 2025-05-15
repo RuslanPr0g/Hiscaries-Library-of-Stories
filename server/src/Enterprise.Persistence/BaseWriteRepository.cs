@@ -22,6 +22,13 @@ public abstract class BaseWriteRepository<TEntity, TIdentifier, TContext> : IBas
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<TEntity>> GetByIds(Guid[] ids)
+    {
+        return await Context.Set<TEntity>()
+            .Where(x => ids.Contains(x.Id))
+            .ToListAsync();
+    }
+
     public async Task Add(TEntity entity)
     {
         await Context.Set<TEntity>().AddAsync(entity);

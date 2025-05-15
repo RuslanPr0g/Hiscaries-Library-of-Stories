@@ -1,98 +1,61 @@
-﻿using HC.Stories.Application.Read.Genres.ReadModels;
-using HC.Stories.Application.Read.Services.GetStoryList;
-using HC.Stories.Application.Read.Services.GetStoryReadingHistory;
-using HC.Stories.Application.Read.Services.GetStoryRecommendations;
-using HC.Stories.Application.Read.Services.GetStoryResumeReading;
-using HC.Stories.Application.Read.Stories.DataAccess;
-using HC.Stories.Application.Read.Stories.ReadModels;
+﻿using HC.Stories.Domain.DataAccess;
+using HC.Stories.Domain.ReadModels;
 
 namespace HC.Stories.Application.Read.Services;
 
 public sealed class StoryReadService : IStoryReadService
 {
     private readonly IStoryReadRepository _repository;
-    private readonly IPlatformUserReadRepository _userRepository;
 
-    public StoryReadService(IStoryReadRepository repository, IPlatformUserReadRepository userRepository)
+    public StoryReadService(IStoryReadRepository repository)
     {
         _repository = repository;
-        _userRepository = userRepository;
     }
 
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() => await _repository.GetAllGenres();
 
     // TODO: we could use a cache for GetPlatformUserIdByUserAccountId, maybe?
     // think whether it is okay, or rethink the approach at all
-
     public async Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId, Guid searchedBy)
     {
-        var platformUserId = await _userRepository.GetPlatformUserIdByUserAccountId(searchedBy);
-
-        if (platformUserId is null)
-        {
-            return null;
-        }
-
-        return await _repository.GetStory(storyId, platformUserId);
+        return await _repository.GetStory(storyId, searchedBy);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(Guid userId)
     {
-        var platformUserId = await _userRepository.GetPlatformUserIdByUserAccountId(request.UserId);
-
-        if (platformUserId is null)
-        {
-            return await _repository.GetLastNStories(6);
-        }
-
-        return await _repository.GetStoryReadingSuggestions(platformUserId);
+        return await _repository.GetStoryReadingSuggestions(userId);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(GetStoryResumeReadingQuery request)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(Guid userId)
     {
-        var platformUserId = await _userRepository.GetPlatformUserIdByUserAccountId(request.UserId);
-
-        if (platformUserId is null)
-        {
-            return [];
-        }
-
-        return await _repository.GetStoryResumeReading(platformUserId);
+        return await _repository.GetStoryResumeReading(userId);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(GetStoryReadingHistoryQuery request)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(Guid userId)
     {
-        var platformUserId = await _userRepository.GetPlatformUserIdByUserAccountId(request.UserId);
-
-        if (platformUserId is null)
-        {
-            return [];
-        }
-
-        return await _repository.GetStoryReadingHistory(platformUserId);
+        return await _repository.GetStoryReadingHistory(userId);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request)
+    public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
+        Guid? id,
+        Guid? libraryId,
+        string searchTerm,
+        string genre,
+        string? requesterUsername,
+        Guid userId)
     {
-        var platformUserId = await _userRepository.GetPlatformUserIdByUserAccountId(request.UserId);
-
-        if (platformUserId is null)
+        if (libraryId.HasValue && Guid.Empty != id)
         {
-            return [];
-        }
-
-        if (request.LibraryId.HasValue && Guid.Empty != request.Id)
-        {
-            var foundStories = await _repository.GetStorySimpleInfoByLibraryId(request.LibraryId.Value, platformUserId, request.RequesterUsername);
+            var foundStories = await _repository.GetStorySimpleInfoByLibraryId(libraryId.Value, userId, requesterUsername);
             return foundStories is null ? [] : foundStories;
         }
 
-        if (request.Id.HasValue && Guid.Empty != request.Id)
+        if (id.HasValue && Guid.Empty != id)
         {
-            var foundStory = await _repository.GetStorySimpleInfo(request.Id.Value, platformUserId, request.RequesterUsername);
+            var foundStory = await _repository.GetStorySimpleInfo(id.Value, userId, requesterUsername);
             return foundStory is null ? [] : [foundStory];
         }
 
-        return await _repository.GetStoriesBy(request.SearchTerm, request.Genre, platformUserId);
+        return await _repository.GetStoriesBy(searchTerm, genre, userId);
     }
 }

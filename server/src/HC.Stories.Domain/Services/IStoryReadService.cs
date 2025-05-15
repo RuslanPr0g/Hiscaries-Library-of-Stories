@@ -1,13 +1,22 @@
 ﻿using HC.Stories.Domain.ReadModels;
 
-namespace HC.Stories.Domain.Services;
-
 public interface IStoryReadService
 {
     Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId, Guid searchedBy);
+
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(GetStoryRecommendationsQuery request);
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(GetStoryResumeReadingQuery request);
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(GetStoryReadingHistoryQuery request);
-    Task<IEnumerable<StorySimpleReadModel>> SearchForStory(GetStoryListQuery request);
+
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(Guid userId);
+
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(Guid userId);
+
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(Guid userId);
+
+    Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
+        Guid? id,
+        Guid? libraryId,
+        string searchTerm,
+        string genre,
+        string? requesterUsername,
+        Guid userId);
 }
