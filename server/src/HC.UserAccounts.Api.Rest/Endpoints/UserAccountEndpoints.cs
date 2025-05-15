@@ -8,7 +8,7 @@ namespace HC.UserAccounts.Api.Rest.Endpoints;
 
 public static class UserAccountEndpoints
 {
-    public static void MapUserAccountEndpoints(this IEndpointRouteBuilder app)
+    public static void MapUserAccountsEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/v1/accounts")
             .WithTags("Accounts");

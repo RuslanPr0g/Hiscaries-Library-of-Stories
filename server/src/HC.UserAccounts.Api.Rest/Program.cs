@@ -1,25 +1,17 @@
 using Enterprise.Application.Filters;
 using HC.UserAccounts.Api.Rest.Endpoints;
-using HC.UserAccounts.Application.Read;
 using HC.UserAccounts.Application.Write;
-using HC.UserAccounts.EventHandlers;
 using HC.UserAccounts.Jobs;
 using HC.UserAccounts.Persistence.Context;
-using HC.UserAccounts.SignalR;
-using HC.UserAccounts.SignalR.Hubs;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddUserAccountsPersistenceContext(builder.Configuration);
 builder.Services.AddUserAccountsApplicationWriteLayer();
-builder.Services.AddUserAccountsApplicationReadLayer();
 builder.Services.AddJobs();
-builder.Services.AddEventHandlers();
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
-builder.Services.AddUserAccountsSignalR();
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));

@@ -16,7 +16,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Application.Write\HC.UserAccounts.Application.Write.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Domain.Events\HC.UserAccounts.Domain.Events.csproj" />
     <ProjectReference Include="..\HC.UserAccounts.Domain\HC.UserAccounts.Domain.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.EventHandlers\HC.UserAccounts.EventHandlers.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Jobs\HC.UserAccounts.Jobs.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Persistence.Context\HC.UserAccounts.Persistence.Context.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Persistence.Write\HC.UserAccounts.Persistence.Write.csproj" />
   </ItemGroup>
 
 </Project>
