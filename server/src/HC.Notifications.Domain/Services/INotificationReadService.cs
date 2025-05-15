@@ -1,8 +1,8 @@
 ﻿using HC.Notifications.Domain.ReadModels;
 
-namespace HC.Notifications.Application.Read.Notifications.Services;
+namespace HC.Notifications.Domain.Services;
 
 public interface INotificationReadService
 {
-    Task<IEnumerable<NotificationReadModel>> GetNotifications(UserAccountId userId);
+    Task<IEnumerable<NotificationReadModel>> GetNotifications(Guid userAccountId);
 }

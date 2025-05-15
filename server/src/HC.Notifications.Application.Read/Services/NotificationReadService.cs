@@ -1,17 +1,13 @@
-﻿using HC.Notifications.Application.Read.Notifications.DataAccess;
-using HC.Notifications.Application.Read.Notifications.ReadModels;
+﻿using HC.Notifications.Domain.DataAccess;
+using HC.Notifications.Domain.ReadModels;
+using HC.Notifications.Domain.Services;
 
 namespace HC.Notifications.Application.Read.Services;
 
-public sealed class NotificationReadService : INotificationReadService
+public sealed class NotificationReadService(INotificationReadRepository repository) : INotificationReadService
 {
-    private readonly INotificationReadRepository _repository;
+    private readonly INotificationReadRepository _repository = repository;
 
-    public NotificationReadService(INotificationReadRepository repository)
-    {
-        _repository = repository;
-    }
-
-    public async Task<IEnumerable<NotificationReadModel>> GetNotifications(UserAccountId userId) =>
-        await _repository.GetNotificationsByUserId(userId);
+    public async Task<IEnumerable<NotificationReadModel>> GetNotifications(Guid userAccountId) =>
+        await _repository.GetNotificationsByUserId(userAccountId);
 }
