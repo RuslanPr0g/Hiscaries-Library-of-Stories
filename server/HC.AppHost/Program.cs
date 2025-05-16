@@ -4,7 +4,8 @@ var postgres = builder.AddPostgres("hiscary")
     .WithDataVolume("hiscarydbdata")
     .WithPgAdmin()
     .AddDatabase("postgres");
-var rabbitmq = builder.AddRabbitMQ("rabbitmq");
+var rabbitmq = builder.AddRabbitMQ("rabbitmq")
+    .WithDataVolume("hiscaryrabbitmqdata");
 
 var useraccounts = builder.AddProject<Projects.HC_UserAccounts_Api_Rest>("hc-useraccounts-api-rest")
     .WithJwtAndSaltSettings(builder.Configuration)
