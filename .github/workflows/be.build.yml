@@ -2,30 +2,30 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Restore dependencies
-      working-directory: server/src
-      run: dotnet restore Hiscary.sln
+      - name: Restore dependencies
+        working-directory: server
+        run: dotnet restore Hiscary.sln
 
-    - name: Build
-      working-directory: server/src
-      run: dotnet build Hiscary.sln --no-restore
+      - name: Build
+        working-directory: server
+        run: dotnet build Hiscary.sln --no-restore
 
-    - name: Test
-      working-directory: server/src
-      run: dotnet test Hiscary.sln --no-build --verbosity normal
+      - name: Test
+        working-directory: server
+        run: dotnet test Hiscary.sln --no-build --verbosity normal
