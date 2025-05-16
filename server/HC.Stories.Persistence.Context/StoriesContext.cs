@@ -9,7 +9,10 @@ namespace HC.Stories.Persistence.Context;
 public sealed class StoriesContext(DbContextOptions<StoriesContext> options)
     : BaseEnterpriseContext<StoriesContext>(options)
 {
-    public override string SchemaName => "stories";
+
+    public static string SCHEMA_NAME = "stories";
+
+    public override string SchemaName => SCHEMA_NAME;
 
     public DbSet<Story> Stories { get; set; }
     public DbSet<Genre> Genres { get; set; }

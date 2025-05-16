@@ -8,7 +8,9 @@ namespace HC.UserAccounts.Persistence.Context;
 public sealed class UserAccountsContext(DbContextOptions<UserAccountsContext> options)
     : BaseEnterpriseContext<UserAccountsContext>(options)
 {
-    public override string SchemaName => "useraccounts";
+    public static string SCHEMA_NAME = "useraccounts";
+
+    public override string SchemaName => SCHEMA_NAME;
 
     public DbSet<UserAccount> UserAccounts { get; set; }
 

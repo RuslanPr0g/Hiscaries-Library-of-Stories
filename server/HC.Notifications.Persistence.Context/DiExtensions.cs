@@ -9,7 +9,8 @@ public static class DiExtensions
     public static IServiceCollection AddNotificationsPersistenceContext(this IServiceCollection services, IConfiguration configuration)
     {
         return services.AddBaseEnterprisePersistenceContext<NotificationsContext>(
-            configuration,
-            "HC.Notifications.Persistence.Context");
+            configuration: configuration,
+            migrationsAssemblyName: "HC.Notifications.Persistence.Context",
+            migrationsHistoryTableSchemaName: NotificationsContext.SCHEMA_NAME);
     }
 }

@@ -8,7 +8,10 @@ namespace HC.PlatformUsers.Persistence.Context;
 public sealed class PlatformUsersContext(DbContextOptions<PlatformUsersContext> options)
     : BaseEnterpriseContext<PlatformUsersContext>(options)
 {
-    public override string SchemaName => "platformusers";
+
+    public static string SCHEMA_NAME = "platformusers";
+
+    public override string SchemaName => SCHEMA_NAME;
 
     public DbSet<PlatformUser> PlatformUsers { get; set; }
     public DbSet<Library> Libraries { get; set; }

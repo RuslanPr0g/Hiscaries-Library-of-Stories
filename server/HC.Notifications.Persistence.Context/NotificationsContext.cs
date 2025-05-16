@@ -8,7 +8,9 @@ namespace HC.Notifications.Persistence.Context;
 public sealed class NotificationsContext(DbContextOptions<NotificationsContext> options)
     : BaseEnterpriseContext<NotificationsContext>(options)
 {
-    public override string SchemaName => "notifications";
+    public static string SCHEMA_NAME = "notifications";
+
+    public override string SchemaName => SCHEMA_NAME;
 
     public DbSet<Notification> Notifications { get; set; }
 

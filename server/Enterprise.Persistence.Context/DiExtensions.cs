@@ -11,7 +11,8 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         string migrationsAssemblyName,
-        string connectionStringName = "postgres")
+        string connectionStringName = "postgres",
+        string migrationsHistoryTableSchemaName = "public")
         where TContext : DbContext
     {
         services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
@@ -20,7 +21,13 @@ public static class DiExtensions
         services.AddDbContext<TContext>((sp, builder) =>
         {
             var intetrceptor = sp.GetService<ConvertDomainEventsToOutboxMessagesInterceptor>();
-            builder.UseNpgsql(mainConnectionString, b => { b.MigrationsAssembly(migrationsAssemblyName); })
+            builder.UseNpgsql(
+                    mainConnectionString,
+                    b =>
+                    {
+                        b.MigrationsAssembly(migrationsAssemblyName)
+                            .MigrationsHistoryTable("__EFMigrationsHistory", migrationsHistoryTableSchemaName);
+                    })
                 .AddInterceptors(intetrceptor!);
         });
 

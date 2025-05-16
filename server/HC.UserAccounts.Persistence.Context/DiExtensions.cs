@@ -9,7 +9,8 @@ public static class DiExtensions
     public static IServiceCollection AddUserAccountsPersistenceContext(this IServiceCollection services, IConfiguration configuration)
     {
         return services.AddBaseEnterprisePersistenceContext<UserAccountsContext>(
-            configuration,
-            "HC.UserAccounts.Persistence.Context");
+            configuration: configuration,
+            migrationsAssemblyName: "HC.UserAccounts.Persistence.Context",
+            migrationsHistoryTableSchemaName: UserAccountsContext.SCHEMA_NAME);
     }
 }
