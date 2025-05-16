@@ -1,5 +1,6 @@
 using Enterprise.Api.Rest;
 using Enterprise.Application.Filters;
+using HC.ServiceDefaults;
 using HC.UserAccounts.Api.Rest.Endpoints;
 using HC.UserAccounts.Application.Write;
 using HC.UserAccounts.EventHandlers;

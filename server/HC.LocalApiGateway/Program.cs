@@ -1,3 +1,5 @@
+using HC.ServiceDefaults;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();

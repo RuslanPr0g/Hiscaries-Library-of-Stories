@@ -1,5 +1,6 @@
 using Enterprise.Api.Rest;
 using Enterprise.Application.Filters;
+using HC.ServiceDefaults;
 using HC.Stories.Api.Rest.Endpoints;
 using HC.Stories.Application.Read;
 using HC.Stories.Application.Write;

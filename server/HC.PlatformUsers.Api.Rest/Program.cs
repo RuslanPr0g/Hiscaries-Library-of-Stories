@@ -8,6 +8,7 @@ using HC.PlatformUsers.Jobs;
 using HC.PlatformUsers.Persistence.Context;
 using HC.PlatformUsers.Persistence.Read;
 using HC.PlatformUsers.Persistence.Write;
+using HC.ServiceDefaults;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

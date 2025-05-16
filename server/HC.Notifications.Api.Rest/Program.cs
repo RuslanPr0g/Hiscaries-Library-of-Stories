@@ -10,6 +10,7 @@ using HC.Notifications.Persistence.Read;
 using HC.Notifications.Persistence.Write;
 using HC.Notifications.SignalR;
 using HC.Notifications.SignalR.Hubs;
+using HC.ServiceDefaults;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
