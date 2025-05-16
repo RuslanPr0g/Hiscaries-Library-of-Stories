@@ -1,8 +1,10 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var postgres = builder.AddPostgres("postgres")
+var postgres = builder.AddPostgres("hiscary")
     .WithVolume(target: "/var/opt/pssql")
-    .AddDatabase("hiscary");
+    .WithHttpsEndpoint(name: "rest", port: 7009, targetPort: 7009, isProxied: false)
+    .WithPgAdmin()
+    .AddDatabase("postgres");
 var rabbitmq = builder.AddRabbitMQ("rabbitmq");
 
 var useraccounts = builder.AddProject<Projects.HC_UserAccounts_Api_Rest>("hc-useraccounts-api-rest")

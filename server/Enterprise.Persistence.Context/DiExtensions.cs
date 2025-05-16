@@ -11,7 +11,7 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         string migrationsAssemblyName,
-        string connectionStringName = "hiscary")
+        string connectionStringName = "postgres")
         where TContext : DbContext
     {
         services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();

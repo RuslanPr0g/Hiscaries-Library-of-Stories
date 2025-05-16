@@ -2,5 +2,5 @@
 
 public class DbConnectionStrings
 {
-    public string hiscary { get; set; }
+    public string postgres { get; set; }
 }

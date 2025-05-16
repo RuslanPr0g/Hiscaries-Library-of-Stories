@@ -2,7 +2,6 @@
 using HC.UserAccounts.Domain.DataAccess;
 using HC.UserAccounts.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
 
 namespace HC.UserAccounts.Persistence.Write;
 
