@@ -24,11 +24,11 @@ public static class DiExtensions
                 .AddInterceptors(intetrceptor!);
         });
 
-        //using (var scope = services.BuildServiceProvider().CreateScope())
-        //{
-        //    var db = scope.ServiceProvider.GetRequiredService<TContext>();
-        //    db.Database.Migrate();
-        //}
+        using (var scope = services.BuildServiceProvider().CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TContext>();
+            db.Database.Migrate();
+        }
 
         return services;
     }

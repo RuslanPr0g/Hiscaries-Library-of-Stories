@@ -16,13 +16,13 @@ To set up the backend environment, simply run:
 SetUp-LocalEnv.ps1
 ```
 
-This will configure and the backend using .NET Aspire.
+This will configure the backend using .NET Aspire.
 
 ```powershell
-Add-Migration.ps1 // TODO: add a project name and a migration name as attributes
+Add-Migration.ps1
 ```
 
-This will add a new migration to the corresponding service
+This will add a new migration to the chosen service.
 
 To run the backend application, please set HC.AppHost as your startup project and hit run!
 
