@@ -13,7 +13,7 @@ public static class NotificationsEndpoints
         var group = app.MapGroup("/api/v1/notifications")
             .WithTags("Notifications");
 
-        group.MapPost("/healthcheck", () =>
+        group.MapGet("/healthcheck", () =>
         {
             return Results.Ok("NOTIFICATIONS SERVICE WORKS!");
         })

@@ -16,7 +16,7 @@ public static class StoryEndpoints
             .WithTags("Stories")
             .RequireAuthorization();
 
-        group.MapPost("/healthcheck", () =>
+        group.MapGet("/healthcheck", () =>
         {
             return Results.Ok("STORIES SERVICE WORKS!");
         })
