@@ -39,7 +39,7 @@ public interface IStoryWriteService
 
     Task<OperationResult> DeleteComment(Guid storyId, Guid commentId);
 
-    Task<OperationResult> SetStoryScoreForAUser(Guid storyId, Guid userId, int score);
+    Task<OperationResult> SetStoriescoreForAUser(Guid storyId, Guid userId, int score);
 
     Task<OperationResult> CreateGenre(string name, string description, byte[] imagePreview);
 

@@ -5,6 +5,8 @@ using HC.PlatformUsers.Application.Write;
 using HC.PlatformUsers.EventHandlers;
 using HC.PlatformUsers.Jobs;
 using HC.PlatformUsers.Persistence.Context;
+using HC.PlatformUsers.Persistence.Read;
+using HC.PlatformUsers.Persistence.Write;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddPlatformUsersPersistenceContext(builder.Configuration);
+builder.Services.AddPlatformUsersPersistenceWriteLayer();
+builder.Services.AddPlatformUsersPersistenceReadLayer();
 builder.Services.AddPlatformUsersApplicationWriteLayer();
 builder.Services.AddPlatformUsersApplicationReadLayer();
 builder.Services.AddJobs();

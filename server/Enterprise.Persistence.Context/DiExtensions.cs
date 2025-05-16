@@ -11,7 +11,7 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         string migrationsAssemblyName,
-        string connectionStringName = "PostgresEF")
+        string connectionStringName = "hiscary")
         where TContext : DbContext
     {
         services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
@@ -24,11 +24,11 @@ public static class DiExtensions
                 .AddInterceptors(intetrceptor!);
         });
 
-        using (var scope = services.BuildServiceProvider().CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<TContext>();
-            db.Database.Migrate();
-        }
+        //using (var scope = services.BuildServiceProvider().CreateScope())
+        //{
+        //    var db = scope.ServiceProvider.GetRequiredService<TContext>();
+        //    db.Database.Migrate();
+        //}
 
         return services;
     }

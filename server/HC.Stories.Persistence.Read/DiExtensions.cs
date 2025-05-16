@@ -5,7 +5,7 @@ namespace HC.Stories.Persistence.Read;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddStorysPersistenceReadLayer(
+    public static IServiceCollection AddStoriesPersistenceReadLayer(
         this IServiceCollection services)
     {
         services.AddScoped<IStoryReadRepository, StoryReadRepository>();

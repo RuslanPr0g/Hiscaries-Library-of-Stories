@@ -4,6 +4,8 @@ using HC.Stories.Application.Read;
 using HC.Stories.Application.Write;
 using HC.Stories.Jobs;
 using HC.Stories.Persistence.Context;
+using HC.Stories.Persistence.Read;
+using HC.Stories.Persistence.Write;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddStoriesPersistenceContext(builder.Configuration);
+builder.Services.AddStoriesPersistenceWriteLayer();
+builder.Services.AddStoriesPersistenceReadLayer();
 builder.Services.AddStoriesApplicationWriteLayer();
 builder.Services.AddStoriesApplicationReadLayer();
 builder.Services.AddJobs();

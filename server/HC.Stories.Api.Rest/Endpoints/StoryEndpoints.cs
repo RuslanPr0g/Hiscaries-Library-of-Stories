@@ -290,7 +290,7 @@ public static class StoryEndpoints
             return Results.BadRequest("Invalid or missing ID claim in the token.");
         }
 
-        var result = await service.SetStoryScoreForAUser(
+        var result = await service.SetStoriescoreForAUser(
             request.StoryId,
             userIdClaim.Value,
             request.Score);

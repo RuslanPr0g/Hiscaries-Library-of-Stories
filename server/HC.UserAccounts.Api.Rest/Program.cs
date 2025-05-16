@@ -3,6 +3,7 @@ using HC.UserAccounts.Api.Rest.Endpoints;
 using HC.UserAccounts.Application.Write;
 using HC.UserAccounts.Jobs;
 using HC.UserAccounts.Persistence.Context;
+using HC.UserAccounts.Persistence.Write;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddUserAccountsPersistenceContext(builder.Configuration);
+builder.Services.AddUserAccountsPersistenceWriteLayer();
 builder.Services.AddUserAccountsApplicationWriteLayer();
 builder.Services.AddJobs();
 builder.Services.AddSerilog();

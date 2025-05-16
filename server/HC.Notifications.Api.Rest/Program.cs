@@ -5,6 +5,8 @@ using HC.Notifications.Application.Write;
 using HC.Notifications.EventHandlers;
 using HC.Notifications.Jobs;
 using HC.Notifications.Persistence.Context;
+using HC.Notifications.Persistence.Read;
+using HC.Notifications.Persistence.Write;
 using HC.Notifications.SignalR;
 using HC.Notifications.SignalR.Hubs;
 using Serilog;
@@ -14,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddNotificationsPersistenceContext(builder.Configuration);
+builder.Services.AddNotificationsPersistenceWriteLayer();
+builder.Services.AddNotificationsPersistenceReadLayer();
 builder.Services.AddNotificationsApplicationWriteLayer();
 builder.Services.AddNotificationsApplicationReadLayer();
 builder.Services.AddJobs();
