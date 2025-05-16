@@ -49,7 +49,6 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublish
                     continue;
                 }
 
-                // TODO: if event handler fails, there is not way (for now) to catch it and retry the message
                 await _publisher.Publish(domainEvent);
 
                 message.ProcessedOnUtc = DateTime.UtcNow;

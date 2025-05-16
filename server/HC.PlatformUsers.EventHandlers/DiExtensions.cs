@@ -4,6 +4,7 @@ using HC.PlatformUsers.EventHandlers.IntegrationEvents;
 using HC.Stories.Domain.Events;
 using HC.UserAccounts.Domain.Events;
 using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,33 +12,29 @@ namespace HC.PlatformUsers.EventHandlers;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEventHandlers(this IServiceCollection services)
+    public static IServiceCollection AddEventHandlers(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddScoped<IConsumer<StoryPublishedDomainEvent>, StoryPublishedIntegrationEventHandler>();
         services.AddScoped<IConsumer<UserAccountCreatedDomainEvent>, UserAccountCreatedIntegrationEventHandler>();
-        services.AddScoped<IConsumer<UserSubscribedToLibraryDomainEvent>, UserSubscribedToLibraryDomainEventHandler>();
-        services.AddScoped<IConsumer<UserUnsubscribedFromLibraryDomainEvent>, UserUnsubscribedFromLibraryDomainEventHandler>();
+        var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 
-        services.AddMassTransit(x =>
+        services.AddMassTransit(_ =>
         {
-            x.SetKebabCaseEndpointNameFormatter();
-            x.SetInMemorySagaRepositoryProvider();
+            _.SetKebabCaseEndpointNameFormatter();
+            _.SetInMemorySagaRepositoryProvider();
 
             var asm = Assembly.GetExecutingAssembly();
 
-            x.AddConsumers(asm);
-            x.AddSagaStateMachines(asm);
-            x.AddSagas(asm);
-            x.AddActivities(asm);
+            _.AddConsumers(asm);
+            _.AddSagaStateMachines(asm);
+            _.AddSagas(asm);
+            _.AddActivities(asm);
 
-            // TODO: use configuration from CI/CD
-            x.UsingRabbitMq((ctx, cfg) =>
+            _.UsingRabbitMq((ctx, cfg) =>
             {
-                cfg.Host("rabbitmq", "/", h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
+                cfg.Host(rabbitMqConnectionString);
                 cfg.ConfigureEndpoints(ctx);
             });
         });

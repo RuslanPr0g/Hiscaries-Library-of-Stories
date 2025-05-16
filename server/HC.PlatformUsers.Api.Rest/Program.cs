@@ -23,7 +23,7 @@ builder.Services.AddPlatformUsersPersistenceReadLayer();
 builder.Services.AddPlatformUsersApplicationWriteLayer();
 builder.Services.AddPlatformUsersApplicationReadLayer();
 builder.Services.AddJobs();
-builder.Services.AddEventHandlers();
+builder.Services.AddEventHandlers(builder.Configuration);
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 

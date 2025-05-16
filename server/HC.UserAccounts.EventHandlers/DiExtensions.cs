@@ -1,5 +1,6 @@
 ﻿using HC.PlatformUsers.Domain.Events;
 using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -7,30 +8,29 @@ namespace HC.UserAccounts.EventHandlers;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEventHandlers(this IServiceCollection services)
+    public static IServiceCollection AddEventHandlers(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddScoped<IConsumer<UserBecamePublisherDomainEvent>, UserBecamePublisherDomainEventHandler>();
 
-        services.AddMassTransit(x =>
+        var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
+
+        services.AddMassTransit(_ =>
         {
-            x.SetKebabCaseEndpointNameFormatter();
-            x.SetInMemorySagaRepositoryProvider();
+            _.SetKebabCaseEndpointNameFormatter();
+            _.SetInMemorySagaRepositoryProvider();
 
             var asm = Assembly.GetExecutingAssembly();
 
-            x.AddConsumers(asm);
-            x.AddSagaStateMachines(asm);
-            x.AddSagas(asm);
-            x.AddActivities(asm);
+            _.AddConsumers(asm);
+            _.AddSagaStateMachines(asm);
+            _.AddSagas(asm);
+            _.AddActivities(asm);
 
-            // TODO: use configuration from CI/CD
-            x.UsingRabbitMq((ctx, cfg) =>
+            _.UsingRabbitMq((ctx, cfg) =>
             {
-                cfg.Host("rabbitmq", "/", h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
+                cfg.Host(rabbitMqConnectionString);
                 cfg.ConfigureEndpoints(ctx);
             });
         });
