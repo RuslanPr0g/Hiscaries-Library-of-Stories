@@ -1,13 +1,4 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["HC.PlatformUsers.Api.Rest/HC.PlatformUsers.Api.Rest.csproj", "HC.PlatformUsers.Api.Rest/"]
 COPY ["Enterprise.Api.Rest/Enterprise.Api.Rest.csproj", "Enterprise.Api.Rest/"]
@@ -33,16 +24,15 @@ COPY ["HC.PlatformUsers.Jobs/HC.PlatformUsers.Jobs.csproj", "HC.PlatformUsers.Jo
 COPY ["HC.PlatformUsers.Persistence.Context/HC.PlatformUsers.Persistence.Context.csproj", "HC.PlatformUsers.Persistence.Context/"]
 COPY ["HC.PlatformUsers.Persistence.Read/HC.PlatformUsers.Persistence.Read.csproj", "HC.PlatformUsers.Persistence.Read/"]
 COPY ["HC.PlatformUsers.Persistence.Write/HC.PlatformUsers.Persistence.Write.csproj", "HC.PlatformUsers.Persistence.Write/"]
-RUN dotnet restore "./HC.PlatformUsers.Api.Rest/HC.PlatformUsers.Api.Rest.csproj"
+RUN dotnet restore "HC.PlatformUsers.Api.Rest/HC.PlatformUsers.Api.Rest.csproj"
 COPY . .
 WORKDIR "/src/HC.PlatformUsers.Api.Rest"
-RUN dotnet build "./HC.PlatformUsers.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish "HC.PlatformUsers.Api.Rest.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./HC.PlatformUsers.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+USER app
 ENTRYPOINT ["dotnet", "HC.PlatformUsers.Api.Rest.dll"]

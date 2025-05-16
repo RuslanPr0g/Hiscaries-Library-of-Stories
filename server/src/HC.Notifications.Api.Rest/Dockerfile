@@ -1,13 +1,4 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["HC.Notifications.Api.Rest/HC.Notifications.Api.Rest.csproj", "HC.Notifications.Api.Rest/"]
 COPY ["Enterprise.Api.Rest/Enterprise.Api.Rest.csproj", "Enterprise.Api.Rest/"]
@@ -32,16 +23,15 @@ COPY ["HC.Notifications.Jobs/HC.Notifications.Jobs.csproj", "HC.Notifications.Jo
 COPY ["HC.Notifications.Persistence.Context/HC.Notifications.Persistence.Context.csproj", "HC.Notifications.Persistence.Context/"]
 COPY ["HC.Notifications.Persistence.Read/HC.Notifications.Persistence.Read.csproj", "HC.Notifications.Persistence.Read/"]
 COPY ["HC.Notifications.Persistence.Write/HC.Notifications.Persistence.Write.csproj", "HC.Notifications.Persistence.Write/"]
-RUN dotnet restore "./HC.Notifications.Api.Rest/HC.Notifications.Api.Rest.csproj"
+RUN dotnet restore "HC.Notifications.Api.Rest/HC.Notifications.Api.Rest.csproj"
 COPY . .
 WORKDIR "/src/HC.Notifications.Api.Rest"
-RUN dotnet build "./HC.Notifications.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish "HC.Notifications.Api.Rest.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./HC.Notifications.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+USER app
 ENTRYPOINT ["dotnet", "HC.Notifications.Api.Rest.dll"]

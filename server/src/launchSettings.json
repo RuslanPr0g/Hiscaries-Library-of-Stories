@@ -4,10 +4,14 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "composeLaunchAction": "LaunchBrowser",
-      "composeLaunchServiceName": "hc.api",
-      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "composeLaunchServiceName": "nginx",
+      "composeLaunchUrl": "http://localhost:8080/api/stories/swagger",
       "serviceActions": {
-        "hc.api": "StartDebugging",
+        "useraccounts": "StartDebugging",
+        "notifications": "StartDebugging",
+        "platformusers": "StartDebugging",
+        "stories": "StartDebugging",
+        "nginx": "StartWithoutDebugging",
         "postgresdb": "StartWithoutDebugging",
         "rabbitmq": "StartWithoutDebugging"
       }

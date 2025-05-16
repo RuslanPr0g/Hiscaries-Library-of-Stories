@@ -1,13 +1,4 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["HC.UserAccounts.Api.Rest/HC.UserAccounts.Api.Rest.csproj", "HC.UserAccounts.Api.Rest/"]
 COPY ["Enterprise.Api.Rest/Enterprise.Api.Rest.csproj", "Enterprise.Api.Rest/"]
@@ -28,16 +19,15 @@ COPY ["Enterprise.EventHandlers/Enterprise.EventHandlers.csproj", "Enterprise.Ev
 COPY ["HC.UserAccounts.Jobs/HC.UserAccounts.Jobs.csproj", "HC.UserAccounts.Jobs/"]
 COPY ["HC.UserAccounts.Persistence.Context/HC.UserAccounts.Persistence.Context.csproj", "HC.UserAccounts.Persistence.Context/"]
 COPY ["HC.UserAccounts.Persistence.Write/HC.UserAccounts.Persistence.Write.csproj", "HC.UserAccounts.Persistence.Write/"]
-RUN dotnet restore "./HC.UserAccounts.Api.Rest/HC.UserAccounts.Api.Rest.csproj"
+RUN dotnet restore "HC.UserAccounts.Api.Rest/HC.UserAccounts.Api.Rest.csproj"
 COPY . .
 WORKDIR "/src/HC.UserAccounts.Api.Rest"
-RUN dotnet build "./HC.UserAccounts.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish "HC.UserAccounts.Api.Rest.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./HC.UserAccounts.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+USER app
 ENTRYPOINT ["dotnet", "HC.UserAccounts.Api.Rest.dll"]

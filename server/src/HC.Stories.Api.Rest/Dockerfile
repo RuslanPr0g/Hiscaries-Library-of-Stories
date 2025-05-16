@@ -1,13 +1,4 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["HC.Stories.Api.Rest/HC.Stories.Api.Rest.csproj", "HC.Stories.Api.Rest/"]
 COPY ["Enterprise.Api.Rest/Enterprise.Api.Rest.csproj", "Enterprise.Api.Rest/"]
@@ -30,16 +21,15 @@ COPY ["HC.Stories.Jobs/HC.Stories.Jobs.csproj", "HC.Stories.Jobs/"]
 COPY ["HC.Stories.Persistence.Context/HC.Stories.Persistence.Context.csproj", "HC.Stories.Persistence.Context/"]
 COPY ["HC.Stories.Persistence.Read/HC.Stories.Persistence.Read.csproj", "HC.Stories.Persistence.Read/"]
 COPY ["HC.Stories.Persistence.Write/HC.Stories.Persistence.Write.csproj", "HC.Stories.Persistence.Write/"]
-RUN dotnet restore "./HC.Stories.Api.Rest/HC.Stories.Api.Rest.csproj"
+RUN dotnet restore "HC.Stories.Api.Rest/HC.Stories.Api.Rest.csproj"
 COPY . .
 WORKDIR "/src/HC.Stories.Api.Rest"
-RUN dotnet build "./HC.Stories.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish "HC.Stories.Api.Rest.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./HC.Stories.Api.Rest.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+USER app
 ENTRYPOINT ["dotnet", "HC.Stories.Api.Rest.dll"]
