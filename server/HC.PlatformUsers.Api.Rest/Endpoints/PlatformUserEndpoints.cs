@@ -1,6 +1,5 @@
 ﻿using Enterprise.Api.Rest;
 using Enterprise.Domain.Extensions;
-using Enterprise.Domain.ResultModels.Response;
 using HC.PlatformUsers.Api.Rest.Requests;
 using HC.PlatformUsers.Api.Rest.Requests.Libraries;
 using HC.PlatformUsers.Domain.Services;

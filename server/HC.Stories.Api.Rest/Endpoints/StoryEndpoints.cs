@@ -1,6 +1,5 @@
 ﻿using Enterprise.Api.Rest;
 using Enterprise.Domain.Extensions;
-using Enterprise.Domain.ResultModels.Response;
 using HC.Stories.Api.Rest.Requests.Comments;
 using HC.Stories.Api.Rest.Requests.Stories;
 using HC.Stories.Domain.ReadModels;
