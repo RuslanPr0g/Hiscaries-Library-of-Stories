@@ -6,25 +6,33 @@
 
 ---
 
-## 🛠️ Configuration Settings!!
+## 🚀 Local Development Setup
 
-Configure your settings in your chosen config file as follows:
+### Backend
 
-```json
-{
-  "Kestrel:Certificates:Development:Password": "***",
-  "JwtSettings:Key": "***",
-  "JwtSettings:Issuer": "***",
-  "JwtSettings:Audience": "***",
-  "SaltSettings:StoredSalt": "***",
-  "ConnectionStrings:PostgresEF": "Server=postgresdb;Port=5432;User Id=postgres;Password=***;Database=hiscarydbef;Include Error Detail=true;"
-}
+To set up the backend environment, simply run:
+
+```powershell
+SetUp-LocalEnv.ps1
 ```
 
-In your `.env` file (to be located next to `docker-compose.yml`), include the following:
+This will configure and the backend using .NET Aspire.
 
+```powershell
+Add-Migration.ps1 // TODO: add a project name and a migration name as attributes
 ```
-POSTGRES_PASSWORD=***
+
+This will add a new migration to the corresponding service
+
+To run the backend application, please set HC.AppHost as your startup project and hit run!
+
+### Frontend
+
+Navigate to the frontend (client) directory, then run:
+
+```bash
+npm install
+ng serve
 ```
 
 ---
