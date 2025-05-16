@@ -18,13 +18,16 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Install .NET Aspire workload
+        run: dotnet workload install aspire
+
       - name: Restore dependencies
         working-directory: server
         run: dotnet restore Hiscary.sln
 
       - name: Build
         working-directory: server
-        run: dotnet build Hiscary.sln --no-restore
+        run: dotnet build Hiscary.sln
 
       - name: Test
         working-directory: server
