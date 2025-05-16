@@ -307,6 +307,6 @@ public sealed class UserAccountWriteService(
     private string HashPassword(string password, string salt)
     {
         _logger.LogDebug("Hashing password with salt");
-        return BCrypt.Net.BCrypt.HashPassword(password, _saltSettings.StoredSalt);
+        return BCrypt.Net.BCrypt.HashPassword(password, salt);
     }
 }
