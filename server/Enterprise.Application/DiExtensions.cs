@@ -1,6 +1,5 @@
 ﻿using Enterprise.Application.Extensions;
 using Enterprise.Domain.Options;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,22 +7,22 @@ namespace Enterprise.Application;
 
 public static class DIExtensions
 {
-    public static WebApplicationBuilder AddEnterpriseApplicationServices(this WebApplicationBuilder builder)
+    public static IServiceCollection AddEnterpriseApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        builder.Services.AddOptions<DbConnectionStrings>()
-            .Bind(builder.Configuration.GetSection("ConnectionStrings"));
+        services.AddOptions<DbConnectionStrings>()
+            .Bind(configuration.GetSection("ConnectionStrings"));
 
         var jwtSettings = new JwtSettings();
-        builder.Configuration.Bind(nameof(jwtSettings), jwtSettings);
+        configuration.Bind(nameof(jwtSettings), jwtSettings);
 
         var saltSettings = new SaltSettings();
-        builder.Configuration.Bind(nameof(saltSettings), saltSettings);
-        builder.Services.AddSingleton(saltSettings);
+        configuration.Bind(nameof(saltSettings), saltSettings);
+        services.AddSingleton(saltSettings);
 
-        builder.Services.AddHttpContextAccessor();
+        services.AddHttpContextAccessor();
 
-        builder.Services.AddJwtBearerSupport(jwtSettings);
+        services.AddJwtBearerSupport(jwtSettings);
 
-        return builder;
+        return services;
     }
 }

@@ -1,3 +1,4 @@
+using Enterprise.Api.Rest;
 using Enterprise.Application.Filters;
 using HC.Notifications.Api.Rest.Endpoints;
 using HC.Notifications.Application.Read;
@@ -14,6 +15,8 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddEnterprise(builder.Configuration);
 
 builder.Services.AddNotificationsPersistenceContext(builder.Configuration);
 builder.Services.AddNotificationsPersistenceWriteLayer();

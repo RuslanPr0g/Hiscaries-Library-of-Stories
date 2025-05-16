@@ -1,3 +1,4 @@
+using Enterprise.Api.Rest;
 using Enterprise.Application.Filters;
 using HC.Stories.Api.Rest.Endpoints;
 using HC.Stories.Application.Read;
@@ -11,6 +12,8 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddEnterprise(builder.Configuration);
 
 builder.Services.AddStoriesPersistenceContext(builder.Configuration);
 builder.Services.AddStoriesPersistenceWriteLayer();

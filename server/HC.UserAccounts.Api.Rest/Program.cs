@@ -1,3 +1,4 @@
+using Enterprise.Api.Rest;
 using Enterprise.Application.Filters;
 using HC.UserAccounts.Api.Rest.Endpoints;
 using HC.UserAccounts.Application.Write;
@@ -9,6 +10,8 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddEnterprise(builder.Configuration);
 
 builder.Services.AddUserAccountsPersistenceContext(builder.Configuration);
 builder.Services.AddUserAccountsPersistenceWriteLayer();
