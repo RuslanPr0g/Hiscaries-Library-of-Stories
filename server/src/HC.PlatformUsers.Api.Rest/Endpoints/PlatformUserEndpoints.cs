@@ -1,5 +1,6 @@
 ﻿using Enterprise.Api.Rest;
 using Enterprise.Domain.Extensions;
+using Enterprise.Domain.ResultModels.Response;
 using HC.PlatformUsers.Api.Rest.Requests;
 using HC.PlatformUsers.Api.Rest.Requests.Libraries;
 using HC.PlatformUsers.Domain.Services;
@@ -13,6 +14,14 @@ public static class PlatformUserEndpoints
     {
         var group = app.MapGroup("/api/v1/users")
             .WithTags("Users");
+
+        group.MapPost("/healthcheck", () =>
+        {
+            return Results.Ok("PLATFORM USER SERVICE WORKS!");
+        })
+            .AllowAnonymous()
+            .Produces<string>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status500InternalServerError);
 
         group.MapPost("/become-publisher", BecomePublisher)
             .RequireAuthorization()

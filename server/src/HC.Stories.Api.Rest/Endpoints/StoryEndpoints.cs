@@ -1,5 +1,6 @@
 ﻿using Enterprise.Api.Rest;
 using Enterprise.Domain.Extensions;
+using Enterprise.Domain.ResultModels.Response;
 using HC.Stories.Api.Rest.Requests.Comments;
 using HC.Stories.Api.Rest.Requests.Stories;
 using HC.Stories.Domain.ReadModels;
@@ -14,6 +15,14 @@ public static class StoryEndpoints
         var group = app.MapGroup("/api/v1/stories")
             .WithTags("Stories")
             .RequireAuthorization();
+
+        group.MapPost("/healthcheck", () =>
+        {
+            return Results.Ok("STORIES SERVICE WORKS!");
+        })
+            .AllowAnonymous()
+            .Produces<string>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status500InternalServerError);
 
         group.MapPost("/search", GetStories)
             .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)

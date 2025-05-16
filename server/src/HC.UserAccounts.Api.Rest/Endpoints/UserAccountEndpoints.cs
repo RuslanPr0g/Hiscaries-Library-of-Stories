@@ -13,6 +13,14 @@ public static class UserAccountEndpoints
         var group = app.MapGroup("/api/v1/accounts")
             .WithTags("Accounts");
 
+        group.MapPost("/healthcheck", () =>
+        {
+            return Results.Ok("USER ACCOUNTS SERVICE WORKS!");
+        })
+            .AllowAnonymous()
+            .Produces<string>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status500InternalServerError);
+
         group.MapPost("/register", RegisterUser)
             .AllowAnonymous()
             .Produces<TokenMetadata>(StatusCodes.Status201Created)

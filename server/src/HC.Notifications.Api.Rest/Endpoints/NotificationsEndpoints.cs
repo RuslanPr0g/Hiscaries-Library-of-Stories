@@ -13,6 +13,14 @@ public static class NotificationsEndpoints
         var group = app.MapGroup("/api/v1/notifications")
             .WithTags("Notifications");
 
+        group.MapPost("/healthcheck", () =>
+        {
+            return Results.Ok("NOTIFICATIONS SERVICE WORKS!");
+        })
+            .AllowAnonymous()
+            .Produces<string>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status500InternalServerError);
+
         group.MapGet("/", GetNotifications)
             .Produces<TokenMetadata>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
