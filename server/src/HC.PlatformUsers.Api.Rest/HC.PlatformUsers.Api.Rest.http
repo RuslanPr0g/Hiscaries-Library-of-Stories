@@ -1,6 +1,0 @@
-@HC.PlatformUsers.Api.Rest_HostAddress = http://localhost:5172
-
-GET {{HC.PlatformUsers.Api.Rest_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
