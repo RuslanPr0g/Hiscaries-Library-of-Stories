@@ -41,6 +41,8 @@ public sealed class UserAccountWriteService(
 
         user.Ban();
 
+        await _repository.SaveChanges();
+
         _logger.LogInformation("User {id} is now banned from using the system", userId);
         return OperationResult.CreateSuccess();
     }
@@ -89,6 +91,8 @@ public sealed class UserAccountWriteService(
         user.UpdateRefreshToken(
             generatedRefreshToken.ToDomainModel(
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
+
+        await _repository.SaveChanges();
 
         _logger.LogInformation("User {username} successfully logged in", username);
         return OperationResult<TokenMetadata>.CreateSuccess(new TokenMetadata
@@ -153,6 +157,8 @@ public sealed class UserAccountWriteService(
 
         await _repository.Add(createdUser);
 
+        await _repository.SaveChanges();
+
         _logger.LogInformation("Successfully registered new user {username} with ID {UserId}", username, userId);
         return OperationResult<TokenMetadata>.CreateSuccess(new TokenMetadata
         {
@@ -215,6 +221,8 @@ public sealed class UserAccountWriteService(
             generatedRefreshToken.ToDomainModel(
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
 
+        await _repository.SaveChanges();
+
         _logger.LogInformation("Successfully refreshed token for user {username}", username);
         return OperationResult<TokenMetadata>.CreateSuccess(new TokenMetadata
         {
@@ -269,6 +277,8 @@ public sealed class UserAccountWriteService(
             {
                 _logger.LogInformation("Password updated successfully for user {username}", username);
                 user.UpdatePersonalInformation(username, email, birthDate);
+
+                await _repository.SaveChanges();
             }
             else
             {
@@ -281,6 +291,8 @@ public sealed class UserAccountWriteService(
         {
             user.UpdatePersonalInformation(username, email, birthDate);
         }
+
+        await _repository.SaveChanges();
 
         _logger.LogInformation("Successfully updated user data for {username}", username);
         return OperationResult.CreateSuccess();
@@ -300,6 +312,7 @@ public sealed class UserAccountWriteService(
         var hashedNewPassword = HashPassword(newPassword, _saltSettings.StoredSalt);
 
         user.UpdatePassword(hashedNewPassword);
+
         _logger.LogInformation("Password updated successfully for user {UserId}", user.Id);
         return OperationResult.CreateSuccess();
     }
@@ -307,7 +320,6 @@ public sealed class UserAccountWriteService(
     private string HashPassword(string password, string salt)
     {
         _logger.LogDebug("Hashing password with salt");
-        string salt2 = BCrypt.Net.BCrypt.GenerateSalt(12);
         return BCrypt.Net.BCrypt.HashPassword(password, salt);
     }
 }
