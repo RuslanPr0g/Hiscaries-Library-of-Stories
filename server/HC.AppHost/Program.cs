@@ -1,7 +1,7 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 var postgres = builder.AddPostgres("hiscary")
-    .WithVolume(target: "/var/opt/pssql")
+    .WithDataVolume("hiscarydbdata")
     .WithPgAdmin()
     .AddDatabase("postgres");
 var rabbitmq = builder.AddRabbitMQ("rabbitmq");
