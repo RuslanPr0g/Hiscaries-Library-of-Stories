@@ -17,7 +17,9 @@ public static class JwtServicesConfiguration
         return services;
     }
 
-    public static IServiceCollection AddJwtSupport(this IServiceCollection services, JwtSettings jwtSettings)
+    public static IServiceCollection AddJwtSupport(
+        this IServiceCollection services,
+        JwtSettings jwtSettings)
     {
         services.AddSingleton(jwtSettings);
 

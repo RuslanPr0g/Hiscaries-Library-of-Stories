@@ -4,7 +4,7 @@ using HC.UserAccounts.Domain.DataAccess;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace HC.PlatformUsers.EventHandlers.DomainEvents;
+namespace HC.UserAccounts.EventHandlers;
 
 public sealed class UserBecamePublisherDomainEventHandler(
     IUserAccountWriteRepository repository,

@@ -2,6 +2,7 @@ using Enterprise.Api.Rest;
 using Enterprise.Application.Filters;
 using HC.UserAccounts.Api.Rest.Endpoints;
 using HC.UserAccounts.Application.Write;
+using HC.UserAccounts.EventHandlers;
 using HC.UserAccounts.Jobs;
 using HC.UserAccounts.Persistence.Context;
 using HC.UserAccounts.Persistence.Write;
@@ -17,6 +18,7 @@ builder.Services.AddUserAccountsPersistenceContext(builder.Configuration);
 builder.Services.AddUserAccountsPersistenceWriteLayer();
 builder.Services.AddUserAccountsApplicationWriteLayer();
 builder.Services.AddJobs();
+builder.Services.AddEventHandlers();
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 
