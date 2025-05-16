@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
+    <ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
     <ProjectReference Include="..\HC.UserAccounts.Application.Write\HC.UserAccounts.Application.Write.csproj" />
     <ProjectReference Include="..\HC.UserAccounts.Domain.Events\HC.UserAccounts.Domain.Events.csproj" />
     <ProjectReference Include="..\HC.UserAccounts.Domain\HC.UserAccounts.Domain.csproj" />

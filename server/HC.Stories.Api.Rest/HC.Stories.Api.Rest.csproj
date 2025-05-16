@@ -18,6 +18,7 @@
 		<ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
 		<ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
 		<ProjectReference Include="..\Enterprise.Application\Enterprise.Application.csproj" />
+		<ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\HC.Stories.Application.Read\HC.Stories.Application.Read.csproj" />
 		<ProjectReference Include="..\HC.Stories.Application.Write\HC.Stories.Application.Write.csproj" />
 		<ProjectReference Include="..\HC.Stories.Domain.Events\HC.Stories.Domain.Events.csproj" />

@@ -11,6 +11,8 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddNotificationsPersistenceContext(builder.Configuration);
 builder.Services.AddNotificationsApplicationWriteLayer();
 builder.Services.AddNotificationsApplicationReadLayer();
@@ -51,6 +53,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {

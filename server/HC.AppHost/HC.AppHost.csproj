@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>06e978d2-e342-4e9d-ae61-4362b0be7659</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HC.Notifications.Api.Rest\HC.Notifications.Api.Rest.csproj" />
+    <ProjectReference Include="..\HC.PlatformUsers.Api.Rest\HC.PlatformUsers.Api.Rest.csproj" />
+    <ProjectReference Include="..\HC.Stories.Api.Rest\HC.Stories.Api.Rest.csproj" />
+    <ProjectReference Include="..\HC.UserAccounts.Api.Rest\HC.UserAccounts.Api.Rest.csproj" />
+  </ItemGroup>
+
+</Project>

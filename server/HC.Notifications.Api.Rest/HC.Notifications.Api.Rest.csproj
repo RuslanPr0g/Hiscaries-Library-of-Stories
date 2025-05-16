@@ -27,6 +27,7 @@
     <ProjectReference Include="..\HC.Notifications.Persistence.Read\HC.Notifications.Persistence.Read.csproj" />
     <ProjectReference Include="..\HC.Notifications.Persistence.Write\HC.Notifications.Persistence.Write.csproj" />
     <ProjectReference Include="..\HC.Notifications.SignalR\HC.Notifications.SignalR.csproj" />
+    <ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

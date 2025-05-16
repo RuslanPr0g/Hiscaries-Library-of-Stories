@@ -27,6 +27,7 @@
 		<ProjectReference Include="..\HC.PlatformUsers.Persistence.Context\HC.PlatformUsers.Persistence.Context.csproj" />
 		<ProjectReference Include="..\HC.PlatformUsers.Persistence.Read\HC.PlatformUsers.Persistence.Read.csproj" />
 		<ProjectReference Include="..\HC.PlatformUsers.Persistence.Write\HC.PlatformUsers.Persistence.Write.csproj" />
+		<ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 </Project>

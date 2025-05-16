@@ -8,6 +8,8 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddStoriesPersistenceContext(builder.Configuration);
 builder.Services.AddStoriesApplicationWriteLayer();
 builder.Services.AddStoriesApplicationReadLayer();
@@ -46,6 +48,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
