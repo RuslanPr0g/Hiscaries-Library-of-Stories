@@ -61,42 +61,25 @@ public static class UserAccountEndpoints
 
     private static async Task<IResult> RefreshToken(
         [FromBody] RefreshTokenRequest request,
-        HttpContext context,
-        [FromServices] IUserAccountWriteService service)
-    {
-        var username = context.User.GetUsername();
-        if (username is null)
-        {
-            return Results.BadRequest("Invalid or missing username claim in the token.");
-        }
-
-        var result = await service.RefreshToken(
-            username,
-            request.Token,
-            request.RefreshToken);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IUserAccountWriteService service) =>
+        await endpointHandler.WithUser(user =>
+            service.RefreshToken(
+                user.Username,
+                request.Token,
+                request.RefreshToken));
 
     private static async Task<IResult> UpdateUserData(
         [FromBody] UpdateUserDataRequest request,
-        HttpContext context,
-        [FromServices] IUserAccountWriteService service)
-    {
-        var userId = context.User.GetUserId();
-        if (!userId.HasValue)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IUserAccountWriteService service) =>
+        await endpointHandler.WithUser(user =>
+            service.UpdateUserData(
+                user.Id,
+                request.UpdatedUsername,
+                request.Email,
+                request.BirthDate,
+                request.PreviousPassword,
+                request.NewPassword));
 
-        var result = await service.UpdateUserData(
-            userId.Value,
-            request.UpdatedUsername,
-            request.Email,
-            request.BirthDate,
-            request.PreviousPassword,
-            request.NewPassword);
-
-        return result.ToHttpResult();
-    }
 }
