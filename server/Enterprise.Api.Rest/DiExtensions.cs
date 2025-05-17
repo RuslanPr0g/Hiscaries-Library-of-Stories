@@ -17,6 +17,9 @@ public static class DiExtensions
         services.AddEnterpriseGenerators();
         services.AddEnterpriseImages();
         services.AddEnterpriseJwt();
+
+        services.AddSingleton<IAuthorizedEndpointHandler, AuthorizedEndpointHandler>();
+
         return services;
     }
 }

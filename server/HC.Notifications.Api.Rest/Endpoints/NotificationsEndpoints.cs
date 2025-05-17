@@ -23,19 +23,12 @@ public static class NotificationsEndpoints
     }
 
     private static async Task<IResult> GetNotifications(
-        HttpContext context,
-        [FromServices] INotificationReadService service)
-    {
-        var userIdClaim = context.User.GetUserId();
-        if (!userIdClaim.HasValue)
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] INotificationReadService service) => 
+        await endpointHandler.WithUser((CurrentUser user) =>
         {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.GetNotifications(userIdClaim.Value);
-
-        return result.ToHttpResult();
-    }
+            return service.GetNotifications(user.Id.Value);
+        });
 
     private static async Task<IResult> ReadNotifications(
         [FromBody] ReadNotificationsRequest request,
