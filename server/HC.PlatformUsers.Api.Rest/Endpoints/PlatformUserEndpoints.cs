@@ -14,14 +14,6 @@ public static class PlatformUserEndpoints
         var group = app.MapGroup("/api/v1/users")
             .WithTags("Users");
 
-        group.MapGet("/healthcheck", () =>
-        {
-            return Results.Ok("PLATFORM USER SERVICE WORKS!");
-        })
-            .AllowAnonymous()
-            .Produces<string>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status500InternalServerError);
-
         group.MapPost("/become-publisher", BecomePublisher)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
