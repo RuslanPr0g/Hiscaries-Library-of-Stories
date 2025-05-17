@@ -34,7 +34,7 @@ public static class NotificationsEndpoints
 
         var result = await service.GetNotifications(userIdClaim.Value);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> ReadNotifications(
@@ -50,6 +50,6 @@ public static class NotificationsEndpoints
 
         var result = await service.ReadNotifications(userIdClaim.Value, request.NotificationIds);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 }

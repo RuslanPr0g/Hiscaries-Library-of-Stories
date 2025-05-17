@@ -100,7 +100,7 @@ public static class StoryEndpoints
             userId: userIdClaim.Value,
             libraryId: libraryId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> GetStories(
@@ -121,7 +121,7 @@ public static class StoryEndpoints
             genre: request.Genre,
             requesterUsername: requesterUsername);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> GetByIdWithContents(
@@ -137,13 +137,13 @@ public static class StoryEndpoints
 
         var result = await service.GetStoryById(request.Id, userIdClaim.Value);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> GetGenres([FromServices] IStoryReadService service)
     {
         var result = await service.GetAllGenres();
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> BestToRead(
@@ -160,7 +160,7 @@ public static class StoryEndpoints
         var response = result.ToList();
         response.Shuffle();
 
-        return response.ToResult();
+        return response.ToHttpResult();
     }
 
     private static async Task<IResult> ResumeReading(
@@ -175,7 +175,7 @@ public static class StoryEndpoints
 
         var result = await service.GetStoryResumeReading(userIdClaim.Value);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> ReadingHistory(
@@ -190,7 +190,7 @@ public static class StoryEndpoints
 
         var result = await service.GetStoryReadingHistory(userIdClaim.Value);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> PublishStory(
@@ -218,7 +218,7 @@ public static class StoryEndpoints
             IsUpdated,
             request.DateWritten);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> UpdateStoryInformation(
@@ -247,7 +247,7 @@ public static class StoryEndpoints
             request.DateWritten,
             request.Contents);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> AddComment(
@@ -267,7 +267,7 @@ public static class StoryEndpoints
             request.Content,
             request.Score);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> ScoreStory(
@@ -286,7 +286,7 @@ public static class StoryEndpoints
             userIdClaim.Value,
             request.Score);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> DeleteComment(
@@ -298,7 +298,7 @@ public static class StoryEndpoints
             storyId,
             commentId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> DeleteStory(
@@ -307,7 +307,7 @@ public static class StoryEndpoints
     {
         var result = await service.DeleteStory(storyId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> UpdateComment(
@@ -320,7 +320,7 @@ public static class StoryEndpoints
             request.Content,
             request.Score);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> DeleteAudioForStory(
@@ -329,6 +329,6 @@ public static class StoryEndpoints
     {
         var result = await service.DeleteAudio(storyId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 }

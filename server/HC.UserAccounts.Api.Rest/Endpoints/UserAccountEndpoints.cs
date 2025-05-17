@@ -45,7 +45,7 @@ public static class UserAccountEndpoints
             request.Password,
             request.BirthDate);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> LoginUser(
@@ -56,7 +56,7 @@ public static class UserAccountEndpoints
             request.Username,
             request.Password);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> RefreshToken(
@@ -75,7 +75,7 @@ public static class UserAccountEndpoints
             request.Token,
             request.RefreshToken);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> UpdateUserData(
@@ -97,6 +97,6 @@ public static class UserAccountEndpoints
             request.PreviousPassword,
             request.NewPassword);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 }

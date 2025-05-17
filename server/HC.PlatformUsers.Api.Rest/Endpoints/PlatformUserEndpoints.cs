@@ -68,7 +68,7 @@ public static class PlatformUserEndpoints
 
         var result = await service.BookmarkStory(userIdClaim.Value, request.StoryId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
 
@@ -85,7 +85,7 @@ public static class PlatformUserEndpoints
 
         var result = await service.ReadStoryPage(userIdClaim.Value, request.StoryId, request.PageRead);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> BecomePublisher(
@@ -100,7 +100,7 @@ public static class PlatformUserEndpoints
 
         var result = await service.BecomePublisher(userIdClaim.Value);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> GetLibrary(
@@ -116,7 +116,7 @@ public static class PlatformUserEndpoints
 
         var result = await service.GetLibraryInformation(userIdClaim.Value, libraryId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> EditLibrary(
@@ -140,7 +140,7 @@ public static class PlatformUserEndpoints
             IsUpdated,
             request.LinksToSocialMedia);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> SubscribeToLibrary(
@@ -158,7 +158,7 @@ public static class PlatformUserEndpoints
             userIdClaim.Value,
             request.LibraryId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 
     private static async Task<IResult> UnsubscribeFromLibrary(
@@ -176,6 +176,6 @@ public static class PlatformUserEndpoints
             userIdClaim.Value,
             request.LibraryId);
 
-        return result.ToResult();
+        return result.ToHttpResult();
     }
 }

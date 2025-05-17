@@ -7,7 +7,7 @@ namespace Enterprise.Api.Rest;
 
 public static class ResultExtensions
 {
-    public static IResult ToResult(this OperationResult result)
+    public static IResult ToHttpResult(this OperationResult result)
     {
         return result.ResultStatus switch
         {
@@ -22,7 +22,7 @@ public static class ResultExtensions
         };
     }
 
-    public static IResult ToResult<T>(this OperationResult<T> result) where T : class
+    public static IResult ToHttpResult<T>(this OperationResult<T> result) where T : class
     {
         return result.ResultStatus switch
         {
@@ -37,7 +37,7 @@ public static class ResultExtensions
         };
     }
 
-    public static IResult ToResult<T>(this T? result) where T : class
+    public static IResult ToHttpResult<T>(this T? result) where T : class
     {
         return result is null ? Results.NotFound() : Results.Ok(result);
     }
