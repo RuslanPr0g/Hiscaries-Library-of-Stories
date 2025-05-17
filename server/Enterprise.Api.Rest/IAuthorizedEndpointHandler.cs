@@ -5,5 +5,5 @@ namespace Enterprise.Api.Rest;
 public interface IAuthorizedEndpointHandler
 {
     public Task<IResult> WithUser<TActionResult>(Func<CurrentUser, Task<TActionResult>> action)
-        where TActionResult : class;
+        where TActionResult : class?;
 }

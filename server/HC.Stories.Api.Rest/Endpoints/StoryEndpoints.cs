@@ -86,249 +86,141 @@ public static class StoryEndpoints
 
     private static async Task<IResult> GetStoriesBy(
         [FromQuery] Guid libraryId,
-        [FromServices] IStoryReadService service,
-        HttpContext context)
-    {
-        var requesterUsername = context.User.GetUsername();
-        var userIdClaim = context.User.GetUserId();
-        if (!userIdClaim.HasValue || requesterUsername is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.SearchForStory(
-            userId: userIdClaim.Value,
-            libraryId: libraryId);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+            await endpointHandler.WithUser(user =>
+                service.SearchForStory(user.Id, libraryId));
 
     private static async Task<IResult> GetStories(
         [FromBody] GetStoryListRequest request,
-        [FromServices] IStoryReadService service,
-        HttpContext context)
-    {
-        var requesterUsername = context.User.GetUsername();
-        var userIdClaim = context.User.GetUserId();
-        if (!userIdClaim.HasValue || requesterUsername is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.SearchForStory(
-            userId: userIdClaim.Value,
-            searchTerm: request.SearchTerm,
-            genre: request.Genre,
-            requesterUsername: requesterUsername);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.SearchForStory(
+                user.Id,
+                searchTerm: request.SearchTerm,
+                genre: request.Genre,
+                requesterUsername: user.Username));
 
     private static async Task<IResult> GetByIdWithContents(
         [FromBody] GetStoryWithContentsRequest request,
-        [FromServices] IStoryReadService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetStoryById(request.Id, user.Id));
 
-        var result = await service.GetStoryById(request.Id, userIdClaim.Value);
-
-        return result.ToHttpResult();
-    }
-
-    private static async Task<IResult> GetGenres([FromServices] IStoryReadService service)
-    {
-        var result = await service.GetAllGenres();
-        return result.ToHttpResult();
-    }
+    private static async Task<IResult> GetGenres(
+        [FromServices] IStoryReadService service) =>
+        (await service.GetAllGenres()).ToHttpResult();
 
     private static async Task<IResult> BestToRead(
-        [FromServices] IStoryReadService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+        await endpointHandler.WithUser(async user =>
         {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.GetStoryRecommendations(userIdClaim.Value);
-        var response = result.ToList();
-        response.Shuffle();
-
-        return response.ToHttpResult();
-    }
+            var result = await service.GetStoryRecommendations(user.Id);
+            var response = result.ToList();
+            response.Shuffle();
+            return response.ToHttpResult();
+        });
 
     private static async Task<IResult> ResumeReading(
-        [FromServices] IStoryReadService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.GetStoryResumeReading(userIdClaim.Value);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetStoryResumeReading(user.Id));
 
     private static async Task<IResult> ReadingHistory(
-        [FromServices] IStoryReadService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.GetStoryReadingHistory(userIdClaim.Value);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetStoryReadingHistory(user.Id));
 
     private static async Task<IResult> PublishStory(
         [FromBody] PublishStoryRequest request,
-        [FromServices] IStoryWriteService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryWriteService service) =>
+        await endpointHandler.WithUser(user =>
         {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var (Image, IsUpdated) = request.ImagePreview.ImageStringToBytes();
-
-        var result = await service.PublishStory(
-            userIdClaim.Value,
-            request.LibraryId,
-            request.Title,
-            request.Description,
-            request.AuthorName,
-            request.GenreIds,
-            request.AgeLimit,
-            Image,
-            IsUpdated,
-            request.DateWritten);
-
-        return result.ToHttpResult();
-    }
+            var (Image, IsUpdated) = request.ImagePreview.ImageStringToBytes();
+            return service.PublishStory(
+                user.Id,
+                request.LibraryId,
+                request.Title,
+                request.Description,
+                request.AuthorName,
+                request.GenreIds,
+                request.AgeLimit,
+                Image,
+                IsUpdated,
+                request.DateWritten);
+        });
 
     private static async Task<IResult> UpdateStoryInformation(
         [FromBody] StoryUpdateInfoRequest request,
-        [FromServices] IStoryWriteService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryWriteService service) =>
+        await endpointHandler.WithUser(user =>
         {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var (Image, IsUpdated) = request.ImagePreview.ImageStringToBytes();
-
-        var result = await service.UpdateStory(
-            userIdClaim.Value,
-            request.StoryId,
-            request.Title,
-            request.Description,
-            request.AuthorName,
-            request.GenreIds,
-            request.AgeLimit,
-            Image,
-            IsUpdated,
-            request.DateWritten,
-            request.Contents);
-
-        return result.ToHttpResult();
-    }
+            var (Image, IsUpdated) = request.ImagePreview.ImageStringToBytes();
+            return service.UpdateStory(
+                user.Id,
+                request.StoryId,
+                request.Title,
+                request.Description,
+                request.AuthorName,
+                request.GenreIds,
+                request.AgeLimit,
+                Image,
+                IsUpdated,
+                request.DateWritten,
+                request.Contents);
+        });
 
     private static async Task<IResult> AddComment(
         [FromBody] CreateCommentRequest request,
-        [FromServices] IStoryWriteService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.AddComment(
-            request.StoryId,
-            userIdClaim.Value,
-            request.Content,
-            request.Score);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryWriteService service) =>
+        await endpointHandler.WithUser(user =>
+            service.AddComment(
+                request.StoryId,
+                user.Id,
+                request.Content,
+                request.Score));
 
     private static async Task<IResult> ScoreStory(
         [FromBody] ScoreStoryRequest request,
-        [FromServices] IStoryWriteService service,
-        HttpContext httpContext)
-    {
-        var userIdClaim = httpContext.User.GetUserId();
-        if (userIdClaim is null)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.SetStoriescoreForAUser(
-            request.StoryId,
-            userIdClaim.Value,
-            request.Score);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryWriteService service) =>
+        await endpointHandler.WithUser(user =>
+            service.SetStoriescoreForAUser(
+                request.StoryId,
+                user.Id,
+                request.Score));
 
     private static async Task<IResult> DeleteComment(
         Guid storyId,
         Guid commentId,
-        [FromServices] IStoryWriteService service)
-    {
-        var result = await service.DeleteComment(
-            storyId,
-            commentId);
-
-        return result.ToHttpResult();
-    }
+        [FromServices] IStoryWriteService service) =>
+        (await service.DeleteComment(storyId, commentId)).ToHttpResult();
 
     private static async Task<IResult> DeleteStory(
         Guid storyId,
-        [FromServices] IStoryWriteService service)
-    {
-        var result = await service.DeleteStory(storyId);
-
-        return result.ToHttpResult();
-    }
+        [FromServices] IStoryWriteService service) =>
+        (await service.DeleteStory(storyId)).ToHttpResult();
 
     private static async Task<IResult> UpdateComment(
         [FromBody] UpdateCommentRequest request,
-        [FromServices] IStoryWriteService service)
-    {
-        var result = await service.UpdateComment(
+        [FromServices] IStoryWriteService service) =>
+        (await service.UpdateComment(
             request.CommentId,
             request.StoryId,
             request.Content,
-            request.Score);
-
-        return result.ToHttpResult();
-    }
+            request.Score)).ToHttpResult();
 
     private static async Task<IResult> DeleteAudioForStory(
         Guid storyId,
-        [FromServices] IStoryWriteService service)
-    {
-        var result = await service.DeleteAudio(storyId);
+        [FromServices] IStoryWriteService service) =>
+        (await service.DeleteAudio(storyId)).ToHttpResult();
 
-        return result.ToHttpResult();
-    }
 }

@@ -7,7 +7,7 @@ public class AuthorizedEndpointHandler(HttpContext context) : IAuthorizedEndpoin
     private readonly HttpContext _context = context;
 
     public async Task<IResult> WithUser<TActionResult>(Func<CurrentUser, Task<TActionResult>> action)
-        where TActionResult : class
+        where TActionResult : class?
     {
         var user = CurrentUser.FromClaims(_context.User);
 

@@ -37,7 +37,7 @@ public static class ResultExtensions
         };
     }
 
-    public static IResult ToHttpResult<T>(this T? result) where T : class
+    public static IResult ToHttpResult<T>(this T? result) where T : class?
     {
         return result is null ? Results.NotFound() : Results.Ok(result);
     }
