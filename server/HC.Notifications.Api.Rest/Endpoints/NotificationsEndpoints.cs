@@ -24,25 +24,14 @@ public static class NotificationsEndpoints
 
     private static async Task<IResult> GetNotifications(
         IAuthorizedEndpointHandler endpointHandler,
-        [FromServices] INotificationReadService service) => 
-        await endpointHandler.WithUser((CurrentUser user) =>
-        {
-            return service.GetNotifications(user.Id);
-        });
+        [FromServices] INotificationReadService service) =>
+            await endpointHandler.WithUser((CurrentUser user) =>
+                service.GetNotifications(user.Id));
 
     private static async Task<IResult> ReadNotifications(
         [FromBody] ReadNotificationsRequest request,
-        HttpContext context,
-        [FromServices] INotificationWriteService service)
-    {
-        var userIdClaim = context.User.GetUserId();
-        if (!userIdClaim.HasValue)
-        {
-            return Results.BadRequest("Invalid or missing ID claim in the token.");
-        }
-
-        var result = await service.ReadNotifications(userIdClaim.Value, request.NotificationIds);
-
-        return result.ToHttpResult();
-    }
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] INotificationWriteService service) =>
+            await endpointHandler.WithUser((CurrentUser user) =>
+                service.ReadNotifications(user.Id, request.NotificationIds));
 }
