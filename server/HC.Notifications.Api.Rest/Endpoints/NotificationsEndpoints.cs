@@ -27,7 +27,7 @@ public static class NotificationsEndpoints
         [FromServices] INotificationReadService service) => 
         await endpointHandler.WithUser((CurrentUser user) =>
         {
-            return service.GetNotifications(user.Id.Value);
+            return service.GetNotifications(user.Id);
         });
 
     private static async Task<IResult> ReadNotifications(
