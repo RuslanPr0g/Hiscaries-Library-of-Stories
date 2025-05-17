@@ -15,14 +15,6 @@ public static class StoryEndpoints
             .WithTags("Stories")
             .RequireAuthorization();
 
-        group.MapGet("/healthcheck", () =>
-        {
-            return Results.Ok("STORIES SERVICE WORKS!");
-        })
-            .AllowAnonymous()
-            .Produces<string>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status500InternalServerError);
-
         group.MapPost("/search", GetStories)
             .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
