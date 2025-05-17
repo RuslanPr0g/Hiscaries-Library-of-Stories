@@ -88,8 +88,8 @@ public static class StoryEndpoints
         [FromQuery] Guid libraryId,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
-            await endpointHandler.WithUser(user =>
-                service.SearchForStory(user.Id, libraryId));
+        await endpointHandler.WithUser(user =>
+            service.SearchForStory(user.Id, libraryId));
 
     private static async Task<IResult> GetStories(
         [FromBody] GetStoryListRequest request,
