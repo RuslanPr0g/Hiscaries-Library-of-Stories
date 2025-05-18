@@ -23,7 +23,8 @@ public sealed class NotificationWriteService : INotificationWriteService
     public async Task<OperationResult> ReadNotifications(Guid userId, Guid[] notificationIds)
     {
         _logger.LogInformation("Attempting to read notifications for a user {UserId}", userId);
-        var notifications = await _repository.GetByIds(notificationIds.Select(_ => (NotificationId)_).ToArray());
+        var notifications = await _repository
+            .GetByIds(notificationIds.Select(_ => (NotificationId)_).ToArray());
 
         if (notifications.Any(x => x.UserId != userId))
         {
