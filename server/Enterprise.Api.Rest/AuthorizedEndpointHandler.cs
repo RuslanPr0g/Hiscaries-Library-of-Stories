@@ -2,14 +2,21 @@
 
 namespace Enterprise.Api.Rest;
 
-public class AuthorizedEndpointHandler(HttpContext context) : IAuthorizedEndpointHandler
+public class AuthorizedEndpointHandler(IHttpContextAccessor contextAccessor) : IAuthorizedEndpointHandler
 {
-    private readonly HttpContext _context = context;
+    private readonly IHttpContextAccessor _contextAccessor = contextAccessor;
 
     public async Task<IResult> WithUser<TActionResult>(Func<CurrentUser, Task<TActionResult>> action)
         where TActionResult : class?
     {
-        var user = CurrentUser.FromClaims(_context.User);
+        var context = _contextAccessor.HttpContext;
+
+        if (context is null)
+        {
+            return Results.BadRequest("Something went wrong when processing the http request.");
+        }
+
+        var user = CurrentUser.FromClaims(context.User);
 
         if (user is null)
         {
