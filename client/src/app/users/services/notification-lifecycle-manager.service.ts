@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { NotificationHandler } from '../../shared/models/notification-handler.model';
-import { UserNotificationService } from './notification.service';
+import { UserRealTimeNotificationService } from './real-time-notification.service';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +11,7 @@ export class NotificationLifecycleManagerService {
 
     constructor(
         private authService: AuthService,
-        private userNotificationService: UserNotificationService
+        private realTimeNotificationService: UserRealTimeNotificationService
     ) {}
 
     initialize(handlers: NotificationHandler[]): void {
@@ -21,7 +21,7 @@ export class NotificationLifecycleManagerService {
         }
 
         if (this.authService.isAuthenticated()) {
-            this.userNotificationService.initialize(handlers);
+            this.realTimeNotificationService.initialize(handlers);
             this.isInitialized = true;
         } else {
             console.warn('User is not authenticated. Notifications will not be initialized.');
@@ -29,7 +29,7 @@ export class NotificationLifecycleManagerService {
     }
 
     stop(): void {
-        this.userNotificationService.disconnect();
+        this.realTimeNotificationService.disconnect();
         this.isInitialized = false;
     }
 }
