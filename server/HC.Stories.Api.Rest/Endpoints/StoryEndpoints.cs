@@ -121,7 +121,7 @@ public static class StoryEndpoints
             var result = await service.GetStoryRecommendations(user.Id);
             var response = result.ToList();
             response.Shuffle();
-            return response.ToHttpResult();
+            return response;
         });
 
     private static async Task<IResult> ResumeReading(
