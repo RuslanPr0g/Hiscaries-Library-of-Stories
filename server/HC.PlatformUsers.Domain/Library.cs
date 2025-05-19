@@ -37,11 +37,15 @@ public sealed class Library : Entity<LibraryId>
         }
     }
 
-    public void Edit(string? bio, string? avatarUrl, List<string> linksToSocialMedia)
+    public void Edit(string? bio, List<string> linksToSocialMedia)
     {
         Bio = bio;
-        AvatarUrl = avatarUrl;
         LinksToSocialMedia = linksToSocialMedia;
+    }
+
+    public void UpdateAvatarUrl(string? avatarUrl)
+    {
+        AvatarUrl = avatarUrl;
     }
 
     private Library()

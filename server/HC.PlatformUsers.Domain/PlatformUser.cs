@@ -1,4 +1,5 @@
 ﻿using Enterprise.Domain;
+using HC.Notifications.Domain.Events;
 using HC.PlatformUsers.Domain.Events;
 
 namespace HC.PlatformUsers.Domain;
@@ -36,7 +37,7 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     // TODO: this value should be synced with the user account, as it should be the same (use domain events)
     public string Username { get; set; }
 
-    public Library? GetCurrentLibrary()
+    private Library? GetCurrentLibrary()
     {
         if (!IsPublisher)
         {
@@ -132,15 +133,43 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     public void EditLibrary(
         LibraryId libraryId,
         string? bio,
-        string? avatarUrl,
         List<string> linkToSocialMedia)
     {
         var library = GetCurrentLibrary();
 
         if (library is not null && library.Id == libraryId)
         {
-            library.Edit(bio, avatarUrl, linkToSocialMedia);
+            library.Edit(bio, linkToSocialMedia);
         }
+    }
+
+    public void AskToChangeAvatar(
+        LibraryId libraryId,
+        byte[] avatarContent)
+    {
+        var library = GetCurrentLibrary();
+
+        if (library is not null && library.Id == libraryId)
+        {
+            PublishRequestToChangeAvatar(libraryId, avatarContent);
+        }
+    }
+
+    public void UpdateAvatarUrl(
+        LibraryId libraryId,
+        string? avatarUrl)
+    {
+        var library = GetCurrentLibrary();
+
+        if (library is not null && library.Id == libraryId)
+        {
+            library.UpdateAvatarUrl(avatarUrl);
+        }
+    }
+
+    public void ClearAvatarUrl(LibraryId libraryId)
+    {
+        UpdateAvatarUrl(libraryId, null);
     }
 
     public void BookmarkStory(Guid storyId)
@@ -169,6 +198,11 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
     private void PublishUnsubscribedFromLibrary(LibraryId libraryId)
     {
         PublishEvent(new UserUnsubscribedFromLibraryDomainEvent(UserAccountId, libraryId));
+    }
+
+    private void PublishRequestToChangeAvatar(LibraryId libraryId, byte[] content)
+    {
+        PublishEvent(new ImageUploadRequestedDomainEvent(content, libraryId));
     }
 
     private PlatformUser()

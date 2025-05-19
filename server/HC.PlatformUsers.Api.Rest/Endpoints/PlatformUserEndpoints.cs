@@ -13,7 +13,7 @@ public static class PlatformUserEndpoints
     {
         var group = app.MapGroup("/api/v1/users")
             .WithTags("Users");
-        
+
         group.MapPost("/become-publisher", BecomePublisher)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
@@ -88,13 +88,13 @@ public static class PlatformUserEndpoints
         [FromServices] IPlatformUserWriteService service) =>
         await endpointHandler.WithUser(user =>
         {
-            var (Image, IsUpdated) = request.Avatar.ImageStringToBytes();
+            var image = request.Avatar.GetImageBytes();
             return service.EditLibraryInfo(
                 user.Id,
                 request.LibraryId,
                 request.Bio,
-                Image,
-                IsUpdated,
+                image,
+                request.ShouldUpdateAvatar,
                 request.LinksToSocialMedia);
         });
 
@@ -111,5 +111,4 @@ public static class PlatformUserEndpoints
         [FromServices] IPlatformUserWriteService service) =>
         await endpointHandler.WithUser(user =>
             service.UnsubscribeFromLibrary(user.Id, request.LibraryId));
-
 }

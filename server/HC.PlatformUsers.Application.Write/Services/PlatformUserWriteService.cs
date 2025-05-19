@@ -1,6 +1,5 @@
 ﻿using Enterprise.Domain.Constants;
 using Enterprise.Domain.Generators;
-using Enterprise.Domain.Images;
 using HC.PlatformUsers.Domain;
 using HC.PlatformUsers.Domain.DataAccess;
 using HC.PlatformUsers.Domain.Services;
@@ -11,14 +10,10 @@ namespace HC.PlatformUsers.Application.Write.Services;
 public sealed class PlatformUserWriteService(
     IPlatformUserWriteRepository repository,
     IIdGenerator idGenerator,
-    ILogger<PlatformUserWriteService> logger,
-    IImageUploader imageUploader,
-    IResourceUrlGeneratorService urlGeneratorService) : IPlatformUserWriteService
+    ILogger<PlatformUserWriteService> logger) : IPlatformUserWriteService
 {
     private readonly IPlatformUserWriteRepository _repository = repository;
     private readonly IIdGenerator _idGenerator = idGenerator;
-    private readonly IImageUploader _imageUploader = imageUploader;
-    private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
     private readonly ILogger<PlatformUserWriteService> _logger = logger;
 
     public async Task<OperationResult> BecomePublisher(Guid userAccountId)
@@ -136,11 +131,20 @@ public sealed class PlatformUserWriteService(
             return OperationResult.CreateClientSideError(UserFriendlyMessages.NoRights);
         }
 
-        string? imagePreviewUrl = shouldUpdateImage && avatar is not null ?
-            await UploadAvatarAndGetUrlAsync(libraryId, avatar) :
-            user.GetCurrentLibrary()?.AvatarUrl;
+        user.EditLibrary(libraryId, bio, linksToSocialMedia);
 
-        user.EditLibrary(libraryId, bio, imagePreviewUrl, linksToSocialMedia);
+        var avatarIsEmpty = avatar is null || avatar.Length <= 0;
+
+        if (shouldUpdateImage && avatarIsEmpty)
+        {
+            user.ClearAvatarUrl(libraryId);
+        }
+
+        if (shouldUpdateImage && !avatarIsEmpty && avatar is not null)
+        {
+            user.AskToChangeAvatar(libraryId, avatar);
+        }
+
         await _repository.SaveChanges();
 
         _logger.LogInformation("Successfully edited a library {LibraryId} for user {UserId}", libraryId, userId);
@@ -195,16 +199,7 @@ public sealed class PlatformUserWriteService(
         return OperationResult.CreateSuccess();
     }
 
-    private async Task<string?> UploadAvatarAndGetUrlAsync(Guid libraryId, byte[] imagePreview)
-    {
-        if (imagePreview.Length == 0)
-        {
-            return null;
-        }
 
-        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
-        return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
-    }
 
     public Task<OperationResult> ReadStoryPage(Guid userId, Guid storyId, int page)
     {

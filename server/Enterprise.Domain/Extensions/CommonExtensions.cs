@@ -2,29 +2,14 @@
 
 public static class CommonExtensions
 {
-    public static byte[]? GetImageBytes(this string image)
+    public static byte[]? GetImageBytes(this string? image)
     {
-        byte[]? imageInBytes = null;
-        if (image is not null)
+        if (string.IsNullOrWhiteSpace(image))
         {
-            int offset = image.IndexOf(',') + 1;
-            imageInBytes = Convert.FromBase64String(image[offset..]);
-        }
-        return imageInBytes;
-    }
-
-    public static (byte[] Image, bool IsUpdated) ImageStringToBytes(this string? imageAsString)
-    {
-        if (string.IsNullOrEmpty(imageAsString))
-        {
-            return ([], false);
+            return null;
         }
 
-        bool isImageAlreadyUrl = Uri.TryCreate(imageAsString, UriKind.RelativeOrAbsolute, out var _);
-        byte[] imageAsBytes = isImageAlreadyUrl ? [] : imageAsString.GetImageBytes() ?? [];
-        bool imageWasRemoved = !isImageAlreadyUrl && imageAsBytes.Length == 0;
-        bool isImageUpdated = imageAsBytes.Length > 0 || imageWasRemoved;
-
-        return (imageAsBytes, isImageUpdated);
+        int offset = image.IndexOf(',') + 1;
+        return Convert.FromBase64String(image[offset..]);
     }
 }

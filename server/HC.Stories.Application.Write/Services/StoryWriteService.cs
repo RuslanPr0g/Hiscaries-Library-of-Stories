@@ -125,7 +125,7 @@ public sealed class StoryWriteService(
         bool shouldUpdateImage,
         DateTime dateWritten)
     {
-        // TODO: perform this check using http or smth
+        // TODO: perform this check using command to validate the data and send it to another service or smth
         // or insert this data into the jwt token somehow
 
         //var platformUser = await _userRepository.GetByUserAccountId(userId);
@@ -183,7 +183,7 @@ public sealed class StoryWriteService(
             return OperationResult.CreateClientSideError(UserFriendlyMessages.StoryWasNotFound);
         }
 
-        // TODO: do the check using http request to another microservice
+        // TODO: do the check using command to validate the data and send it to another service request to another microservice
         // or insert this data into the jwt token somehow
         //if (story.Library.PlatformUserId.Value != currentUserId)
         //{
