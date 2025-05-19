@@ -1,5 +1,9 @@
 # PowerShell script to add user secrets to HC.AppHost.csproj
 
+dotnet workload update
+
+dotnet workload restore
+
 # Ensure user secrets are initialized
 $projectPath = "HC.AppHost/HC.AppHost.csproj"
 dotnet user-secrets init --project $projectPath
