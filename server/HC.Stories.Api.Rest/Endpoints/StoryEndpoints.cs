@@ -142,7 +142,7 @@ public static class StoryEndpoints
         [FromServices] IStoryWriteService service) =>
         await endpointHandler.WithUser(user =>
         {
-            var (Image, IsUpdated) = request.ImagePreview.ImageStringToBytes();
+            var image = request.ImagePreview.GetImageBytes();
             return service.PublishStory(
                 user.Id,
                 request.LibraryId,
@@ -151,8 +151,8 @@ public static class StoryEndpoints
                 request.AuthorName,
                 request.GenreIds,
                 request.AgeLimit,
-                Image,
-                IsUpdated,
+                image,
+                false,
                 request.DateWritten);
         });
 
@@ -162,7 +162,7 @@ public static class StoryEndpoints
         [FromServices] IStoryWriteService service) =>
         await endpointHandler.WithUser(user =>
         {
-            var (Image, IsUpdated) = request.ImagePreview.ImageStringToBytes();
+            var image = request.ImagePreview.GetImageBytes();
             return service.UpdateStory(
                 user.Id,
                 request.StoryId,
@@ -171,8 +171,8 @@ public static class StoryEndpoints
                 request.AuthorName,
                 request.GenreIds,
                 request.AgeLimit,
-                Image,
-                IsUpdated,
+                image,
+                false,
                 request.DateWritten,
                 request.Contents);
         });

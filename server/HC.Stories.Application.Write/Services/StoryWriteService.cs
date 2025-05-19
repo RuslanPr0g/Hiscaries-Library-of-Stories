@@ -364,7 +364,7 @@ public sealed class StoryWriteService(
             return null;
         }
 
-        string fileName = await _imageUploader.UploadImageAsync(storyId, imagePreview, "stories");
-        return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
+        string fileName = await _imageUploader.UploadImageAsync(storyId, imagePreview, "stories", "");
+        return _urlGeneratorService.GenerateImageUrlByFileName("", fileName);
     }
 }

@@ -8,7 +8,7 @@ public static class DIExtensions
     public static IServiceCollection AddEnterpriseFileStorage(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
-        services.AddSingleton<IFileStorageService>(new LocalFileStorageService("wwwroot"));
+        services.AddSingleton<IFileStorageService>(new LocalFileStorageService());
 
         return services;
     }
