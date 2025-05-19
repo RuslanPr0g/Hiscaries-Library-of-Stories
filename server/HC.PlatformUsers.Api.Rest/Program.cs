@@ -73,8 +73,6 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseCors("AllowAll");
