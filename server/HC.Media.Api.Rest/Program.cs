@@ -1,9 +1,12 @@
+using Enterprise.Api.Rest;
 using HC.Media.EventHandlers;
 using HC.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddEnterprise(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddEventHandlers(builder.Configuration);

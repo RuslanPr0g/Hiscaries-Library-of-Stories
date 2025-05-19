@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
     <ProjectReference Include="..\HC.Media.EventHandlers\HC.Media.EventHandlers.csproj" />
     <ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
   </ItemGroup>
