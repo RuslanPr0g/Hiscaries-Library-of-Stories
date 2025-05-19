@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>79286272-6d6a-49a5-a870-49140a2f775e</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>
     </PropertyGroup>
 
     <ItemGroup>

@@ -44,6 +44,8 @@ export class MyLibraryComponent implements OnInit {
                 Bio: model.Bio,
                 Avatar: model.AvatarUrl,
                 LinksToSocialMedia: model.LinksToSocialMedia,
+                // TODO: this should be true only when AVATAR was changed!
+                ShouldUpdateAvatar: true,
             })
             .pipe(take(1))
             .subscribe(() => {
