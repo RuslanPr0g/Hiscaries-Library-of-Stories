@@ -193,7 +193,7 @@ public static class StoryEndpoints
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryWriteService service) =>
         await endpointHandler.WithUser(user =>
-            service.SetStorieScoreForAUser(
+            service.SetStoryScoreForAUser(
                 request.StoryId,
                 user.Id,
                 request.Score));

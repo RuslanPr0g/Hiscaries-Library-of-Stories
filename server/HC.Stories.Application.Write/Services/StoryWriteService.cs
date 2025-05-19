@@ -44,7 +44,7 @@ public sealed class StoryWriteService(
         return OperationResult.CreateSuccess();
     }
 
-    public async Task<OperationResult> SetStorieScoreForAUser(Guid storyId, Guid userId, int score)
+    public async Task<OperationResult> SetStoryScoreForAUser(Guid storyId, Guid userId, int score)
     {
         _logger.LogInformation("Setting score {Score} for story {StoryId} by user {UserId}", score, storyId, userId);
         var story = await _repository.GetById(storyId);
