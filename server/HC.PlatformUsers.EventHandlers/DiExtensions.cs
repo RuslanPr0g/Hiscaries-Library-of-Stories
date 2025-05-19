@@ -1,5 +1,4 @@
-﻿using HC.PlatformUsers.Domain.Events;
-using HC.PlatformUsers.EventHandlers.DomainEvents;
+﻿using HC.Notifications.Domain.Events;
 using HC.PlatformUsers.EventHandlers.IntegrationEvents;
 using HC.Stories.Domain.Events;
 using HC.UserAccounts.Domain.Events;
@@ -18,6 +17,8 @@ public static class DiExtensions
     {
         services.AddScoped<IConsumer<StoryPublishedDomainEvent>, StoryPublishedIntegrationEventHandler>();
         services.AddScoped<IConsumer<UserAccountCreatedDomainEvent>, UserAccountCreatedIntegrationEventHandler>();
+        services.AddScoped<IConsumer<ImageUploadedDomainEvent>, ImageUploadedIntegrationEventHandler>();
+
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 
         services.AddMassTransit(_ =>
