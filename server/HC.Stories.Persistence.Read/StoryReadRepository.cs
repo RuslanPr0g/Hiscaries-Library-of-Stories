@@ -55,6 +55,8 @@ public class StoryReadRepository(StoriesContext context) :
             {
                 Story = story,
                 // TODO: fix this
+                // FE should do a separate request to platform user to get the history of read, no?
+                // what if there are multiple stories to show progress on? the request should handle multiple ids I guess?
                 //LastPageRead = story.ReadHistory
                 //    .Where(history => history.PlatformUserId == searchedBy)
                 //    .Select(history => (int?)history.LastPageRead)
