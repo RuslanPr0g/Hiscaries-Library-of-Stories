@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HC.LocalApiGateway\HC.LocalApiGateway.csproj" />
+    <ProjectReference Include="..\HC.Media.Worker\HC.Media.Worker.csproj" />
     <ProjectReference Include="..\HC.Notifications.Api.Rest\HC.Notifications.Api.Rest.csproj" />
     <ProjectReference Include="..\HC.PlatformUsers.Api.Rest\HC.PlatformUsers.Api.Rest.csproj" />
     <ProjectReference Include="..\HC.Stories.Api.Rest\HC.Stories.Api.Rest.csproj" />

@@ -35,4 +35,8 @@ builder.AddProject<Projects.HC_LocalApiGateway>("hc-localapigateway")
     .WithReference(platformusers)
     .WithReference(stories);
 
+builder.AddProject<Projects.HC_Media_Worker>("hc-media-worker")
+    .WithReference(postgres)
+    .WithReference(rabbitmq);
+
 builder.Build().Run();
