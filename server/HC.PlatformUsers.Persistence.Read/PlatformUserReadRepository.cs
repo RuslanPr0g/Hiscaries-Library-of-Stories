@@ -33,17 +33,19 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             .Select(user => user.Id)
             .FirstOrDefaultAsync();
 
-    public async Task<LibraryReadModel?> GetLibraryInformation(Guid requesterId, LibraryId? libraryId)
+    public async Task<LibraryReadModel?> GetLibraryInformation(
+        Guid requesterUserAccountId,
+        LibraryId? libraryId)
     {
-        var isUserSubscribedToLibrary = libraryId is not null && await IsUserSubscribedToLibrary(requesterId, libraryId);
+        var isUserSubscribedToLibrary = libraryId is not null && await IsUserSubscribedToLibrary(requesterUserAccountId, libraryId);
 
         if (libraryId is null)
         {
             return await Context.Libraries
                 .AsNoTracking()
                 .Include(x => x.PlatformUser)
-                .Where(x => x.PlatformUser.UserAccountId == requesterId)
-                .Select(x => LibraryReadModel.FromDomainModel(x, requesterId, isUserSubscribedToLibrary))
+                .Where(x => x.PlatformUser.UserAccountId == requesterUserAccountId)
+                .Select(x => LibraryReadModel.FromDomainModel(x, requesterUserAccountId, isUserSubscribedToLibrary))
                 .FirstOrDefaultAsync();
         }
 
@@ -51,7 +53,7 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             .AsNoTracking()
             .Include(x => x.PlatformUser)
             .Where(x => x.Id == libraryId)
-            .Select(x => LibraryReadModel.FromDomainModel(x, requesterId, isUserSubscribedToLibrary))
+            .Select(x => LibraryReadModel.FromDomainModel(x, requesterUserAccountId, isUserSubscribedToLibrary))
             .FirstOrDefaultAsync();
     }
 

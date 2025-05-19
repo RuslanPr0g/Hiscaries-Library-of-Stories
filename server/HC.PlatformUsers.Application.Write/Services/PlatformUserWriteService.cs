@@ -113,7 +113,13 @@ public sealed class PlatformUserWriteService(
         return OperationResult.CreateSuccess();
     }
 
-    public async Task<OperationResult> EditLibraryInfo(Guid userId, Guid libraryId, string? bio, byte[]? avatar, bool shouldUpdateImage, List<string> linksToSocialMedia)
+    public async Task<OperationResult> EditLibraryInfo(
+        Guid userId,
+        Guid libraryId,
+        string? bio,
+        byte[]? avatar,
+        bool shouldUpdateImage,
+        List<string> linksToSocialMedia)
     {
         _logger.LogInformation("Attempting to edit library for user {UserId}", userId);
         PlatformUser? user = await _repository.GetByUserAccountId(userId);
