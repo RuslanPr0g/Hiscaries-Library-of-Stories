@@ -1,7 +1,6 @@
 ﻿using Enterprise.Domain.Constants;
 using Enterprise.Domain.Generators;
 using Enterprise.Domain.Images;
-using Enterprise.Domain.ResultModels.Response;
 using HC.PlatformUsers.Domain;
 using HC.PlatformUsers.Domain.DataAccess;
 using HC.PlatformUsers.Domain.Services;
@@ -22,21 +21,23 @@ public sealed class PlatformUserWriteService(
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
     private readonly ILogger<PlatformUserWriteService> _logger = logger;
 
-    public async Task<OperationResult> BecomePublisher(Guid id)
+    public async Task<OperationResult> BecomePublisher(Guid userAccountId)
     {
-        _logger.LogInformation("Attempting to make user {id} a publisher", id);
-        PlatformUser? user = await _repository.GetByUserAccountId(id);
+        _logger.LogInformation("Attempting to make user {id} a publisher", userAccountId);
+        PlatformUser? user = await _repository.GetByUserAccountId(userAccountId);
 
         if (user is null)
         {
-            _logger.LogWarning("Failed to make user a publisher: User {id} not found", id);
+            _logger.LogWarning("Failed to make user a publisher: User account {id} not found", userAccountId);
             return OperationResult.CreateClientSideError(UserFriendlyMessages.UserIsNotFound);
         }
 
         var libraryId = _idGenerator.Generate((id) => new LibraryId(id));
         user.BecomePublisher(libraryId);
+
         await _repository.SaveChanges();
-        _logger.LogInformation("Successfully made user {id} a publisher", id);
+
+        _logger.LogInformation("Successfully made user {id} a publisher", userAccountId);
         return OperationResult.CreateSuccess();
     }
 
