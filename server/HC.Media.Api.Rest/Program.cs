@@ -1,0 +1,26 @@
+using HC.Media.EventHandlers;
+using HC.ServiceDefaults;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEventHandlers(builder.Configuration);
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.Run();

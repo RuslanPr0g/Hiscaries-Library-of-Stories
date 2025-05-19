@@ -2,19 +2,14 @@
 
 namespace Enterprise.FileStorage;
 
-public class LocalFileStorageService(string baseDirectory) : IFileStorageService
+public class LocalFileStorageService() : IFileStorageService
 {
-    private readonly string _baseDirectory = baseDirectory;
-
-    public async Task<string> SaveFileAsync(byte[] fileData, string fileName)
+    public async Task<string> SaveFileAsync(string fileName, string storagePath, byte[] fileData)
     {
-        var directoryPath = Path.Combine(_baseDirectory, "images");
+        var directoryPath = Path.Combine(storagePath, "images");
         var filePath = Path.Combine(directoryPath, fileName);
 
-        if (!Directory.Exists(directoryPath))
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
+        Directory.CreateDirectory(directoryPath);
 
         await File.WriteAllBytesAsync(filePath, fileData);
         return fileName;

@@ -2,5 +2,5 @@
 
 public interface IResourceUrlGeneratorService
 {
-    string GenerateImageUrlByFileName(string filename);
+    string? GenerateImageUrlByFileName(string baseUrl, string fileName);
 }

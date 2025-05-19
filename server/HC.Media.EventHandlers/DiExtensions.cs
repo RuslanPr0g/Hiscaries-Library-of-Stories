@@ -15,6 +15,9 @@ public static class DiExtensions
     {
         services.AddScoped<IConsumer<ImageUploadRequestedDomainEvent>, ImageUploadRequestedIntegrationEventHandler>();
 
+        var settings = new ResourceSettings();
+        configuration.Bind(nameof(settings), settings);
+
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 
         services.AddMassTransit(_ =>

@@ -4,6 +4,7 @@ using Enterprise.EventHandlers;
 using HC.Notifications.Domain.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace HC.Media.EventHandlers.IntegrationEvents;
 
@@ -11,9 +12,13 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
     IPublishEndpoint publisher,
     IImageUploader imageUploader,
     IResourceUrlGeneratorService urlGeneratorService,
+    IOptions<ResourceSettings> options,
     ILogger<ImageUploadRequestedIntegrationEventHandler> logger)
         : BaseEventHandler<ImageUploadRequestedDomainEvent>(logger)
 {
+    private readonly string _baseUrl = options.Value.BaseUrl;
+    private readonly string _storagePath = options.Value.StoragePath;
+
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
     private readonly IPublishEndpoint _publisher = publisher;
@@ -61,12 +66,14 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
         byte[] imagePreview,
         string type)
     {
-        if (imagePreview is null || imagePreview.Length <= 0)
+        if (imagePreview is null || imagePreview.Length <= 0 || string.IsNullOrWhiteSpace(_baseUrl))
         {
             return null;
         }
 
-        string fileName = await _imageUploader.UploadImageAsync(fileId, imagePreview, type);
-        return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
+        var storagePath = _storagePath;
+
+        string fileName = await _imageUploader.UploadImageAsync(fileId, imagePreview, type, storagePath);
+        return _urlGeneratorService.GenerateImageUrlByFileName(_baseUrl, fileName);
     }
 }

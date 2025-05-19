@@ -27,16 +27,19 @@ var stories = builder.AddProject<Projects.HC_Stories_Api_Rest>("hc-stories-api-r
     .WithHttpsEndpoint(name: "rest", port: 7013, targetPort: 7013, isProxied: false)
     .WithReference(postgres)
     .WithReference(rabbitmq);
+var media = builder.AddProject<Projects.HC_Media_Api_Rest>("hc-media-api-rest")
+    .WithJwtAndSaltSettings(builder.Configuration)
+    .WithEnvironment("ResourceSettings__BaseUrl", $"https://localhost:7014/")
+    .WithEnvironment("ResourceSettings__StorageUrl", builder.Configuration["ResourceSettings:StorageUrl"])
+    .WithHttpsEndpoint(name: "rest", port: 7014, targetPort: 7014, isProxied: false)
+    .WithReference(rabbitmq);
 
 builder.AddProject<Projects.HC_LocalApiGateway>("hc-localapigateway")
     .WithHttpsEndpoint(name: "apigateway", port: 5001, targetPort: 5001, isProxied: false)
     .WithReference(useraccounts)
     .WithReference(notifications)
     .WithReference(platformusers)
-    .WithReference(stories);
-
-builder.AddProject<Projects.HC_Media_Worker>("hc-media-worker")
-    .WithReference(postgres)
-    .WithReference(rabbitmq);
+    .WithReference(stories)
+    .WithReference(media);
 
 builder.Build().Run();
