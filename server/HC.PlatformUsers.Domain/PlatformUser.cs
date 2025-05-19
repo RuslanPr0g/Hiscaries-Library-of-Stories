@@ -145,13 +145,14 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
 
     public void AskToChangeAvatar(
         LibraryId libraryId,
-        byte[] avatarContent)
+        byte[] avatarContent,
+        string type)
     {
         var library = GetCurrentLibrary();
 
         if (library is not null && library.Id == libraryId)
         {
-            PublishRequestToChangeAvatar(libraryId, avatarContent);
+            PublishRequestToChangeAvatar(libraryId, avatarContent, type);
         }
     }
 
@@ -200,9 +201,12 @@ public sealed class PlatformUser : AggregateRoot<PlatformUserId>
         PublishEvent(new UserUnsubscribedFromLibraryDomainEvent(UserAccountId, libraryId));
     }
 
-    private void PublishRequestToChangeAvatar(LibraryId libraryId, byte[] content)
+    private void PublishRequestToChangeAvatar(
+        LibraryId libraryId,
+        byte[] content,
+        string type)
     {
-        PublishEvent(new ImageUploadRequestedDomainEvent(content, libraryId));
+        PublishEvent(new ImageUploadRequestedDomainEvent(content, libraryId, type));
     }
 
     private PlatformUser()

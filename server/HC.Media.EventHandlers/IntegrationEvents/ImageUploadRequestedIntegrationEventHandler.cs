@@ -8,31 +8,65 @@ using Microsoft.Extensions.Logging;
 namespace HC.Media.EventHandlers.IntegrationEvents;
 
 public sealed class ImageUploadRequestedIntegrationEventHandler(
-    IIdGenerator idGenerator,
+    IPublishEndpoint publisher,
     IImageUploader imageUploader,
     IResourceUrlGeneratorService urlGeneratorService,
     ILogger<ImageUploadRequestedIntegrationEventHandler> logger)
         : BaseEventHandler<ImageUploadRequestedDomainEvent>(logger)
 {
-    private readonly IIdGenerator _idGenerator = idGenerator;
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
+    private readonly IPublishEndpoint _publisher = publisher;
 
     protected override async Task HandleEventAsync(
         ImageUploadRequestedDomainEvent integrationEvent,
         ConsumeContext<ImageUploadRequestedDomainEvent> context)
     {
-        UploadAvatarAndGetUrlAsync()
+        var file = integrationEvent.Content;
+        var requesterId = integrationEvent.RequesterId;
+        var type = integrationEvent.Type;
+
+        var fileUrl = await UploadAvatarAndGetUrlAsync(requesterId, file, type);
+
+        try
+        {
+            if (string.IsNullOrWhiteSpace(fileUrl))
+            {
+                await PublishFail(requesterId, "Could not generate URL. No details can be provided.");
+            }
+            else
+            {
+                await PublishSuccess(requesterId, fileUrl);
+            }
+        }
+        catch (Exception exception)
+        {
+            await PublishFail(requesterId, exception.Message);
+        }
     }
 
-    private async Task<string?> UploadAvatarAndGetUrlAsync(Guid libraryId, byte[] imagePreview)
+    private async Task PublishSuccess(Guid requesterId, string fileUrl)
     {
-        if (imagePreview.Length == 0)
+        await _publisher.Publish(new ImageUploadedDomainEvent(requesterId, fileUrl));
+    }
+
+    private Task PublishFail(Guid requesterId, string details)
+    {
+        // TODO: publish event ImageUploadFailedDomainEvent with details
+        throw new NotImplementedException();
+    }
+
+    private async Task<string?> UploadAvatarAndGetUrlAsync(
+        Guid fileId,
+        byte[] imagePreview,
+        string type)
+    {
+        if (imagePreview is null || imagePreview.Length <= 0)
         {
             return null;
         }
 
-        string fileName = await _imageUploader.UploadImageAsync(libraryId, imagePreview, "users");
+        string fileName = await _imageUploader.UploadImageAsync(fileId, imagePreview, type);
         return _urlGeneratorService.GenerateImageUrlByFileName(fileName);
     }
 }

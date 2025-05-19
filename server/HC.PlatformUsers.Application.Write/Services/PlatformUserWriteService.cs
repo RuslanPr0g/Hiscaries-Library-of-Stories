@@ -142,7 +142,7 @@ public sealed class PlatformUserWriteService(
 
         if (shouldUpdateImage && !avatarIsEmpty && avatar is not null)
         {
-            user.AskToChangeAvatar(libraryId, avatar);
+            user.AskToChangeAvatar(libraryId, avatar, "users");
         }
 
         await _repository.SaveChanges();
