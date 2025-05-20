@@ -59,7 +59,7 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-images/
+wwwroot/
 
 # StyleCop
 StyleCopReport.xml
