@@ -106,7 +106,6 @@ export class ModifyStoryComponent implements OnInit {
                         return;
                     }
 
-                    console.warn(story.LibraryName);
                     // TODO: fix this it sohuld no be username but id
                     if (!this.userService.isTokenOwnerByUsername(story.LibraryName)) {
                         this.storyNotFound = true;
@@ -141,6 +140,14 @@ export class ModifyStoryComponent implements OnInit {
     }
 
     onSubmit() {
+        const isValidImageBase64Selected = (value: string): boolean => {
+            if (!value || value.startsWith('data')) {
+                return true;
+            }
+
+            return false;
+        };
+
         if (!this.storyId) {
             this.storyNotFound = true;
             return;
@@ -155,12 +162,15 @@ export class ModifyStoryComponent implements OnInit {
 
         const formModel = this.modifyForm.value;
 
+        var isValidPreview = isValidImageBase64Selected(formModel.Image as any);
+
         const request: ModifyStoryRequest = {
             ...formModel,
             GenreIds: formModel.Genres?.map((g) => g.Id),
-            ImagePreview: formModel.Image,
+            ImagePreview: isValidPreview ? formModel.Image : null,
             StoryId: this.storyId,
             Contents: formModel.Contents?.filter((c: string) => !!c) ?? [],
+            ShouldUpdatePreview: isValidPreview,
         };
 
         this.storyService
