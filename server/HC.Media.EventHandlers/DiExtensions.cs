@@ -1,4 +1,5 @@
-﻿using HC.Media.EventHandlers.IntegrationEvents;
+﻿using Enterprise.Domain.Options;
+using HC.Media.EventHandlers.IntegrationEvents;
 using HC.Notifications.Domain.Events;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ public static class DiExtensions
 
         var settings = new ResourceSettings();
         configuration.Bind(nameof(settings), settings);
+        services.AddSingleton(settings);
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

@@ -2,6 +2,6 @@
 
 public class ResourceSettings
 {
-    public string BaseUrl { get; set; } = string.Empty;
-    public string StoragePath { get; set; } = string.Empty;
+    public string BaseUrl { get; set; }
+    public string StorageUrl { get; set; }
 }

@@ -17,7 +17,7 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
         : BaseEventHandler<ImageUploadRequestedDomainEvent>(logger)
 {
     private readonly string _baseUrl = options.Value.BaseUrl;
-    private readonly string _storagePath = options.Value.StoragePath;
+    private readonly string _storagePath = options.Value.StorageUrl;
 
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
