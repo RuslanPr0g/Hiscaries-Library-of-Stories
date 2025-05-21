@@ -65,7 +65,7 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public int TotalPages => Contents.Count;
 
-    public void AskToChangeAvatar(
+    public void AskToChangePreview(
         byte[] content,
         string type)
     {
@@ -79,7 +79,7 @@ public sealed class Story : AggregateRoot<StoryId>
         PublishNotificationReferenceObjectIdPreviewChanged();
     }
 
-    public void ClearAvatarUrl()
+    public void ClearPreviewUrl()
     {
         UpdatePreviewUrl(null);
     }

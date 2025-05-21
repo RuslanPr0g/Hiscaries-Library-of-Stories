@@ -166,12 +166,12 @@ public sealed class StoryWriteService(
 
         if (shouldUpdateImage && imageIsEmpty)
         {
-            story.ClearAvatarUrl();
+            story.ClearPreviewUrl();
         }
 
         if (shouldUpdateImage && !imageIsEmpty && imagePreview is not null)
         {
-            story.AskToChangeAvatar(imagePreview, "stories");
+            story.AskToChangePreview(imagePreview, "stories");
         }
 
         await _repository.Add(story);
@@ -226,12 +226,12 @@ public sealed class StoryWriteService(
 
         if (shouldUpdateImage && imageIsEmpty)
         {
-            story.ClearAvatarUrl();
+            story.ClearPreviewUrl();
         }
 
         if (shouldUpdateImage && !imageIsEmpty && imagePreview is not null)
         {
-            story.AskToChangeAvatar(imagePreview, "stories");
+            story.AskToChangePreview(imagePreview, "stories");
         }
 
         if (contents is not null && contents.Any())
