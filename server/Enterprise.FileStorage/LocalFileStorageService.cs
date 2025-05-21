@@ -9,6 +9,9 @@ public class LocalFileStorageService() : IFileStorageService
         var directoryPath = Path.Combine(storagePath, "images");
         var filePath = Path.Combine(directoryPath, fileName);
 
+        filePath = filePath.Replace('/', Path.DirectorySeparatorChar)
+                   .Replace('\\', Path.DirectorySeparatorChar);
+
         Directory.CreateDirectory(directoryPath);
 
         await File.WriteAllBytesAsync(filePath, fileData);

@@ -13,11 +13,12 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
     IImageUploader imageUploader,
     IResourceUrlGeneratorService urlGeneratorService,
     IOptions<ResourceSettings> options,
+    ResourceSettings settings,
     ILogger<ImageUploadRequestedIntegrationEventHandler> logger)
         : BaseEventHandler<ImageUploadRequestedDomainEvent>(logger)
 {
-    private readonly string _baseUrl = options.Value.BaseUrl;
-    private readonly string _storagePath = options.Value.StoragePath;
+    private readonly string _baseUrl = options.Value.BaseUrl ?? settings.BaseUrl;
+    private readonly string _storagePath = options.Value.StoragePath ?? settings.StoragePath;
 
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;

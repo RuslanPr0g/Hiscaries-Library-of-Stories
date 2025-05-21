@@ -1,5 +1,4 @@
-﻿using Enterprise.Domain.Options;
-using HC.Media.EventHandlers.IntegrationEvents;
+﻿using HC.Media.EventHandlers.IntegrationEvents;
 using HC.Notifications.Domain.Events;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +16,7 @@ public static class DiExtensions
         services.AddScoped<IConsumer<ImageUploadRequestedDomainEvent>, ImageUploadRequestedIntegrationEventHandler>();
 
         var settings = new ResourceSettings();
-        configuration.Bind(nameof(settings), settings);
+        configuration.Bind(nameof(ResourceSettings), settings);
         services.AddSingleton(settings);
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
