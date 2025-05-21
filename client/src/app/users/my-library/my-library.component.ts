@@ -38,14 +38,23 @@ export class MyLibraryComponent implements OnInit {
     }
 
     editLibrary(model: LibraryModel) {
+        const isValidImageBase64Selected = (value: string): boolean => {
+            if (!value || value.startsWith('data')) {
+                return true;
+            }
+
+            return false;
+        };
+
+        var isValidProfileImage = isValidImageBase64Selected(model.AvatarUrl);
+
         this.userService
             .editLibrary({
                 LibraryId: model.Id,
                 Bio: model.Bio,
-                Avatar: model.AvatarUrl,
+                Avatar: isValidProfileImage ? model.AvatarUrl : null,
                 LinksToSocialMedia: model.LinksToSocialMedia,
-                // TODO: this should be true only when AVATAR was changed!
-                ShouldUpdateAvatar: true,
+                ShouldUpdateAvatar: isValidProfileImage,
             })
             .pipe(take(1))
             .subscribe(() => {
