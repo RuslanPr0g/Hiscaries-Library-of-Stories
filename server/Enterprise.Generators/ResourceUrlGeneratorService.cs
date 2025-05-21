@@ -11,6 +11,10 @@ public class ResourceUrlGeneratorService : IResourceUrlGeneratorService
             return null;
         }
 
-        return $"{baseUrl}/images/{fileName}";
+        var url = $"{baseUrl}/images/{fileName}";
+
+        url = url.Replace("//", "/").Replace("\\", "/").Replace('\\', '/');
+
+        return url;
     }
 }
