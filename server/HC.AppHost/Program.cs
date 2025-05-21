@@ -30,7 +30,7 @@ var stories = builder.AddProject<Projects.HC_Stories_Api_Rest>("hc-stories-api-r
 var media = builder.AddProject<Projects.HC_Media_Api_Rest>("hc-media-api-rest")
     .WithJwtAndSaltSettings(builder.Configuration)
     .WithEnvironment("ResourceSettings__BaseUrl", $"https://localhost:7014/")
-    .WithEnvironment("ResourceSettings__StorageUrl", builder.Configuration["ResourceSettings:StorageUrl"])
+    .WithEnvironment("ResourceSettings__StoragePath", builder.Configuration["ResourceSettings:StorageUrl"])
     .WithHttpsEndpoint(name: "rest", port: 7014, targetPort: 7014, isProxied: false)
     .WithReference(rabbitmq);
 

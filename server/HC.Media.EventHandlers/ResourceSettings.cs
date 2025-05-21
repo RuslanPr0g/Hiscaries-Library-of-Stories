@@ -3,5 +3,5 @@
 public class ResourceSettings
 {
     public string BaseUrl { get; set; }
-    public string StorageUrl { get; set; }
+    public string StoragePath { get; set; }
 }
