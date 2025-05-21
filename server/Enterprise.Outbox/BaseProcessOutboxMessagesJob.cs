@@ -61,6 +61,9 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublish
             }
         }
 
-        await Context.SaveChangesAsync();
+        if (messages.Count > 0)
+        {
+            await Context.SaveChangesAsync();
+        }
     }
 }
