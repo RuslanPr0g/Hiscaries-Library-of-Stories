@@ -31,6 +31,9 @@ public abstract class BaseCleanOutboxJob<TContext> : IJob
             }
         }
 
-        await Context.SaveChangesAsync();
+        if (messages.Count > 0)
+        {
+            await Context.SaveChangesAsync();
+        }
     }
 }
