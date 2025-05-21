@@ -11,9 +11,11 @@ public class ResourceUrlGeneratorService : IResourceUrlGeneratorService
             return null;
         }
 
-        var url = $"{baseUrl}/images/{fileName}";
+        var hasSlashAtTheEnd = baseUrl[baseUrl.Length - 1] == '/';
 
-        url = url.Replace("//", "/").Replace("\\", "/").Replace('\\', '/');
+        var url = hasSlashAtTheEnd ?
+            $"{baseUrl}images/{fileName}" :
+            $"{baseUrl}/images/{fileName}";
 
         return url;
     }
