@@ -12,7 +12,10 @@
                 class="avatar-container"
                 [ngClass]="{ 'min-width-150': isAbleToSubscribe }"
             >
-                <div class="avatar">
+                <div
+                    class="avatar"
+                    *ngIf="library.AvatarUrl"
+                >
                     <img
                         [src]="library.AvatarUrl"
                         alt="User Avatar"
