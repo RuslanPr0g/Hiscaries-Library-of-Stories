@@ -12,7 +12,7 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublish
     where TAssembly : Assembly
 {
     protected abstract TContext Context { get; init; }
-    protected abstract TAssembly MessagesAssembly { get; init; }
+    protected abstract IReadOnlyList<TAssembly> MessagesAssembly { get; init; }
 
     private readonly IPublishEndpoint _publisher = publisher;
 
@@ -28,7 +28,10 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublish
         {
             try
             {
-                var messageType = MessagesAssembly.GetType(message.Type);
+                var messageType = MessagesAssembly
+                    .Select(asm => asm.GetType(message.Type))
+                    .FirstOrDefault(t => t != null);
+
 
                 if (messageType is null)
                 {

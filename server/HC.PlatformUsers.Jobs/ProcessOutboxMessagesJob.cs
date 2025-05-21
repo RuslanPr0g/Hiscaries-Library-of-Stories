@@ -1,4 +1,5 @@
 ﻿using Enterprise.Outbox;
+using HC.Media.Domain.Events;
 using HC.PlatformUsers.Domain.Events;
 using HC.PlatformUsers.Persistence.Context;
 using MassTransit;
@@ -11,5 +12,6 @@ internal class ProcessOutboxMessagesJob(
     IPublishEndpoint publisher) : BaseProcessOutboxMessagesJob<PlatformUsersContext, Assembly>(publisher)
 {
     protected override PlatformUsersContext Context { get; init; } = context;
-    protected override Assembly MessagesAssembly { get; init; } = typeof(StoryPageReadDomainEvent).Assembly;
+    protected override IReadOnlyList<Assembly> MessagesAssembly { get; init; } = 
+        [typeof(PlatformUserEventsAssembly).Assembly, typeof(MediaEventsAssembly).Assembly];
 }

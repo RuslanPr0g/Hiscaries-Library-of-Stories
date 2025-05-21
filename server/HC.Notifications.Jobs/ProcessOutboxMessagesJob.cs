@@ -11,5 +11,5 @@ internal class ProcessOutboxMessagesJob(
     IPublishEndpoint publisher) : BaseProcessOutboxMessagesJob<NotificationsContext, Assembly>(publisher)
 {
     protected override NotificationsContext Context { get; init; } = context;
-    protected override Assembly MessagesAssembly { get; init; } = typeof(NotificationCreatedDomainEvent).Assembly;
+    protected override IReadOnlyList<Assembly> MessagesAssembly { get; init; } = [typeof(NotificationEventsAssembly).Assembly];
 }

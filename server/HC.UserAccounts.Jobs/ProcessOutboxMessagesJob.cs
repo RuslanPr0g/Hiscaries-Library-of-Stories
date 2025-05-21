@@ -11,5 +11,5 @@ internal class ProcessOutboxMessagesJob(
     IPublishEndpoint publisher) : BaseProcessOutboxMessagesJob<UserAccountsContext, Assembly>(publisher)
 {
     protected override UserAccountsContext Context { get; init; } = context;
-    protected override Assembly MessagesAssembly { get; init; } = typeof(UserAccountBannedDomainEvent).Assembly;
+    protected override IReadOnlyList<Assembly> MessagesAssembly { get; init; } = [typeof(UserAccountEventsAssembly).Assembly];
 }
