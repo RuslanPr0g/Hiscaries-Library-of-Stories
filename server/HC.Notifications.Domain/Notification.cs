@@ -46,7 +46,7 @@ public sealed class Notification : AggregateRoot<NotificationId>
     public bool IsRead { get; private set; }
     public string Type { get; }
     public Guid? RelatedObjectId { get; }
-    public string? PreviewUrl { get; }
+    public string? PreviewUrl { get; private set; }
 
     public void Read()
     {
@@ -56,6 +56,11 @@ public sealed class Notification : AggregateRoot<NotificationId>
     private void PublishNotificationCreatedEvent()
     {
         PublishEvent(new NotificationCreatedDomainEvent(Id, UserId, Type, Message));
+    }
+
+    public void UpdatePreviewUrl(string? previewUrl)
+    {
+        PreviewUrl = previewUrl;
     }
 
     private Notification()

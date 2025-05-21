@@ -1,4 +1,5 @@
 ﻿using Enterprise.Domain;
+using HC.Notifications.Domain.Events;
 using HC.Stories.Domain.Events;
 using HC.Stories.Domain.Genres;
 
@@ -12,7 +13,6 @@ public sealed class Story : AggregateRoot<StoryId>
         string title,
         string description,
         string authorName,
-        string? imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
         DateTime dateWritten) : base(id)
@@ -26,9 +26,7 @@ public sealed class Story : AggregateRoot<StoryId>
         AgeLimit = ageLimit;
         DateWritten = dateWritten;
 
-        ImagePreviewUrl = imagePreviewUrl;
-
-        PublishEvent(new StoryPublishedDomainEvent(LibraryId, Id, Title, imagePreviewUrl));
+        PublishEvent(new StoryPublishedDomainEvent(LibraryId, Id, Title, null));
     }
 
     public static Story Create(
@@ -37,7 +35,6 @@ public sealed class Story : AggregateRoot<StoryId>
         string title,
         string description,
         string authorName,
-        string? imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
         DateTime dateWritten) => new(
@@ -46,7 +43,6 @@ public sealed class Story : AggregateRoot<StoryId>
             title,
             description,
             authorName,
-            imagePreviewUrl,
             genres,
             ageLimit,
             dateWritten);
@@ -68,6 +64,25 @@ public sealed class Story : AggregateRoot<StoryId>
     public string? ImagePreviewUrl { get; private set; }
 
     public int TotalPages => Contents.Count;
+
+    public void AskToChangeAvatar(
+        byte[] content,
+        string type)
+    {
+        PublishRequestToChangePreview(content, type);
+    }
+
+    public void UpdatePreviewUrl(
+        string? previewUrl)
+    {
+        ImagePreviewUrl = previewUrl;
+        PublishNotificationReferenceObjectIdPreviewChanged();
+    }
+
+    public void ClearAvatarUrl()
+    {
+        UpdatePreviewUrl(null);
+    }
 
     public void UpdateTitle(string title)
     {
@@ -125,7 +140,6 @@ public sealed class Story : AggregateRoot<StoryId>
         string title,
         string description,
         string authorName,
-        string? imagePreviewUrl,
         ICollection<Genre> genres,
         int ageLimit,
         DateTime dateWritten)
@@ -135,8 +149,6 @@ public sealed class Story : AggregateRoot<StoryId>
         AuthorName = authorName;
         AgeLimit = ageLimit;
         DateWritten = dateWritten;
-
-        ImagePreviewUrl = imagePreviewUrl;
 
         Genres.Clear();
 
@@ -203,6 +215,18 @@ public sealed class Story : AggregateRoot<StoryId>
         {
             Audios.Add(StoryAudio.Create(storyAudioId, name));
         }
+    }
+
+    private void PublishRequestToChangePreview(
+        byte[] content,
+        string type)
+    {
+        PublishEvent(new ImageUploadRequestedDomainEvent(content, Id, type));
+    }
+
+    private void PublishNotificationReferenceObjectIdPreviewChanged()
+    {
+        PublishEvent(new NotificationReferenceObjectIdPreviewChangedDomainEvent(Id, ImagePreviewUrl));
     }
 
     private Story()

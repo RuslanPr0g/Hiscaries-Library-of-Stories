@@ -10,7 +10,7 @@ public interface IStoryWriteService
         string authorName,
         IEnumerable<Guid> genreIds,
         int ageLimit,
-        byte[] imagePreview,
+        byte[]? imagePreview,
         bool shouldUpdateImage,
         DateTime dateWritten);
 
@@ -22,7 +22,7 @@ public interface IStoryWriteService
         string authorName,
         IEnumerable<Guid> genreIds,
         int ageLimit,
-        byte[] imagePreview,
+        byte[]? imagePreview,
         bool shouldUpdateImage,
         DateTime dateWritten,
         IEnumerable<string> contents);

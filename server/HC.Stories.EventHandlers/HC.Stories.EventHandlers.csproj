@@ -14,7 +14,9 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
+	  <ProjectReference Include="..\HC.Media.Domain.Events\HC.Media.Domain.Events.csproj" />
 	  <ProjectReference Include="..\HC.Stories.Domain.Events\HC.Stories.Domain.Events.csproj" />
+	  <ProjectReference Include="..\HC.Stories.Domain\HC.Stories.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

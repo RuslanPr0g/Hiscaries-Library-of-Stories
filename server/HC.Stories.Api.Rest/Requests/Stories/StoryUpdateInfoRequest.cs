@@ -18,6 +18,8 @@ public class StoryUpdateInfoRequest
 
     public string ImagePreview { get; set; }
 
+    public bool ShouldUpdatePreview { get; set; }
+
     public DateTime DateWritten { get; set; }
 
     public IEnumerable<string> Contents { get; set; }

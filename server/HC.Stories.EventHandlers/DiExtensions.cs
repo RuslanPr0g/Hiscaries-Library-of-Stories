@@ -1,13 +1,11 @@
 ﻿using HC.Notifications.Domain.Events;
-using HC.Notifications.EventHandlers.DomainEvents;
-using HC.Notifications.EventHandlers.IntegrationEvents;
-using HC.PlatformUsers.Domain.Events;
+using HC.Stories.EventHandlers.IntegrationEvents;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace HC.Notifications.EventHandlers;
+namespace HC.Stories.EventHandlers;
 
 public static class DiExtensions
 {
@@ -15,10 +13,7 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<NotificationCreatedDomainEvent>, NotificationCreatedDomainEventHandler>();
-        services.AddScoped<IConsumer<UserPublishedStoryDomainEvent>, UserPublishedStoryIntegrationEventHandler>();
-        services.AddScoped<IConsumer<NotificationReferenceObjectIdPreviewChangedDomainEvent>,
-            NotificationReferenceObjectIdPreviewChangedDomainEventEventHandler>();
+        services.AddScoped<IConsumer<ImageUploadedDomainEvent>, ImageUploadedIntegrationEventHandler>();
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

@@ -152,7 +152,7 @@ public static class StoryEndpoints
                 request.GenreIds,
                 request.AgeLimit,
                 image,
-                false,
+                true,
                 request.DateWritten);
         });
 
@@ -172,7 +172,7 @@ public static class StoryEndpoints
                 request.GenreIds,
                 request.AgeLimit,
                 image,
-                false,
+                request.ShouldUpdatePreview,
                 request.DateWritten,
                 request.Contents);
         });

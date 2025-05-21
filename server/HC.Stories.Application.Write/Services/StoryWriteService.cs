@@ -121,7 +121,7 @@ public sealed class StoryWriteService(
         string authorName,
         IEnumerable<Guid> genreIds,
         int ageLimit,
-        byte[] imagePreview,
+        byte[]? imagePreview,
         bool shouldUpdateImage,
         DateTime dateWritten)
     {
@@ -152,18 +152,27 @@ public sealed class StoryWriteService(
 
         var existingGenres = await _genreRepository.GetByIds(genreIds.ToArray());
 
-        string? imagePreviewUrl = await UploadStoryPreviewAndGetUrlAsync(storyId, imagePreview);
-
         var story = Story.Create(
             storyId,
             libraryId,
             title,
             description,
             authorName,
-            imagePreviewUrl,
             existingGenres.ToList(),
             ageLimit,
             dateWritten);
+
+        var imageIsEmpty = imagePreview is null || imagePreview.Length <= 0;
+
+        if (shouldUpdateImage && imageIsEmpty)
+        {
+            story.ClearAvatarUrl();
+        }
+
+        if (shouldUpdateImage && !imageIsEmpty && imagePreview is not null)
+        {
+            story.AskToChangeAvatar(imagePreview, "stories");
+        }
 
         await _repository.Add(story);
         await _repository.SaveChanges();
@@ -172,7 +181,18 @@ public sealed class StoryWriteService(
         return OperationResult<EntityIdResponse>.CreateSuccess(new EntityIdResponse { Id = story.Id });
     }
 
-    public async Task<OperationResult> UpdateStory(Guid currentUserId, Guid storyId, string title, string description, string authorName, IEnumerable<Guid> genreIds, int ageLimit, byte[] imagePreview, bool shouldUpdateImage, DateTime dateWritten, IEnumerable<string> contents)
+    public async Task<OperationResult> UpdateStory(
+        Guid currentUserId,
+        Guid storyId,
+        string title,
+        string description,
+        string authorName,
+        IEnumerable<Guid> genreIds,
+        int ageLimit,
+        byte[]? imagePreview,
+        bool shouldUpdateImage,
+        DateTime dateWritten,
+        IEnumerable<string> contents)
     {
         _logger.LogInformation("Updating story {StoryId}", storyId);
         var story = await _repository.GetById(storyId);
@@ -194,18 +214,25 @@ public sealed class StoryWriteService(
 
         var existingGenres = await _genreRepository.GetByIds(genreIds.ToArray());
 
-        string? imagePreviewUrl = shouldUpdateImage ?
-            await UploadStoryPreviewAndGetUrlAsync(storyId, imagePreview) :
-            story.ImagePreviewUrl;
-
         story.UpdateInformation(
             title,
             description,
             authorName,
-            imagePreviewUrl,
             existingGenres.ToList(),
             ageLimit,
             DateTime.SpecifyKind(dateWritten, DateTimeKind.Utc));
+
+        var imageIsEmpty = imagePreview is null || imagePreview.Length <= 0;
+
+        if (shouldUpdateImage && imageIsEmpty)
+        {
+            story.ClearAvatarUrl();
+        }
+
+        if (shouldUpdateImage && !imageIsEmpty && imagePreview is not null)
+        {
+            story.AskToChangeAvatar(imagePreview, "stories");
+        }
 
         if (contents is not null && contents.Any())
         {
@@ -235,6 +262,7 @@ public sealed class StoryWriteService(
 
         try
         {
+            // TODO: move it to the media service
             SaveByteArrayToFileWithBinaryWriter(audio, $"audios/{fileId}.mp3");
             _logger.LogInformation("Audio file saved for story {StoryId} with file ID {FileId}", storyId, fileId);
 
@@ -351,20 +379,10 @@ public sealed class StoryWriteService(
         return OperationResult.CreateSuccess();
     }
 
+    // TODO: move it to the media service
     private static void SaveByteArrayToFileWithBinaryWriter(byte[] data, string filePath)
     {
         using BinaryWriter writer = new(File.OpenWrite(filePath));
         writer.Write(data);
-    }
-
-    private async Task<string?> UploadStoryPreviewAndGetUrlAsync(Guid storyId, byte[] imagePreview)
-    {
-        if (imagePreview.Length == 0)
-        {
-            return null;
-        }
-
-        string fileName = await _imageUploader.UploadImageAsync(storyId, imagePreview, "stories", "");
-        return _urlGeneratorService.GenerateImageUrlByFileName("", fileName);
     }
 }
