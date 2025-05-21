@@ -1,4 +1,5 @@
 ﻿using Enterprise.Persistence.Context;
+using HC.Stories.Persistence.Context.Seeds;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,9 +9,17 @@ public static class DiExtensions
 {
     public static IServiceCollection AddStoriesPersistenceContext(this IServiceCollection services, IConfiguration configuration)
     {
-        return services.AddBaseEnterprisePersistenceContext<StoriesContext>(
+        var registredServices = services.AddBaseEnterprisePersistenceContext<StoriesContext>(
             configuration: configuration,
             migrationsAssemblyName: "HC.Stories.Persistence.Context",
             migrationsHistoryTableSchemaName: StoriesContext.SCHEMA_NAME);
+
+        using (var scope = registredServices.BuildServiceProvider().CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<StoriesContext>();
+            GenreSeeder.SeedAsync(db);
+        }
+
+        return registredServices;
     }
 }

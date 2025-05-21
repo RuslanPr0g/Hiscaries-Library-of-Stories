@@ -30,6 +30,7 @@ public sealed class Genre : AggregateRoot<GenreId>
 
     public string Name { get; private set; }
     public string Description { get; private set; }
+    // TODO: should be image url
     public byte[] ImagePreview { get; private set; }
 
     public void UpdateInformation(string name, string description, byte[] imagePreview)
