@@ -6,7 +6,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthService } from '../../users/services/auth.service';
-import { StoryService } from '../services/story.service';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 xdescribe('PublishStoryComponent', () => {
     let component: PublishStoryComponent;
@@ -17,7 +17,7 @@ xdescribe('PublishStoryComponent', () => {
             imports: [PublishStoryComponent, CommonModule, ReactiveFormsModule],
             providers: [
                 AuthService,
-                StoryService,
+                StoryWithMetadataService,
                 JwtHelperService,
                 { provide: JWT_OPTIONS, useValue: {} },
                 provideHttpClient(),

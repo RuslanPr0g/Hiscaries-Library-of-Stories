@@ -5,8 +5,8 @@ import { LibraryModel } from '../models/domain/library.model';
 import { UserService } from '../services/user.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
-import { StoryService } from '../../stories/services/story.service';
 import { StoryModel } from '../../stories/models/domain/story-model';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 @Component({
     selector: 'app-publisher-library',
@@ -27,7 +27,7 @@ export class PublisherLibraryComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private userService: UserService,
-        private storyService: StoryService
+        private storyService: StoryWithMetadataService
     ) {
         this.libraryId = this.route.snapshot.paramMap.get('id');
     }

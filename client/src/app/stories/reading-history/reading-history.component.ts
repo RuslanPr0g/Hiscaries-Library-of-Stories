@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { StoryService } from '../services/story.service';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { DestroyService } from '../../shared/services/destroy.service';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryResultsComponent } from '../search-story-results/search-story-results.component';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 @Component({
     selector: 'app-reading-history',
@@ -18,7 +18,7 @@ export class ReadingHistoryComponent implements OnInit {
     stories: StoryModel[] = [];
     isLoading = false;
 
-    constructor(private storyService: StoryService) {}
+    constructor(private storyService: StoryWithMetadataService) {}
 
     ngOnInit(): void {
         this.fetchStories();

@@ -2,12 +2,13 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoryModelWithContents } from '../models/domain/story-model';
 import { CommonModule } from '@angular/common';
-import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { convertToBase64 } from '../../shared/helpers/image.helper';
 import { IteratorService } from '../../shared/services/statefull/iterator.service';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
     selector: 'app-read-story-content',
@@ -28,7 +29,8 @@ export class ReadStoryContentComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private storyService: StoryService,
+        private storyService: StoryWithMetadataService,
+        private userService: UserService,
         private iterator: IteratorService
     ) {
         this.storyId = this.route.snapshot.paramMap.get('id');
@@ -60,7 +62,7 @@ export class ReadStoryContentComponent implements OnInit {
                     if (story.LastPageRead) {
                         this.iterator.moveTo(story.LastPageRead);
                     } else {
-                        this.storyService
+                        this.userService
                             .read({
                                 StoryId: story.Id,
                                 PageRead: 0,
@@ -111,7 +113,7 @@ export class ReadStoryContentComponent implements OnInit {
         const result = this.iterator.moveNext();
 
         if (result && this.storyId && this.iterator.currentIndex > (this.story?.LastPageRead ?? 0)) {
-            this.storyService
+            this.userService
                 .read({
                     StoryId: this.storyId,
                     PageRead: this.currentIndex,

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoryModel } from '../models/domain/story-model';
-import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormButtonComponent } from '../../shared/components/form-button/form-button.component';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 @Component({
     selector: 'app-preview-story',
@@ -24,7 +24,7 @@ export class PreviewStoryComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private storyService: StoryService
+        private storyService: StoryWithMetadataService
     ) {}
 
     ngOnInit(): void {

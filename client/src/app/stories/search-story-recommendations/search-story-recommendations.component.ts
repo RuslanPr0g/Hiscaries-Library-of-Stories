@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DestroyService } from '../../shared/services/destroy.service';
-import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { StoryModel } from '../models/domain/story-model';
 import { ButtonOneComponent } from '../../shared/components/button-one/button-one.component';
 import { SearchStoryResultsComponent } from '../search-story-results/search-story-results.component';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 @Component({
     selector: 'app-search-story-recommendations',
@@ -22,7 +22,7 @@ export class SearchStoryRecommendationsComponent implements OnInit {
 
     isLoading = false;
 
-    constructor(private storyService: StoryService) {}
+    constructor(private storyService: StoryWithMetadataService) {}
 
     ngOnInit(): void {
         this.fetchRecommendations();

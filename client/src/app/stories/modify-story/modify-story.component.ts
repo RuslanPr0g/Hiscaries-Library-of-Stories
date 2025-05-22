@@ -8,7 +8,6 @@ import { NumberLimitControlComponent } from '../../shared/components/number-limi
 import { FormDateInputComponent } from '../../shared/components/form-date-input/form-date-input.component';
 import { DividerModule } from 'primeng/divider';
 import { GenreModel } from '../models/domain/genre.model';
-import { StoryService } from '../services/story.service';
 import { take } from 'rxjs';
 import { UploadFileControlComponent } from '../../shared/components/upload-file-control/upload-file-control.component';
 import { FormMultiselectComponent } from '../../shared/components/form-multiselect/form-multiselect.component';
@@ -22,6 +21,7 @@ import { NavigationConst } from '../../shared/constants/navigation.const';
 import { AuthService } from '../../users/services/auth.service';
 import { ContentBuilderComponent } from './content-builder/content-builder.component';
 import { TabViewModule } from 'primeng/tabview';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 @Component({
     selector: 'app-modify-story',
@@ -59,7 +59,7 @@ export class ModifyStoryComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private fb: FormBuilder,
-        private storyService: StoryService,
+        private storyService: StoryWithMetadataService,
         private userService: AuthService,
         private router: Router
     ) {

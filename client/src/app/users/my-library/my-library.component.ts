@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
 import { LibraryModel } from '../models/domain/library.model';
 import { take } from 'rxjs';
 import { StoryModel } from '../../stories/models/domain/story-model';
-import { StoryService } from '../../stories/services/story.service';
+import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
 
 @Component({
     selector: 'app-my-library',
@@ -25,7 +25,7 @@ export class MyLibraryComponent implements OnInit {
         private router: Router,
         private authService: AuthService,
         private userService: UserService,
-        private storyService: StoryService
+        private storyService: StoryWithMetadataService
     ) {
         if (!this.authService.isPublisher()) {
             this.router.navigate([NavigationConst.Home]);
