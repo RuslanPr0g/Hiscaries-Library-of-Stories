@@ -40,7 +40,7 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IEventPu
                     continue;
                 }
 
-                var domainEvent = JsonConvert.DeserializeObject(
+                var @event = JsonConvert.DeserializeObject(
                     message.Content,
                     messageType,
                     new JsonSerializerSettings()
@@ -48,12 +48,12 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IEventPu
                         TypeNameHandling = TypeNameHandling.All,
                     });
 
-                if (domainEvent is null)
+                if (@event is null || @event is not IDomainEvent domainEvent)
                 {
                     continue;
                 }
 
-                await _publisher.Publish(domainEvent as IDomainEvent);
+                await _publisher.Publish(domainEvent);
 
                 message.ProcessedOnUtc = DateTime.UtcNow;
                 message.Error = string.Empty;
