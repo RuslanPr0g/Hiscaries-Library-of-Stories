@@ -1,5 +1,4 @@
 ﻿using Enterprise.Domain;
-using HC.UserAccounts.Domain.Events;
 
 namespace HC.UserAccounts.Domain;
 
@@ -111,12 +110,10 @@ public sealed class UserAccount : AggregateRoot<UserAccountId>
 
     private void PublishUserBannedEvent()
     {
-        PublishEvent(new UserAccountBannedDomainEvent(Id));
     }
 
     private void PublishUserCreatedEvent()
     {
-        PublishEvent(new UserAccountCreatedDomainEvent(Id, Username));
     }
 
     private UserAccount()

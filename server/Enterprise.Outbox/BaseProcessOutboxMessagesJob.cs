@@ -1,5 +1,6 @@
-﻿using Enterprise.Domain.Outbox;
-using MassTransit;
+﻿using Enterprise.Domain;
+using Enterprise.Domain.EventPublishers;
+using Enterprise.Domain.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
@@ -7,14 +8,14 @@ using System.Reflection;
 
 namespace Enterprise.Outbox;
 
-public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublishEndpoint publisher) : IJob
+public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IEventPublisher publisher) : IJob
     where TContext : DbContext
     where TAssembly : Assembly
 {
     protected abstract TContext Context { get; init; }
     protected abstract IReadOnlyList<TAssembly> MessagesAssembly { get; init; }
 
-    private readonly IPublishEndpoint _publisher = publisher;
+    private readonly IEventPublisher _publisher = publisher;
 
     public async Task Execute(IJobExecutionContext context)
     {
@@ -52,7 +53,7 @@ public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IPublish
                     continue;
                 }
 
-                await _publisher.Publish(domainEvent);
+                await _publisher.Publish(domainEvent as IDomainEvent);
 
                 message.ProcessedOnUtc = DateTime.UtcNow;
                 message.Error = string.Empty;

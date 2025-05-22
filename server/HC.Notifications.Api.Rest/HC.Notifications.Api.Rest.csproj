@@ -24,7 +24,6 @@
         <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
         <ProjectReference Include="..\HC.Notifications.Application.Read\HC.Notifications.Application.Read.csproj" />
         <ProjectReference Include="..\HC.Notifications.Application.Write\HC.Notifications.Application.Write.csproj" />
-        <ProjectReference Include="..\HC.Notifications.Domain.Events\HC.Notifications.Domain.Events.csproj" />
         <ProjectReference Include="..\HC.Notifications.Domain\HC.Notifications.Domain.csproj" />
         <ProjectReference Include="..\HC.Notifications.EventHandlers\HC.Notifications.EventHandlers.csproj" />
         <ProjectReference Include="..\HC.Notifications.Jobs\HC.Notifications.Jobs.csproj" />

@@ -14,10 +14,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
-	  <ProjectReference Include="..\HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj" />
+	  <ProjectReference Include="..\HC.Media.IntegrationEvents\HC.Media.IntegrationEvents.csproj" />
 	  <ProjectReference Include="..\HC.PlatformUsers.Domain\HC.PlatformUsers.Domain.csproj" />
-	  <ProjectReference Include="..\HC.Stories.Domain.Events\HC.Stories.Domain.Events.csproj" />
-	  <ProjectReference Include="..\HC.UserAccounts.Domain.Events\HC.UserAccounts.Domain.Events.csproj" />
+	  <ProjectReference Include="..\HC.PlatformUsers.IntegrationEvents\HC.PlatformUsers.IntegrationEvents.csproj" />
+	  <ProjectReference Include="..\HC.Stories.IntegrationEvents\HC.Stories.IntegrationEvents.csproj" />
+	  <ProjectReference Include="..\HC.UserAccounts.IntegrationEvents\HC.UserAccounts.IntegrationEvents.csproj" />
 	</ItemGroup>
 
 </Project>

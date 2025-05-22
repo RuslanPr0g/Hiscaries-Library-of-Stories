@@ -1,4 +1,5 @@
-﻿using HC.PlatformUsers.Domain.Events;
+﻿using HC.PlatformUsers.IntegrationEvents.Outgoing;
+using HC.UserAccounts.EventHandlers.IntegrationEvents;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<UserBecamePublisherDomainEvent>, UserBecamePublisherDomainEventHandler>();
+        services.AddScoped<IConsumer<UserBecamePublisherIntegrationEvent>, UserBecamePublisherIntegrationEventHandler>();
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

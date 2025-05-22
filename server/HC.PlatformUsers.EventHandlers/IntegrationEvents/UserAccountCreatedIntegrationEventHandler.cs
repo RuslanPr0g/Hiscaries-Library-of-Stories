@@ -2,7 +2,7 @@
 using Enterprise.EventHandlers;
 using HC.PlatformUsers.Domain;
 using HC.PlatformUsers.Domain.DataAccess;
-using HC.UserAccounts.Domain.Events;
+using HC.UserAccounts.IntegrationEvents.Outgoing;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
@@ -11,14 +11,14 @@ namespace HC.PlatformUsers.EventHandlers.IntegrationEvents;
 public sealed class UserAccountCreatedIntegrationEventHandler(
     IPlatformUserWriteRepository repository,
     ILogger<UserAccountCreatedIntegrationEventHandler> logger,
-    IIdGenerator idGenerator) : BaseEventHandler<UserAccountCreatedDomainEvent>(logger)
+    IIdGenerator idGenerator) : BaseEventHandler<UserAccountCreatedIntegrationEvent>(logger)
 {
     private readonly IPlatformUserWriteRepository _repository = repository;
     private readonly IIdGenerator _idGenerator = idGenerator;
 
     protected override async Task HandleEventAsync(
-        UserAccountCreatedDomainEvent domainEvent,
-        ConsumeContext<UserAccountCreatedDomainEvent> context)
+        UserAccountCreatedIntegrationEvent domainEvent,
+        ConsumeContext<UserAccountCreatedIntegrationEvent> context)
     {
         var user = await _repository.GetByUserAccountId(domainEvent.UserAccountId);
 

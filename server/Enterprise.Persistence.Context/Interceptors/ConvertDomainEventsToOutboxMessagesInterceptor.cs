@@ -30,6 +30,12 @@ public sealed class ConvertDomainEventsToOutboxMessagesInterceptor
 
                 root.ClearEvents();
 
+                foreach (var @event in domainEvents)
+                {
+                    @event.CorrelationId = @event.CorrelationId == Guid.Empty ?
+                        Guid.NewGuid() : @event.CorrelationId;
+                }
+
                 return domainEvents;
             })
             .Select(x => new OutboxMessage()

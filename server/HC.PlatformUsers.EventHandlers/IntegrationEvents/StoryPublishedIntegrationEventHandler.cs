@@ -1,7 +1,8 @@
-﻿using Enterprise.EventHandlers;
+﻿using Enterprise.Domain.EventPublishers;
+using Enterprise.EventHandlers;
 using HC.PlatformUsers.Domain.DataAccess;
-using HC.PlatformUsers.Domain.Events;
-using HC.Stories.Domain.Events;
+using HC.PlatformUsers.IntegrationEvents.Outgoing;
+using HC.Stories.IntegrationEvents.Outgoing;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
@@ -9,20 +10,20 @@ namespace HC.PlatformUsers.EventHandlers.IntegrationEvents;
 
 public sealed class StoryPublishedIntegrationEventHandler(
     IPlatformUserWriteRepository repository,
-    IPublishEndpoint publisher,
+    IEventPublisher publisher,
     ILogger<StoryPublishedIntegrationEventHandler> logger)
-        : BaseEventHandler<StoryPublishedDomainEvent>(logger)
+        : BaseEventHandler<StoryPublishedIntegrationEvent>(logger)
 {
     private readonly IPlatformUserWriteRepository _platformUserRepository = repository;
-    private readonly IPublishEndpoint _publisher = publisher;
+    private readonly IEventPublisher _publisher = publisher;
 
     protected override async Task HandleEventAsync(
-        StoryPublishedDomainEvent integrationEvent,
-        ConsumeContext<StoryPublishedDomainEvent> context)
+        StoryPublishedIntegrationEvent integrationEvent,
+        ConsumeContext<StoryPublishedIntegrationEvent> context)
     {
         var userIds = await _platformUserRepository.GetLibrarySubscribersUserAccountIds(integrationEvent.LibraryId);
 
-        var integrationEventForNotification = new UserPublishedStoryDomainEvent(
+        var integrationEventForNotification = new UserPublishedStoryIntegrationEvent(
             userIds.ToArray(),
             integrationEvent.LibraryId,
             integrationEvent.StoryId,

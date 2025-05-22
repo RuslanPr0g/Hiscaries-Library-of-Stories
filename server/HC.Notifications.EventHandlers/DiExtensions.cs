@@ -1,7 +1,8 @@
-﻿using HC.Notifications.Domain.Events;
+﻿using HC.Notifications.DomainEvents;
 using HC.Notifications.EventHandlers.DomainEvents;
 using HC.Notifications.EventHandlers.IntegrationEvents;
-using HC.PlatformUsers.Domain.Events;
+using HC.Notifications.IntegrationEvents.Incoming;
+using HC.PlatformUsers.IntegrationEvents.Outgoing;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,9 +17,9 @@ public static class DiExtensions
         IConfiguration configuration)
     {
         services.AddScoped<IConsumer<NotificationCreatedDomainEvent>, NotificationCreatedDomainEventHandler>();
-        services.AddScoped<IConsumer<UserPublishedStoryDomainEvent>, UserPublishedStoryIntegrationEventHandler>();
-        services.AddScoped<IConsumer<NotificationReferenceObjectIdPreviewChangedDomainEvent>,
-            NotificationReferenceObjectIdPreviewChangedDomainEventEventHandler>();
+        services.AddScoped<IConsumer<UserPublishedStoryIntegrationEvent>, UserPublishedStoryIntegrationEventHandler>();
+        services.AddScoped<IConsumer<NotificationReferenceObjectIdPreviewChangedIntegrationEvent>,
+            NotificationReferenceObjectIdPreviewChangedIntegrationEventHandler>();
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

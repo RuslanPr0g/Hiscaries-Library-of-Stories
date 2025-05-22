@@ -1,16 +1,20 @@
 ﻿using Enterprise.Domain.Constants;
+using Enterprise.Domain.EventPublishers;
 using Enterprise.Domain.Generators;
 using Enterprise.Domain.Images;
 using Enterprise.Domain.ResultModels.Response;
+using HC.Media.IntegrationEvents.Incoming;
 using HC.Stories.Domain.DataAccess;
 using HC.Stories.Domain.Genres;
 using HC.Stories.Domain.Stories;
+using HC.Stories.IntegrationEvents.Outgoing;
 using Microsoft.Extensions.Logging;
 
 // TODO: this implementation is hideous please fix
 namespace HC.Stories.Application.Write.Services;
 
 public sealed class StoryWriteService(
+    IEventPublisher publisher,
     IStoryWriteRepository storyWriteRepository,
     IGenreWriteRepository genreWriteRepository,
     IResourceUrlGeneratorService urlGeneratorService,
@@ -18,6 +22,7 @@ public sealed class StoryWriteService(
     ILogger<StoryWriteService> logger,
     IImageUploader imageUploader) : IStoryWriteService
 {
+    private readonly IEventPublisher _publisher = publisher;
     private readonly IStoryWriteRepository _repository = storyWriteRepository;
     private readonly IGenreWriteRepository _genreRepository = genreWriteRepository;
     private readonly IImageUploader _imageUploader = imageUploader;
@@ -162,6 +167,9 @@ public sealed class StoryWriteService(
             ageLimit,
             dateWritten);
 
+        await _publisher.Publish(
+            new StoryPublishedIntegrationEvent(libraryId, storyId, title, null));
+
         var imageIsEmpty = imagePreview is null || imagePreview.Length <= 0;
 
         if (shouldUpdateImage && imageIsEmpty)
@@ -171,7 +179,8 @@ public sealed class StoryWriteService(
 
         if (shouldUpdateImage && !imageIsEmpty && imagePreview is not null)
         {
-            story.AskToChangePreview(imagePreview, "stories");
+            await _publisher.Publish(
+                new ImageUploadRequestedIntegrationEvent(imagePreview, storyId, "stories"));
         }
 
         await _repository.Add(story);
@@ -231,7 +240,8 @@ public sealed class StoryWriteService(
 
         if (shouldUpdateImage && !imageIsEmpty && imagePreview is not null)
         {
-            story.AskToChangePreview(imagePreview, "stories");
+            await _publisher.Publish(
+                new ImageUploadRequestedIntegrationEvent(imagePreview, storyId, "stories"));
         }
 
         if (contents is not null && contents.Any())

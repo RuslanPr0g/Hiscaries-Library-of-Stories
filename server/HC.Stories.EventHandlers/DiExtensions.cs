@@ -1,4 +1,4 @@
-﻿using HC.Notifications.Domain.Events;
+﻿using HC.Media.IntegrationEvents.Outgoing;
 using HC.Stories.EventHandlers.IntegrationEvents;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +13,7 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<ImageUploadedDomainEvent>, ImageUploadedIntegrationEventHandler>();
+        services.AddScoped<IConsumer<ImageUploadedIntegrationEvent>, ImageUploadedIntegrationEventHandler>();
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

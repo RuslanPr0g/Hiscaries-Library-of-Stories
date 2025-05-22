@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
-		<ProjectReference Include="..\HC.Notifications.Domain.Events\HC.Notifications.Domain.Events.csproj" />
+		<ProjectReference Include="..\HC.Notifications.DomainEvents\HC.Notifications.DomainEvents.csproj" />
 	</ItemGroup>
 
 </Project>

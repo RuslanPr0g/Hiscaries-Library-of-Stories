@@ -1,6 +1,6 @@
 ﻿using Enterprise.EventHandlers;
 using HC.PlatformUsers.Domain.DataAccess;
-using HC.PlatformUsers.Domain.Events;
+using HC.PlatformUsers.DomainEvents;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 

@@ -1,6 +1,4 @@
 ﻿using Enterprise.Domain;
-using HC.Notifications.Domain.Events;
-using HC.Stories.Domain.Events;
 using HC.Stories.Domain.Genres;
 
 namespace HC.Stories.Domain.Stories;
@@ -25,8 +23,6 @@ public sealed class Story : AggregateRoot<StoryId>
         Genres = genres;
         AgeLimit = ageLimit;
         DateWritten = dateWritten;
-
-        PublishEvent(new StoryPublishedDomainEvent(LibraryId, Id, Title, null));
     }
 
     public static Story Create(
@@ -65,18 +61,10 @@ public sealed class Story : AggregateRoot<StoryId>
 
     public int TotalPages => Contents.Count;
 
-    public void AskToChangePreview(
-        byte[] content,
-        string type)
-    {
-        PublishRequestToChangePreview(content, type);
-    }
-
     public void UpdatePreviewUrl(
         string? previewUrl)
     {
         ImagePreviewUrl = previewUrl;
-        PublishNotificationReferenceObjectIdPreviewChanged();
     }
 
     public void ClearPreviewUrl()
@@ -215,18 +203,6 @@ public sealed class Story : AggregateRoot<StoryId>
         {
             Audios.Add(StoryAudio.Create(storyAudioId, name));
         }
-    }
-
-    private void PublishRequestToChangePreview(
-        byte[] content,
-        string type)
-    {
-        PublishEvent(new ImageUploadRequestedDomainEvent(content, Id, type));
-    }
-
-    private void PublishNotificationReferenceObjectIdPreviewChanged()
-    {
-        PublishEvent(new NotificationReferenceObjectIdPreviewChangedDomainEvent(Id, ImagePreviewUrl));
     }
 
     private Story()

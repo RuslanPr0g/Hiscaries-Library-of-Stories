@@ -1,5 +1,5 @@
 ﻿using HC.Media.EventHandlers.IntegrationEvents;
-using HC.Notifications.Domain.Events;
+using HC.Media.IntegrationEvents.Incoming;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<ImageUploadRequestedDomainEvent>, ImageUploadRequestedIntegrationEventHandler>();
+        services.AddScoped<IConsumer<ImageUploadRequestedIntegrationEvent>, ImageUploadRequestedIntegrationEventHandler>();
 
         var settings = new ResourceSettings();
         configuration.Bind(nameof(ResourceSettings), settings);

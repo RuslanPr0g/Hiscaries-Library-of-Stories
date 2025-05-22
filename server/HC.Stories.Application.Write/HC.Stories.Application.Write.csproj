@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HC.Media.IntegrationEvents\HC.Media.IntegrationEvents.csproj" />
     <ProjectReference Include="..\HC.Stories.Domain\HC.Stories.Domain.csproj" />
+    <ProjectReference Include="..\HC.Stories.IntegrationEvents\HC.Stories.IntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

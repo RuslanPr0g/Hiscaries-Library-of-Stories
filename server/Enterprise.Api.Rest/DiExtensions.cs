@@ -1,4 +1,5 @@
 ﻿using Enterprise.Application;
+using Enterprise.EventsPublishers;
 using Enterprise.FileStorage;
 using Enterprise.Generators;
 using Enterprise.Images;
@@ -17,6 +18,7 @@ public static class DiExtensions
         services.AddEnterpriseGenerators();
         services.AddEnterpriseImages();
         services.AddEnterpriseJwt();
+        services.AddEnterpriseEventPublishers();
 
         services.AddSingleton<IAuthorizedEndpointHandler, AuthorizedEndpointHandler>();
 

@@ -23,6 +23,7 @@
 		<ProjectReference Include="..\Enterprise.Application\Enterprise.Application.csproj" />
 		<ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
 		<ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
+		<ProjectReference Include="..\Enterprise.EventsPublishers\Enterprise.EventsPublishers.csproj" />
 		<ProjectReference Include="..\Enterprise.FileStorage\Enterprise.FileStorage.csproj" />
 		<ProjectReference Include="..\Enterprise.Generators\Enterprise.Generators.csproj" />
 		<ProjectReference Include="..\Enterprise.Images\Enterprise.Images.csproj" />

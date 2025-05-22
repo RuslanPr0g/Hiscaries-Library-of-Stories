@@ -1,17 +1,22 @@
 ﻿using Enterprise.Domain.Constants;
+using Enterprise.Domain.EventPublishers;
 using Enterprise.Domain.Generators;
+using HC.Media.IntegrationEvents.Incoming;
 using HC.PlatformUsers.Domain;
 using HC.PlatformUsers.Domain.DataAccess;
 using HC.PlatformUsers.Domain.Services;
+using HC.PlatformUsers.IntegrationEvents.Outgoing;
 using Microsoft.Extensions.Logging;
 
 namespace HC.PlatformUsers.Application.Write.Services;
 
 public sealed class PlatformUserWriteService(
+    IEventPublisher publisher,
     IPlatformUserWriteRepository repository,
     IIdGenerator idGenerator,
     ILogger<PlatformUserWriteService> logger) : IPlatformUserWriteService
 {
+    private readonly IEventPublisher _publisher = publisher;
     private readonly IPlatformUserWriteRepository _repository = repository;
     private readonly IIdGenerator _idGenerator = idGenerator;
     private readonly ILogger<PlatformUserWriteService> _logger = logger;
@@ -29,6 +34,10 @@ public sealed class PlatformUserWriteService(
 
         var libraryId = _idGenerator.Generate((id) => new LibraryId(id));
         user.BecomePublisher(libraryId);
+
+        await _publisher.Publish(
+            new UserBecamePublisherIntegrationEvent(
+                user.Id, user.UserAccountId));
 
         await _repository.SaveChanges();
 
@@ -142,7 +151,9 @@ public sealed class PlatformUserWriteService(
 
         if (shouldUpdateImage && !avatarIsEmpty && avatar is not null)
         {
-            user.AskToChangeAvatar(libraryId, avatar, "users");
+            await _publisher.Publish(
+                new ImageUploadRequestedIntegrationEvent(
+                    avatar, libraryId, "users"));
         }
 
         await _repository.SaveChanges();

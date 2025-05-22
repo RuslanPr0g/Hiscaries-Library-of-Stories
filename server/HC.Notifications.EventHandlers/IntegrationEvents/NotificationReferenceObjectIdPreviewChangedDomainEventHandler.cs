@@ -1,21 +1,21 @@
 ﻿using Enterprise.EventHandlers;
 using HC.Notifications.Domain.DataAccess;
-using HC.Notifications.Domain.Events;
+using HC.Notifications.IntegrationEvents.Incoming;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace HC.Notifications.EventHandlers.IntegrationEvents;
 
-public sealed class NotificationReferenceObjectIdPreviewChangedDomainEventEventHandler(
+public sealed class NotificationReferenceObjectIdPreviewChangedIntegrationEventHandler(
     INotificationWriteRepository repository,
-    ILogger<NotificationReferenceObjectIdPreviewChangedDomainEventEventHandler> logger)
-        : BaseEventHandler<NotificationReferenceObjectIdPreviewChangedDomainEvent>(logger)
+    ILogger<NotificationReferenceObjectIdPreviewChangedIntegrationEventHandler> logger)
+        : BaseEventHandler<NotificationReferenceObjectIdPreviewChangedIntegrationEvent>(logger)
 {
     private readonly INotificationWriteRepository _repository = repository;
 
     protected override async Task HandleEventAsync(
-        NotificationReferenceObjectIdPreviewChangedDomainEvent integrationEvent,
-        ConsumeContext<NotificationReferenceObjectIdPreviewChangedDomainEvent> context)
+        NotificationReferenceObjectIdPreviewChangedIntegrationEvent integrationEvent,
+        ConsumeContext<NotificationReferenceObjectIdPreviewChangedIntegrationEvent> context)
     {
         var notification = await _repository.GetByObjectReferenceId(integrationEvent.ObjectReferenceId);
 

@@ -1,4 +1,5 @@
 ﻿using Enterprise.Domain.Constants;
+using Enterprise.Domain.EventPublishers;
 using Enterprise.Domain.Generators;
 using Enterprise.Domain.Jwt;
 using Enterprise.Domain.Options;
@@ -7,12 +8,14 @@ using HC.UserAccounts.Application.Write.Extensions;
 using HC.UserAccounts.Domain;
 using HC.UserAccounts.Domain.DataAccess;
 using HC.UserAccounts.Domain.Services;
+using HC.UserAccounts.IntegrationEvents.Outgoing;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HC.UserAccounts.Application.Write.Services;
 
 public sealed class UserAccountWriteService(
+    IEventPublisher publisher,
     IUserAccountWriteRepository repository,
     JwtSettings jwtSettings,
     TokenValidationParameters tokenValidationParameters,
@@ -21,6 +24,7 @@ public sealed class UserAccountWriteService(
     ILogger<UserAccountWriteService> logger,
     SaltSettings saltSettings) : IUserAccountWriteService
 {
+    private readonly IEventPublisher _publisher = publisher;
     private readonly IUserAccountWriteRepository _repository = repository;
     private readonly IIdGenerator _idGenerator = idGenerator;
     private readonly JwtSettings _jwtSettings = jwtSettings;
@@ -156,6 +160,10 @@ public sealed class UserAccountWriteService(
                 _idGenerator.Generate((id) => new RefreshTokenId(id))));
 
         await _repository.Add(createdUser);
+
+        await _publisher.Publish(new UserAccountCreatedIntegrationEvent(
+            createdUser.Id,
+            createdUser.Username));
 
         await _repository.SaveChanges();
 

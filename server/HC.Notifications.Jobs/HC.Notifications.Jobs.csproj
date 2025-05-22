@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
+    <ProjectReference Include="..\HC.Notifications.IntegrationEvents\HC.Notifications.IntegrationEvents.csproj" />
     <ProjectReference Include="..\HC.Notifications.Persistence.Context\HC.Notifications.Persistence.Context.csproj" />
   </ItemGroup>
 

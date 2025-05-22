@@ -1,7 +1,9 @@
-﻿using Enterprise.Domain.Generators;
+﻿using Enterprise.Domain.EventPublishers;
+using Enterprise.Domain.Generators;
 using Enterprise.Domain.Images;
 using Enterprise.EventHandlers;
-using HC.Notifications.Domain.Events;
+using HC.Media.IntegrationEvents.Incoming;
+using HC.Media.IntegrationEvents.Outgoing;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -9,24 +11,24 @@ using Microsoft.Extensions.Options;
 namespace HC.Media.EventHandlers.IntegrationEvents;
 
 public sealed class ImageUploadRequestedIntegrationEventHandler(
-    IPublishEndpoint publisher,
+    IEventPublisher publisher,
     IImageUploader imageUploader,
     IResourceUrlGeneratorService urlGeneratorService,
     IOptions<ResourceSettings> options,
     ResourceSettings settings,
     ILogger<ImageUploadRequestedIntegrationEventHandler> logger)
-        : BaseEventHandler<ImageUploadRequestedDomainEvent>(logger)
+        : BaseEventHandler<ImageUploadRequestedIntegrationEvent>(logger)
 {
     private readonly string _baseUrl = options.Value.BaseUrl ?? settings.BaseUrl;
     private readonly string _storagePath = options.Value.StoragePath ?? settings.StoragePath;
 
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
-    private readonly IPublishEndpoint _publisher = publisher;
+    private readonly IEventPublisher _publisher = publisher;
 
     protected override async Task HandleEventAsync(
-        ImageUploadRequestedDomainEvent integrationEvent,
-        ConsumeContext<ImageUploadRequestedDomainEvent> context)
+        ImageUploadRequestedIntegrationEvent integrationEvent,
+        ConsumeContext<ImageUploadRequestedIntegrationEvent> context)
     {
         var file = integrationEvent.Content;
         var requesterId = integrationEvent.RequesterId;
@@ -53,7 +55,7 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
 
     private async Task PublishSuccess(Guid requesterId, string fileUrl)
     {
-        await _publisher.Publish(new ImageUploadedDomainEvent(requesterId, fileUrl));
+        await _publisher.Publish(new ImageUploadedIntegrationEvent(requesterId, fileUrl));
     }
 
     private Task PublishFail(Guid requesterId, string details)

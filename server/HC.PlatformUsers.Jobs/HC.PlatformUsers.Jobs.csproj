@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
-    <ProjectReference Include="..\HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj" />
+    <ProjectReference Include="..\HC.Media.IntegrationEvents\HC.Media.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\HC.PlatformUsers.IntegrationEvents\HC.PlatformUsers.IntegrationEvents.csproj" />
     <ProjectReference Include="..\HC.PlatformUsers.Persistence.Context\HC.PlatformUsers.Persistence.Context.csproj" />
   </ItemGroup>
 

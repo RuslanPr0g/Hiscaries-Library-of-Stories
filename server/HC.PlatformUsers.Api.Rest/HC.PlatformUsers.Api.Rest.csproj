@@ -25,7 +25,6 @@
         <ProjectReference Include="..\Enterprise.Application\Enterprise.Application.csproj" />
         <ProjectReference Include="..\HC.PlatformUsers.Application.Read\HC.PlatformUsers.Application.Read.csproj" />
         <ProjectReference Include="..\HC.PlatformUsers.Application.Write\HC.PlatformUsers.Application.Write.csproj" />
-        <ProjectReference Include="..\HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj" />
         <ProjectReference Include="..\HC.PlatformUsers.Domain\HC.PlatformUsers.Domain.csproj" />
         <ProjectReference Include="..\HC.PlatformUsers.EventHandlers\HC.PlatformUsers.EventHandlers.csproj" />
         <ProjectReference Include="..\HC.PlatformUsers.Jobs\HC.PlatformUsers.Jobs.csproj" />

@@ -1,7 +1,7 @@
-﻿using HC.Notifications.Domain.Events;
+﻿using HC.Media.IntegrationEvents.Outgoing;
 using HC.PlatformUsers.EventHandlers.IntegrationEvents;
-using HC.Stories.Domain.Events;
-using HC.UserAccounts.Domain.Events;
+using HC.Stories.IntegrationEvents.Outgoing;
+using HC.UserAccounts.IntegrationEvents.Outgoing;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +15,9 @@ public static class DiExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<StoryPublishedDomainEvent>, StoryPublishedIntegrationEventHandler>();
-        services.AddScoped<IConsumer<UserAccountCreatedDomainEvent>, UserAccountCreatedIntegrationEventHandler>();
-        services.AddScoped<IConsumer<ImageUploadedDomainEvent>, ImageUploadedIntegrationEventHandler>();
+        services.AddScoped<IConsumer<StoryPublishedIntegrationEvent>, StoryPublishedIntegrationEventHandler>();
+        services.AddScoped<IConsumer<UserAccountCreatedIntegrationEvent>, UserAccountCreatedIntegrationEventHandler>();
+        services.AddScoped<IConsumer<ImageUploadedIntegrationEvent>, ImageUploadedIntegrationEventHandler>();
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

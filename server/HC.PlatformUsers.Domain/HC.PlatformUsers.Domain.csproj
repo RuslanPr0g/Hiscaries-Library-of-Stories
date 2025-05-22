@@ -8,9 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
-    <ProjectReference Include="..\HC.Media.Domain.Events\HC.Media.Domain.Events.csproj" />
-    <ProjectReference Include="..\HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj" />
-    <ProjectReference Include="..\HC.UserAccounts.Domain\HC.UserAccounts.Domain.csproj" />
+    <ProjectReference Include="..\HC.PlatformUsers.DomainEvents\HC.PlatformUsers.DomainEvents.csproj" />
   </ItemGroup>
 
 </Project>

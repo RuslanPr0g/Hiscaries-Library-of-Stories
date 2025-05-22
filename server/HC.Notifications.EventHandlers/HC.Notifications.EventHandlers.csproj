@@ -16,10 +16,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
-	  <ProjectReference Include="..\HC.Notifications.Domain.Events\HC.Notifications.Domain.Events.csproj" />
+	  <ProjectReference Include="..\HC.Notifications.DomainEvents\HC.Notifications.DomainEvents.csproj" />
 	  <ProjectReference Include="..\HC.Notifications.Domain\HC.Notifications.Domain.csproj" />
+	  <ProjectReference Include="..\HC.Notifications.IntegrationEvents\HC.Notifications.IntegrationEvents.csproj" />
 	  <ProjectReference Include="..\HC.Notifications.SignalR\HC.Notifications.SignalR.csproj" />
-	  <ProjectReference Include="..\HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj" />
+	  <ProjectReference Include="..\HC.PlatformUsers.IntegrationEvents\HC.PlatformUsers.IntegrationEvents.csproj" />
 	</ItemGroup>
 
 </Project>

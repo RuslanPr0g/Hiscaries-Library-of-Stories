@@ -14,7 +14,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
-	  <ProjectReference Include="..\HC.PlatformUsers.Domain.Events\HC.PlatformUsers.Domain.Events.csproj" />
+	  <ProjectReference Include="..\HC.PlatformUsers.IntegrationEvents\HC.PlatformUsers.IntegrationEvents.csproj" />
 	  <ProjectReference Include="..\HC.UserAccounts.Domain\HC.UserAccounts.Domain.csproj" />
 	</ItemGroup>
 
