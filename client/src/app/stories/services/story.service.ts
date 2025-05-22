@@ -9,7 +9,6 @@ import { StoryModel, StoryModelWithContents } from '../models/domain/story-model
 import { SearchStoryRequest } from '../models/requests/search-story.model';
 import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { SearchStoryWithContentsRequest } from '../models/requests/search-story-with-contents.model';
-import { ReadStoryRequest } from '../models/requests/read-story.model';
 
 @Injectable({
     providedIn: 'root',
@@ -54,9 +53,5 @@ export class StoryService {
 
     modify(request: ModifyStoryRequest): Observable<void> {
         return this.http.patch<void>(`${this.apiUrl}`, request);
-    }
-
-    read(request: ReadStoryRequest): Observable<void> {
-        return this.http.post<void>(`${this.apiUrl}/read`, request);
     }
 }

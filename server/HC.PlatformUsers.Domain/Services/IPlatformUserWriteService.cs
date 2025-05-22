@@ -1,6 +1,4 @@
-﻿using Enterprise.Domain.ResultModels.Response;
-
-namespace HC.PlatformUsers.Domain.Services;
+﻿namespace HC.PlatformUsers.Domain.Services;
 
 public interface IPlatformUserWriteService
 {
@@ -15,7 +13,7 @@ public interface IPlatformUserWriteService
     Task<OperationResult> DeleteReview(Guid userId, Guid libraryId);
 
     Task<OperationResult> BookmarkStory(Guid userId, Guid storyId);
-    Task<OperationResult> ReadStoryHistory(Guid userId, Guid storyId, int page);
+    Task<OperationResult> ReadStoryPage(Guid userId, Guid storyId, int page);
 
     Task<OperationResult> EditLibraryInfo(
         Guid userId,
@@ -27,6 +25,4 @@ public interface IPlatformUserWriteService
 
     Task<OperationResult> SubscribeToLibrary(Guid userId, Guid libraryId);
     Task<OperationResult> UnsubscribeFromLibrary(Guid userId, Guid libraryId);
-
-    Task<OperationResult> ReadStoryPage(Guid userId, Guid storyId, int page);
 }

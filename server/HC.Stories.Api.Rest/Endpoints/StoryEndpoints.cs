@@ -97,18 +97,16 @@ public static class StoryEndpoints
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(user =>
             service.SearchForStory(
-                user.Id,
                 storyId: request.Id,
                 searchTerm: request.SearchTerm,
-                genre: request.Genre,
-                requesterUsername: user.Username));
+                genre: request.Genre));
 
     private static async Task<IResult> GetByIdWithContents(
         [FromBody] GetStoryWithContentsRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(user =>
-            service.GetStoryById(request.Id, user.Id));
+            service.GetStoryById(request.Id));
 
     private static async Task<IResult> GetGenres(
         [FromServices] IStoryReadService service) =>
@@ -119,7 +117,7 @@ public static class StoryEndpoints
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(async user =>
         {
-            var result = await service.GetStoryRecommendations(user.Id);
+            var result = await service.GetStoryRecommendations();
             var response = result.ToList();
             response.Shuffle();
             return response;
@@ -129,13 +127,13 @@ public static class StoryEndpoints
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(user =>
-            service.GetStoryResumeReading(user.Id));
+            service.GetStoryResumeReading());
 
     private static async Task<IResult> ReadingHistory(
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(user =>
-            service.GetStoryReadingHistory(user.Id));
+            service.GetStoryReadingHistory());
 
     private static async Task<IResult> PublishStory(
         [FromBody] PublishStoryRequest request,

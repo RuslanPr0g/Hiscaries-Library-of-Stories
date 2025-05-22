@@ -99,7 +99,7 @@ public sealed class PlatformUserWriteService(
         return OperationResult.CreateSuccess();
     }
 
-    public async Task<OperationResult> ReadStoryHistory(Guid userId, Guid storyId, int page)
+    public async Task<OperationResult> ReadStoryPage(Guid userId, Guid storyId, int page)
     {
         _logger.LogInformation("Attempting to record read story history for user {UserId}, story {StoryId}, page {Page}", userId, storyId, page);
         PlatformUser? user = await _repository.GetByUserAccountId(userId);
@@ -208,12 +208,5 @@ public sealed class PlatformUserWriteService(
 
         _logger.LogInformation("Successfully unsubscribed from the library {LibraryId} for the user {UserId}", libraryId, userId);
         return OperationResult.CreateSuccess();
-    }
-
-
-
-    public Task<OperationResult> ReadStoryPage(Guid userId, Guid storyId, int page)
-    {
-        throw new NotImplementedException();
     }
 }

@@ -12,6 +12,7 @@ export interface StoryModel {
     IsEditable: boolean;
     PercentageRead: number;
     LastPageRead: number;
+    TotalPages: number;
 
     LibraryId: string;
     LibraryName: string;

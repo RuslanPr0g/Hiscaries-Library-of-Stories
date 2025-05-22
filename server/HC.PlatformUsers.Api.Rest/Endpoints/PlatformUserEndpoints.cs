@@ -73,8 +73,8 @@ public static class PlatformUserEndpoints
         [FromBody] ReadStoryRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IPlatformUserWriteService service) =>
-        await endpointHandler.WithUser(user =>
-            service.ReadStoryPage(user.Id, request.StoryId, request.PageRead));
+        await endpointHandler.WithUser((Func<CurrentUser, Task<OperationResult>>)(user =>
+            service.ReadStoryPage(user.Id, request.StoryId, request.PageRead)));
 
     private static async Task<IResult> BecomePublisher(
         IAuthorizedEndpointHandler endpointHandler,

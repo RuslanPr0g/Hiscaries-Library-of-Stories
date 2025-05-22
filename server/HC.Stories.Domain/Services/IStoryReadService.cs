@@ -2,21 +2,19 @@
 
 public interface IStoryReadService
 {
-    Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId, Guid searchedBy);
+    Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId);
 
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
 
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations(Guid userId);
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations();
 
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading(Guid userId);
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading();
 
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory(Guid userId);
+    Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory();
 
     Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
-        Guid userId,
         Guid? storyId = null,
         Guid? libraryId = null,
         string? searchTerm = null,
-        string? genre = null,
-        string? requesterUsername = null);
+        string? genre = null);
 }
