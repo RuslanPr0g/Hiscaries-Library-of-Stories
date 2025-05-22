@@ -103,6 +103,8 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             };
         }).ToDictionary(_ => _.StoryId);
 
+        var storyIdToReadHistory = currentUser.ReadHistory.ToDictionary(_ => _.StoryId);
+
         var storiesMetadata = stories.Select(_ =>
         {
             var exists = storyIdToLibraryNameDictionary.TryGetValue(_.StoryId, out var storyToLib);
@@ -112,28 +114,20 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
                 false :
                 currentUser.Libraries.Any(_ => _.Id.Value == story.LibraryId);
 
+            var readingHistoryExists = storyIdToReadHistory.TryGetValue(_.StoryId, out var readingHistory);
+            var lastPageRead = readingHistoryExists && readingHistory is not null ? readingHistory.LastPageRead : 0;
+
             return new UserReadingStoryMetadataReadModel
             {
                 StoryId = _.StoryId,
                 LibraryName = libName,
                 IsEditable = canBeEdited,
+                PercentageRead = RetrieveReadingProgressForAUser(
+                lastPageRead,
+                story?.TotalPages ?? 0),
+                LastPageRead = lastPageRead
             };
         });
-
-        var storyIdToReadHistory = currentUser.ReadHistory.ToDictionary(_ => _.StoryId);
-
-        foreach (var storyMetadata in storiesMetadata)
-        {
-            var storyExists = storyIdToLibraryNameDictionary.TryGetValue(storyMetadata.StoryId, out var storyToLib);
-            var readingHistoryExists = storyIdToReadHistory.TryGetValue(storyMetadata.StoryId, out var readingHistory);
-            var story = storyExists && storyToLib is not null ? storyToLib.Story : null;
-            var lastPageRead = readingHistoryExists && readingHistory is not null ? readingHistory.LastPageRead : 0;
-
-            storyMetadata.PercentageRead = RetrieveReadingProgressForAUser(
-                lastPageRead,
-                story?.TotalPages ?? 0);
-            storyMetadata.LastPageRead = lastPageRead;
-        }
 
         return storiesMetadata;
     }
