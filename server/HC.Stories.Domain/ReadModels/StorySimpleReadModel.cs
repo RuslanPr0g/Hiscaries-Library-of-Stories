@@ -14,11 +14,7 @@ public class StorySimpleReadModel : IReadModel
     public DateTime DatePublished { get; set; }
     public DateTime DateWritten { get; set; }
     public Guid LibraryId { get; set; }
-    public string LibraryName { get; set; }
-    public bool IsEditable { get; set; } = false;
-
-    public decimal PercentageRead { get; set; } = 0;
-    public int LastPageRead { get; set; }
+    public int TotalPages { get; set; }
 
     public static StorySimpleReadModel FromDomainModel(Story story)
     {
@@ -32,7 +28,8 @@ public class StorySimpleReadModel : IReadModel
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
             LibraryId = story.LibraryId,
-            ImagePreviewUrl = story.ImagePreviewUrl
+            ImagePreviewUrl = story.ImagePreviewUrl,
+            TotalPages = story.TotalPages
         };
     }
 }
