@@ -1,4 +1,4 @@
-interface UserReadingStoryMetadataResponse {
+export interface UserReadingStoryMetadataResponse {
     StoryId: string;
     LibraryName: string;
     IsEditable: boolean;

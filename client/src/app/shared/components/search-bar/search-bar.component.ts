@@ -29,7 +29,7 @@ export class SearchBarComponent implements OnInit {
 
     ngOnInit(): void {
         // TODO: I do not fkcing know why it doesnt work, Im giving up
-        setTimeout(() => this.searchTerm$.subscribe((value) => console.warn('searchstory JERE@!!!!!', value)), 3000);
+        setTimeout(() => this.searchTerm$.subscribe((value) => console.log('Searching story...', value)), 3000);
     }
 
     search(term: string): void {

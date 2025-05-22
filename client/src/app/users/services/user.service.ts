@@ -6,6 +6,8 @@ import { EditLibraryRequest } from '../models/requests/edit-library.model';
 import { LibrarySubscriptionRequest } from '../models/requests/library-subscription.model';
 import { LibraryModel } from '../models/domain/library.model';
 import { ReadStoryRequest } from '../models/requests/read-story.model';
+import { UserReadingStoryRequest } from '../models/requests/user-reading-story.model';
+import { UserReadingStoryMetadataResponse } from '../models/response/user-reading-story-metadata.model';
 
 @Injectable({
     providedIn: 'root',

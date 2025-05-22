@@ -1,4 +1,4 @@
-interface UserReadingStoryRequest {
+export interface UserReadingStoryRequest {
     Items: UserReadingStoryRequestItem[];
 }
 

@@ -152,6 +152,15 @@ public sealed class StoryWriteService(
         //    return OperationResult<EntityIdResponse>.CreateClientSideError(UserFriendlyMessages.NoRights);
         //}
 
+        if (libraryId == Guid.Empty)
+        {
+            _logger.LogWarning("Publishing new story is not possible as the library doesn't exist.",
+                title,
+                authorName,
+                userId);
+            return OperationResult<EntityIdResponse>.CreateClientSideError(UserFriendlyMessages.NoRights);
+        }
+
         _logger.LogInformation("Publishing new story: {StoryTitle} by {AuthorName}", title, authorName);
         var storyId = _idGenerator.Generate((id) => new StoryId(id));
 
