@@ -5,7 +5,6 @@ import { GenreModel } from '../../../stories/models/domain/genre.model';
 import { StoryModel, StoryModelWithContents } from '../../../stories/models/domain/story-model';
 import { ModifyStoryRequest } from '../../../stories/models/requests/modify-story.model';
 import { PublishStoryRequest } from '../../../stories/models/requests/publish-story.model';
-import { ReadStoryRequest } from '../../../stories/models/requests/read-story.model';
 import { SearchStoryWithContentsRequest } from '../../../stories/models/requests/search-story-with-contents.model';
 import { SearchStoryRequest } from '../../../stories/models/requests/search-story.model';
 import { StoryService } from '../../../stories/services/story.service';
@@ -45,7 +44,7 @@ export class StoryWithMetadataService {
     }
 
     getStoryByIdWithContents(request: SearchStoryWithContentsRequest): Observable<StoryModelWithContents> {
-        return this.storyService.getStoryByIdWithContents(request);
+        return this.enrichStory(this.storyService.getStoryByIdWithContents(request));
     }
 
     publish(request: PublishStoryRequest): Observable<BaseIdModel> {
@@ -56,13 +55,19 @@ export class StoryWithMetadataService {
         return this.storyService.modify(request);
     }
 
-    read(request: ReadStoryRequest): Observable<void> {
-        return this.storyService.read(request);
+    private enrichStories(source$: Observable<StoryModel[]>): Observable<StoryModel[]> {
+        return this.enrich(source$) as Observable<StoryModel[]>;
     }
 
-    private enrichStories(source$: Observable<StoryModel[]>): Observable<StoryModel[]> {
+    private enrichStory(source$: Observable<StoryModelWithContents>): Observable<StoryModelWithContents> {
+        return this.enrich(source$) as Observable<StoryModelWithContents>;
+    }
+
+    private enrich<T extends StoryModel>(source$: Observable<T | T[]>): Observable<T | T[]> {
         return source$.pipe(
-            switchMap((stories) => {
+            switchMap((input) => {
+                const isArray = Array.isArray(input);
+                const stories = isArray ? (input as T[]) : [input as T];
                 const metadataRequest = {
                     Items: stories.map((story) => ({
                         StoryId: story.Id,
@@ -74,10 +79,12 @@ export class StoryWithMetadataService {
                 return this.userService.getUserReadingStoryMetadata(metadataRequest).pipe(
                     map((metadataList) => {
                         const metadataMap = new Map(metadataList.map((meta) => [meta.StoryId, meta]));
-                        return stories.map((story) => {
+                        const enriched = stories.map((story) => {
                             const metadata = metadataMap.get(story.Id);
                             return metadata ? { ...story, ...metadata } : story;
                         });
+
+                        return isArray ? enriched : enriched[0];
                     })
                 );
             })
