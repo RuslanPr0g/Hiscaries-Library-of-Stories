@@ -20,9 +20,8 @@ public class StorySimpleReadModel : IReadModel
     public decimal PercentageRead { get; set; } = 0;
     public int LastPageRead { get; set; }
 
-    public static StorySimpleReadModel FromDomainModel(Story story, decimal percentageRead, int lastPageRead, string? requesterUsername = null)
+    public static StorySimpleReadModel FromDomainModel(Story story)
     {
-        // TODO: why use username? why don't use user id?
         return new StorySimpleReadModel
         {
             Id = story.Id,
@@ -32,13 +31,8 @@ public class StorySimpleReadModel : IReadModel
             AgeLimit = story.AgeLimit,
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
-            // TODO: fix
-            //LibraryId = story.Library.Id,
-            //LibraryName = story.Library.PlatformUser.Username,
-            //IsEditable = story.Library.PlatformUser?.Username == requesterUsername,
-            ImagePreviewUrl = story.ImagePreviewUrl,
-            PercentageRead = percentageRead,
-            LastPageRead = lastPageRead
+            LibraryId = story.LibraryId,
+            ImagePreviewUrl = story.ImagePreviewUrl
         };
     }
 }

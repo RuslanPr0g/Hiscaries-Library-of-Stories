@@ -14,8 +14,6 @@ public sealed class StoryReadService : IStoryReadService
 
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() => await _repository.GetAllGenres();
 
-    // TODO: we could use a cache for GetPlatformUserIdByUserAccountId, maybe?
-    // think whether it is okay, or rethink the approach at all
     public async Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId, Guid searchedBy)
     {
         return await _repository.GetStory(storyId, searchedBy);

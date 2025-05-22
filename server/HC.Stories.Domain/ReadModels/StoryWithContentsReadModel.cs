@@ -9,10 +9,9 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
 
     public StoryWithContentsReadModel() : base()
     {
-
     }
 
-    public static StoryWithContentsReadModel FromDomainModel(Story story, decimal percentageRead, int lastPageRead)
+    public new static StoryWithContentsReadModel FromDomainModel(Story story)
     {
         return new StoryWithContentsReadModel
         {
@@ -23,14 +22,10 @@ public sealed class StoryWithContentsReadModel : StorySimpleReadModel
             AgeLimit = story.AgeLimit,
             DatePublished = story.CreatedAt,
             DateWritten = story.DateWritten,
-            // TODO: fix
-            //LibraryId = story.Library.Id,
-            //LibraryName = story.Library.PlatformUser.Username,
-            Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? Enumerable.Empty<GenreReadModel>(),
-            Contents = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? Enumerable.Empty<StoryPageReadModel>(),
-            ImagePreviewUrl = story.ImagePreviewUrl,
-            PercentageRead = percentageRead,
-            LastPageRead = lastPageRead
+            LibraryId = story.LibraryId,
+            Genres = story.Genres?.Select(GenreReadModel.FromDomainModel) ?? [],
+            Contents = story.Contents?.Select(StoryPageReadModel.FromDomainModel) ?? [],
+            ImagePreviewUrl = story.ImagePreviewUrl
         };
     }
 }
