@@ -83,8 +83,10 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             return [];
         }
 
+        var libraryIds = stories.Select(s => s.LibraryId).Distinct().ToList();
+
         var libraryIdToNameDictionary = await Context.Libraries
-            .Where(_ => stories.Any(s => _.Id.Value == s.LibraryId))
+            .Where(_ => libraryIds.Contains(_.Id.Value))
             .Select(_ => new { LibraryId = _.Id, LibraryName = _.PlatformUser.Username })
             .ToDictionaryAsync(_ => _.LibraryId);
 
