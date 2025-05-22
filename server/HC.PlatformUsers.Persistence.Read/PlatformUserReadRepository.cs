@@ -134,6 +134,11 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
 
     private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
     {
+        if (totalPages == 0 || lastPageRead == 0)
+        {
+            return 0;
+        }
+
         int currentPage = lastPageRead + 1;
         return currentPage.PercentageOf(totalPages);
     }
