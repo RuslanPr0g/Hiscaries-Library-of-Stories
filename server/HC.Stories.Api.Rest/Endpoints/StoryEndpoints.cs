@@ -98,6 +98,7 @@ public static class StoryEndpoints
         await endpointHandler.WithUser(user =>
             service.SearchForStory(
                 user.Id,
+                storyId: request.Id,
                 searchTerm: request.SearchTerm,
                 genre: request.Genre,
                 requesterUsername: user.Username));
