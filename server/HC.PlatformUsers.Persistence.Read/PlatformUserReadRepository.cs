@@ -103,13 +103,13 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             };
         }).ToDictionary(_ => _.StoryId);
 
-        return currentUser.ReadHistory.Select(_ =>
+        var storiesMetadata = stories.Select(_ =>
         {
             var exists = storyIdToLibraryNameDictionary.TryGetValue(_.StoryId, out var storyToLib);
             var libName = exists && storyToLib is not null ? storyToLib.LibraryName : null;
             var story = exists && storyToLib is not null ? storyToLib.Story : null;
-            var canBeEdited = currentUser is null || story is null ? 
-                false : 
+            var canBeEdited = currentUser is null || story is null ?
+                false :
                 currentUser.Libraries.Any(_ => _.Id.Value == story.LibraryId);
 
             return new UserReadingStoryMetadataReadModel
@@ -117,10 +117,25 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
                 StoryId = _.StoryId,
                 LibraryName = libName,
                 IsEditable = canBeEdited,
-                PercentageRead = RetrieveReadingProgressForAUser(_.LastPageRead, story?.TotalPages ?? 0),
-                LastPageRead = _.LastPageRead
             };
         });
+
+        var storyIdToReadHistory = currentUser.ReadHistory.ToDictionary(_ => _.StoryId);
+
+        foreach (var storyMetadata in storiesMetadata)
+        {
+            var storyExists = storyIdToLibraryNameDictionary.TryGetValue(storyMetadata.StoryId, out var storyToLib);
+            var readingHistoryExists = storyIdToReadHistory.TryGetValue(storyMetadata.StoryId, out var readingHistory);
+            var story = storyExists && storyToLib is not null ? storyToLib.Story : null;
+            var lastPageRead = readingHistoryExists && readingHistory is not null ? readingHistory.LastPageRead : 0;
+
+            storyMetadata.PercentageRead = RetrieveReadingProgressForAUser(
+                lastPageRead,
+                story?.TotalPages ?? 0);
+            storyMetadata.LastPageRead = lastPageRead;
+        }
+
+        return storiesMetadata;
     }
 
     private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
