@@ -4,6 +4,7 @@ using HC.ServiceDefaults;
 using HC.Stories.Api.Rest.Endpoints;
 using HC.Stories.Application.Read;
 using HC.Stories.Application.Write;
+using HC.Stories.EventHandlers;
 using HC.Stories.Jobs;
 using HC.Stories.Persistence.Context;
 using HC.Stories.Persistence.Read;
@@ -22,6 +23,7 @@ builder.Services.AddStoriesPersistenceReadLayer();
 builder.Services.AddStoriesApplicationWriteLayer();
 builder.Services.AddStoriesApplicationReadLayer();
 builder.Services.AddJobs();
+builder.Services.AddEventHandlers(builder.Configuration);
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 
