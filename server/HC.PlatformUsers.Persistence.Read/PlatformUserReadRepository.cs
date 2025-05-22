@@ -1,4 +1,6 @@
-﻿using HC.PlatformUsers.Domain.DataAccess;
+﻿using Enterprise.Domain.Extensions;
+using HC.PlatformUsers.Domain.DataAccess;
+using HC.PlatformUsers.Domain.ProcessModels;
 using HC.PlatformUsers.Domain.ReadModels;
 using HC.PlatformUsers.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -60,7 +62,70 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
     private async Task<bool> IsUserSubscribedToLibrary(Guid requesterId, LibraryId libraryId)
     {
         return await Context.PlatformUserToLibrarySubscriptions
+            .AsNoTracking()
             .Include(x => x.PlatformUser)
             .AnyAsync(x => x.LibraryId == libraryId && x.PlatformUser.UserAccountId == requesterId);
+    }
+
+    public async Task<IEnumerable<UserReadingStoryMetadataReadModel>> GetUserReadingStoryMetadataInformation(
+        Guid requesterUserAccountId,
+        UserReadingStoryProcessModel[] stories)
+    {
+        var currentUser = await Context.PlatformUsers
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Include(_ => _.Libraries)
+            .Include(_ => _.ReadHistory)
+            .FirstOrDefaultAsync(_ => _.UserAccountId == requesterUserAccountId);
+
+        if (currentUser is null)
+        {
+            return [];
+        }
+
+        var targetLibraryIds = stories.Select(s => s.LibraryId).ToHashSet();
+
+        var libraryIdToNameDictionary = await Context.Libraries
+            .Where(_ => targetLibraryIds.Contains(_.Id.Value))
+            .Select(_ => new { LibraryId = _.Id, LibraryName = _.PlatformUser.Username })
+            .ToDictionaryAsync(_ => _.LibraryId);
+
+        var storyIdToLibraryNameDictionary = stories.Select(_ =>
+        {
+            var exists = libraryIdToNameDictionary.TryGetValue(_.LibraryId, out var lib);
+            var libName = exists && lib is not null ? lib.LibraryName : null;
+
+            return new
+            {
+                _.StoryId,
+                LibraryName = exists && !string.IsNullOrWhiteSpace(libName) ? libName : null,
+                Story = _
+            };
+        }).ToDictionary(_ => _.StoryId);
+
+        return currentUser.ReadHistory.Select(_ =>
+        {
+            var exists = storyIdToLibraryNameDictionary.TryGetValue(_.StoryId, out var storyToLib);
+            var libName = exists && storyToLib is not null ? storyToLib.LibraryName : null;
+            var story = exists && storyToLib is not null ? storyToLib.Story : null;
+            var canBeEdited = currentUser is null || story is null ? 
+                false : 
+                currentUser.Libraries.Any(_ => _.Id.Value == story.LibraryId);
+
+            return new UserReadingStoryMetadataReadModel
+            {
+                StoryId = _.StoryId,
+                LibraryName = libName,
+                IsEditable = canBeEdited,
+                PercentageRead = RetrieveReadingProgressForAUser(_.LastPageRead, story?.TotalPages ?? 0),
+                LastPageRead = _.LastPageRead
+            };
+        });
+    }
+
+    private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
+    {
+        int currentPage = lastPageRead + 1;
+        return currentPage.PercentageOf(totalPages);
     }
 }

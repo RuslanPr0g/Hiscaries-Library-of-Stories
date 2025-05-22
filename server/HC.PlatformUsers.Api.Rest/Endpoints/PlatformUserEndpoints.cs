@@ -2,6 +2,7 @@
 using Enterprise.Domain.Extensions;
 using HC.PlatformUsers.Api.Rest.Requests;
 using HC.PlatformUsers.Api.Rest.Requests.Libraries;
+using HC.PlatformUsers.Domain.ProcessModels;
 using HC.PlatformUsers.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ public static class PlatformUserEndpoints
         var group = app.MapGroup("/api/v1/users")
             .WithTags("Users");
 
-        group.MapPost("/become-publisher", BecomePublisher)
+        group.MapPost("/story-metadata", GetUserReadingStoryMetadata)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
@@ -53,6 +54,12 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapPost("/become-publisher", BecomePublisher)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
     }
 
     private static async Task<IResult> BookmarkStory(
@@ -81,6 +88,22 @@ public static class PlatformUserEndpoints
         [FromServices] IPlatformUserReadService service) =>
         await endpointHandler.WithUser(user =>
             service.GetLibraryInformation(user.Id, libraryId));
+
+    private static async Task<IResult> GetUserReadingStoryMetadata(
+        [FromBody] UserReadingStoryRequest request,
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IPlatformUserReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetUserReadingStoryMetadata(
+                user.Id,
+                IsEmpty(request?.Items) ? [] :
+                request!.Items.Select(_ =>
+                new UserReadingStoryProcessModel
+                {
+                    StoryId = _.StoryId,
+                    LibraryId = _.LibraryId,
+                    TotalPages = _.TotalPages
+                }).ToArray()));
 
     private static async Task<IResult> EditLibrary(
         [FromBody] EditLibraryRequest request,
@@ -111,4 +134,9 @@ public static class PlatformUserEndpoints
         [FromServices] IPlatformUserWriteService service) =>
         await endpointHandler.WithUser(user =>
             service.UnsubscribeFromLibrary(user.Id, request.LibraryId));
+
+    private static bool IsEmpty<T>(IEnumerable<T>? items)
+    {
+        return items is null || !items.Any();
+    }
 }
