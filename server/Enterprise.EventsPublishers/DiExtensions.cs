@@ -7,7 +7,7 @@ public static class DIExtensions
 {
     public static IServiceCollection AddEnterpriseEventPublishers(this IServiceCollection services)
     {
-        services.AddSingleton<IEventPublisher, BaseEventPublisher>();
+        services.AddScoped<IEventPublisher, BaseEventPublisher>();
         return services;
     }
 }
