@@ -34,10 +34,6 @@ export class UserService {
         return this.http.get<LibraryModel>(this.apiUrl + '/libraries');
     }
 
-    myLibraries(): Observable<string[]> {
-        return this.http.get<string[]>(this.apiUrl + '/my-libraries');
-    }
-
     editLibrary(request: EditLibraryRequest): Observable<void> {
         return this.http.put<void>(this.apiUrl + '/libraries', request);
     }

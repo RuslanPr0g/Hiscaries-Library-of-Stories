@@ -20,6 +20,8 @@ import { BaseIdModel } from '../../shared/models/base-id.model';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 import { AuthService } from '../../users/services/auth.service';
 import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
+import { UserService } from '../../users/services/user.service';
+import { LibraryModel } from '../../users/models/domain/library.model';
 
 @Component({
     selector: 'app-publish-story',
@@ -44,6 +46,7 @@ import { StoryWithMetadataService } from '../../user-to-story/services/multiple-
 export class PublishStoryComponent implements OnInit {
     publishForm: FormGroup<PublishFormModel>;
     genres: GenreModel[] = [];
+    library: LibraryModel;
     submitted = false;
     globalError: string | null = null;
 
@@ -51,11 +54,11 @@ export class PublishStoryComponent implements OnInit {
         private fb: FormBuilder,
         private storyService: StoryWithMetadataService,
         private router: Router,
-        public userService: AuthService
+        private userService: UserService,
+        public authService: AuthService
     ) {
-        if (!this.userService.isPublisher()) {
-            console.warn('User is not a publisher!');
-            this.router.navigate([NavigationConst.Home]);
+        if (!this.authService.isPublisher()) {
+            this.navigateHome();
             return;
         }
 
@@ -75,11 +78,22 @@ export class PublishStoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.storyService
-            .genreList()
+        this.userService
+            .getLibrary()
             .pipe(take(1))
-            .subscribe((genres: GenreModel[]) => {
-                this.genres = genres;
+            .subscribe((library: LibraryModel) => {
+                if (!library?.Id) {
+                    this.navigateHome();
+                }
+
+                this.library = library;
+
+                this.storyService
+                    .genreList()
+                    .pipe(take(1))
+                    .subscribe((genres: GenreModel[]) => {
+                        this.genres = genres;
+                    });
             });
     }
 
@@ -105,7 +119,7 @@ export class PublishStoryComponent implements OnInit {
             ...formModel,
             GenreIds: formModel.Genres?.map((g) => g.Id),
             ImagePreview: formModel.Image,
-            LibraryId: '',
+            LibraryId: this.library.Id,
         };
 
         this.storyService
@@ -123,5 +137,10 @@ export class PublishStoryComponent implements OnInit {
                     this.submitted = false;
                 },
             });
+    }
+
+    private navigateHome() {
+        console.warn('User is not a publisher!');
+        this.router.navigate([NavigationConst.Home]);
     }
 }
