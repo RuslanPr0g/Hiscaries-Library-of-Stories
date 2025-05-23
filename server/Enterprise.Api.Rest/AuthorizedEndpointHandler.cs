@@ -33,7 +33,7 @@ public class AuthorizedEndpointHandler(IHttpContextAccessor contextAccessor) : I
             result => result.OperationToHttpResult());
     }
 
-    public async Task<IResult> WithUserOperation<TActionResultValue>(
+    public async Task<IResult> WithUserOperationValue<TActionResultValue>(
         Func<CurrentUser, Task<OperationResult<TActionResultValue>>> action)
         where TActionResultValue : class
     {

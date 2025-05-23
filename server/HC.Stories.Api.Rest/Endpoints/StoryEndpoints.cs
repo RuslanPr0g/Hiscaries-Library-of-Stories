@@ -143,7 +143,7 @@ public static class StoryEndpoints
         [FromBody] PublishStoryRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryWriteService service) =>
-        await endpointHandler.WithUser(user =>
+        await endpointHandler.WithUserOperationValue(user =>
         {
             var image = request.ImagePreview.GetImageBytes();
             return service.PublishStory(
@@ -163,7 +163,7 @@ public static class StoryEndpoints
         [FromBody] StoryUpdateInfoRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryWriteService service) =>
-        await endpointHandler.WithUser(user =>
+        await endpointHandler.WithUserOperation(user =>
         {
             var image = request.ImagePreview.GetImageBytes();
             return service.UpdateStory(
@@ -184,7 +184,7 @@ public static class StoryEndpoints
         [FromBody] CreateCommentRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryWriteService service) =>
-        await endpointHandler.WithUser(user =>
+        await endpointHandler.WithUserOperation(user =>
             service.AddComment(
                 request.StoryId,
                 user.Id,
@@ -195,7 +195,7 @@ public static class StoryEndpoints
         [FromBody] ScoreStoryRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryWriteService service) =>
-        await endpointHandler.WithUser(user =>
+        await endpointHandler.WithUserOperation(user =>
             service.SetStoryScoreForAUser(
                 request.StoryId,
                 user.Id,

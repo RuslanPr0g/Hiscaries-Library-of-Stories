@@ -13,7 +13,7 @@ public interface IAuthorizedEndpointHandler
     Task<IResult> WithUserOperation<TActionResult>(Func<CurrentUser, Task<TActionResult>> action)
         where TActionResult : OperationResult?;
 
-    Task<IResult> WithUserOperation<TActionResultValue>(
+    Task<IResult> WithUserOperationValue<TActionResultValue>(
         Func<CurrentUser, Task<OperationResult<TActionResultValue>>> action)
         where TActionResultValue : class;
 }
