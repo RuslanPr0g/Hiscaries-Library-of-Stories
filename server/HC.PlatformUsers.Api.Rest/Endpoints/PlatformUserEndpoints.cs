@@ -21,6 +21,18 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
+        group.MapGet("/resume-reading", ResumeReading)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/reading-history", ReadingHistory)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
+
         group.MapGet("/libraries", GetLibrary)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
@@ -88,6 +100,18 @@ public static class PlatformUserEndpoints
         [FromServices] IPlatformUserReadService service) =>
         await endpointHandler.WithUser(user =>
             service.GetLibraryInformation(user.Id, libraryId));
+
+    private static async Task<IResult> ResumeReading(
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IPlatformUserReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetResumeReadingStoryIds(user.Id));
+
+    private static async Task<IResult> ReadingHistory(
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IPlatformUserReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetReadingHistoryStoryIds(user.Id));
 
     private static async Task<IResult> GetUserReadingStoryMetadata(
         [FromBody] UserReadingStoryRequest request,

@@ -49,4 +49,12 @@ export class UserService {
     read(request: ReadStoryRequest): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/read`, request);
     }
+
+    resumeReading(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.apiUrl}/resume-reading`);
+    }
+
+    readingHistory(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.apiUrl}/reading-history`);
+    }
 }

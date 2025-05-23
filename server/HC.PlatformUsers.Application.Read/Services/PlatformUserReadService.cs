@@ -19,4 +19,14 @@ public sealed class PlatformUserReadService(IPlatformUserReadRepository reposito
         Guid requesterUserAccountId,
         UserReadingStoryProcessModel[] stories) =>
         await _repository.GetUserReadingStoryMetadataInformation(requesterUserAccountId, stories);
+
+    public async Task<IEnumerable<Guid>> GetResumeReadingStoryIds(Guid userAccountId)
+    {
+        return await _repository.GetResumeReadingStoryIds(userAccountId);
+    }
+
+    public async Task<IEnumerable<Guid>> GetReadingHistoryStoryIds(Guid userAccountId)
+    {
+        return await _repository.GetReadingHistoryStoryIds(userAccountId);
+    }
 }

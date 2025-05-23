@@ -31,14 +31,6 @@ export class StoryWithMetadataService {
         return this.enrichStories(this.storyService.getStoriesByLibraryId(libraryId));
     }
 
-    resumeReading(): Observable<StoryModel[]> {
-        return this.enrichStories(this.storyService.resumeReading());
-    }
-
-    readingHistory(): Observable<StoryModel[]> {
-        return this.enrichStories(this.storyService.readingHistory());
-    }
-
     searchStory(request: SearchStoryRequest): Observable<StoryModel[]> {
         return this.enrichStories(this.storyService.searchStory(request));
     }

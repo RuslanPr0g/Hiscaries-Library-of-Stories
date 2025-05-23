@@ -21,19 +21,40 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             .Select(user => PlatformUserReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 
-    public async Task<PlatformUserReadModel?> GetPlatformUserByAccountUserId(Guid userId) =>
+    public async Task<PlatformUserReadModel?> GetPlatformUserByAccountUserId(Guid userAccountId) =>
         await Context.PlatformUsers
             .AsNoTracking()
-            .Where(x => x.UserAccountId == userId)
+            .Where(x => x.UserAccountId == userAccountId)
             .Select(user => PlatformUserReadModel.FromDomainModel(user))
             .FirstOrDefaultAsync();
 
-    public async Task<PlatformUserId?> GetPlatformUserIdByUserAccountId(Guid userId) =>
+    public async Task<PlatformUserId?> GetPlatformUserIdByUserAccountId(Guid userAccountId) =>
         await Context.PlatformUsers
             .AsNoTracking()
-            .Where(x => x.UserAccountId == userId)
+            .Where(x => x.UserAccountId == userAccountId)
             .Select(user => user.Id)
             .FirstOrDefaultAsync();
+
+    public async Task<IEnumerable<Guid>> GetResumeReadingStoryIds(Guid userAccountId) =>
+        await Context.PlatformUsers
+            .AsNoTracking()
+            .Where(_ => _.UserAccountId == userAccountId)
+            .Include(_ => _.ReadHistory)
+            .SelectMany(_ => _.ReadHistory)
+            .OrderByDescending(_ => _.LastPageRead)
+            .Take(3)
+            .Select(_ => _.StoryId)
+            .ToListAsync();
+
+    public async Task<IEnumerable<Guid>> GetReadingHistoryStoryIds(Guid userAccountId) =>
+        await Context.PlatformUsers
+            .AsNoTracking()
+            .Where(_ => _.UserAccountId == userAccountId)
+            .Include(_ => _.ReadHistory)
+            .SelectMany(_ => _.ReadHistory)
+            .OrderByDescending(_ => _.EditedAt)
+            .Select(_ => _.StoryId)
+            .ToListAsync();
 
     public async Task<LibraryReadModel?> GetLibraryInformation(
         Guid requesterUserAccountId,
