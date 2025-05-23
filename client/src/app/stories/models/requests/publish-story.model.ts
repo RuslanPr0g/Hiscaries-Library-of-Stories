@@ -1,10 +1,5 @@
-export interface PublishStoryRequest {
-    Title?: string | null;
-    Description?: string | null;
-    AuthorName?: string | null;
-    GenreIds?: string[] | null;
-    AgeLimit?: number | null;
-    ImagePreview?: string | null;
-    DateWritten?: Date | null;
+import { BaseStoryModificationRequest } from './base-story-modification.model';
+
+export interface PublishStoryRequest extends BaseStoryModificationRequest {
     LibraryId: string;
 }
