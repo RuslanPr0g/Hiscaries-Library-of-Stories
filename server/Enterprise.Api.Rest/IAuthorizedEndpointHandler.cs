@@ -9,4 +9,10 @@ public interface IAuthorizedEndpointHandler
 
     public IResult WithUser<TActionResult>(Func<CurrentUser, TActionResult> action)
         where TActionResult : class?;
+
+    public Task<IResult> WithUserOperation<TActionResult>(Func<CurrentUser, Task<TActionResult>> action)
+        where TActionResult : OperationResult?;
+
+    public IResult WithUserOperation<TActionResult>(Func<CurrentUser, TActionResult> action)
+        where TActionResult : OperationResult?;
 }

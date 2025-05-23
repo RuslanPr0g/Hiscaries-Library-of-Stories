@@ -45,7 +45,7 @@ public static class UserAccountEndpoints
             request.Password,
             request.BirthDate);
 
-        return result.ToHttpResult();
+        return result.OperationToHttpResult();
     }
 
     private static async Task<IResult> LoginUser(
@@ -56,7 +56,7 @@ public static class UserAccountEndpoints
             request.Username,
             request.Password);
 
-        return result.ToHttpResult();
+        return result.OperationToHttpResult();
     }
 
     private static async Task<IResult> RefreshToken(

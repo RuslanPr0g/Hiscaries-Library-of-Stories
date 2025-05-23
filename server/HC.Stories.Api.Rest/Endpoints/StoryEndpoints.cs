@@ -205,12 +205,12 @@ public static class StoryEndpoints
         Guid storyId,
         Guid commentId,
         [FromServices] IStoryWriteService service) =>
-        (await service.DeleteComment(storyId, commentId)).ToHttpResult();
+        (await service.DeleteComment(storyId, commentId)).OperationToHttpResult();
 
     private static async Task<IResult> DeleteStory(
         Guid storyId,
         [FromServices] IStoryWriteService service) =>
-        (await service.DeleteStory(storyId)).ToHttpResult();
+        (await service.DeleteStory(storyId)).OperationToHttpResult();
 
     private static async Task<IResult> UpdateComment(
         [FromBody] UpdateCommentRequest request,
@@ -219,11 +219,11 @@ public static class StoryEndpoints
             request.CommentId,
             request.StoryId,
             request.Content,
-            request.Score)).ToHttpResult();
+            request.Score)).OperationToHttpResult();
 
     private static async Task<IResult> DeleteAudioForStory(
         Guid storyId,
         [FromServices] IStoryWriteService service) =>
-        (await service.DeleteAudio(storyId)).ToHttpResult();
+        (await service.DeleteAudio(storyId)).OperationToHttpResult();
 
 }
