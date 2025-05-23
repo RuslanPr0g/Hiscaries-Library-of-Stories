@@ -24,7 +24,7 @@ public class StoryReadRepository(StoriesContext context) :
             .AsNoTracking()
             .Include(_ => _.Genres)
             .Where(story =>
-                story.Genres.Any(g => g.Name.Contains(genre)) ||
+                (!string.IsNullOrWhiteSpace(genre) && story.Genres.Any(g => g.Name.Contains(genre))) ||
                 EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
                 EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
             .ToListAsync())
