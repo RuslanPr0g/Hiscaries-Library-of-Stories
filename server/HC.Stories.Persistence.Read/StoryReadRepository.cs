@@ -1,4 +1,5 @@
-﻿using HC.Stories.Domain.DataAccess;
+﻿using Enterprise.Persistence.Extensions;
+using HC.Stories.Domain.DataAccess;
 using HC.Stories.Domain.ReadModels;
 using HC.Stories.Domain.Stories;
 using HC.Stories.Persistence.Context;
@@ -50,19 +51,19 @@ public class StoryReadRepository(StoriesContext context) :
         return StoryDomainToReadDto(story);
     }
 
-    public async Task<StorySimpleReadModel?> GetStorySimpleInfo(StoryId storyId)
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStorySimpleInfo(
+        StoryId[] storyIds,
+        string sortProperty = "CreatedAt",
+        bool sortAsc = true)
     {
-        var story = await Context.Stories
+        var query = Context.Stories
             .AsNoTracking()
-            .Where(story => story.Id == storyId)
-            .FirstOrDefaultAsync();
+            .Where(story => storyIds.Contains(story.Id))
+            .OrderByProperty(sortProperty, sortAsc);
 
-        if (story is null)
-        {
-            return null;
-        }
+        var stories = await query.ToListAsync();
 
-        return StoryDomainToSimpleReadDto(story);
+        return stories.SelectSkipNulls(StoryDomainToSimpleReadDto);
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions()
@@ -72,9 +73,9 @@ public class StoryReadRepository(StoriesContext context) :
             .AsSplitQuery()
             .Where(x => x.Contents.Any())
             .ToListAsync())
-            .Select(StoryDomainToSimpleReadDto);
+            .SelectSkipNulls(StoryDomainToSimpleReadDto);
 
-        return stories!;
+        return stories;
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>?> GetStorySimpleInfoByLibraryId(Guid libraryId)
@@ -83,42 +84,6 @@ public class StoryReadRepository(StoriesContext context) :
             .AsNoTracking()
             .AsSplitQuery()
             .Where(x => x.LibraryId == libraryId)
-            .ToListAsync())
-            .Select(StoryDomainToSimpleReadDto);
-
-        return stories!;
-    }
-
-    public async Task<IEnumerable<StorySimpleReadModel>> GetLastNStories(int n)
-    {
-        var stories = (await Context.Stories
-            .AsNoTracking()
-            .Where(x => x.Contents.Any())
-            .OrderByDescending(x => x.CreatedAt)
-            .Take(n)
-            .ToListAsync())
-            .Select(StoryDomainToSimpleReadDto);
-
-        return stories!;
-    }
-
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading()
-    {
-        var stories = (await Context.Stories
-            .AsNoTracking()
-            .AsSplitQuery()
-            .Take(3)
-            .ToListAsync())
-            .Select(StoryDomainToSimpleReadDto);
-
-        return stories!;
-    }
-
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory()
-    {
-        var stories = (await Context.Stories
-            .AsNoTracking()
-            .AsSplitQuery()
             .ToListAsync())
             .Select(StoryDomainToSimpleReadDto);
 

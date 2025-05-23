@@ -1,5 +1,6 @@
 ﻿using HC.Stories.Domain.DataAccess;
 using HC.Stories.Domain.ReadModels;
+using HC.Stories.Domain.Stories;
 
 namespace HC.Stories.Application.Read.Services;
 
@@ -12,6 +13,13 @@ public sealed class StoryReadService : IStoryReadService
         _repository = repository;
     }
 
+    public HashSet<string> SortableProperties => new(StringComparer.OrdinalIgnoreCase)
+    {
+        "Title",
+        "CreatedAt",
+        "DateWritten",
+    };
+
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() => await _repository.GetAllGenres();
 
     public async Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId)
@@ -19,19 +27,22 @@ public sealed class StoryReadService : IStoryReadService
         return await _repository.GetStory(storyId);
     }
 
+    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryByIds(
+        StoryId[] storyIds,
+        string sortProperty = "CreatedAt",
+        bool sortAsc = true)
+    {
+        if (!SortableProperties.Contains(sortProperty))
+        {
+            sortProperty = "CreatedAt";
+        }
+
+        return await _repository.GetStorySimpleInfo(storyIds, sortProperty, sortAsc);
+    }
+
     public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations()
     {
         return await _repository.GetStoryReadingSuggestions();
-    }
-
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryResumeReading()
-    {
-        return await _repository.GetStoryResumeReading();
-    }
-
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingHistory()
-    {
-        return await _repository.GetStoryReadingHistory();
     }
 
     public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
@@ -48,7 +59,8 @@ public sealed class StoryReadService : IStoryReadService
 
         if (storyId.HasValue && Guid.Empty != storyId)
         {
-            var foundStory = await _repository.GetStorySimpleInfo(storyId.Value);
+            var foundStories = await _repository.GetStorySimpleInfo([storyId.Value]);
+            var foundStory = foundStories.FirstOrDefault();
             return foundStory is null ? [] : [foundStory];
         }
 
