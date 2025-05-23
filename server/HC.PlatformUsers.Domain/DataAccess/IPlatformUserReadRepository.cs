@@ -13,7 +13,6 @@ public interface IPlatformUserReadRepository : IBaseReadRepository<PlatformUserR
     Task<IEnumerable<UserReadingStoryMetadataReadModel>> GetUserReadingStoryMetadataInformation(
         Guid requesterUserAccountId,
         UserReadingStoryProcessModel[] stories);
-    Task<IEnumerable<Guid>> GetUserLibraries(Guid userAccountId);
     Task<IEnumerable<Guid>> GetResumeReadingStoryIds(Guid userAccountId);
     Task<IEnumerable<Guid>> GetReadingHistoryStoryIds(Guid userAccountId);
 }

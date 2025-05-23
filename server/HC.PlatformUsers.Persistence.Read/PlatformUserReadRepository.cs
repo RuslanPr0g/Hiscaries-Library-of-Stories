@@ -56,17 +56,6 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
             .Select(_ => _.StoryId)
             .ToListAsync();
 
-    public async Task<IEnumerable<Guid>> GetUserLibraries(Guid userAccountId)
-    {
-        return await Context.PlatformUsers
-            .AsNoTracking()
-            .Where(_ => _.UserAccountId == userAccountId)
-            .Include(_ => _.Libraries)
-            .SelectMany(_ => _.Libraries)
-            .Select(_ => _.Id.Value)
-            .ToListAsync();
-    }
-
     public async Task<LibraryReadModel?> GetLibraryInformation(
         Guid requesterUserAccountId,
         LibraryId? libraryId)
