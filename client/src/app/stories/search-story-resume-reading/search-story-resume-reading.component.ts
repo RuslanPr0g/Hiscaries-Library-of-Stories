@@ -4,7 +4,7 @@ import { DestroyService } from '../../shared/services/destroy.service';
 import { take } from 'rxjs';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryResultsComponent } from '../search-story-results/search-story-results.component';
-import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
+import { UserStoryService } from '../../user-to-story/services/multiple-services-merged/user-story.service';
 
 @Component({
     selector: 'app-search-story-resume-reading',
@@ -19,7 +19,7 @@ export class SearchStoryResumeReadingComponent implements OnInit {
 
     isLoading = false;
 
-    constructor(private storyService: StoryWithMetadataService) {}
+    constructor(private userStoryService: UserStoryService) {}
 
     ngOnInit(): void {
         this.fetchStories();
@@ -32,7 +32,7 @@ export class SearchStoryResumeReadingComponent implements OnInit {
     private fetchStories(shouldSetLoading = true): void {
         this.isLoading = shouldSetLoading;
 
-        this.storyService
+        this.userStoryService
             .resumeReading()
             .pipe(take(1))
             .subscribe((stories) => {

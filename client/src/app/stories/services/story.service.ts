@@ -9,6 +9,7 @@ import { StoryModel, StoryModelWithContents } from '../models/domain/story-model
 import { SearchStoryRequest } from '../models/requests/search-story.model';
 import { ModifyStoryRequest } from '../models/requests/modify-story.model';
 import { SearchStoryWithContentsRequest } from '../models/requests/search-story-with-contents.model';
+import { SearchStoryByIdsRequest } from '../models/requests/story-by-ids.model';
 
 @Injectable({
     providedIn: 'root',
@@ -37,6 +38,10 @@ export class StoryService {
 
     getStoryByIdWithContents(request: SearchStoryWithContentsRequest): Observable<StoryModelWithContents> {
         return this.http.post<StoryModelWithContents>(`${this.apiUrl}/by-id-with-contents`, request);
+    }
+
+    getStoriesByIds(request: SearchStoryByIdsRequest): Observable<StoryModel[]> {
+        return this.http.post<StoryModel[]>(`${this.apiUrl}/by-ids`, request);
     }
 
     publish(request: PublishStoryRequest): Observable<BaseIdModel> {

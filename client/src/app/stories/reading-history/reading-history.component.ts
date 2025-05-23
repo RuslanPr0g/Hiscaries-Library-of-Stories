@@ -4,7 +4,7 @@ import { take } from 'rxjs';
 import { DestroyService } from '../../shared/services/destroy.service';
 import { StoryModel } from '../models/domain/story-model';
 import { SearchStoryResultsComponent } from '../search-story-results/search-story-results.component';
-import { StoryWithMetadataService } from '../../user-to-story/services/multiple-services-merged/story-with-metadata.service';
+import { UserStoryService } from '../../user-to-story/services/multiple-services-merged/user-story.service';
 
 @Component({
     selector: 'app-reading-history',
@@ -18,7 +18,7 @@ export class ReadingHistoryComponent implements OnInit {
     stories: StoryModel[] = [];
     isLoading = false;
 
-    constructor(private storyService: StoryWithMetadataService) {}
+    constructor(private userStoryService: UserStoryService) {}
 
     ngOnInit(): void {
         this.fetchStories();
@@ -32,7 +32,7 @@ export class ReadingHistoryComponent implements OnInit {
         this.stories = [];
         this.isLoading = true;
 
-        this.storyService
+        this.userStoryService
             .readingHistory()
             .pipe(take(1))
             .subscribe({

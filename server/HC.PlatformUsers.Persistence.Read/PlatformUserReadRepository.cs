@@ -136,7 +136,7 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
                 currentUser.Libraries.Any(_ => _.Id.Value == story.LibraryId);
 
             var readingHistoryExists = storyIdToReadHistory.TryGetValue(_.StoryId, out var readingHistory);
-            var lastPageRead = readingHistoryExists && readingHistory is not null ? readingHistory.LastPageRead : 0;
+            var lastPageRead = readingHistory?.LastPageRead;
 
             return new UserReadingStoryMetadataReadModel
             {
@@ -145,22 +145,22 @@ public class PlatformUserReadRepository(PlatformUsersContext context) :
                 IsEditable = canBeEdited,
                 PercentageRead = RetrieveReadingProgressForAUser(
                 lastPageRead,
-                story?.TotalPages ?? 0),
-                LastPageRead = lastPageRead
+                story?.TotalPages),
+                LastPageRead = lastPageRead ?? 0
             };
         });
 
         return storiesMetadata;
     }
 
-    private static decimal RetrieveReadingProgressForAUser(int lastPageRead, int totalPages)
+    private static decimal RetrieveReadingProgressForAUser(int? lastPageRead, int? totalPages)
     {
-        if (totalPages == 0 || lastPageRead == 0)
+        if (!totalPages.HasValue || !lastPageRead.HasValue)
         {
             return 0;
         }
 
-        int currentPage = lastPageRead + 1;
-        return currentPage.PercentageOf(totalPages);
+        int currentPage = lastPageRead.Value + 1;
+        return currentPage.PercentageOf(totalPages.Value);
     }
 }
