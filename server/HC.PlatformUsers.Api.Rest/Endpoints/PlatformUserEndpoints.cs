@@ -33,6 +33,12 @@ public static class PlatformUserEndpoints
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
+        group.MapGet("/my-libraries", GetMyLibraries)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
+
         group.MapGet("/libraries", GetLibrary)
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
@@ -100,6 +106,12 @@ public static class PlatformUserEndpoints
         [FromServices] IPlatformUserReadService service) =>
         await endpointHandler.WithUser(user =>
             service.GetLibraryInformation(user.Id, libraryId));
+
+    private static async Task<IResult> GetMyLibraries(
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IPlatformUserReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetMyLibraries(user.Id));
 
     private static async Task<IResult> ResumeReading(
         IAuthorizedEndpointHandler endpointHandler,

@@ -6,4 +6,5 @@ export interface PublishStoryRequest {
     AgeLimit?: number | null;
     ImagePreview?: string | null;
     DateWritten?: Date | null;
+    LibraryId: string;
 }

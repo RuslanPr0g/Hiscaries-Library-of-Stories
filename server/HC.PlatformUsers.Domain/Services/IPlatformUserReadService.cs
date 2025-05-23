@@ -11,6 +11,7 @@ public interface IPlatformUserReadService
     Task<IEnumerable<UserReadingStoryMetadataReadModel>> GetUserReadingStoryMetadata(
         Guid requesterUserAccountId,
         UserReadingStoryProcessModel[] stories);
+    Task<IEnumerable<Guid>> GetMyLibraries(Guid userAccountId);
     Task<IEnumerable<Guid>> GetResumeReadingStoryIds(Guid userAccountId);
     Task<IEnumerable<Guid>> GetReadingHistoryStoryIds(Guid userAccountId);
 }

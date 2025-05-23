@@ -105,6 +105,7 @@ export class PublishStoryComponent implements OnInit {
             ...formModel,
             GenreIds: formModel.Genres?.map((g) => g.Id),
             ImagePreview: formModel.Image,
+            LibraryId: '',
         };
 
         this.storyService
