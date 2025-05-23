@@ -26,4 +26,25 @@ public class AuthorizedEndpointHandler(IHttpContextAccessor contextAccessor) : I
         var result = await action(user);
         return result.ToHttpResult();
     }
+
+    public IResult WithUser<TActionResult>(Func<CurrentUser, TActionResult> action)
+        where TActionResult : class?
+    {
+        var context = _contextAccessor.HttpContext;
+
+        if (context is null)
+        {
+            return Results.BadRequest("Something went wrong when processing the http request.");
+        }
+
+        var user = CurrentUser.FromClaims(context.User);
+
+        if (user is null)
+        {
+            return Results.BadRequest("Unable to interpret the provided token.");
+        }
+
+        var result = action(user);
+        return result.ToHttpResult();
+    }
 }

@@ -3,6 +3,7 @@ using Enterprise.Domain.Extensions;
 using HC.Stories.Api.Rest.Requests.Comments;
 using HC.Stories.Api.Rest.Requests.Stories;
 using HC.Stories.Domain.ReadModels;
+using HC.Stories.Domain.Stories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HC.Stories.Api.Rest.Endpoints;
@@ -23,19 +24,19 @@ public static class StoryEndpoints
             .Produces<IEnumerable<StoryWithContentsReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
+        group.MapPost("/by-ids", GetByIds)
+            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/sortable-properties", GetSortableProperties)
+            .Produces<IEnumerable<string>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
         group.MapGet("/genres", GetGenres)
             .Produces<IEnumerable<GenreReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
         group.MapGet("/recommendations", BestToRead)
-            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapGet("/resume-reading", ResumeReading)
-            .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status401Unauthorized);
-
-        group.MapGet("/reading-history", ReadingHistory)
             .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
@@ -108,6 +109,21 @@ public static class StoryEndpoints
         await endpointHandler.WithUser(user =>
             service.GetStoryById(request.Id));
 
+    private static async Task<IResult> GetByIds(
+        [FromBody] GetStoryByIdsRequest request,
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+        await endpointHandler.WithUser(user =>
+            service.GetStoryByIds(
+                request.Ids.Select(_ => (StoryId)_).ToArray(),
+                request.Sorting?.Property ?? "CreatedAt",
+                request.Sorting?.Ascending ?? true));
+
+    private static IResult GetSortableProperties(
+        IAuthorizedEndpointHandler endpointHandler,
+        [FromServices] IStoryReadService service) =>
+            endpointHandler.WithUser(user => service.SortableProperties);
+
     private static async Task<IResult> GetGenres(
         [FromServices] IStoryReadService service) =>
         (await service.GetAllGenres()).ToHttpResult();
@@ -122,18 +138,6 @@ public static class StoryEndpoints
             response.Shuffle();
             return response;
         });
-
-    private static async Task<IResult> ResumeReading(
-        IAuthorizedEndpointHandler endpointHandler,
-        [FromServices] IStoryReadService service) =>
-        await endpointHandler.WithUser(user =>
-            service.GetStoryResumeReading());
-
-    private static async Task<IResult> ReadingHistory(
-        IAuthorizedEndpointHandler endpointHandler,
-        [FromServices] IStoryReadService service) =>
-        await endpointHandler.WithUser(user =>
-            service.GetStoryReadingHistory());
 
     private static async Task<IResult> PublishStory(
         [FromBody] PublishStoryRequest request,
