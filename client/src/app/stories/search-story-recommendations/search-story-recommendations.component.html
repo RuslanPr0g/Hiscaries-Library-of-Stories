@@ -1,4 +1,4 @@
-<ng-container *ngIf="displayedStories">
+<ng-container *ngIf="displayedStories.length > 0 || isLoading; else noStories">
     <h1 class="fs-3rem main-title">Stories for you to read</h1>
     <app-search-story-results
         [stories]="displayedStories"
@@ -12,3 +12,4 @@
         (clickAction)="showMore()"
     ></app-button-one>
 </ng-container>
+<ng-template #noStories>🚫📖 No stories posted yet — be the first legend!</ng-template>
