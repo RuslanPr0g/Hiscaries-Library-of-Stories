@@ -9,10 +9,13 @@ public static class ConfigurationExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         out TSettings settings,
-        string sectionName = nameof(TSettings))
+        string? sectionName = null)
         where TSettings : class, new()
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(sectionName);
+        if (sectionName is null)
+        {
+            sectionName = typeof(TSettings).Name;
+        }
 
         settings = new TSettings();
         configuration.Bind(sectionName, settings);
@@ -23,7 +26,7 @@ public static class ConfigurationExtensions
     public static IServiceCollection AddBoundSettingsWithSectionAsEntityName<TSettings>(
         this IServiceCollection services,
         IConfiguration configuration,
-        string sectionName = nameof(TSettings))
+        string? sectionName = null)
         where TSettings : class, new()
     {
         return services.AddBoundSettingsWithSectionAsEntityName<TSettings>(
