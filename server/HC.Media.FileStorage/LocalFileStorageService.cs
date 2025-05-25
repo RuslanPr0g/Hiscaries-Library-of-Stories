@@ -36,6 +36,6 @@ public class LocalFileStorageService(
         Directory.CreateDirectory(targetDirectory);
         await File.WriteAllBytesAsync(filePath, fileData);
 
-        return filePath;
+        return fileName;
     }
 }
