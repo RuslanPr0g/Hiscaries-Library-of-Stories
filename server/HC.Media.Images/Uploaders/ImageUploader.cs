@@ -31,16 +31,9 @@ public sealed class ImageUploader(
         var fileName = $"{fileId}.{extension.TrimStart('.')}";
         var imageStoragePath = Path.Combine("images", folderPath);
 
-        var isFileSaved = await _fileStorageService.SaveFileAsync(
+        return await _fileStorageService.SaveFileAsync(
             fileName,
             imageStoragePath,
             compressedImage);
-
-        if (!isFileSaved)
-        {
-            throw new ApplicationException("Image could not be uploaded.");
-        }
-
-        return imageStoragePath;
     }
 }
