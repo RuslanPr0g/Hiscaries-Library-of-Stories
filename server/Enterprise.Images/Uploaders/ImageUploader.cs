@@ -16,15 +16,31 @@ public sealed class ImageUploader : IImageUploader
 
     public async Task<string> UploadImageAsync(
         Guid fileId,
-        byte[] imagePreview,
+        byte[] imageAsBytes,
         string relativeFolderPath,
-        string storagePath,
+        string rootStoragePath,
         string extension = "jpg",
         CompressionSettings? compressionSettings = null)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(relativeFolderPath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(rootStoragePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(extension);
+
+        if (imageAsBytes.Length == 0)
+        {
+            throw new ArgumentException($"{nameof(imageAsBytes)} argument cannot be empty.");
+        }
+
         CompressionSettings settings = compressionSettings ?? CompressionSettings.Default;
-        byte[] compressedImage = await _imageCompressor.CompressAsync(imagePreview, settings);
-        string fileName = $"{relativeFolderPath}/{fileId}.{extension}";
-        return await _fileStorageService.SaveFileAsync(fileName, storagePath, compressedImage);
+        byte[] compressedImage = await _imageCompressor.CompressAsync(imageAsBytes, settings);
+
+        var fileName = $"{fileId}.{extension.TrimStart('.')}";
+        var imageStoragePath = Path.Combine(rootStoragePath, "images");
+
+        return await _fileStorageService.SaveFileAsync(
+            fileName,
+            relativeFolderPath,
+            imageStoragePath,
+            compressedImage);
     }
 }

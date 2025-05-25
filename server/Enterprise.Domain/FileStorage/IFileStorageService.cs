@@ -2,5 +2,9 @@
 
 public interface IFileStorageService
 {
-    Task<string> SaveFileAsync(string fileName, string storagePath, byte[] fileData);
+    Task<string> SaveFileAsync(
+        string fileName,
+        string relativeFolderPath,
+        string rootStoragePath,
+        byte[] fileData);
 }

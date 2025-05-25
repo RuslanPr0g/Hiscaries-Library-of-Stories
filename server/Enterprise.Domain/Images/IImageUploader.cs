@@ -18,7 +18,7 @@ public interface IImageUploader
         Guid fileId,
         byte[] imageAsBytes,
         string relativeFolderPath,
-        string storagePath,
+        string rootStoragePath,
         string extension = "jpg",
         CompressionSettings? compressionSettings = null);
 }

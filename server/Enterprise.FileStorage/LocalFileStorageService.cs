@@ -4,17 +4,27 @@ namespace Enterprise.FileStorage;
 
 public class LocalFileStorageService() : IFileStorageService
 {
-    public async Task<string> SaveFileAsync(string fileName, string storagePath, byte[] fileData)
+    public async Task<string> SaveFileAsync(
+        string fileName,
+        string relativeFolderPath,
+        string rootStoragePath,
+        byte[] fileData)
     {
-        var directoryPath = Path.Combine(storagePath, "images");
-        var filePath = Path.Combine(directoryPath, fileName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(relativeFolderPath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(rootStoragePath);
 
-        filePath = filePath.Replace('/', Path.DirectorySeparatorChar)
-                   .Replace('\\', Path.DirectorySeparatorChar);
+        var normalizedRelativePath = relativeFolderPath
+            .Replace('/', Path.DirectorySeparatorChar)
+            .Replace('\\', Path.DirectorySeparatorChar)
+            .Trim(Path.DirectorySeparatorChar);
 
-        Directory.CreateDirectory(directoryPath);
+        var targetDirectory = Path.Combine(rootStoragePath, normalizedRelativePath);
+        var filePath = Path.Combine(targetDirectory, fileName);
 
+        Directory.CreateDirectory(targetDirectory);
         await File.WriteAllBytesAsync(filePath, fileData);
+
         return fileName;
     }
 }
