@@ -43,7 +43,7 @@ public class ResourceUrlGeneratorService : IResourceUrlGeneratorService
             string relativeFolder,
             string fileName)
         {
-            var pathBuilder = new StringBuilder($"/{mainFolder}");
+            var pathBuilder = new StringBuilder(mainFolder);
             pathBuilder.Append('/').Append(relativeFolder);
             pathBuilder.Append('/').Append(fileName);
             return pathBuilder.ToString();
