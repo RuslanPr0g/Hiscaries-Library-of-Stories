@@ -49,9 +49,9 @@ public class ResourceUrlGeneratorService : IResourceUrlGeneratorService
             return pathBuilder.ToString();
         }
 
-        static string CombineBaseUrlAndRelativePath(string baseUrl, string relativeUrl)
+        static string CombineBaseUrlAndRelativePath(string baseUrl, string relativePath)
         {
-            return Path.Combine(baseUrl, relativeUrl);
+            return $"{baseUrl}/{relativePath}";
         }
     }
 }
