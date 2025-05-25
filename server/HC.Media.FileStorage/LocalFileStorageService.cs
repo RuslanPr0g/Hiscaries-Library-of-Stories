@@ -24,10 +24,12 @@ public class LocalFileStorageService(
             throw new ArgumentException($"{nameof(fileData)} argument cannot be empty.");
         }
 
-        var targetDirectory = folderPath
+        var normilizedDirectory = folderPath
             .Replace('/', Path.DirectorySeparatorChar)
             .Replace('\\', Path.DirectorySeparatorChar)
             .Trim(Path.DirectorySeparatorChar);
+
+        var targetDirectory = Path.Combine(_storagePath, normilizedDirectory);
 
         var filePath = Path.Combine(targetDirectory, fileName);
 
