@@ -1,7 +1,6 @@
 ﻿using Enterprise.Domain.Constants;
 using Enterprise.Domain.EventPublishers;
 using Enterprise.Domain.Generators;
-using Enterprise.Domain.Images;
 using Enterprise.Domain.ResultModels.Response;
 using HC.Media.IntegrationEvents.Incoming;
 using HC.Stories.Domain.DataAccess;
@@ -17,16 +16,12 @@ public sealed class StoryWriteService(
     IEventPublisher publisher,
     IStoryWriteRepository storyWriteRepository,
     IGenreWriteRepository genreWriteRepository,
-    IResourceUrlGeneratorService urlGeneratorService,
     IIdGenerator idGenerator,
-    ILogger<StoryWriteService> logger,
-    IImageUploader imageUploader) : IStoryWriteService
+    ILogger<StoryWriteService> logger) : IStoryWriteService
 {
     private readonly IEventPublisher _publisher = publisher;
     private readonly IStoryWriteRepository _repository = storyWriteRepository;
     private readonly IGenreWriteRepository _genreRepository = genreWriteRepository;
-    private readonly IImageUploader _imageUploader = imageUploader;
-    private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
     private readonly IIdGenerator _idGenerator = idGenerator;
     private readonly ILogger<StoryWriteService> _logger = logger;
 
