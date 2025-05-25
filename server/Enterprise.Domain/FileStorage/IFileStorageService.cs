@@ -4,7 +4,6 @@ public interface IFileStorageService
 {
     Task<string> SaveFileAsync(
         string fileName,
-        string relativeFolderPath,
-        string rootStoragePath,
+        string folderPath,
         byte[] fileData);
 }

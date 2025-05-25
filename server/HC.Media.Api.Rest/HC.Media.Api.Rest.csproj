@@ -14,6 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
     <ProjectReference Include="..\HC.Media.EventHandlers\HC.Media.EventHandlers.csproj" />
+    <ProjectReference Include="..\HC.Media.FileStorage\HC.Media.FileStorage.csproj" />
+    <ProjectReference Include="..\HC.Media.Images\HC.Media.Images.csproj" />
     <ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
   </ItemGroup>
 

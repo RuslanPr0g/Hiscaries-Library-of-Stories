@@ -1,6 +1,5 @@
 ﻿using Enterprise.Application;
 using Enterprise.EventsPublishers;
-using Enterprise.FileStorage;
 using Enterprise.Generators;
 using Enterprise.Images;
 using Enterprise.Jwt;
@@ -14,7 +13,6 @@ public static class DiExtensions
     public static IServiceCollection AddEnterprise(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddEnterpriseApplicationServices(configuration);
-        services.AddEnterpriseFileStorage();
         services.AddEnterpriseGenerators();
         services.AddEnterpriseImages();
         services.AddEnterpriseJwt();

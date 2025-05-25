@@ -7,16 +7,16 @@ namespace Enterprise.Application;
 
 public static class DIExtensions
 {
-    public static IServiceCollection AddEnterpriseApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddEnterpriseApplicationServices(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddOptions<DbConnectionStrings>()
             .Bind(configuration.GetSection("ConnectionStrings"));
 
-        var jwtSettings = new JwtSettings();
-        configuration.Bind(nameof(jwtSettings), jwtSettings);
+        services.AddBoundSettingsWithSectionAsEntityName<JwtSettings>(configuration, out var jwtSettings);
+        services.AddBoundSettingsWithSectionAsEntityName<SaltSettings>(configuration, out var saltSettings);
 
-        var saltSettings = new SaltSettings();
-        configuration.Bind(nameof(saltSettings), saltSettings);
         services.AddSingleton(saltSettings);
 
         services.AddHttpContextAccessor();

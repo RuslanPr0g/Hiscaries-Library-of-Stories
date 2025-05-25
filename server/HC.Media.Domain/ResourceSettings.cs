@@ -1,4 +1,4 @@
-﻿namespace HC.Media.EventHandlers;
+﻿namespace HC.Media.Domain;
 
 public class ResourceSettings
 {

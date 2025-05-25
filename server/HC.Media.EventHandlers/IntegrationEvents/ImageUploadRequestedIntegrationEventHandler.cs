@@ -2,6 +2,7 @@
 using Enterprise.Domain.Generators;
 using Enterprise.Domain.Images;
 using Enterprise.EventHandlers;
+using HC.Media.Domain;
 using HC.Media.IntegrationEvents.Incoming;
 using HC.Media.IntegrationEvents.Outgoing;
 using MassTransit;
@@ -20,7 +21,6 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
         : BaseEventHandler<ImageUploadRequestedIntegrationEvent>(logger)
 {
     private readonly string _baseUrl = options.Value.BaseUrl ?? settings.BaseUrl;
-    private readonly string _storagePath = options.Value.StoragePath ?? settings.StoragePath;
 
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
@@ -74,9 +74,7 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
             return null;
         }
 
-        var storagePath = _storagePath;
-
-        string fileName = await _imageUploader.UploadImageAsync(fileId, imagePreview, type, storagePath);
+        string fileName = await _imageUploader.UploadImageAsync(fileId, type, imagePreview);
         return _urlGeneratorService.GenerateImageUrlByFileName(_baseUrl, fileName);
     }
 }

@@ -1,4 +1,6 @@
-﻿using HC.Media.EventHandlers.IntegrationEvents;
+﻿using Enterprise.Application.Extensions;
+using HC.Media.Domain;
+using HC.Media.EventHandlers.IntegrationEvents;
 using HC.Media.IntegrationEvents.Incoming;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -15,9 +17,7 @@ public static class DiExtensions
     {
         services.AddScoped<IConsumer<ImageUploadRequestedIntegrationEvent>, ImageUploadRequestedIntegrationEventHandler>();
 
-        var settings = new ResourceSettings();
-        configuration.Bind(nameof(ResourceSettings), settings);
-        services.AddSingleton(settings);
+        services.AddBoundSettingsWithSectionAsEntityName<ResourceSettings>(configuration);
 
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
 

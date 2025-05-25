@@ -3,27 +3,21 @@ using Enterprise.Domain.Images;
 
 namespace Enterprise.Images.Uploaders;
 
-public sealed class ImageUploader : IImageUploader
+public sealed class ImageUploader(
+    IImageCompressor imageCompressor,
+    IFileStorageService fileStorageService) : IImageUploader
 {
-    private readonly IImageCompressor _imageCompressor;
-    private readonly IFileStorageService _fileStorageService;
-
-    public ImageUploader(IImageCompressor imageCompressor, IFileStorageService fileStorageService)
-    {
-        _imageCompressor = imageCompressor;
-        _fileStorageService = fileStorageService;
-    }
+    private readonly IImageCompressor _imageCompressor = imageCompressor;
+    private readonly IFileStorageService _fileStorageService = fileStorageService;
 
     public async Task<string> UploadImageAsync(
         Guid fileId,
+        string folderPath,
         byte[] imageAsBytes,
-        string relativeFolderPath,
-        string rootStoragePath,
         string extension = "jpg",
         CompressionSettings? compressionSettings = null)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(relativeFolderPath);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rootStoragePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(folderPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(extension);
 
         if (imageAsBytes.Length == 0)
@@ -35,11 +29,10 @@ public sealed class ImageUploader : IImageUploader
         byte[] compressedImage = await _imageCompressor.CompressAsync(imageAsBytes, settings);
 
         var fileName = $"{fileId}.{extension.TrimStart('.')}";
-        var imageStoragePath = Path.Combine(rootStoragePath, "images");
+        var imageStoragePath = Path.Combine("images", folderPath);
 
         return await _fileStorageService.SaveFileAsync(
             fileName,
-            relativeFolderPath,
             imageStoragePath,
             compressedImage);
     }
