@@ -4,15 +4,20 @@
         class="left-panel"
         *ngIf="authService.isAuthenticated()"
     >
+        <p-button
+            icon="pi pi-arrow-left"
+            class="back-button"
+            (onClick)="goBack()"
+        ></p-button>
         <p-sidebar [(visible)]="sidebarVisible">
             <app-header (commandExecuted)="sidebarVisible = false"></app-header>
         </p-sidebar>
-        <button
+        <p-button
             class="logo link"
-            (keydown)="home()"
+            (click)="home()"
         >
             HISCARIES
-        </button>
+        </p-button>
         <div class="notification-wrapper">
             <p-button
                 (onClick)="sidebarVisible = true"

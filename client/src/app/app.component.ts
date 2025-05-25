@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { LoadingOverlayComponent } from './shared/components/loading-overlay/loading-overlay.component';
 import { CommonModule } from '@angular/common';
@@ -11,6 +11,8 @@ import { SearchBarComponent } from './shared/components/search-bar/search-bar.co
 import { NotificationLifecycleManagerService } from './users/services/notification-lifecycle-manager.service';
 import { StoryPublishedHandler } from './users/notification-handlers/story-published-notification.handler';
 import { NotificationStateService } from './shared/services/statefull/notification-state.service';
+import { Location } from '@angular/common';
+import { filter, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -39,7 +41,8 @@ export class AppComponent implements OnInit {
         private router: Router,
         public authService: AuthService,
         private notificationManagerService: NotificationLifecycleManagerService,
-        private notificationStateService: NotificationStateService
+        private notificationStateService: NotificationStateService,
+        private location: Location
         // TODO: make it work
         // @Inject(NOTIFICATION_HANDLERS) private notificationHandlers: NotificationHandler[]
     ) {}
@@ -66,6 +69,14 @@ export class AppComponent implements OnInit {
         this.notificationStateService.unreadCount$.subscribe((count) => {
             this.unreadCount = count;
         });
+
+        this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+            this.sidebarVisible = false;
+        });
+    }
+
+    goBack(): void {
+        this.location.back();
     }
 
     fadeOutLoading() {
