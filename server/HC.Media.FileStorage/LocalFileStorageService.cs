@@ -10,7 +10,7 @@ public class LocalFileStorageService(
 {
     private readonly string _storagePath = options.Value.StoragePath ?? settings.StoragePath;
 
-    public async Task<string> SaveFileAsync(
+    public async Task<bool> SaveFileAsync(
         string fileName,
         string folderPath,
         byte[] fileData)
@@ -36,6 +36,6 @@ public class LocalFileStorageService(
         Directory.CreateDirectory(targetDirectory);
         await File.WriteAllBytesAsync(filePath, fileData);
 
-        return fileName;
+        return true;
     }
 }

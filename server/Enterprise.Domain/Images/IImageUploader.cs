@@ -13,7 +13,7 @@ public interface IImageUploader
     /// <param name="folderPath">The relative folder path where the image will be stored.</param>
     /// <param name="extension">The file extension to use for the image (default is "jpg").</param>
     /// <param name="compressionSettings">Optional compression settings to apply before uploading.</param>
-    /// <returns>A task that represents the asynchronous upload operation. The result contains the file name or path of the uploaded image.</returns>
+    /// <returns>The result contains the file name and the relative path of the uploaded image.</returns>
     Task<string> UploadImageAsync(
         Guid fileId,
         string folderPath,
