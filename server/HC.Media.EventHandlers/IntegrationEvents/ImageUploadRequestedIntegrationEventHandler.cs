@@ -75,6 +75,6 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
         }
 
         string fileName = await _imageUploader.UploadImageAsync(fileId, type, imagePreview);
-        return _urlGeneratorService.GenerateImageUrlByFileName(_baseUrl, fileName);
+        return _urlGeneratorService.GenerateImageUrlByFileName(_baseUrl, type, fileName);
     }
 }
