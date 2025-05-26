@@ -1,4 +1,9 @@
-<div class="story-card">
+<div
+    class="story-card"
+    (click)="previewStory(story); $event.stopPropagation()"
+    (keydown)="previewStory(story); $event.stopPropagation()"
+    tabindex="0"
+>
     <div class="story-thumbnail">
         <img
             [src]="story.ImagePreviewUrl"
@@ -22,12 +27,7 @@
         <app-progress-bar [percentage]="story.PercentageRead"></app-progress-bar>
     </div>
 
-    <div
-        class="story-hover-details"
-        (click)="previewStory(story)"
-        (keydown)="previewStory(story)"
-        tabindex="0"
-    >
+    <div class="story-hover-details">
         <h3 class="story-author">
             <span>{{ story.AgeLimit }}+</span>
         </h3>
