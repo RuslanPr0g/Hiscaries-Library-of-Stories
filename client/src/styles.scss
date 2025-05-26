@@ -22,6 +22,20 @@ body {
     min-height: 100vh;
 }
 
+body.story-background-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.6) 30%,
+            rgba(0, 0, 0, 0.4) 50%,
+            rgba(0, 0, 0, 0.6) 70%,
+            rgba(0, 0, 0, 0.9) 100%);
+    pointer-events: none;
+}
+
 h1 {
     font-size: 23px;
 }

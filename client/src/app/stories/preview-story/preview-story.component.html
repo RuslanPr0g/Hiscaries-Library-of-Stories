@@ -1,70 +1,47 @@
 <div
-    class="preview-story-page background-image-configuration"
+    class="preview-story-page"
     *ngIf="story && !storyNotFound"
-    [ngStyle]="{ 'background-image': backgroundImageUrl ? 'url(' + backgroundImageUrl + ')' : 'none' }"
 >
-    <div
-        class="overlay"
-        *ngIf="backgroundImageUrl"
-    ></div>
-    <div class="top">
-        <div class="story-info">
-            <div class="story-info-item"><span>Originally written on&nbsp;</span> {{ story.DateWritten | date }}</div>
-            <div class="story-info-item">{{ story.AgeLimit }}+</div>
-            <div class="story-info-item">
-                <span>From library:&nbsp;</span>
-                <button
-                    (click)="navigateToLibrary()"
-                    class="link"
+    <div class="content-wrapper">
+        <div class="left-content">
+            <div class="story-header">
+                <h1>{{ story.Title }}</h1>
+                <span class="story-author"
+                    >By
+                    <button
+                        (click)="navigateToLibrary()"
+                        class="link"
+                    >
+                        {{ story.LibraryName }}
+                    </button></span
                 >
-                    {{ story.LibraryName }}
-                </button>
+                &nbsp;•&nbsp;
+                <span class="story-date">{{ story.DatePublished | date: 'longDate' }}</span>
+                &nbsp;•&nbsp;
+                <span class="story-date">{{ story.AgeLimit }}+</span>
             </div>
-        </div>
-        <div class="story-header">
-            <h1>{{ story.Title }}</h1>
-            <span class="story-author">By {{ story.AuthorName ?? story.LibraryName }}</span>
-            &#x2022;
-            <span class="story-date">{{ story.DatePublished | date: 'longDate' }}</span>
-        </div>
 
-        <div class="story-main">
             <div class="story-details">
                 <p class="story-description">{{ story.Description }}</p>
             </div>
+
+            <div class="story-actions">
+                <app-form-button
+                    label="See library"
+                    severity="warning"
+                    (clicked)="navigateToLibrary()"
+                ></app-form-button>
+                <app-form-button
+                    label="Read"
+                    (clicked)="readStory()"
+                ></app-form-button>
+                <app-form-button
+                    *ngIf="isEditable"
+                    label="Modify"
+                    severity="warning"
+                    (clicked)="modifyStory()"
+                ></app-form-button>
+            </div>
         </div>
     </div>
-    <div class="bottom">
-        <app-form-button
-            label="See library"
-            severity="warning"
-            (clicked)="navigateToLibrary()"
-        ></app-form-button>
-        <app-form-button
-            label="Read"
-            (clicked)="readStory()"
-        ></app-form-button>
-        <app-form-button
-            *ngIf="isEditable"
-            label="Modify"
-            severity="warning"
-            (clicked)="modifyStory()"
-        ></app-form-button>
-    </div>
-</div>
-
-<div *ngIf="!story && !storyNotFound">
-    <p-progressSpinner
-        styleClass="w-4rem h-4rem"
-        strokeWidth="8"
-        animationDuration=".5s"
-    />
-</div>
-
-<div
-    *ngIf="storyNotFound"
-    class="error-message"
->
-    <h2>Story not found</h2>
-    <p>Sorry, we couldn't find the story you're looking for.</p>
 </div>

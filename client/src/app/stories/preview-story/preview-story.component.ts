@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoryModel } from '../models/domain/story-model';
 import { take } from 'rxjs';
@@ -22,6 +22,7 @@ export class PreviewStoryComponent implements OnInit {
     storyNotFound = false;
 
     constructor(
+        private renderer: Renderer2,
         private route: ActivatedRoute,
         private router: Router,
         private storyService: StoryWithMetadataService
@@ -41,8 +42,14 @@ export class PreviewStoryComponent implements OnInit {
                     this.storyNotFound = true;
                 } else {
                     this.story = story;
+                    this.setBackgroundImage();
                 }
             });
+    }
+
+    ngOnDestroy(): void {
+        document.body.style.backgroundImage = '';
+        document.body.classList.remove('story-background-overlay');
     }
 
     get backgroundImageUrl(): string | undefined {
@@ -66,6 +73,17 @@ export class PreviewStoryComponent implements OnInit {
             this.router.navigate([NavigationConst.PublisherLibrary(this.story?.LibraryId)]);
         } else {
             console.warn('Why the story library id is empty?');
+        }
+    }
+
+    private setBackgroundImage() {
+        if (this.backgroundImageUrl) {
+            document.body.style.backgroundImage = `url(${this.backgroundImageUrl})`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundAttachment = 'fixed';
+            document.body.classList.add('story-background-overlay');
         }
     }
 }
