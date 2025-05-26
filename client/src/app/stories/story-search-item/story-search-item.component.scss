@@ -63,7 +63,7 @@ $border-color: #444;
     left: 0;
     right: 0;
     height: 40%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     z-index: 1;
 }
 
@@ -72,13 +72,13 @@ $border-color: #444;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 16px;
+    padding: 14px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     z-index: 2;
     color: $text-color;
-    flex-direction: column-reverse;
+    flex-direction: column;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 
     .story-title {
@@ -136,6 +136,7 @@ $border-color: #444;
 .story-info {
     &__item-age {
         font-size: 0.5rem;
+        color: $hover-box-shadow;
     }
 }
 

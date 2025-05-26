@@ -13,7 +13,9 @@
                 <h3 class="story-title">{{ story.Title | slice: 0 : 80 }}{{ story.Title.length > 80 ? '...' : '' }}</h3>
             </div>
             <div class="story-info">
-                <div class="story-info__item-age"><i class="fas fa-calendar-alt"></i> {{ story.AgeLimit }}+</div>
+                <div class="story-info__item-age">
+                    <i class="fas fa-calendar-alt"></i> {{ story.AuthorName | slice: 0 : 30 }}
+                </div>
             </div>
         </div>
 
@@ -27,8 +29,7 @@
         tabindex="0"
     >
         <h3 class="story-author">
-            By
-            <span>{{ story.AuthorName | slice: 0 : 100 }}{{ (story.AuthorName?.length ?? 0 > 100) ? '...' : '' }}</span>
+            <span>{{ story.AgeLimit }}+</span>
         </h3>
         <p class="full-description">
             {{ story.Description | slice: 0 : 100 }}{{ story.Description.length > 100 ? '...' : '' }}
