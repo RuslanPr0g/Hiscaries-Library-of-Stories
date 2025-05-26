@@ -109,6 +109,10 @@ input {
     font-size: 3rem;
 }
 
+.fs-2rem {
+    font-size: 2rem;
+}
+
 .error-message {
     color: red;
 }
@@ -332,9 +336,9 @@ p-dropdown {
     z-index: 2;
 }
 
-.block-cube.block-input input:focus ~ .bg-right .bg-inner,
-.block-cube.block-input input:focus ~ .bg-top .bg-inner,
-.block-cube.block-input input:focus ~ .bg-inner .bg-inner {
+.block-cube.block-input input:focus~.bg-right .bg-inner,
+.block-cube.block-input input:focus~.bg-top .bg-inner,
+.block-cube.block-input input:focus~.bg-inner .bg-inner {
     top: 100%;
     background: rgba(255, 255, 255, 0.5);
 }
@@ -423,7 +427,7 @@ p-dropdown {
     margin-bottom: 24px;
     position: relative;
 
-    .profile-card > * {
+    .profile-card>* {
         position: relative;
         z-index: 2;
     }
@@ -471,11 +475,13 @@ p-dropdown {
             .social-links {
                 margin-top: 10px;
                 display: flex;
+
                 a {
                     text-decoration: none;
                     color: #c4c2c2;
                     margin-right: 10px;
                     margin-bottom: 15px;
+
                     i {
                         font-size: 1.2rem;
                     }

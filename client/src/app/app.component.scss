@@ -3,9 +3,13 @@ main {
     flex-direction: column;
     min-height: 95vh;
 
-    & .left-panel {
+    & .left-panel,
+    .navigation {
         display: flex;
         flex-direction: row;
+    }
+
+    & .left-panel {
         margin: 20px 0px;
     }
 
@@ -16,6 +20,10 @@ main {
 }
 
 @media (max-width: 900px) {
+    .left-panel {
+        justify-content: space-between;
+    }
+
     .right-panel {
         width: 100% !important;
     }

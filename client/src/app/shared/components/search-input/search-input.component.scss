@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
 }
+
 :host {
     position: absolute;
     left: 0;
@@ -11,6 +12,7 @@
     margin-inline: auto;
     width: fit-content;
 }
+
 body,
 button,
 input {
@@ -19,24 +21,29 @@ input {
         sans-serif;
     line-height: 1.5em;
 }
+
 body,
 input {
     color: #171717;
 }
+
 body,
 .search-bar {
     display: flex;
 }
+
 body {
     background: #f1f1f1;
     height: 100vh;
 }
+
 .search-bar input,
 .search-btn,
 .search-btn:before,
 .search-btn:after {
     transition: all 0.25s ease-out;
 }
+
 .search-bar input,
 .search-btn {
     width: 44px;
@@ -44,25 +51,30 @@ body {
     padding-left: 14px;
     font-size: 18px;
 }
+
 .search-bar input:invalid:not(:focus),
 .search-btn {
     cursor: pointer;
 }
+
 .search-bar,
 .search-bar input:focus,
 .search-bar input:valid {
     width: 100%;
 }
+
 .search-bar input:focus,
-.search-bar input:not(:focus) + .search-btn:focus {
+.search-bar input:not(:focus)+.search-btn:focus {
     outline: transparent;
 }
+
 .search-bar {
     margin: auto 40px;
     width: 500px;
     justify-content: center;
     max-width: 30em;
 }
+
 .search-bar input {
     background: transparent;
     border-radius: 1.5em;
@@ -73,9 +85,11 @@ body {
     -moz-appearance: none;
     appearance: none;
 }
+
 .search-bar input::-webkit-search-decoration {
     -webkit-appearance: none;
 }
+
 .search-bar input:focus,
 .search-bar input:valid {
     background: #fff;
@@ -83,6 +97,7 @@ body {
     box-shadow: 0 0 0 0.1em #d9d9d9 inset;
     transform: scale(1);
 }
+
 .search-btn {
     background: #171717;
     border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0;
@@ -91,6 +106,7 @@ body {
     transform: translate(0.25em, 0.25em) rotate(45deg) scale(0.25, 0.125);
     transform-origin: 0 50%;
 }
+
 .search-btn:before,
 .search-btn:after {
     content: '';
@@ -98,6 +114,7 @@ body {
     opacity: 0;
     position: absolute;
 }
+
 .search-btn:before {
     border-radius: 50%;
     box-shadow: 0 0 0 0.2em #f1f1f1 inset;
@@ -106,6 +123,7 @@ body {
     width: 16px;
     height: 16px;
 }
+
 .search-btn:after {
     background: #f1f1f1;
     border-radius: 0 0.25em 0.25em 0;
@@ -116,6 +134,7 @@ body {
     transform: translate(0.2em, 0) rotate(45deg);
     transform-origin: 0 50%;
 }
+
 .search-btn span {
     display: inline-block;
     overflow: hidden;
@@ -124,44 +143,52 @@ body {
 }
 
 /* Active state */
-.search-bar input:focus + .search-btn,
-.search-bar input:valid + .search-btn {
+.search-bar input:focus+.search-btn,
+.search-bar input:valid+.search-btn {
     background: #a78bfa;
     border-radius: 0 0.375em 0.375em 0;
     transform: scale(1);
 }
-.search-bar input:focus + .search-btn:before,
-.search-bar input:focus + .search-btn:after,
-.search-bar input:valid + .search-btn:before,
-.search-bar input:valid + .search-btn:after {
+
+.search-bar input:focus+.search-btn:before,
+.search-bar input:focus+.search-btn:after,
+.search-bar input:valid+.search-btn:before,
+.search-bar input:valid+.search-btn:after {
     opacity: 1;
 }
-.search-bar input:focus + .search-btn:hover,
-.search-bar input:valid + .search-btn:hover,
-.search-bar input:valid:not(:focus) + .search-btn:focus {
+
+.search-bar input:focus+.search-btn:hover,
+.search-bar input:valid+.search-btn:hover,
+.search-bar input:valid:not(:focus)+.search-btn:focus {
     background: #a78bfa;
 }
-.search-bar input:focus + .search-btn:active,
-.search-bar input:valid + .search-btn:active {
+
+.search-bar input:focus+.search-btn:active,
+.search-bar input:valid+.search-btn:active {
     transform: translateY(1px);
 }
 
 @media screen and (prefers-color-scheme: dark) {
+
     body,
     input {
         color: #f1f1f1;
     }
+
     body {
         background: #171717;
     }
+
     .search-bar input {
         box-shadow: 0 0 0 0.4em #f1f1f1 inset;
     }
+
     .search-bar input:focus,
     .search-bar input:valid {
         background: #3d3d3d;
         box-shadow: 0 0 0 0.1em #3d3d3d inset;
     }
+
     .search-btn {
         background: #f1f1f1;
     }
@@ -197,6 +224,7 @@ body {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -206,21 +234,22 @@ body {
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
 }
 
-@media (max-width: 1000px) {
-    .search-bar {
-        width: 300px;
-    }
-}
-
 @media (max-width: 900px) {
     :host {
+        position: relative;
         left: auto;
         right: 0;
         width: fit-content;
+    }
+
+    .search-bar {
+        margin: 0;
+        width: 100px;
     }
 }

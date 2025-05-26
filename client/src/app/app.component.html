@@ -4,29 +4,31 @@
         class="left-panel"
         *ngIf="authService.isAuthenticated()"
     >
-        <p-button
-            icon="pi pi-arrow-left"
-            class="back-button"
-            (onClick)="goBack()"
-        ></p-button>
-        <p-sidebar [(visible)]="sidebarVisible">
-            <app-header (commandExecuted)="sidebarVisible = false"></app-header>
-        </p-sidebar>
-        <p-button
-            class="logo link"
-            (click)="home()"
-        >
-            HISCARIES
-        </p-button>
-        <div class="notification-wrapper">
+        <div class="navigation">
             <p-button
-                (onClick)="sidebarVisible = true"
-                icon="pi pi-arrow-right"
-            />
-            <span
-                class="notification-wrapper__circle"
-                *ngIf="unreadCount > 0"
-            ></span>
+                icon="pi pi-arrow-left"
+                class="back-button"
+                (onClick)="goBack()"
+            ></p-button>
+            <p-sidebar [(visible)]="sidebarVisible">
+                <app-header (commandExecuted)="sidebarVisible = false"></app-header>
+            </p-sidebar>
+            <p-button
+                class="logo link"
+                (click)="home()"
+            >
+                HISCARIES
+            </p-button>
+            <div class="notification-wrapper">
+                <p-button
+                    (onClick)="sidebarVisible = true"
+                    icon="pi pi-arrow-right"
+                />
+                <span
+                    class="notification-wrapper__circle"
+                    *ngIf="unreadCount > 0"
+                ></span>
+            </div>
         </div>
         <app-search-bar></app-search-bar>
     </div>

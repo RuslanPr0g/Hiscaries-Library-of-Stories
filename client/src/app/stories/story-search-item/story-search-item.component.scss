@@ -21,6 +21,7 @@ $border-color: #444;
     user-select: none;
     cursor: pointer !important;
     max-height: 350px;
+    min-width: 250px;
 
     &:hover {
         transform: scale(1.01);
@@ -85,7 +86,7 @@ $border-color: #444;
         width: 40%;
         justify-content: space-around;
         align-items: center;
-        font-size: 0.85rem;
+        font-size: 0.55rem;
         color: lighten($text-color, 30%);
 
         &__item {
@@ -151,6 +152,7 @@ $border-color: #444;
 }
 
 @media (max-width: 1500px) {
+
     :host,
     .story-card {
         flex: 1 1 calc(33.33% - 32px); // 3 cards per row
@@ -158,6 +160,7 @@ $border-color: #444;
 }
 
 @media (max-width: 1200px) {
+
     :host,
     .story-card {
         flex: 1 1 calc(50% - 32px); // 2 cards per row
@@ -165,6 +168,7 @@ $border-color: #444;
 }
 
 @media (max-width: 900px) {
+
     :host,
     .story-card {
         flex: 1 1 100%; // 1 card per row
