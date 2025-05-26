@@ -6,30 +6,32 @@
             class="story-image"
         />
 
+        <div class="story-gradient-overlay"></div>
+
+        <div class="story-details-overlay">
+            <div class="story-overview">
+                <h3 class="story-title">{{ story.Title | slice: 0 : 80 }}{{ story.Title.length > 80 ? '...' : '' }}</h3>
+            </div>
+            <div class="story-info">
+                <div class="story-info__item-age"><i class="fas fa-calendar-alt"></i> {{ story.AgeLimit }}+</div>
+            </div>
+        </div>
+
         <app-progress-bar [percentage]="story.PercentageRead"></app-progress-bar>
     </div>
-    <div class="story-details">
-        <div class="story-overview">
-            <h3 class="story-title">{{ story.Title | slice: 0 : 30 }}{{ story.Title.length > 30 ? '...' : '' }}</h3>
-            <p class="story-description">{{ story.Description | slice: 0 : 30 }}...</p>
-        </div>
-        <div class="story-info">
-            <div class="story-info__item-age"><i class="fas fa-calendar-alt"></i> {{ story.AgeLimit }}+</div>
-        </div>
-    </div>
+
     <div
         class="story-hover-details"
         (click)="previewStory(story)"
         (keydown)="previewStory(story)"
         tabindex="0"
     >
-        <h3 class="story-title">{{ story.Title | slice: 0 : 100 }}{{ story.Title.length > 100 ? '...' : '' }}</h3>
-        <p class="full-description">
-            {{ story.Description | slice: 0 : 100 }}{{ story.Description.length > 100 ? '...' : '' }}
-        </p>
         <h3 class="story-author">
             By
             <span>{{ story.AuthorName | slice: 0 : 100 }}{{ (story.AuthorName?.length ?? 0 > 100) ? '...' : '' }}</span>
         </h3>
+        <p class="full-description">
+            {{ story.Description | slice: 0 : 100 }}{{ story.Description.length > 100 ? '...' : '' }}
+        </p>
     </div>
 </div>

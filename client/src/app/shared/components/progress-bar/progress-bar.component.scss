@@ -8,6 +8,7 @@ $hover-box-shadow: #a78bfa;
     background-color: $text-color;
     overflow: hidden;
     bottom: 0;
+    z-index: 999;
 }
 
 .progress-bar-fill {

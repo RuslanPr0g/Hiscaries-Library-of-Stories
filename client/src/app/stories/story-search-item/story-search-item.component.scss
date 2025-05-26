@@ -21,7 +21,7 @@ $border-color: #444;
     user-select: none;
     cursor: pointer !important;
     max-height: 350px;
-    min-width: 250px;
+    min-width: 280px;
 
     &:hover {
         transform: scale(1.01);
@@ -54,77 +54,62 @@ $border-color: #444;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 0;
 }
 
-.story-details {
-    display: flex;
+.story-gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    z-index: 1;
+}
+
+.story-details-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 16px;
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 2;
+    color: $text-color;
+    flex-direction: column-reverse;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 
     .story-title {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         margin: 0;
         color: $text-color;
         line-height: 1.4;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     .story-description {
-        font-size: 0.9rem;
-        margin: 8px 0;
+        font-size: 0.7rem;
+        margin: 8px 0 0;
         color: lighten($text-color, 20%);
-    }
-
-    .story-overview {
-        width: 90%;
-    }
-
-    .story-info {
-        display: flex;
-        width: 10%;
-        justify-content: space-around;
-        align-items: center;
-        font-size: 0.55rem;
-        color: lighten($text-color, 30%);
-
-        &__item {
-            display: flex;
-            align-items: center;
-
-            i {
-                margin-right: 6px;
-                color: lighten($text-color, 40%);
-            }
-        }
-
-        &__item-age {
-            display: flex;
-            align-items: center;
-            font-size: 1rem;
-            color: #a78bfa;
-            font-weight: 600;
-
-            i {
-                color: $accent-color;
-            }
-        }
     }
 }
 
 .story-hover-details {
     position: absolute;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     padding: 16px;
-    background-color: rgba(0, 0, 0, 0.8); // Dark overlay
+    padding-bottom: 48px;
+    background-color: rgba(0, 0, 0, 0.7);
     color: $text-color;
     opacity: 0;
     visibility: hidden;
@@ -132,14 +117,10 @@ $border-color: #444;
         opacity 0.3s ease,
         visibility 0.3s ease;
 
-    .story-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-    }
-
     .story-author {
-        font-size: 0.8rem;
+        font-size: 0.6rem;
         font-weight: 400;
+        margin: 4px auto;
 
         & span {
             color: $hover-box-shadow;
@@ -147,7 +128,14 @@ $border-color: #444;
     }
 
     .full-description {
-        font-size: 1rem;
+        font-size: 0.6rem;
+        margin: 4px auto;
+    }
+}
+
+.story-info {
+    &__item-age {
+        font-size: 0.5rem;
     }
 }
 
