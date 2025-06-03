@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Bash script to add user secrets to HC.AppHost.csproj
-
 set -e  # Exit on any error
 
 # Update and restore workloads
