@@ -59,6 +59,8 @@ dotnet restore
 
 dotnet build
 
+newgrp docker # optional
+
 dotnet run --project ./HC.AppHost/HC.AppHost.csproj
 ```
 
