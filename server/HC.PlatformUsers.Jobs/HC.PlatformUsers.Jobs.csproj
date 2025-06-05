@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
+    <ProjectReference Include="..\Enterprise.Jobs\Enterprise.Jobs.csproj" />
     <ProjectReference Include="..\HC.Media.IntegrationEvents\HC.Media.IntegrationEvents.csproj" />
     <ProjectReference Include="..\HC.PlatformUsers.IntegrationEvents\HC.PlatformUsers.IntegrationEvents.csproj" />
     <ProjectReference Include="..\HC.PlatformUsers.Persistence.Context\HC.PlatformUsers.Persistence.Context.csproj" />

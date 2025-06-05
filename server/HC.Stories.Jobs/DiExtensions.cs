@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Quartz;
+using Enterprise.Jobs;
 
 namespace HC.Stories.Jobs;
 
@@ -7,28 +7,21 @@ public static class DiExtensions
 {
     public static IServiceCollection AddJobs(this IServiceCollection serviceDescriptors)
     {
-        serviceDescriptors.AddQuartz(conf =>
-        {
-            var outboxKey = new JobKey(nameof(ProcessOutboxMessagesJob));
-            var clearanceKey = new JobKey(nameof(CleanOutboxJob));
-
-            // TODO: use configuration from CI/CD
-
-            conf.AddJob<ProcessOutboxMessagesJob>(outboxKey).AddTrigger(trigger =>
+        return serviceDescriptors.AddEnterpriseJobs([
+            new JobConfiguration
             {
-                trigger.ForJob(outboxKey).WithSimpleSchedule(schedule =>
-                    schedule.WithIntervalInSeconds(5).RepeatForever());
-            });
-
-            conf.AddJob<CleanOutboxJob>(clearanceKey).AddTrigger(trigger =>
+                Key = nameof(ProcessOutboxMessagesJob),
+                Type = typeof(ProcessOutboxMessagesJob),
+                RepeatInterval = 5,
+                RepeatForever = true
+            },
+            new JobConfiguration
             {
-                trigger.ForJob(clearanceKey).WithSimpleSchedule(schedule =>
-                    schedule.WithIntervalInSeconds(900).RepeatForever());
-            });
-        });
-
-        serviceDescriptors.AddQuartzHostedService();
-
-        return serviceDescriptors;
+                Key = nameof(CleanOutboxJob),
+                Type = typeof(CleanOutboxJob),
+                RepeatInterval = 900,
+                RepeatForever = true
+            }
+        ]);
     }
 }
