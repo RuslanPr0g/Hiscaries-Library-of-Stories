@@ -5,22 +5,21 @@ namespace Enterprise.Images.Uploaders;
 
 public sealed class ImageUploader(
     IImageCompressor imageCompressor,
-    IFileStorageService fileStorageService) : IImageUploader
+    IBlobStorageService blobStorageService) : IImageUploader
 {
     private readonly IImageCompressor _imageCompressor = imageCompressor;
-    private readonly IFileStorageService _fileStorageService = fileStorageService;
+    private readonly IBlobStorageService _blobStorageService = blobStorageService;
 
     public async Task<string> UploadImageAsync(
         Guid fileId,
-        string folderPath,
         byte[] imageAsBytes,
         string extension = "jpg",
-        CompressionSettings? compressionSettings = null)
+        CompressionSettings? compressionSettings = null,
+        CancellationToken cancellationToken = default)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(folderPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(extension);
 
-        if (imageAsBytes.Length == 0)
+        if (imageAsBytes is null || imageAsBytes.Length <= 0)
         {
             throw new ArgumentException($"{nameof(imageAsBytes)} argument cannot be empty.");
         }
@@ -29,11 +28,11 @@ public sealed class ImageUploader(
         byte[] compressedImage = await _imageCompressor.CompressAsync(imageAsBytes, settings);
 
         var fileName = $"{fileId}.{extension.TrimStart('.')}";
-        var imageStoragePath = Path.Combine("images", folderPath);
 
-        return await _fileStorageService.SaveFileAsync(
+        return await _blobStorageService.UploadAsync(
+            "images",
             fileName,
-            imageStoragePath,
-            compressedImage);
+            compressedImage,
+            cancellationToken: cancellationToken);
     }
 }

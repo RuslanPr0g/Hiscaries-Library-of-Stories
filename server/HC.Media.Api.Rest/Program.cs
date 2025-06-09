@@ -16,6 +16,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddEventHandlers(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
+builder.AddAzureBlobClient("azblobs", config => config.DisableHealthChecks = true);
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();

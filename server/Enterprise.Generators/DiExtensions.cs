@@ -10,7 +10,6 @@ public static class DIExtensions
         services.AddSingleton<IIdGenerator, IdGenerator>();
 
         services.AddHttpContextAccessor();
-        services.AddScoped<IResourceUrlGeneratorService, ResourceUrlGeneratorService>();
 
         return services;
     }
