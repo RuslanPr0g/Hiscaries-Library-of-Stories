@@ -26,7 +26,7 @@ var azBlobs = builder.AddAzureStorage("azstorage")
                 .WithDataVolume()
     // .WithLifetime(ContainerLifetime.Persistent) // AVAILABLE SINCE .NET9 {SAD emoji}
     // .WaitFor // same fuck
-    // we need to move to .net9 but for that MassTransit has to be copied locally to work properly
+    // we need to move to .net9 but for that MassTransit has to be copied locally and migrated to .net 9 to work properly
     )
     .AddBlobs("azblobs");
 
