@@ -1,29 +1,20 @@
 ﻿using Enterprise.Domain.EventPublishers;
-using Enterprise.Domain.Generators;
 using Enterprise.Domain.Images;
 using Enterprise.EventHandlers;
-using HC.Media.Domain;
 using HC.Media.IntegrationEvents.Incoming;
 using HC.Media.IntegrationEvents.Outgoing;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace HC.Media.EventHandlers.IntegrationEvents;
 
 public sealed class ImageUploadRequestedIntegrationEventHandler(
     IEventPublisher publisher,
     IImageUploader imageUploader,
-    IResourceUrlGeneratorService urlGeneratorService,
-    IOptions<ResourceSettings> options,
-    ResourceSettings settings,
     ILogger<ImageUploadRequestedIntegrationEventHandler> logger)
         : BaseEventHandler<ImageUploadRequestedIntegrationEvent>(logger)
 {
-    private readonly string _baseUrl = options.Value.BaseUrl ?? settings.BaseUrl;
-
     private readonly IImageUploader _imageUploader = imageUploader;
-    private readonly IResourceUrlGeneratorService _urlGeneratorService = urlGeneratorService;
     private readonly IEventPublisher _publisher = publisher;
 
     protected override async Task HandleEventAsync(
@@ -32,9 +23,8 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
     {
         var file = integrationEvent.Content;
         var requesterId = integrationEvent.RequesterId;
-        var type = integrationEvent.Type;
 
-        var fileUrl = await UploadAvatarAndGetUrlAsync(requesterId, file, type);
+        var fileUrl = await UploadFileAndGetUrlAsync(requesterId, file, context.CancellationToken);
 
         try
         {
@@ -64,17 +54,20 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
         throw new NotImplementedException();
     }
 
-    private async Task<string?> UploadAvatarAndGetUrlAsync(
+    private async Task<string?> UploadFileAndGetUrlAsync(
         Guid fileId,
         byte[] imagePreview,
-        string type)
+        CancellationToken cancellationToken = default)
     {
-        if (imagePreview is null || imagePreview.Length <= 0 || string.IsNullOrWhiteSpace(_baseUrl))
+        if (imagePreview is null || imagePreview.Length <= 0)
         {
             return null;
         }
 
-        string fileName = await _imageUploader.UploadImageAsync(fileId, type, imagePreview);
-        return _urlGeneratorService.GenerateImageUrlByFileName(_baseUrl, type, fileName);
+        return await _imageUploader.UploadImageAsync(
+            fileId,
+            imagePreview,
+            cancellationToken: cancellationToken
+        );
     }
 }

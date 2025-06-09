@@ -8,7 +8,7 @@ public static class DIExtensions
     public static IServiceCollection AddMediaFileStorage(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
-        services.AddSingleton<IFileStorageService, LocalFileStorageService>();
+        services.AddSingleton<IBlobStorageService, BlobStorageService>();
         return services;
     }
 }
