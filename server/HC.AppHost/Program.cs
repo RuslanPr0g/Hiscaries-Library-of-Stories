@@ -23,7 +23,8 @@ var azBlobs = builder.AddAzureStorage("azstorage")
                 "0.0.0.0",
                 "--debug",
                 "path/debug.log")
-                .WithDataVolume("hiscaryazurestorage")
+                .WithDataVolume()
+    // .WithLifetime(ContainerLifetime.Persistent) // AVAILABLE SINCE .NET9 {SAD emoji}
     )
     .AddBlobs("azblobs");
 
