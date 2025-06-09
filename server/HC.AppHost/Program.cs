@@ -25,6 +25,7 @@ var azBlobs = builder.AddAzureStorage("azstorage")
                 "path/debug.log")
                 .WithDataVolume()
     // .WithLifetime(ContainerLifetime.Persistent) // AVAILABLE SINCE .NET9 {SAD emoji}
+    // .WaitFor // same fuck
     )
     .AddBlobs("azblobs");
 
