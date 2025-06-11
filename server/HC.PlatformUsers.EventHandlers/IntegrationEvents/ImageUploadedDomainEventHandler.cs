@@ -1,21 +1,19 @@
-﻿using Enterprise.EventHandlers;
-using HC.Media.IntegrationEvents.Outgoing;
+﻿using HC.Media.IntegrationEvents.Outgoing;
 using HC.PlatformUsers.Domain.DataAccess;
-using MassTransit;
 using Microsoft.Extensions.Logging;
+using Wolverine;
 
 namespace HC.PlatformUsers.EventHandlers.IntegrationEvents;
 
 public sealed class ImageUploadedIntegrationEventHandler(
     IPlatformUserWriteRepository repository,
     ILogger<ImageUploadedIntegrationEventHandler> logger)
-        : BaseEventHandler<ImageUploadedIntegrationEvent>(logger)
+        : IEventHandler<ImageUploadedIntegrationEvent>
 {
     private readonly IPlatformUserWriteRepository _platformUserRepository = repository;
 
-    protected override async Task HandleEventAsync(
-        ImageUploadedIntegrationEvent integrationEvent,
-        ConsumeContext<ImageUploadedIntegrationEvent> context)
+    public async Task Handle(
+        ImageUploadedIntegrationEvent integrationEvent, IMessageContext context)
     {
         var imageUrl = integrationEvent.ImageUrl;
         var libraryId = integrationEvent.RequesterId;

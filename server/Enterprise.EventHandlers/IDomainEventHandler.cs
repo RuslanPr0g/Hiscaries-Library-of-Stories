@@ -1,9 +1,9 @@
-﻿using MassTransit;
+﻿using Enterprise.Domain;
 
 namespace Enterprise.EventHandlers;
 
 public interface IDomainEventHandler<TMessage> :
-    IConsumer<TMessage>
-    where TMessage : class
+    IEventHandler<TMessage>
+    where TMessage : IBaseEvent
 {
 }

@@ -2,5 +2,5 @@
 
 public interface IEventPublisher
 {
-    Task Publish<T>(T @event) where T : IBaseEvent;
+    ValueTask Publish<T>(T @event) where T : IBaseEvent;
 }

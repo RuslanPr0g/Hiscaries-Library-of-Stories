@@ -23,7 +23,7 @@ builder.Services.AddStoriesPersistenceReadLayer();
 builder.Services.AddStoriesApplicationWriteLayer();
 builder.Services.AddStoriesApplicationReadLayer();
 builder.Services.AddJobs();
-builder.Services.AddEventHandlers(builder.Configuration);
+builder.AddEventHandlers(builder.Configuration);
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 

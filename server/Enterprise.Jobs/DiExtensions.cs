@@ -5,11 +5,11 @@ namespace Enterprise.Jobs;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEnterpriseJobs(
-        this IServiceCollection serviceDescriptors,
+    public static IServiceCollection AddCommonJobs(
+        this IServiceCollection services,
         IEnumerable<JobConfiguration> jobConfigurations)
     {
-        serviceDescriptors.AddQuartz(conf =>
+        services.AddQuartz(conf =>
         {
             foreach (var job in jobConfigurations)
             {
@@ -35,8 +35,8 @@ public static class DiExtensions
             }
         });
 
-        serviceDescriptors.AddQuartzHostedService();
+        services.AddQuartzHostedService();
 
-        return serviceDescriptors;
+        return services;
     }
 }

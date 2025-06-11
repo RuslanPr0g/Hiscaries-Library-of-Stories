@@ -13,7 +13,7 @@ builder.Services.AddEnterprise(builder.Configuration);
 builder.Services.AddMediaFileStorage();
 builder.Services.AddMediaImages();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddEventHandlers(builder.Configuration);
+builder.AddEventHandlers(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
 builder.AddAzureBlobClient("azblobs", config => config.DisableHealthChecks = true);

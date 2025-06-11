@@ -3,8 +3,8 @@ using Enterprise.EventHandlers;
 using HC.Notifications.Domain;
 using HC.Notifications.Domain.DataAccess;
 using HC.PlatformUsers.IntegrationEvents.Outgoing;
-using MassTransit;
 using Microsoft.Extensions.Logging;
+using Wolverine;
 
 namespace HC.Notifications.EventHandlers.IntegrationEvents;
 
@@ -12,14 +12,13 @@ public sealed class UserPublishedStoryIntegrationEventHandler(
     INotificationWriteRepository repository,
     IIdGenerator idGenerator,
     ILogger<UserPublishedStoryIntegrationEventHandler> logger)
-        : BaseEventHandler<UserPublishedStoryIntegrationEvent>(logger)
+        : IEventHandler<UserPublishedStoryIntegrationEvent>
 {
     private readonly INotificationWriteRepository _repository = repository;
     private readonly IIdGenerator _idGenerator = idGenerator;
 
-    protected override async Task HandleEventAsync(
-        UserPublishedStoryIntegrationEvent integrationEvent,
-        ConsumeContext<UserPublishedStoryIntegrationEvent> context)
+    public async Task Handle(
+        UserPublishedStoryIntegrationEvent integrationEvent, IMessageContext context)
     {
         var userIds = integrationEvent.SubscriberIds;
 
