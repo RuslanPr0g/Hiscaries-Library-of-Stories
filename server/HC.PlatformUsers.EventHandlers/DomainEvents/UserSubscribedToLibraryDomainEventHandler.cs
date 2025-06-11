@@ -1,21 +1,20 @@
 ﻿using Enterprise.EventHandlers;
 using HC.PlatformUsers.Domain.DataAccess;
 using HC.PlatformUsers.DomainEvents;
-using MassTransit;
 using Microsoft.Extensions.Logging;
+using Wolverine;
 
 namespace HC.PlatformUsers.EventHandlers.DomainEvents;
 
 public sealed class UserSubscribedToLibraryDomainEventHandler(
     IPlatformUserWriteRepository repository,
     ILogger<UserSubscribedToLibraryDomainEventHandler> logger)
-        : BaseEventHandler<UserSubscribedToLibraryDomainEvent>(logger)
+        : IEventHandler<UserSubscribedToLibraryDomainEvent>
 {
     private readonly IPlatformUserWriteRepository _repository = repository;
 
-    protected override async Task HandleEventAsync(
-        UserSubscribedToLibraryDomainEvent domainEvent,
-        ConsumeContext<UserSubscribedToLibraryDomainEvent> context)
+    public async Task Handle(
+        UserSubscribedToLibraryDomainEvent domainEvent, IMessageContext context)
     {
         var user = await _repository.GetLibraryOwnerByLibraryId(domainEvent.LibraryId);
 

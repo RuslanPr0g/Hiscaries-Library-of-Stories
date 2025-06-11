@@ -1,21 +1,20 @@
 ﻿using Enterprise.EventHandlers;
 using HC.PlatformUsers.IntegrationEvents.Outgoing;
 using HC.UserAccounts.Domain.DataAccess;
-using MassTransit;
 using Microsoft.Extensions.Logging;
+using Wolverine;
 
 namespace HC.UserAccounts.EventHandlers.IntegrationEvents;
 
 public sealed class UserBecamePublisherIntegrationEventHandler(
     IUserAccountWriteRepository repository,
     ILogger<UserBecamePublisherIntegrationEventHandler> logger)
-        : BaseEventHandler<UserBecamePublisherIntegrationEvent>(logger)
+        : IEventHandler<UserBecamePublisherIntegrationEvent>
 {
     private readonly IUserAccountWriteRepository _repository = repository;
 
-    protected override async Task HandleEventAsync(
-        UserBecamePublisherIntegrationEvent domainEvent,
-        ConsumeContext<UserBecamePublisherIntegrationEvent> context)
+    public async Task Handle(
+        UserBecamePublisherIntegrationEvent domainEvent, IMessageContext context)
     {
         var user = await _repository.GetById(domainEvent.UserAccountId);
 

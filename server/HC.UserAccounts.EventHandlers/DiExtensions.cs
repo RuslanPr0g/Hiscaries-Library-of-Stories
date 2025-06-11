@@ -1,41 +1,25 @@
 ﻿using HC.PlatformUsers.IntegrationEvents.Outgoing;
 using HC.UserAccounts.EventHandlers.IntegrationEvents;
-using MassTransit;
+using Enterprise.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 
 namespace HC.UserAccounts.EventHandlers;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEventHandlers(
-        this IServiceCollection services,
+    public static void AddEventHandlers(
+        this IHostApplicationBuilder builder,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<UserBecamePublisherIntegrationEvent>, UserBecamePublisherIntegrationEventHandler>();
+        builder.Services.AddScoped<IEventHandler<UserBecamePublisherIntegrationEvent>, UserBecamePublisherIntegrationEventHandler>();
 
+        var asm = Assembly.GetExecutingAssembly();
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
+        ArgumentException.ThrowIfNullOrWhiteSpace(rabbitMqConnectionString);
 
-        services.AddMassTransit(_ =>
-        {
-            _.SetKebabCaseEndpointNameFormatter();
-            _.SetInMemorySagaRepositoryProvider();
-
-            var asm = Assembly.GetExecutingAssembly();
-
-            _.AddConsumers(asm);
-            _.AddSagaStateMachines(asm);
-            _.AddSagas(asm);
-            _.AddActivities(asm);
-
-            _.UsingRabbitMq((ctx, cfg) =>
-            {
-                cfg.Host(rabbitMqConnectionString);
-                cfg.ConfigureEndpoints(ctx);
-            });
-        });
-
-        return services;
+        builder.AddCommonEventHandlers([asm], rabbitMqConnectionString, "useraccount-events-queue");
     }
 }

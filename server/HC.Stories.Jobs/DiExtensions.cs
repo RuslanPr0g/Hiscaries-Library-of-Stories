@@ -5,9 +5,9 @@ namespace HC.Stories.Jobs;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddJobs(this IServiceCollection serviceDescriptors)
+    public static IServiceCollection AddJobs(this IServiceCollection services)
     {
-        return serviceDescriptors.AddEnterpriseJobs([
+        return services.AddCommonJobs([
             new JobConfiguration
             {
                 Key = nameof(ProcessOutboxMessagesJob),

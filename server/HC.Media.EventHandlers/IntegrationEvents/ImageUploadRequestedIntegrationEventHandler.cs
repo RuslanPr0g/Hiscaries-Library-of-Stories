@@ -1,10 +1,9 @@
 ﻿using Enterprise.Domain.EventPublishers;
 using Enterprise.Domain.Images;
-using Enterprise.EventHandlers;
 using HC.Media.IntegrationEvents.Incoming;
 using HC.Media.IntegrationEvents.Outgoing;
-using MassTransit;
 using Microsoft.Extensions.Logging;
+using Wolverine;
 
 namespace HC.Media.EventHandlers.IntegrationEvents;
 
@@ -12,19 +11,19 @@ public sealed class ImageUploadRequestedIntegrationEventHandler(
     IEventPublisher publisher,
     IImageUploader imageUploader,
     ILogger<ImageUploadRequestedIntegrationEventHandler> logger)
-        : BaseEventHandler<ImageUploadRequestedIntegrationEvent>(logger)
+    : IEventHandler<ImageUploadRequestedIntegrationEvent>
 {
     private readonly IImageUploader _imageUploader = imageUploader;
     private readonly IEventPublisher _publisher = publisher;
+    private readonly ILogger<ImageUploadRequestedIntegrationEventHandler> _logger = logger;
 
-    protected override async Task HandleEventAsync(
-        ImageUploadRequestedIntegrationEvent integrationEvent,
-        ConsumeContext<ImageUploadRequestedIntegrationEvent> context)
+    public async Task Handle(
+        ImageUploadRequestedIntegrationEvent integrationEvent, IMessageContext context)
     {
         var file = integrationEvent.Content;
         var requesterId = integrationEvent.RequesterId;
 
-        var fileUrl = await UploadFileAndGetUrlAsync(requesterId, file, context.CancellationToken);
+        var fileUrl = await UploadFileAndGetUrlAsync(requesterId, file);
 
         try
         {

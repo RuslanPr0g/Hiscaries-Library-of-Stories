@@ -5,7 +5,8 @@ var postgres = builder.AddPostgres("hiscary")
     .WithPgAdmin()
     .AddDatabase("postgres");
 var rabbitmq = builder.AddRabbitMQ("rabbitmq")
-    .WithDataVolume("hiscaryrabbitmqdata");
+    .WithDataVolume("hiscaryrabbitmqdata")
+    .WithManagementPlugin(38231);
 var azBlobs = builder.AddAzureStorage("azstorage")
     .RunAsEmulator(
         (config) =>

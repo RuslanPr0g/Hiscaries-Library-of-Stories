@@ -2,44 +2,28 @@
 using HC.PlatformUsers.EventHandlers.IntegrationEvents;
 using HC.Stories.IntegrationEvents.Outgoing;
 using HC.UserAccounts.IntegrationEvents.Outgoing;
-using MassTransit;
+using Enterprise.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 
 namespace HC.PlatformUsers.EventHandlers;
 
 public static class DiExtensions
 {
-    public static IServiceCollection AddEventHandlers(
-        this IServiceCollection services,
+    public static void AddEventHandlers(
+        this IHostApplicationBuilder builder,
         IConfiguration configuration)
     {
-        services.AddScoped<IConsumer<StoryPublishedIntegrationEvent>, StoryPublishedIntegrationEventHandler>();
-        services.AddScoped<IConsumer<UserAccountCreatedIntegrationEvent>, UserAccountCreatedIntegrationEventHandler>();
-        services.AddScoped<IConsumer<ImageUploadedIntegrationEvent>, ImageUploadedIntegrationEventHandler>();
+        builder.Services.AddScoped<IEventHandler<StoryPublishedIntegrationEvent>, StoryPublishedIntegrationEventHandler>();
+        builder.Services.AddScoped<IEventHandler<UserAccountCreatedIntegrationEvent>, UserAccountCreatedIntegrationEventHandler>();
+        builder.Services.AddScoped<IEventHandler<ImageUploadedIntegrationEvent>, ImageUploadedIntegrationEventHandler>();
 
+        var asm = Assembly.GetExecutingAssembly();
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
+        ArgumentException.ThrowIfNullOrWhiteSpace(rabbitMqConnectionString);
 
-        services.AddMassTransit(_ =>
-        {
-            _.SetKebabCaseEndpointNameFormatter();
-            _.SetInMemorySagaRepositoryProvider();
-
-            var asm = Assembly.GetExecutingAssembly();
-
-            _.AddConsumers(asm);
-            _.AddSagaStateMachines(asm);
-            _.AddSagas(asm);
-            _.AddActivities(asm);
-
-            _.UsingRabbitMq((ctx, cfg) =>
-            {
-                cfg.Host(rabbitMqConnectionString);
-                cfg.ConfigureEndpoints(ctx);
-            });
-        });
-
-        return services;
+        builder.AddCommonEventHandlers([asm], rabbitMqConnectionString, "platformuser-events-queue");
     }
 }
