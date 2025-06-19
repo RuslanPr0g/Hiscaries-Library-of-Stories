@@ -7,7 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MassTransit" Version="8.2.3" />
+		<PackageReference Include="WolverineFx" Version="4.2.0" />
+		<PackageReference Include="WolverineFx.RabbitMq" Version="4.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+    	<ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

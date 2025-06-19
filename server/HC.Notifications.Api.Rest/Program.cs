@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterprise(builder.Configuration);
+builder.Services.AddEnterpriseRestApi(builder.Configuration);
 
 builder.Services.AddNotificationsPersistenceContext(builder.Configuration);
 builder.Services.AddNotificationsPersistenceWriteLayer();
@@ -25,7 +25,7 @@ builder.Services.AddNotificationsPersistenceReadLayer();
 builder.Services.AddNotificationsApplicationWriteLayer();
 builder.Services.AddNotificationsApplicationReadLayer();
 builder.Services.AddJobs();
-builder.Services.AddEventHandlers(builder.Configuration);
+builder.AddEventHandlers(builder.Configuration);
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 builder.Services.AddNotificationsSignalR();

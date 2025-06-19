@@ -13,13 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterprise(builder.Configuration);
+builder.Services.AddEnterpriseRestApi(builder.Configuration);
 
 builder.Services.AddUserAccountsPersistenceContext(builder.Configuration);
 builder.Services.AddUserAccountsPersistenceWriteLayer();
 builder.Services.AddUserAccountsApplicationWriteLayer();
 builder.Services.AddJobs();
-builder.Services.AddEventHandlers(builder.Configuration);
+builder.AddEventHandlers(builder.Configuration);
 builder.Services.AddSerilog();
 builder.Services.AddLogging();
 

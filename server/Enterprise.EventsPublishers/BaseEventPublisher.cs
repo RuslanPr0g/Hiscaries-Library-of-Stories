@@ -1,20 +1,15 @@
 ﻿using Enterprise.Domain;
 using Enterprise.Domain.EventPublishers;
-using MassTransit;
+using Wolverine;
 
 namespace Enterprise.EventsPublishers;
 
-public class BaseEventPublisher(IPublishEndpoint publisher) : IEventPublisher
+public class BaseEventPublisher(IMessageBus bus) : IEventPublisher
 {
-    private readonly IPublishEndpoint _publisher = publisher;
+    private readonly IMessageBus _bus = bus;
 
-    public Task Publish<T>(T @event) where T : IBaseEvent
+    public ValueTask Publish<T>(T @event) where T : IBaseEvent
     {
-        if (@event.CorrelationId == Guid.Empty)
-        {
-            @event.CorrelationId = Guid.NewGuid();
-        }
-
-        return _publisher.Publish(@event);
+        return _bus.PublishAsync(@event);
     }
 }

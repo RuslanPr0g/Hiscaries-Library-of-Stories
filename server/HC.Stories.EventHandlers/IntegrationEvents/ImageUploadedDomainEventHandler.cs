@@ -3,8 +3,8 @@ using Enterprise.EventHandlers;
 using HC.Media.IntegrationEvents.Outgoing;
 using HC.Notifications.IntegrationEvents.Incoming;
 using HC.Stories.Domain.DataAccess;
-using MassTransit;
 using Microsoft.Extensions.Logging;
+using Wolverine;
 
 namespace HC.Stories.EventHandlers.IntegrationEvents;
 
@@ -12,14 +12,13 @@ public sealed class ImageUploadedIntegrationEventHandler(
     IEventPublisher publisher,
     IStoryWriteRepository repository,
     ILogger<ImageUploadedIntegrationEventHandler> logger)
-        : BaseEventHandler<ImageUploadedIntegrationEvent>(logger)
+        : IEventHandler<ImageUploadedIntegrationEvent>
 {
     private readonly IEventPublisher _publisher = publisher;
     private readonly IStoryWriteRepository _repository = repository;
 
-    protected override async Task HandleEventAsync(
-        ImageUploadedIntegrationEvent integrationEvent,
-        ConsumeContext<ImageUploadedIntegrationEvent> context)
+    public async Task Handle(
+        ImageUploadedIntegrationEvent integrationEvent, IMessageContext context)
     {
         var imageUrl = integrationEvent.ImageUrl;
         var storyId = integrationEvent.RequesterId;
