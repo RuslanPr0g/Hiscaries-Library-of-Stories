@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterprise(builder.Configuration);
+builder.Services.AddEnterpriseRestApi(builder.Configuration);
 
 builder.Services.AddStoriesPersistenceContext(builder.Configuration);
 builder.Services.AddStoriesPersistenceWriteLayer();
