@@ -18,7 +18,6 @@
       <ProjectReference Include="..\Enterprise.Application\Enterprise.Application.csproj" />
       <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
       <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
-      <ProjectReference Include="..\HC.Media.Domain\HC.Media.Domain.csproj" />
       <ProjectReference Include="..\HC.Media.IntegrationEvents\HC.Media.IntegrationEvents.csproj" />
     </ItemGroup>
 
