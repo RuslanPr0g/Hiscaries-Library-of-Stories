@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.DataAccess;
+﻿using StackNucleus.DDD.Domain.Repositories;
 using Hiscary.Stories.Domain.Genres;
 
 namespace Hiscary.Stories.Domain.DataAccess;

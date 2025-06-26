@@ -1,7 +1,7 @@
-﻿using StackNucleus.DDD.Domain.Options;
+﻿using Hiscary.Shared.Application.Extensions;
+using Hiscary.Shared.Domain.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Hiscary.Shared.Application.Extensions;
 
 namespace Hiscary.Shared.Application;
 

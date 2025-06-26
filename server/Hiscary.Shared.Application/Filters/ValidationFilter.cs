@@ -1,5 +1,5 @@
-﻿using StackNucleus.DDD.Domain.ResultModels.Message;
-using StackNucleus.DDD.Domain.ResultModels.Response;
+﻿using Hiscary.Shared.Domain.ResultModels.Message;
+using Hiscary.Shared.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

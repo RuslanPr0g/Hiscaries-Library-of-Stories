@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.ResultModels.Response;
+﻿using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.Notifications.Domain.Services;
 

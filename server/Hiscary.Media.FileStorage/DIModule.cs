@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.FileStorage;
+﻿using Hiscary.Shared.Domain.FileStorage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hiscary.Media.FileStorage;

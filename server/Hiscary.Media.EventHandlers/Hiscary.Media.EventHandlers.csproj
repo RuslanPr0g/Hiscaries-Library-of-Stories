@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Hiscary.Media.IntegrationEvents\Hiscary.Media.IntegrationEvents.csproj" />
+      <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
     </ItemGroup>
 
 </Project>

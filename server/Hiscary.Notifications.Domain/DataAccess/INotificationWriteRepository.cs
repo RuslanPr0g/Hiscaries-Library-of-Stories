@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.DataAccess;
+﻿using StackNucleus.DDD.Domain.Repositories;
 
 namespace Hiscary.Notifications.Domain.DataAccess;
 

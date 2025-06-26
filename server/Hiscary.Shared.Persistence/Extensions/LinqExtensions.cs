@@ -1,4 +1,7 @@
-﻿namespace Hiscary.Shared.Persistence.Extensions;
+﻿using System.Linq.Expressions;
+using System.Reflection;
+
+namespace Hiscary.Shared.Persistence.Extensions;
 
 public static class LinqExtensions
 {

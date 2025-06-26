@@ -1,4 +1,4 @@
-﻿using Hiscary.Events;
+﻿using StackNucleus.DDD.Domain.Events;
 
 namespace Hiscary.Stories.IntegrationEvents.Outgoing;
 

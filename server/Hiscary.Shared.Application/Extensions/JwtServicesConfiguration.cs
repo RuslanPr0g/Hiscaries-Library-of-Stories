@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.Options;
+﻿using Hiscary.Shared.Domain.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

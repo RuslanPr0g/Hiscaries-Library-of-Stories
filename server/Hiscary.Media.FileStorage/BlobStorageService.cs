@@ -1,6 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using StackNucleus.DDD.Domain.FileStorage;
+using Hiscary.Shared.Domain.FileStorage;
 
 namespace Hiscary.Media.FileStorage;
 

@@ -10,4 +10,8 @@
     <PackageReference Include="StackNucleus.DDD.Domain" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

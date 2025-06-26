@@ -1,4 +1,5 @@
-﻿using StackNucleus.DDD.Domain.ResultModels.Response;
+﻿using Hiscary.Shared.Domain.ResultModels.Response;
+using StackNucleus.DDD.Domain.ResultModels;
 
 public interface IStoryWriteService
 {

@@ -1,9 +1,9 @@
-﻿using StackNucleus.DDD.Domain;
-using StackNucleus.DDD.Domain.EventPublishers;
-using StackNucleus.DDD.Domain.Outbox;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
+using StackNucleus.DDD.Domain;
+using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Domain.Outbox;
 using System.Reflection;
 
 namespace Hiscary.Shared.Outbox;

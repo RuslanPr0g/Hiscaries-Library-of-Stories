@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.DataAccess;
+﻿using StackNucleus.DDD.Domain.Repositories;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 

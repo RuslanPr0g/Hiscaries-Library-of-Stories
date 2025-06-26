@@ -14,4 +14,10 @@
         <PackageReference Include="StackNucleus.DDD.Api.Rest" Version="1.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Hiscary.Shared.Application\Hiscary.Shared.Application.csproj" />
+        <ProjectReference Include="..\Hiscary.Shared.Images\Hiscary.Shared.Images.csproj" />
+        <ProjectReference Include="..\Hiscary.Shared.Jwt\Hiscary.Shared.Jwt.csproj" />
+    </ItemGroup>
+
 </Project>

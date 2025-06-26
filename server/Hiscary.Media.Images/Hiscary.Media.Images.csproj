@@ -10,4 +10,8 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

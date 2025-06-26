@@ -1,4 +1,6 @@
-﻿namespace Hiscary.PlatformUsers.Domain.Services;
+﻿using StackNucleus.DDD.Domain.ResultModels;
+
+namespace Hiscary.PlatformUsers.Domain.Services;
 
 public interface IPlatformUserWriteService
 {
