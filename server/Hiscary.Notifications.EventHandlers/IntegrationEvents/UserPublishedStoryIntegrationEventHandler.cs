@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.Generators;
-using Enterprise.EventHandlers;
+﻿using Hiscary.Domain.Generators;
+using Hiscary.EventHandlers;
 using Hiscary.Notifications.Domain;
 using Hiscary.Notifications.Domain.DataAccess;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;

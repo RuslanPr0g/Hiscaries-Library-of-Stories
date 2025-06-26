@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.DataAccess;
+﻿using Hiscary.Domain.DataAccess;
 using Hiscary.Notifications.Domain.ReadModels;
 
 namespace Hiscary.Notifications.Domain.DataAccess;

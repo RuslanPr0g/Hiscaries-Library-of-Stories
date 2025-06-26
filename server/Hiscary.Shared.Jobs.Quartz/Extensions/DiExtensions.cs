@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace Enterprise.Jobs.Extensions;
+namespace Hiscary.Jobs.Extensions;
 
 public static class DIExtensions
 {

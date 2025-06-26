@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 using Hiscary.Stories.Domain.Genres;
 
 namespace Hiscary.Stories.Domain.Stories;

@@ -1,7 +1,7 @@
-﻿using Enterprise.Domain.Constants;
-using Enterprise.Domain.EventPublishers;
-using Enterprise.Domain.Generators;
-using Enterprise.Domain.ResultModels.Response;
+﻿using Hiscary.Domain.Constants;
+using Hiscary.Domain.EventPublishers;
+using Hiscary.Domain.Generators;
+using Hiscary.Domain.ResultModels.Response;
 using Hiscary.Media.IntegrationEvents.Incoming;
 using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.Genres;

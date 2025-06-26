@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.EventPublishers;
-using Enterprise.Outbox;
+﻿using Hiscary.Domain.EventPublishers;
+using Hiscary.Outbox;
 using Hiscary.Media.IntegrationEvents;
 using Hiscary.PlatformUsers.DomainEvents;
 using Hiscary.PlatformUsers.IntegrationEvents;

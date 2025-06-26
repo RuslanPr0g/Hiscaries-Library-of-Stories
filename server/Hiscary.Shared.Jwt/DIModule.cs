@@ -1,11 +1,11 @@
-﻿using Enterprise.Domain.Jwt;
+﻿using Hiscary.Domain.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enterprise.Jwt;
+namespace Hiscary.Jwt;
 
 public static class DIModule
 {
-    public static IServiceCollection AddEnterpriseJwt(this IServiceCollection services)
+    public static IServiceCollection AddSharedJwt(this IServiceCollection services)
     {
         services.AddScoped<IJWTTokenHandler, JWTTokenHandler>();
         return services;

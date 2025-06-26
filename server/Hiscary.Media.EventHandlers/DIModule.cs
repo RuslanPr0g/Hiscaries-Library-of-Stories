@@ -3,7 +3,7 @@ using Hiscary.Media.IntegrationEvents.Incoming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Enterprise.EventHandlers;
+using Hiscary.EventHandlers;
 using Microsoft.Extensions.Hosting;
 
 namespace Hiscary.Media.EventHandlers;

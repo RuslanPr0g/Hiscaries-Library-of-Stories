@@ -1,5 +1,5 @@
-﻿using Enterprise.Api.Rest;
-using Enterprise.Domain.Extensions;
+﻿using Hiscary.Api.Rest;
+using Hiscary.Domain.Extensions;
 using Hiscary.Stories.Api.Rest.Requests.Comments;
 using Hiscary.Stories.Api.Rest.Requests.Stories;
 using Hiscary.Stories.Domain.ReadModels;

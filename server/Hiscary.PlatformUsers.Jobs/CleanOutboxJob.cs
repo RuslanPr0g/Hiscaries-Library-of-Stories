@@ -1,4 +1,4 @@
-﻿using Enterprise.Outbox;
+﻿using Hiscary.Outbox;
 using Hiscary.PlatformUsers.Persistence.Context;
 
 namespace Hiscary.PlatformUsers.Jobs;

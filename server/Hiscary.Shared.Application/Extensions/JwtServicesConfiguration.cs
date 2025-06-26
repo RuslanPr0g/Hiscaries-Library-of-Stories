@@ -1,11 +1,11 @@
-﻿using Enterprise.Domain.Options;
+﻿using Hiscary.Domain.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Enterprise.Application.Extensions;
+namespace Hiscary.Application.Extensions;
 
 public static class JwtServicesConfiguration
 {

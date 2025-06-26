@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain.Images;
+﻿namespace Hiscary.Domain.Images;
 
 public sealed class CompressionSettings
 {

@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 
 namespace Hiscary.UserAccounts.Domain;
 

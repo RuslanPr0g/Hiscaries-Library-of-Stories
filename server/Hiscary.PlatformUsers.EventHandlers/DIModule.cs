@@ -2,7 +2,7 @@
 using Hiscary.PlatformUsers.EventHandlers.IntegrationEvents;
 using Hiscary.Stories.IntegrationEvents.Outgoing;
 using Hiscary.UserAccounts.IntegrationEvents.Outgoing;
-using Enterprise.EventHandlers;
+using Hiscary.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

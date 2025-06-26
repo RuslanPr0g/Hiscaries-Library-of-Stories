@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hiscary.UserAccounts.Domain;

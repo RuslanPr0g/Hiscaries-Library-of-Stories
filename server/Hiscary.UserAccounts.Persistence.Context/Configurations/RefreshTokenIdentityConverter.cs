@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context.Configurations;
+﻿using Hiscary.Persistence.Context.Configurations;
 
 namespace Hiscary.UserAccounts.Persistence.Context.Configurations;
 

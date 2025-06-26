@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Extensions;
+﻿using Hiscary.Persistence.Extensions;
 using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;

@@ -1,4 +1,4 @@
-﻿using Enterprise.EventHandlers;
+﻿using Hiscary.EventHandlers;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.DomainEvents;
 using Microsoft.Extensions.Logging;

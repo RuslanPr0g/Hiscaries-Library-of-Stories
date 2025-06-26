@@ -1,7 +1,7 @@
-﻿using Enterprise.Domain.Options;
+﻿using Hiscary.Domain.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Enterprise.Domain.Jwt;
+namespace Hiscary.Domain.Jwt;
 
 public interface IJWTTokenHandler
 {

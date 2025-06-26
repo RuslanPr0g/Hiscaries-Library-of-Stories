@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Hiscary.Persistence.Context;
 using Hiscary.PlatformUsers.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

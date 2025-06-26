@@ -1,5 +1,5 @@
-using Enterprise.Api.Rest;
-using Enterprise.Application.Filters;
+using Hiscary.Api.Rest;
+using Hiscary.Application.Filters;
 using Hiscary.ServiceDefaults;
 using Hiscary.Stories.Api.Rest.Endpoints;
 using Hiscary.Stories.Application.Read;

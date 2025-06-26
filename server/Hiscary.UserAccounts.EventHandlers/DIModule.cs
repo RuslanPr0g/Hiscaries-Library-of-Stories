@@ -1,6 +1,6 @@
 ﻿using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;
 using Hiscary.UserAccounts.EventHandlers.IntegrationEvents;
-using Enterprise.EventHandlers;
+using Hiscary.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Hiscary.Persistence.Context;
 using Hiscary.Notifications.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

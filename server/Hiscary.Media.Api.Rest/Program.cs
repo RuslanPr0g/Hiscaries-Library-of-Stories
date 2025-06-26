@@ -1,4 +1,4 @@
-using Enterprise.Api.Rest;
+using Hiscary.Api.Rest;
 using Hiscary.Media.EventHandlers;
 using Hiscary.Media.FileStorage;
 using Hiscary.Media.Images;

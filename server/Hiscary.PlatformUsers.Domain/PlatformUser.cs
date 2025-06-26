@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 using Hiscary.PlatformUsers.DomainEvents;
 
 namespace Hiscary.PlatformUsers.Domain;

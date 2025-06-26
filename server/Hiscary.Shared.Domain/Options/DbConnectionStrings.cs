@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain.Options;
+﻿namespace Hiscary.Domain.Options;
 
 public class DbConnectionStrings
 {

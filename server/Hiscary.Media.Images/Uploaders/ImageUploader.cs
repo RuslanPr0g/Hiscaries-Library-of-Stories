@@ -1,7 +1,7 @@
-﻿using Enterprise.Domain.FileStorage;
-using Enterprise.Domain.Images;
+﻿using Hiscary.Domain.FileStorage;
+using Hiscary.Domain.Images;
 
-namespace Enterprise.Images.Uploaders;
+namespace Hiscary.Images.Uploaders;
 
 public sealed class ImageUploader(
     IImageCompressor imageCompressor,

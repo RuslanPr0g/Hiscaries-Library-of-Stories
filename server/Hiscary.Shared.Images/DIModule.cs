@@ -1,12 +1,12 @@
-﻿using Enterprise.Domain.Images;
-using Enterprise.Images.Compressors;
+﻿using Hiscary.Domain.Images;
+using Hiscary.Images.Compressors;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enterprise.Images;
+namespace Hiscary.Images;
 
 public static class DIModule
 {
-    public static IServiceCollection AddEnterpriseImages(this IServiceCollection services)
+    public static IServiceCollection AddSharedImages(this IServiceCollection services)
     {
         services.AddScoped<IImageCompressor, DefaultImageCompressor>();
         return services;

@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.EventPublishers;
-using Enterprise.Outbox;
+﻿using Hiscary.Domain.EventPublishers;
+using Hiscary.Outbox;
 using Hiscary.UserAccounts.IntegrationEvents;
 using Hiscary.UserAccounts.Persistence.Context;
 using System.Reflection;

@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.DataAccess;
+﻿using Hiscary.Domain.DataAccess;
 using Hiscary.Stories.Domain.Genres;
 
 namespace Hiscary.Stories.Domain.DataAccess;

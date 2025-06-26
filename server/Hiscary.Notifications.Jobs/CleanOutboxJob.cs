@@ -1,4 +1,4 @@
-﻿using Enterprise.Outbox;
+﻿using Hiscary.Outbox;
 using Hiscary.Notifications.Persistence.Context;
 
 namespace Hiscary.Notifications.Jobs;

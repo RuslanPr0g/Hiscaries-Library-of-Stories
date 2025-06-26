@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Hiscary.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hiscary.UserAccounts.Persistence.Context;

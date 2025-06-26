@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context.Extensions;
+﻿using Hiscary.Persistence.Context.Extensions;
 using Hiscary.Stories.Persistence.Context.Seeds;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

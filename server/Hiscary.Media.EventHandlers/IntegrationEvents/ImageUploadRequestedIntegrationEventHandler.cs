@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.EventPublishers;
-using Enterprise.Domain.Images;
+﻿using Hiscary.Domain.EventPublishers;
+using Hiscary.Domain.Images;
 using Hiscary.Media.IntegrationEvents.Incoming;
 using Hiscary.Media.IntegrationEvents.Outgoing;
 using Microsoft.Extensions.Logging;

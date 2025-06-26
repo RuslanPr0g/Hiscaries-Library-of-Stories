@@ -1,9 +1,9 @@
-﻿using Enterprise.Domain.Images;
+﻿using Hiscary.Domain.Images;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
 
-namespace Enterprise.Images.Compressors;
+namespace Hiscary.Images.Compressors;
 
 public sealed class DefaultImageCompressor : IImageCompressor
 {

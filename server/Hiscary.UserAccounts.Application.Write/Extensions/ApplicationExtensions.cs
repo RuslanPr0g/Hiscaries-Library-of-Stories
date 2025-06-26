@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.Jwt;
+﻿using Hiscary.Domain.Jwt;
 using Hiscary.UserAccounts.Domain;
 
 namespace Hiscary.UserAccounts.Application.Write.Extensions;

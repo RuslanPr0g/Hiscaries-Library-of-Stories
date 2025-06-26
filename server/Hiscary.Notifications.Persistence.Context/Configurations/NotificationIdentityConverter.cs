@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context.Configurations;
+﻿using Hiscary.Persistence.Context.Configurations;
 using Hiscary.Notifications.Domain;
 
 namespace Hiscary.Notifications.Persistence.Context.Configurations;

@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 
 public sealed record RefreshTokenId(Guid Value) : Identity(Value)
 {

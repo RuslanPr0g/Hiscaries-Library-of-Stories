@@ -26,7 +26,7 @@ namespace Hiscary.UserAccounts.Persistence.Context.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Enterprise.Domain.Outbox.OutboxMessage", b =>
+            modelBuilder.Entity("Hiscary.Domain.Outbox.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

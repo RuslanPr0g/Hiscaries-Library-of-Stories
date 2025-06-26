@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.ResultModels.Response;
+﻿using Hiscary.Domain.ResultModels.Response;
 
 namespace Hiscary.UserAccounts.Domain.Services;
 

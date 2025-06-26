@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context;
+﻿using Hiscary.Persistence.Context;
 using Hiscary.Stories.Domain.Genres;
 using Hiscary.Stories.Domain.Stories;
 using Microsoft.EntityFrameworkCore;

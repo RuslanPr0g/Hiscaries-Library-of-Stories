@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.EventPublishers;
-using Enterprise.Outbox;
+﻿using Hiscary.Domain.EventPublishers;
+using Hiscary.Outbox;
 using Hiscary.Notifications.DomainEvents;
 using Hiscary.Notifications.IntegrationEvents;
 using Hiscary.Notifications.Persistence.Context;

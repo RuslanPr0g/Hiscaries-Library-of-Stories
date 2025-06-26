@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context.Configurations;
+﻿using Hiscary.Persistence.Context.Configurations;
 using Hiscary.Stories.Domain.Stories;
 
 namespace Hiscary.Stories.Persistence.Context.Configurations;

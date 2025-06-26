@@ -1,6 +1,6 @@
 ﻿using Hiscary.Media.IntegrationEvents.Outgoing;
 using Hiscary.Stories.EventHandlers.IntegrationEvents;
-using Enterprise.EventHandlers;
+using Hiscary.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.Extensions;
+﻿using Hiscary.Domain.Extensions;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.Domain.ProcessModels;
 using Hiscary.PlatformUsers.Domain.ReadModels;

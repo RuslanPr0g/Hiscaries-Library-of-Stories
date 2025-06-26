@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 using Hiscary.Notifications.DomainEvents;
 
 namespace Hiscary.Notifications.Domain;

@@ -1,13 +1,13 @@
-﻿using Enterprise.Application.Extensions;
-using Enterprise.Domain.Options;
+﻿using Hiscary.Application.Extensions;
+using Hiscary.Domain.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enterprise.Application;
+namespace Hiscary.Application;
 
 public static class DIModule
 {
-    public static IServiceCollection AddEnterpriseApplicationServices(
+    public static IServiceCollection AddSharedApplicationServices(
         this IServiceCollection services,
         IConfiguration configuration)
     {

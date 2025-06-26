@@ -1,6 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Enterprise.Domain.FileStorage;
+using Hiscary.Domain.FileStorage;
 
 namespace Hiscary.Media.FileStorage;
 

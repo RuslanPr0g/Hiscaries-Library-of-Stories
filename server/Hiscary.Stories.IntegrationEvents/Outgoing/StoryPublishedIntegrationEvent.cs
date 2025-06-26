@@ -1,4 +1,4 @@
-﻿using Enterprise.Events;
+﻿using Hiscary.Events;
 
 namespace Hiscary.Stories.IntegrationEvents.Outgoing;
 

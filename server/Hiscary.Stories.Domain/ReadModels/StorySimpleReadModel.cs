@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.ReadModels;
+﻿using Hiscary.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 
 namespace Hiscary.Stories.Domain.ReadModels;

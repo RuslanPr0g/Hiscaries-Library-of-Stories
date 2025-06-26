@@ -1,4 +1,4 @@
-﻿using Enterprise.Persistence.Context.Extensions;
+﻿using Hiscary.Persistence.Context.Extensions;
 using Hiscary.PlatformUsers.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

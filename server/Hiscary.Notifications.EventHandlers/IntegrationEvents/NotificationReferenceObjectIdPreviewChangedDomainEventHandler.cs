@@ -1,4 +1,4 @@
-﻿using Enterprise.EventHandlers;
+﻿using Hiscary.EventHandlers;
 using Hiscary.Notifications.Domain.DataAccess;
 using Hiscary.Notifications.IntegrationEvents.Incoming;
 using Microsoft.Extensions.Logging;

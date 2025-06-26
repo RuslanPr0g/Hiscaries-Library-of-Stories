@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Enterprise.Jobs.Extensions;
+using Hiscary.Jobs.Extensions;
 
 namespace Hiscary.Stories.Jobs;
 

@@ -1,5 +1,5 @@
-﻿using Enterprise.Api.Rest;
-using Enterprise.Domain.ResultModels.Response;
+﻿using Hiscary.Api.Rest;
+using Hiscary.Domain.ResultModels.Response;
 using Hiscary.Notifications.Api.Rest.Requests;
 using Hiscary.Notifications.Domain.Services;
 using Microsoft.AspNetCore.Mvc;

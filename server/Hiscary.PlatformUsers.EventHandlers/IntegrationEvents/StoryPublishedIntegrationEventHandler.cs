@@ -1,5 +1,5 @@
-﻿using Enterprise.Domain.EventPublishers;
-using Enterprise.EventHandlers;
+﻿using Hiscary.Domain.EventPublishers;
+using Hiscary.EventHandlers;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;
 using Hiscary.Stories.IntegrationEvents.Outgoing;

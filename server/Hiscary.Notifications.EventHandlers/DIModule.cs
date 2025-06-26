@@ -3,7 +3,7 @@ using Hiscary.Notifications.EventHandlers.DomainEvents;
 using Hiscary.Notifications.EventHandlers.IntegrationEvents;
 using Hiscary.Notifications.IntegrationEvents.Incoming;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;
-using Enterprise.EventHandlers;
+using Hiscary.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

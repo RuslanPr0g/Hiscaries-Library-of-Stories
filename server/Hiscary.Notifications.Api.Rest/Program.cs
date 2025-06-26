@@ -1,5 +1,5 @@
-using Enterprise.Api.Rest;
-using Enterprise.Application.Filters;
+using Hiscary.Api.Rest;
+using Hiscary.Application.Filters;
 using Hiscary.Notifications.Api.Rest.Endpoints;
 using Hiscary.Notifications.Application.Read;
 using Hiscary.Notifications.Application.Write;

@@ -1,4 +1,4 @@
-﻿namespace Enterprise.Domain.Images;
+﻿namespace Hiscary.Domain.Images;
 
 /// <summary>
 /// Defines the contract for uploading images to a storage system with optional compression.

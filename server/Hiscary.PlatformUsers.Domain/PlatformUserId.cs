@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain;
+﻿using Hiscary.Domain;
 
 public sealed record PlatformUserId(Guid Value) : Identity(Value)
 {

@@ -1,6 +1,6 @@
-﻿using Enterprise.Domain.Constants;
-using Enterprise.Domain.EventPublishers;
-using Enterprise.Domain.Generators;
+﻿using Hiscary.Domain.Constants;
+using Hiscary.Domain.EventPublishers;
+using Hiscary.Domain.Generators;
 using Hiscary.Media.IntegrationEvents.Incoming;
 using Hiscary.PlatformUsers.Domain;
 using Hiscary.PlatformUsers.Domain.DataAccess;

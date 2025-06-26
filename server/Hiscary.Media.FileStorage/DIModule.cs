@@ -1,4 +1,4 @@
-﻿using Enterprise.Domain.FileStorage;
+﻿using Hiscary.Domain.FileStorage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hiscary.Media.FileStorage;
