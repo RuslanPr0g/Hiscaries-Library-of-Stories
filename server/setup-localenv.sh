@@ -5,7 +5,7 @@ set -e
 dotnet workload update
 dotnet workload restore
 
-projectPath="HC.AppHost/HC.AppHost.csproj"
+projectPath="Hiscary.AppHost/Hiscary.AppHost.csproj"
 dotnet user-secrets init --project "$projectPath"
 
 jwtKey=$(cat /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 32)

@@ -1,7 +1,7 @@
 dotnet workload update
 dotnet workload restore
 
-$projectPath = "HC.AppHost/HC.AppHost.csproj"
+$projectPath = "Hiscary.AppHost/Hiscary.AppHost.csproj"
 dotnet user-secrets init --project $projectPath
 
 $jwtKey = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 32 | % {[char]$_})

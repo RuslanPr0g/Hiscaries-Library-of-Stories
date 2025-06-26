@@ -2,10 +2,10 @@
 
 # Define project mappings (persistence -> startup)
 $projectMappings = @{
-    "HC.UserAccounts.Persistence.Context/HC.UserAccounts.Persistence.Context.csproj" = "HC.UserAccounts.Api.Rest/HC.UserAccounts.Api.Rest.csproj"
-    "HC.Notifications.Persistence.Context/HC.Notifications.Persistence.Context.csproj" = "HC.Notifications.Api.Rest/HC.Notifications.Api.Rest.csproj"
-    "HC.Stories.Persistence.Context/HC.Stories.Persistence.Context.csproj" = "HC.Stories.Api.Rest/HC.Stories.Api.Rest.csproj"
-    "HC.PlatformUsers.Persistence.Context/HC.PlatformUsers.Persistence.Context.csproj" = "HC.PlatformUsers.Api.Rest/HC.PlatformUsers.Api.Rest.csproj"
+    "Hiscary.UserAccounts.Persistence.Context/Hiscary.UserAccounts.Persistence.Context.csproj" = "Hiscary.UserAccounts.Api.Rest/Hiscary.UserAccounts.Api.Rest.csproj"
+    "Hiscary.Notifications.Persistence.Context/Hiscary.Notifications.Persistence.Context.csproj" = "Hiscary.Notifications.Api.Rest/Hiscary.Notifications.Api.Rest.csproj"
+    "Hiscary.Stories.Persistence.Context/Hiscary.Stories.Persistence.Context.csproj" = "Hiscary.Stories.Api.Rest/Hiscary.Stories.Api.Rest.csproj"
+    "Hiscary.PlatformUsers.Persistence.Context/Hiscary.PlatformUsers.Persistence.Context.csproj" = "Hiscary.PlatformUsers.Api.Rest/Hiscary.PlatformUsers.Api.Rest.csproj"
 }
 
 # Prompt user to select a persistence project

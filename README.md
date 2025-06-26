@@ -10,7 +10,7 @@
 
 ### Prerequisites
 
-You will need 
+You will need
 
 - Docker Engine
 - DotNet CLI and SDK
@@ -41,7 +41,7 @@ Add-Migration.ps1
 
 This will add a new migration to the chosen service.
 
-To run the backend application, please set HC.AppHost as your startup project and hit run!
+To run the backend application, please set Hiscary.AppHost as your startup project and hit run!
 
 #### Helpful!
 
@@ -61,7 +61,7 @@ dotnet build
 
 newgrp docker # optional
 
-dotnet run --project ./HC.AppHost/HC.AppHost.csproj
+dotnet run --project ./Hiscary.AppHost/Hiscary.AppHost.csproj
 ```
 
 ### Frontend

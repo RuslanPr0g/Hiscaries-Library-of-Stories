@@ -1,1 +1,1 @@
-dotnet run --project ./HC.AppHost/HC.AppHost.csproj
+dotnet run --project ./Hiscary.AppHost/Hiscary.AppHost.csproj

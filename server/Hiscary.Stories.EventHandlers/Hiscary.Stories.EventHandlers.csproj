@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="WolverineFx" Version="4.2.0" />
+		<PackageReference Include="WolverineFx.RabbitMQ" Version="4.2.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
+	  <ProjectReference Include="..\Hiscary.Media.IntegrationEvents\Hiscary.Media.IntegrationEvents.csproj" />
+	  <ProjectReference Include="..\Hiscary.Notifications.IntegrationEvents\Hiscary.Notifications.IntegrationEvents.csproj" />
+	  <ProjectReference Include="..\Hiscary.Stories.Domain\Hiscary.Stories.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

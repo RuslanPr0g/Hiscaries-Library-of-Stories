@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>06e978d2-e342-4e9d-ae61-4362b0be7659</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
+    <PackageReference Include="Aspire.Hosting.Azure.Storage" Version="8.2.2" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.2" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.2.2" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="8.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hiscary.LocalApiGateway\Hiscary.LocalApiGateway.csproj" />
+    <ProjectReference Include="..\Hiscary.Media.Api.Rest\Hiscary.Media.Api.Rest.csproj" />
+    <ProjectReference Include="..\Hiscary.Notifications.Api.Rest\Hiscary.Notifications.Api.Rest.csproj" />
+    <ProjectReference Include="..\Hiscary.PlatformUsers.Api.Rest\Hiscary.PlatformUsers.Api.Rest.csproj" />
+    <ProjectReference Include="..\Hiscary.Stories.Api.Rest\Hiscary.Stories.Api.Rest.csproj" />
+    <ProjectReference Include="..\Hiscary.UserAccounts.Api.Rest\Hiscary.UserAccounts.Api.Rest.csproj" />
+  </ItemGroup>
+
+</Project>

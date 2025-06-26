@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
+    <ProjectReference Include="..\Enterprise.Jobs\Enterprise.Jobs.csproj" />
+    <ProjectReference Include="..\Hiscary.Notifications.IntegrationEvents\Hiscary.Notifications.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\Hiscary.Notifications.Persistence.Context\Hiscary.Notifications.Persistence.Context.csproj" />
+  </ItemGroup>
+
+</Project>
