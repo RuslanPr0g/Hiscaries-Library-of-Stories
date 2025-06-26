@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.Jwt;
+﻿using Hiscary.Shared.Domain.Jwt;
 using Hiscary.UserAccounts.Domain;
 
 namespace Hiscary.UserAccounts.Application.Write.Extensions;

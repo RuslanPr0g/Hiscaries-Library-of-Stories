@@ -10,9 +10,11 @@
     <PackageReference Include="Aspire.Azure.Storage.Blobs" Version="8.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.16" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="StackNucleus.DDD.Api.Rest" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hiscary.Shared.Api.Rest\Hiscary.Shared.Api.Rest.csproj" />
     <ProjectReference Include="..\Hiscary.Media.EventHandlers\Hiscary.Media.EventHandlers.csproj" />
     <ProjectReference Include="..\Hiscary.Media.FileStorage\Hiscary.Media.FileStorage.csproj" />
     <ProjectReference Include="..\Hiscary.Media.Images\Hiscary.Media.Images.csproj" />

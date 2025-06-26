@@ -17,9 +17,11 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+        <PackageReference Include="StackNucleus.DDD.Api.Rest" Version="1.0.1" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Hiscary.Shared.Api.Rest\Hiscary.Shared.Api.Rest.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.Application.Read\Hiscary.Notifications.Application.Read.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.Application.Write\Hiscary.Notifications.Application.Write.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.Domain\Hiscary.Notifications.Domain.csproj" />
@@ -30,6 +32,7 @@
         <ProjectReference Include="..\Hiscary.Notifications.Persistence.Write\Hiscary.Notifications.Persistence.Write.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.SignalR\Hiscary.Notifications.SignalR.csproj" />
         <ProjectReference Include="..\Hiscary.ServiceDefaults\Hiscary.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\Hiscary.Shared.Application\Hiscary.Shared.Application.csproj" />
     </ItemGroup>
 
 </Project>

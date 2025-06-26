@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Hiscary.PlatformUsers.Persistence.Context;
 
 public sealed class PlatformUsersContext(DbContextOptions<PlatformUsersContext> options)
-    : BaseEnterpriseContext<PlatformUsersContext>(options)
+    : BaseNucleusContext<PlatformUsersContext>(options)
 {
 
     public static string SCHEMA_NAME = "platformusers";

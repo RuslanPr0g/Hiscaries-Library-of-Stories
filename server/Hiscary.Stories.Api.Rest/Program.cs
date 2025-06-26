@@ -1,6 +1,6 @@
-using Hiscary.Api.Rest;
-using Hiscary.Application.Filters;
 using Hiscary.ServiceDefaults;
+using Hiscary.Shared.Api.Rest;
+using Hiscary.Shared.Application.Filters;
 using Hiscary.Stories.Api.Rest.Endpoints;
 using Hiscary.Stories.Application.Read;
 using Hiscary.Stories.Application.Write;
@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterpriseRestApi(builder.Configuration);
+builder.Services.AddSharedRestApi(builder.Configuration);
 
 builder.Services.AddStoriesPersistenceContext(builder.Configuration);
 builder.Services.AddStoriesPersistenceWriteLayer();

@@ -1,4 +1,4 @@
-﻿using Hiscary.Api.Rest;
+﻿using Hiscary.Shared.Api.Rest;
 using StackNucleus.DDD.Domain.Extensions;
 using Hiscary.PlatformUsers.Api.Rest.Requests;
 using Hiscary.PlatformUsers.Api.Rest.Requests.Libraries;

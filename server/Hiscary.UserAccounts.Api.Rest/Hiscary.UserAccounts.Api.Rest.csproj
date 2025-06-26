@@ -17,10 +17,13 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+        <PackageReference Include="StackNucleus.DDD.Api.Rest" Version="1.0.1" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Hiscary.Shared.Api.Rest\Hiscary.Shared.Api.Rest.csproj" />
         <ProjectReference Include="..\Hiscary.ServiceDefaults\Hiscary.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\Hiscary.Shared.Application\Hiscary.Shared.Application.csproj" />
         <ProjectReference Include="..\Hiscary.UserAccounts.Application.Write\Hiscary.UserAccounts.Application.Write.csproj" />
         <ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />
         <ProjectReference Include="..\Hiscary.UserAccounts.EventHandlers\Hiscary.UserAccounts.EventHandlers.csproj" />

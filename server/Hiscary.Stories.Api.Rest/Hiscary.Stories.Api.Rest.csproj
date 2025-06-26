@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Hiscary.Shared.Api.Rest\Hiscary.Shared.Api.Rest.csproj" />
         <ProjectReference Include="..\Hiscary.ServiceDefaults\Hiscary.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Hiscary.Stories.Application.Read\Hiscary.Stories.Application.Read.csproj" />
         <ProjectReference Include="..\Hiscary.Stories.Application.Write\Hiscary.Stories.Application.Write.csproj" />

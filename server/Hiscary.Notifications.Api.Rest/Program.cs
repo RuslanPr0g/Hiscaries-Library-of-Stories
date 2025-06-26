@@ -1,5 +1,3 @@
-using Hiscary.Api.Rest;
-using Hiscary.Application.Filters;
 using Hiscary.Notifications.Api.Rest.Endpoints;
 using Hiscary.Notifications.Application.Read;
 using Hiscary.Notifications.Application.Write;
@@ -11,13 +9,15 @@ using Hiscary.Notifications.Persistence.Write;
 using Hiscary.Notifications.SignalR;
 using Hiscary.Notifications.SignalR.Hubs;
 using Hiscary.ServiceDefaults;
+using Hiscary.Shared.Api.Rest;
+using Hiscary.Shared.Application.Filters;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterpriseRestApi(builder.Configuration);
+builder.Services.AddSharedRestApi(builder.Configuration);
 
 builder.Services.AddNotificationsPersistenceContext(builder.Configuration);
 builder.Services.AddNotificationsPersistenceWriteLayer();

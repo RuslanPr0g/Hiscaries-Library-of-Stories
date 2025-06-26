@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hiscary.Notifications.Persistence.Context;
 
 public class NotificationsDatabaseDesignTimeDbContextFactory
-    : EnterpriseDatabaseDesignTimeDbContextFactory<NotificationsContext>
+    : NucleusDatabaseDesignTimeDbContextFactory<NotificationsContext>
 {
     public override NotificationsContext CreateDbContextBasedOnOptions(
         DbContextOptions<NotificationsContext> options)

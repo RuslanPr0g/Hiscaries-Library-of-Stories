@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hiscary.PlatformUsers.Persistence.Context;
 
 public class PlatformUsersDatabaseDesignTimeDbContextFactory
-    : EnterpriseDatabaseDesignTimeDbContextFactory<PlatformUsersContext>
+    : NucleusDatabaseDesignTimeDbContextFactory<PlatformUsersContext>
 {
     public override PlatformUsersContext CreateDbContextBasedOnOptions(
         DbContextOptions<PlatformUsersContext> options)

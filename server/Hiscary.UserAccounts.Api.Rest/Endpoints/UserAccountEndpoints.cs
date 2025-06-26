@@ -1,4 +1,4 @@
-﻿using Hiscary.Api.Rest;
+﻿using Hiscary.Shared.Api.Rest;
 using StackNucleus.DDD.Domain.ResultModels.Response;
 using Hiscary.UserAccounts.Api.Rest.Requests;
 using Hiscary.UserAccounts.Domain.Services;

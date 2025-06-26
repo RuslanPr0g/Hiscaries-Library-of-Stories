@@ -1,4 +1,4 @@
-﻿using StackNucleus.DDD.Domain.Jwt;
+﻿using Hiscary.Shared.Domain.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hiscary.Shared.Jwt;

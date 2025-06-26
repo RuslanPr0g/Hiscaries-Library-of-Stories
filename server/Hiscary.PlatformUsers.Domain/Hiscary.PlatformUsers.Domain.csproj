@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="StackNucleus.DDD.Domain" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hiscary.PlatformUsers.DomainEvents\Hiscary.PlatformUsers.DomainEvents.csproj" />
   </ItemGroup>
 

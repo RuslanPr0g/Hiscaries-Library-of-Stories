@@ -1,4 +1,6 @@
-﻿namespace Hiscary.Stories.Domain.Stories;
+﻿using StackNucleus.DDD.Domain;
+
+namespace Hiscary.Stories.Domain.Stories;
 
 public sealed class Comment : Entity<CommentId>
 {

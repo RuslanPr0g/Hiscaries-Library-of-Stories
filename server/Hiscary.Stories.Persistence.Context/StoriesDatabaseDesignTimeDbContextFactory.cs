@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hiscary.Stories.Persistence.Context;
 
 public class StoriesDatabaseDesignTimeDbContextFactory
-    : EnterpriseDatabaseDesignTimeDbContextFactory<StoriesContext>
+    : NucleusDatabaseDesignTimeDbContextFactory<StoriesContext>
 {
     public override StoriesContext CreateDbContextBasedOnOptions(
         DbContextOptions<StoriesContext> options)

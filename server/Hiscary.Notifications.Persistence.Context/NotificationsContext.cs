@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Hiscary.Notifications.Persistence.Context;
 
 public sealed class NotificationsContext(DbContextOptions<NotificationsContext> options)
-    : BaseEnterpriseContext<NotificationsContext>(options)
+    : BaseNucleusContext<NotificationsContext>(options)
 {
     public static string SCHEMA_NAME = "notifications";
 

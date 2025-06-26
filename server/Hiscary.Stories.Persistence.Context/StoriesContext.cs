@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Hiscary.Stories.Persistence.Context;
 
 public sealed class StoriesContext(DbContextOptions<StoriesContext> options)
-    : BaseEnterpriseContext<StoriesContext>(options)
+    : BaseNucleusContext<StoriesContext>(options)
 {
 
     public static string SCHEMA_NAME = "stories";

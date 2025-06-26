@@ -1,4 +1,4 @@
-﻿using Hiscary.Api.Rest.Requests;
+﻿using Hiscary.Shared.Api.Rest.Requests;
 
 namespace Hiscary.Stories.Api.Rest.Requests.Stories;
 

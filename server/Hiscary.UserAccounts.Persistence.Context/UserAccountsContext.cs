@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Hiscary.UserAccounts.Persistence.Context;
 
 public sealed class UserAccountsContext(DbContextOptions<UserAccountsContext> options)
-    : BaseEnterpriseContext<UserAccountsContext>(options)
+    : BaseNucleusContext<UserAccountsContext>(options)
 {
     public static string SCHEMA_NAME = "useraccounts";
 

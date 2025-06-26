@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="StackNucleus.DDD.Persistence.EF.Postgres" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hiscary.PlatformUsers.Domain\Hiscary.PlatformUsers.Domain.csproj" />
   </ItemGroup>
 

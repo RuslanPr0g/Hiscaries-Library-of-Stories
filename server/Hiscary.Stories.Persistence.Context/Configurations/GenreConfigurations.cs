@@ -1,7 +1,7 @@
-﻿using StackNucleus.DDD.Persistence.EF.Postgres.Extensions;
-using Hiscary.Stories.Domain.Genres;
+﻿using Hiscary.Stories.Domain.Genres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StackNucleus.DDD.Persistence.EF.Postgres.Extensions;
 
 namespace Hiscary.Stories.Persistence.Context.Configurations;
 

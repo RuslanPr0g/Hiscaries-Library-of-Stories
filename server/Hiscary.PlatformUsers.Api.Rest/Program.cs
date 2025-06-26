@@ -1,5 +1,3 @@
-using Hiscary.Api.Rest;
-using Hiscary.Application.Filters;
 using Hiscary.PlatformUsers.Api.Rest.Endpoints;
 using Hiscary.PlatformUsers.Application.Read;
 using Hiscary.PlatformUsers.Application.Write;
@@ -9,13 +7,15 @@ using Hiscary.PlatformUsers.Persistence.Context;
 using Hiscary.PlatformUsers.Persistence.Read;
 using Hiscary.PlatformUsers.Persistence.Write;
 using Hiscary.ServiceDefaults;
+using Hiscary.Shared.Api.Rest;
+using Hiscary.Shared.Application.Filters;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterpriseRestApi(builder.Configuration);
+builder.Services.AddSharedRestApi(builder.Configuration);
 
 builder.Services.AddPlatformUsersPersistenceContext(builder.Configuration);
 builder.Services.AddPlatformUsersPersistenceWriteLayer();

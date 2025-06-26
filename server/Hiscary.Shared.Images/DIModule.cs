@@ -1,6 +1,6 @@
-﻿using StackNucleus.DDD.Domain.Images;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Hiscary.Shared.Domain.Images;
 using Hiscary.Shared.Images.Compressors;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hiscary.Shared.Images;
 
