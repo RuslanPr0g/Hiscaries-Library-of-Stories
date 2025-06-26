@@ -1,4 +1,4 @@
-﻿using Hiscary.Persistence.Context;
+﻿using StackNucleus.DDD.Persistence.EF.Postgres;
 using Hiscary.UserAccounts.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

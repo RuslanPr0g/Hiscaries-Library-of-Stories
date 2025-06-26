@@ -1,12 +1,12 @@
-﻿using Hiscary.Domain;
-using Hiscary.Domain.EventPublishers;
-using Hiscary.Domain.Outbox;
+﻿using StackNucleus.DDD.Domain;
+using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Domain.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 using System.Reflection;
 
-namespace Hiscary.Outbox;
+namespace Hiscary.Shared.Outbox;
 
 public abstract class BaseProcessOutboxMessagesJob<TContext, TAssembly>(IEventPublisher publisher) : IJob
     where TContext : DbContext

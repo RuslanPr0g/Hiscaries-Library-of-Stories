@@ -1,4 +1,6 @@
-﻿namespace Hiscary.UserAccounts.Domain;
+﻿using StackNucleus.DDD.Domain;
+
+namespace Hiscary.UserAccounts.Domain;
 
 public sealed class RefreshToken : Entity<RefreshTokenId>
 {

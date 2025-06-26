@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain.Generators;
+﻿using StackNucleus.DDD.Domain.Generators;
 using Hiscary.EventHandlers;
 using Hiscary.PlatformUsers.Domain;
 using Hiscary.PlatformUsers.Domain.DataAccess;

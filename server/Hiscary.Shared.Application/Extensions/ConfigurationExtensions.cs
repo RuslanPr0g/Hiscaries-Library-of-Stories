@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hiscary.Application.Extensions;
+namespace Hiscary.Shared.Application.Extensions;
 
 public static class ConfigurationExtensions
 {

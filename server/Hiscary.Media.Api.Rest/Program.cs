@@ -1,4 +1,4 @@
-using Hiscary.Api.Rest;
+using Hiscary.Shared.Api.Rest;
 using Hiscary.Media.EventHandlers;
 using Hiscary.Media.FileStorage;
 using Hiscary.Media.Images;
@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddEnterpriseRestApi(builder.Configuration);
+builder.Services.AddSharedRestApi(builder.Configuration);
 
 builder.Services.AddMediaFileStorage();
 builder.Services.AddMediaImages();

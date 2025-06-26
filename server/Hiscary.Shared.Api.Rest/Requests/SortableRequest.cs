@@ -1,4 +1,4 @@
-﻿namespace Hiscary.Api.Rest.Requests;
+﻿namespace Hiscary.Shared.Api.Rest.Requests;
 
 public sealed class SortableRequest
 {

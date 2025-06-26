@@ -1,4 +1,4 @@
-﻿using Hiscary.Persistence.Context.Configurations;
+﻿using StackNucleus.DDD.Persistence.EF.Postgres.Configurations;
 using Hiscary.Stories.Domain.Genres;
 
 namespace Hiscary.Stories.Persistence.Context.Configurations;

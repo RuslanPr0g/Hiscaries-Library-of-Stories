@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain.DataAccess;
+﻿using StackNucleus.DDD.Domain.DataAccess;
 
 namespace Hiscary.PlatformUsers.Domain.DataAccess;
 

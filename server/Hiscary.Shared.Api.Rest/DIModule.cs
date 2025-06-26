@@ -6,7 +6,7 @@ using Hiscary.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hiscary.Api.Rest;
+namespace Hiscary.Shared.Api.Rest;
 
 public static class DIModule
 {

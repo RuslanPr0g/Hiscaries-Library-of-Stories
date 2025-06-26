@@ -1,4 +1,4 @@
-﻿namespace Hiscary.Domain.Images;
+﻿namespace Hiscary.Shared.Domain.Images;
 
 /// <summary>
 /// Defines the contract for compressing images with customizable settings.

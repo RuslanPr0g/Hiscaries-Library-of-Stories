@@ -1,7 +1,7 @@
-﻿using Hiscary.Domain.FileStorage;
-using Hiscary.Domain.Images;
+﻿using StackNucleus.DDD.Domain.FileStorage;
+using StackNucleus.DDD.Domain.Images;
 
-namespace Hiscary.Images.Uploaders;
+namespace Hiscary.Media.Images.Uploaders;
 
 public sealed class ImageUploader(
     IImageCompressor imageCompressor,

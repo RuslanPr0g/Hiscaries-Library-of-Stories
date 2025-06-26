@@ -1,9 +1,9 @@
-﻿using Hiscary.Domain.ResultModels.Message;
-using Hiscary.Domain.ResultModels.Response;
+﻿using StackNucleus.DDD.Domain.ResultModels.Message;
+using StackNucleus.DDD.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Hiscary.Application.Filters;
+namespace Hiscary.Shared.Application.Filters;
 
 public class ValidationFilter : IAsyncActionFilter
 {

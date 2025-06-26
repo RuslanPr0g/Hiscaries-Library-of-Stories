@@ -1,7 +1,7 @@
-﻿using Hiscary.Domain.Jwt;
+﻿using StackNucleus.DDD.Domain.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hiscary.Jwt;
+namespace Hiscary.Shared.Jwt;
 
 public static class DIModule
 {

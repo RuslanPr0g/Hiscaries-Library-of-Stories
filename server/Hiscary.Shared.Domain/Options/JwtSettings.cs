@@ -1,4 +1,4 @@
-﻿namespace Hiscary.Domain.Options;
+﻿namespace Hiscary.Shared.Domain.Options;
 
 public class JwtSettings
 {

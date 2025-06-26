@@ -1,4 +1,4 @@
-﻿using Hiscary.Persistence.Context.Extensions;
+﻿using StackNucleus.DDD.Persistence.EF.Postgres.Extensions;
 using Hiscary.Stories.Domain.Stories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

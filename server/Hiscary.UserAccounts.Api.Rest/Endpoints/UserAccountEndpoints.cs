@@ -1,5 +1,5 @@
 ﻿using Hiscary.Api.Rest;
-using Hiscary.Domain.ResultModels.Response;
+using StackNucleus.DDD.Domain.ResultModels.Response;
 using Hiscary.UserAccounts.Api.Rest.Requests;
 using Hiscary.UserAccounts.Domain.Services;
 using Microsoft.AspNetCore.Mvc;

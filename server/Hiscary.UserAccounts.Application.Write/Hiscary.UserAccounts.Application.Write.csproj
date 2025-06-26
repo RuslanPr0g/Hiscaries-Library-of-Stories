@@ -13,6 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
 		<ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />
 		<ProjectReference Include="..\Hiscary.UserAccounts.IntegrationEvents\Hiscary.UserAccounts.IntegrationEvents.csproj" />
 	</ItemGroup>

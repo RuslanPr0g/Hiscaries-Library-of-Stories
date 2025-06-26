@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain.EventPublishers;
+﻿using StackNucleus.DDD.Domain.EventPublishers;
 using Hiscary.EventHandlers;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;

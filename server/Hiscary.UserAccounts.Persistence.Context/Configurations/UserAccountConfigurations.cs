@@ -1,7 +1,7 @@
-﻿using Hiscary.Persistence.Context.Extensions;
-using Hiscary.UserAccounts.Domain;
+﻿using Hiscary.UserAccounts.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StackNucleus.DDD.Persistence.EF.Postgres.Extensions;
 
 namespace Hiscary.UserAccounts.Persistence.Context.Configurations;
 

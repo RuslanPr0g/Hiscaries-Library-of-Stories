@@ -1,8 +1,8 @@
-﻿using Hiscary.Domain.Images;
-using Hiscary.Images.Compressors;
+﻿using StackNucleus.DDD.Domain.Images;
 using Microsoft.Extensions.DependencyInjection;
+using Hiscary.Shared.Images.Compressors;
 
-namespace Hiscary.Images;
+namespace Hiscary.Shared.Images;
 
 public static class DIModule
 {

@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain.EventPublishers;
+﻿using StackNucleus.DDD.Domain.EventPublishers;
 using Hiscary.Outbox;
 using Hiscary.UserAccounts.IntegrationEvents;
 using Hiscary.UserAccounts.Persistence.Context;

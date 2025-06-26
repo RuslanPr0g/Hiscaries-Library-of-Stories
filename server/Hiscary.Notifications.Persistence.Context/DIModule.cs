@@ -1,4 +1,4 @@
-﻿using Hiscary.Persistence.Context.Extensions;
+﻿using StackNucleus.DDD.Persistence.EF.Postgres.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

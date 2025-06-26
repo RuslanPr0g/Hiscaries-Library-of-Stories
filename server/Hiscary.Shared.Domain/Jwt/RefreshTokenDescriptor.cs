@@ -1,4 +1,4 @@
-﻿namespace Hiscary.Domain.Jwt;
+﻿namespace Hiscary.Shared.Domain.Jwt;
 
 public sealed class RefreshTokenDescriptor
 {

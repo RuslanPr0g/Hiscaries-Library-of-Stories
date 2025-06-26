@@ -1,11 +1,11 @@
-﻿using Hiscary.Domain.Jwt;
-using Hiscary.Domain.Options;
+﻿using Hiscary.Shared.Domain.Jwt;
+using Hiscary.Shared.Domain.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Hiscary.Jwt;
+namespace Hiscary.Shared.Jwt;
 
 public sealed class JWTTokenHandler : IJWTTokenHandler
 {

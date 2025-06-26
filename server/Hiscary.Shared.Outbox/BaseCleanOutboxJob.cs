@@ -1,9 +1,9 @@
-﻿using Hiscary.Domain.Outbox;
+﻿using StackNucleus.DDD.Domain.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace Hiscary.Outbox;
+namespace Hiscary.Shared.Outbox;
 
 public abstract class BaseCleanOutboxJob<TContext> : IJob
     where TContext : DbContext

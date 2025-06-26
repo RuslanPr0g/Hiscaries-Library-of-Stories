@@ -1,9 +1,9 @@
-﻿using Hiscary.Application.Extensions;
-using Hiscary.Domain.Options;
+﻿using StackNucleus.DDD.Domain.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Hiscary.Shared.Application.Extensions;
 
-namespace Hiscary.Application;
+namespace Hiscary.Shared.Application;
 
 public static class DIModule
 {

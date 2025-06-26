@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain;
+﻿using StackNucleus.DDD.Domain;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hiscary.UserAccounts.Domain;

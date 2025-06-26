@@ -1,5 +1,5 @@
-﻿using Hiscary.Persistence.Context.Configurations;
-using Hiscary.UserAccounts.Domain;
+﻿using Hiscary.UserAccounts.Domain;
+using StackNucleus.DDD.Persistence.EF.Postgres.Configurations;
 
 namespace Hiscary.UserAccounts.Persistence.Context.Configurations;
 

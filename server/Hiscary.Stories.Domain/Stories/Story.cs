@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain;
+﻿using StackNucleus.DDD.Domain;
 using Hiscary.Stories.Domain.Genres;
 
 namespace Hiscary.Stories.Domain.Stories;

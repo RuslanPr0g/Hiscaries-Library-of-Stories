@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain;
+﻿using StackNucleus.DDD.Domain;
 using Hiscary.Notifications.DomainEvents;
 
 namespace Hiscary.Notifications.Domain;

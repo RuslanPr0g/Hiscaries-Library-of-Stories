@@ -1,4 +1,4 @@
-﻿using Hiscary.Persistence.Context.Configurations;
+﻿using StackNucleus.DDD.Persistence.EF.Postgres.Configurations;
 
 namespace Hiscary.PlatformUsers.Persistence.Context.Configurations;
 

@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain.Extensions;
+﻿using StackNucleus.DDD.Domain.Extensions;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.Domain.ProcessModels;
 using Hiscary.PlatformUsers.Domain.ReadModels;

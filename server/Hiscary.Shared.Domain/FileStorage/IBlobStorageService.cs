@@ -1,4 +1,4 @@
-﻿namespace Hiscary.Domain.FileStorage;
+﻿namespace Hiscary.Shared.Domain.FileStorage;
 
 public interface IBlobStorageService
 {

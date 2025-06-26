@@ -1,5 +1,5 @@
 ﻿using Hiscary.Api.Rest;
-using Hiscary.Domain.Extensions;
+using StackNucleus.DDD.Domain.Extensions;
 using Hiscary.PlatformUsers.Api.Rest.Requests;
 using Hiscary.PlatformUsers.Api.Rest.Requests.Libraries;
 using Hiscary.PlatformUsers.Domain.ProcessModels;

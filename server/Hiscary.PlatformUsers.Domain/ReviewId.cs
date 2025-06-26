@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain;
+﻿using StackNucleus.DDD.Domain;
 
 public sealed record ReviewId(Guid Value) : Identity(Value)
 {

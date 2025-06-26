@@ -1,4 +1,4 @@
-﻿using Hiscary.Domain.Constants;
+﻿using StackNucleus.DDD.Domain.Constants;
 using Hiscary.Notifications.Domain;
 using Hiscary.Notifications.Domain.DataAccess;
 using Hiscary.Notifications.Domain.Services;
