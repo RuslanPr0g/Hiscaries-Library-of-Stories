@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Enterprise.Persistence\Enterprise.Persistence.csproj" />
 	  <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
 	</ItemGroup>
 

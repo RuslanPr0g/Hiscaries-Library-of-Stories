@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enterprise.Persistence.Context\Enterprise.Persistence.Context.csproj" />
     <ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />
   </ItemGroup>
 

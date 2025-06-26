@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Enterprise.Persistence\Enterprise.Persistence.csproj" />
 	  <ProjectReference Include="..\Hiscary.Notifications.Domain\Hiscary.Notifications.Domain.csproj" />
 	  <ProjectReference Include="..\Hiscary.Notifications.Persistence.Context\Hiscary.Notifications.Persistence.Context.csproj" />
 	</ItemGroup>

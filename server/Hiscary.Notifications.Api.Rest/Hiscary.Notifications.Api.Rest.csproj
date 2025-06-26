@@ -20,8 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
-        <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.Application.Read\Hiscary.Notifications.Application.Read.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.Application.Write\Hiscary.Notifications.Application.Write.csproj" />
         <ProjectReference Include="..\Hiscary.Notifications.Domain\Hiscary.Notifications.Domain.csproj" />

@@ -15,7 +15,6 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
 	  <ProjectReference Include="..\Hiscary.Notifications.DomainEvents\Hiscary.Notifications.DomainEvents.csproj" />
 	  <ProjectReference Include="..\Hiscary.Notifications.Domain\Hiscary.Notifications.Domain.csproj" />
 	  <ProjectReference Include="..\Hiscary.Notifications.IntegrationEvents\Hiscary.Notifications.IntegrationEvents.csproj" />

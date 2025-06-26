@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
     <ProjectReference Include="..\Hiscary.Media.EventHandlers\Hiscary.Media.EventHandlers.csproj" />
     <ProjectReference Include="..\Hiscary.Media.FileStorage\Hiscary.Media.FileStorage.csproj" />
     <ProjectReference Include="..\Hiscary.Media.Images\Hiscary.Media.Images.csproj" />

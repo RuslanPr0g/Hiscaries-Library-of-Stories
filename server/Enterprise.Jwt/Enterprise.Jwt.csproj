@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

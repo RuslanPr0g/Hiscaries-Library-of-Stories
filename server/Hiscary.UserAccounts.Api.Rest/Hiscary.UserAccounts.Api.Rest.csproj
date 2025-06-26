@@ -20,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
         <ProjectReference Include="..\Hiscary.ServiceDefaults\Hiscary.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Hiscary.UserAccounts.Application.Write\Hiscary.UserAccounts.Application.Write.csproj" />
         <ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />

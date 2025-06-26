@@ -15,9 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Enterprise.Application\Enterprise.Application.csproj" />
-      <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
-      <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
       <ProjectReference Include="..\Hiscary.Media.IntegrationEvents\Hiscary.Media.IntegrationEvents.csproj" />
     </ItemGroup>
 

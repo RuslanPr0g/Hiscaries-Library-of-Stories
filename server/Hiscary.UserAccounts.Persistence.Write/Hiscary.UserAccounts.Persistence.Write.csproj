@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Enterprise.Persistence\Enterprise.Persistence.csproj" />
 	  <ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />
 	  <ProjectReference Include="..\Hiscary.UserAccounts.Persistence.Context\Hiscary.UserAccounts.Persistence.Context.csproj" />
 	</ItemGroup>

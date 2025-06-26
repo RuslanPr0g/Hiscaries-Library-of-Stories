@@ -13,7 +13,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Enterprise.EventHandlers\Enterprise.EventHandlers.csproj" />
 	  <ProjectReference Include="..\Hiscary.PlatformUsers.IntegrationEvents\Hiscary.PlatformUsers.IntegrationEvents.csproj" />
 	  <ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />
 	</ItemGroup>

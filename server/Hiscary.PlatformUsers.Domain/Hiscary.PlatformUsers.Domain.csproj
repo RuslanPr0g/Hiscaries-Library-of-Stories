@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
     <ProjectReference Include="..\Hiscary.PlatformUsers.DomainEvents\Hiscary.PlatformUsers.DomainEvents.csproj" />
   </ItemGroup>
 

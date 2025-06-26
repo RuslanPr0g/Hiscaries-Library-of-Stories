@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enterprise.Outbox\Enterprise.Outbox.csproj" />
-    <ProjectReference Include="..\Enterprise.Jobs\Enterprise.Jobs.csproj" />
     <ProjectReference Include="..\Hiscary.UserAccounts.IntegrationEvents\Hiscary.UserAccounts.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Hiscary.UserAccounts.Persistence.Context\Hiscary.UserAccounts.Persistence.Context.csproj" />
   </ItemGroup>
