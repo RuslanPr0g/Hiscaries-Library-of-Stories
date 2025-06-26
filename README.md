@@ -3,6 +3,7 @@
 ---
 
 [Open Draw.io File](https://drive.google.com/file/d/1YVpVJS43djNFkMbAwFCGF1CzXhPL_sf-/view?usp=sharing)
+Warning: Still in TODO phase.
 
 ---
 
@@ -42,6 +43,11 @@ Add-Migration.ps1
 This will add a new migration to the chosen service.
 
 To run the backend application, please set Hiscary.AppHost as your startup project and hit run!
+
+#### Domain-Driven Design (DDD) with StackNucleus
+
+This application leverages **StackNucleus**, a package that helps in modeling Domain-Driven Design (DDD) in .NET. StackNucleus is integrated into the backend to structure the domain logic and ensure clean, maintainable architectures. It simplifies the modeling of aggregates, entities, and value objects in a way that aligns with DDD principles.
+See more here: https://github.com/RuslanPr0g/StackNucleus
 
 #### Helpful!
 
