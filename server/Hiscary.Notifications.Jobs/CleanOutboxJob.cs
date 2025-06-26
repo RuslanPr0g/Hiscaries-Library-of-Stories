@@ -1,5 +1,5 @@
-﻿using Hiscary.Outbox;
-using Hiscary.Notifications.Persistence.Context;
+﻿using Hiscary.Notifications.Persistence.Context;
+using Hiscary.Shared.Outbox;
 
 namespace Hiscary.Notifications.Jobs;
 

@@ -2,11 +2,12 @@
 using Hiscary.PlatformUsers.EventHandlers.IntegrationEvents;
 using Hiscary.Stories.IntegrationEvents.Outgoing;
 using Hiscary.UserAccounts.IntegrationEvents.Outgoing;
-using StackNucleus.DDD.Domain.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using Microsoft.Extensions.Hosting;
+using StackNucleus.DDD.Domain.EventHandlers;
+using StackNucleus.DDD.Events.WolverineFx;
+using System.Reflection;
 
 namespace Hiscary.PlatformUsers.EventHandlers;
 

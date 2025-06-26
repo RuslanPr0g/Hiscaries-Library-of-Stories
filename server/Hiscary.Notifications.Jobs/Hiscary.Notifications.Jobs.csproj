@@ -9,6 +9,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Hiscary.Notifications.IntegrationEvents\Hiscary.Notifications.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Hiscary.Notifications.Persistence.Context\Hiscary.Notifications.Persistence.Context.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Jobs.Quartz\Hiscary.Shared.Jobs.Quartz.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Outbox\Hiscary.Shared.Outbox.csproj" />
   </ItemGroup>
 
 </Project>

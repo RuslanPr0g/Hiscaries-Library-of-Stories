@@ -1,8 +1,8 @@
-﻿using StackNucleus.DDD.Domain.EventPublishers;
-using Hiscary.Outbox;
-using Hiscary.Notifications.DomainEvents;
+﻿using Hiscary.Notifications.DomainEvents;
 using Hiscary.Notifications.IntegrationEvents;
 using Hiscary.Notifications.Persistence.Context;
+using Hiscary.Shared.Outbox;
+using StackNucleus.DDD.Domain.EventPublishers;
 using System.Reflection;
 
 namespace Hiscary.Notifications.Jobs;

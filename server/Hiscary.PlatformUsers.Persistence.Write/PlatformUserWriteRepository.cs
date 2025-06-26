@@ -2,6 +2,7 @@
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using StackNucleus.DDD.Persistence.EF.Postgres;
 
 namespace Hiscary.PlatformUsers.Persistence.Write;
 

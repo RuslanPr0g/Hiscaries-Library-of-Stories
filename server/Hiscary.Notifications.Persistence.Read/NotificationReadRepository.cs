@@ -2,6 +2,7 @@
 using Hiscary.Notifications.Domain.ReadModels;
 using Hiscary.Notifications.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using StackNucleus.DDD.Persistence.EF.Postgres;
 
 namespace Hiscary.Notifications.Persistence.Read;
 

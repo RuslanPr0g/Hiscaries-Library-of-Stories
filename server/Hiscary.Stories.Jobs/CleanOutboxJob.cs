@@ -1,4 +1,4 @@
-﻿using Hiscary.Outbox;
+﻿using Hiscary.Shared.Outbox;
 using Hiscary.Stories.Persistence.Context;
 
 namespace Hiscary.Stories.Jobs;

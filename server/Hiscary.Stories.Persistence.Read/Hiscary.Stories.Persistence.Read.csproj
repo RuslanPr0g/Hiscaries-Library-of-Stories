@@ -12,9 +12,11 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
 		<PackageReference Include="Npgsql" Version="8.0.5" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
+		<PackageReference Include="StackNucleus.DDD.Persistence" Version="1.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Hiscary.Shared.Persistence\Hiscary.Shared.Persistence.csproj" />
 	  <ProjectReference Include="..\Hiscary.Stories.Domain\Hiscary.Stories.Domain.csproj" />
 	  <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
 	</ItemGroup>

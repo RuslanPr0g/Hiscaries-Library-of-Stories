@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Hiscary.Jobs.Extensions;
+﻿using Hiscary.Shared.Jobs.Quartz.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hiscary.Notifications.Jobs;
 

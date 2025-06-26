@@ -1,10 +1,11 @@
-﻿using Hiscary.Shared.Api.Rest;
-using StackNucleus.DDD.Domain.Extensions;
-using Hiscary.PlatformUsers.Api.Rest.Requests;
+﻿using Hiscary.PlatformUsers.Api.Rest.Requests;
 using Hiscary.PlatformUsers.Api.Rest.Requests.Libraries;
 using Hiscary.PlatformUsers.Domain.ProcessModels;
 using Hiscary.PlatformUsers.Domain.Services;
+using Hiscary.Shared.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using StackNucleus.DDD.Api.Rest;
+using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.PlatformUsers.Api.Rest.Endpoints;
 

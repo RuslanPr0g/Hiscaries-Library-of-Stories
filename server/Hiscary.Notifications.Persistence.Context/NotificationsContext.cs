@@ -1,6 +1,6 @@
-﻿using StackNucleus.DDD.Persistence.EF.Postgres;
-using Hiscary.Notifications.Domain;
+﻿using Hiscary.Notifications.Domain;
 using Microsoft.EntityFrameworkCore;
+using StackNucleus.DDD.Persistence.EF.Postgres;
 using System.Reflection;
 
 namespace Hiscary.Notifications.Persistence.Context;

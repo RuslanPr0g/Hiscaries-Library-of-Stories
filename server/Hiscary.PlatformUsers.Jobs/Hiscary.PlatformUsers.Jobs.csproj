@@ -10,6 +10,9 @@
     <ProjectReference Include="..\Hiscary.Media.IntegrationEvents\Hiscary.Media.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Hiscary.PlatformUsers.IntegrationEvents\Hiscary.PlatformUsers.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Hiscary.PlatformUsers.Persistence.Context\Hiscary.PlatformUsers.Persistence.Context.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Jobs.Quartz\Hiscary.Shared.Jobs.Quartz.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Outbox\Hiscary.Shared.Outbox.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
   </ItemGroup>
 
 </Project>

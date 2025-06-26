@@ -1,8 +1,8 @@
-﻿using Hiscary.Shared.Api.Rest;
-using StackNucleus.DDD.Domain.ResultModels.Response;
+﻿using Hiscary.Shared.Domain.ResultModels.Response;
 using Hiscary.UserAccounts.Api.Rest.Requests;
 using Hiscary.UserAccounts.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using StackNucleus.DDD.Api.Rest;
 
 namespace Hiscary.UserAccounts.Api.Rest.Endpoints;
 

@@ -1,6 +1,6 @@
-﻿using StackNucleus.DDD.Persistence.EF.Postgres;
-using Hiscary.UserAccounts.Domain;
+﻿using Hiscary.UserAccounts.Domain;
 using Microsoft.EntityFrameworkCore;
+using StackNucleus.DDD.Persistence.EF.Postgres;
 using System.Reflection;
 
 namespace Hiscary.UserAccounts.Persistence.Context;

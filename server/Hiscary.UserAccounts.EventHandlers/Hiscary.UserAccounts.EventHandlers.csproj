@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="StackNucleus.DDD.Events.WolverineFx" Version="1.0.1" />
+		<PackageReference Include="StackNucleus.DDD.Events.WolverineFx" Version="1.0.2" />
 		<PackageReference Include="WolverineFx" Version="4.2.0" />
 		<PackageReference Include="WolverineFx.RabbitMQ" Version="4.2.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />

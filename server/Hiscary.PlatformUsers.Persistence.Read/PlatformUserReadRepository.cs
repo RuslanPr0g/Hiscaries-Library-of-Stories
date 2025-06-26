@@ -4,6 +4,7 @@ using Hiscary.PlatformUsers.Domain.ProcessModels;
 using Hiscary.PlatformUsers.Domain.ReadModels;
 using Hiscary.PlatformUsers.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using StackNucleus.DDD.Persistence.EF.Postgres;
 
 namespace Hiscary.PlatformUsers.Persistence.Read;
 

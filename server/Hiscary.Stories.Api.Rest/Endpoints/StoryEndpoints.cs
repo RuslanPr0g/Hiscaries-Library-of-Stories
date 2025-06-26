@@ -1,10 +1,10 @@
-﻿using Hiscary.Shared.Api.Rest;
-using StackNucleus.DDD.Domain.Extensions;
+﻿using Hiscary.Shared.Domain.Extensions;
 using Hiscary.Stories.Api.Rest.Requests.Comments;
 using Hiscary.Stories.Api.Rest.Requests.Stories;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 using Microsoft.AspNetCore.Mvc;
+using StackNucleus.DDD.Api.Rest;
 
 namespace Hiscary.Stories.Api.Rest.Endpoints;
 
