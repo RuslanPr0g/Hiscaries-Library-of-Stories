@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hiscary.Notifications.Domain\Hiscary.Notifications.Domain.csproj" />
+    <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
   </ItemGroup>
 
 </Project>

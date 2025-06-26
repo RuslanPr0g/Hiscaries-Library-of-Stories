@@ -1,4 +1,4 @@
-﻿using Hiscary.EventHandlers;
+﻿using StackNucleus.DDD.Domain.EventHandlers;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;
 using Hiscary.UserAccounts.Domain.DataAccess;
 using Microsoft.Extensions.Logging;

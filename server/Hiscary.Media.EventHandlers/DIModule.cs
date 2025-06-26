@@ -2,9 +2,10 @@
 using Hiscary.Media.IntegrationEvents.Incoming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-using Hiscary.EventHandlers;
 using Microsoft.Extensions.Hosting;
+using StackNucleus.DDD.Domain.EventHandlers;
+using StackNucleus.DDD.Events.WolverineFx;
+using System.Reflection;
 
 namespace Hiscary.Media.EventHandlers;
 

@@ -1,12 +1,13 @@
-﻿using StackNucleus.DDD.Domain.Constants;
-using StackNucleus.DDD.Domain.EventPublishers;
-using StackNucleus.DDD.Domain.Generators;
-using Hiscary.Media.IntegrationEvents.Incoming;
+﻿using Hiscary.Media.IntegrationEvents.Incoming;
 using Hiscary.PlatformUsers.Domain;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.Domain.Services;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;
+using Hiscary.Shared.Domain.Constants;
 using Microsoft.Extensions.Logging;
+using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Domain.Generators;
+using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.PlatformUsers.Application.Write.Services;
 

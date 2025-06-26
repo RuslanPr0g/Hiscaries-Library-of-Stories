@@ -1,4 +1,6 @@
-﻿namespace Hiscary.PlatformUsers.Domain;
+﻿using StackNucleus.DDD.Domain;
+
+namespace Hiscary.PlatformUsers.Domain;
 
 /// <summary>
 /// Represents a review of a <see cref="PlatformUser"/> about a library.

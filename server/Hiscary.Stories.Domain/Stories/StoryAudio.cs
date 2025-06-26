@@ -1,4 +1,6 @@
-﻿namespace Hiscary.Stories.Domain.Stories;
+﻿using StackNucleus.DDD.Domain;
+
+namespace Hiscary.Stories.Domain.Stories;
 
 /// <summary>
 /// Represents audio of a story, the actual data is on the disk,

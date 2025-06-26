@@ -1,4 +1,6 @@
-﻿namespace Hiscary.PlatformUsers.Domain;
+﻿using StackNucleus.DDD.Domain;
+
+namespace Hiscary.PlatformUsers.Domain;
 
 public sealed class StoryBookMark : Entity
 {

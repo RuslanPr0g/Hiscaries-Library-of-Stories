@@ -1,8 +1,9 @@
-﻿using StackNucleus.DDD.Domain.Constants;
-using Hiscary.Notifications.Domain;
+﻿using Hiscary.Notifications.Domain;
 using Hiscary.Notifications.Domain.DataAccess;
 using Hiscary.Notifications.Domain.Services;
+using Hiscary.Shared.Domain.Constants;
 using Microsoft.Extensions.Logging;
+using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.Notifications.Application.Write.Services;
 

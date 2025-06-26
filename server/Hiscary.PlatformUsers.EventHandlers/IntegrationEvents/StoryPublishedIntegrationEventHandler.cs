@@ -1,5 +1,5 @@
 ﻿using StackNucleus.DDD.Domain.EventPublishers;
-using Hiscary.EventHandlers;
+using StackNucleus.DDD.Domain.EventHandlers;
 using Hiscary.PlatformUsers.Domain.DataAccess;
 using Hiscary.PlatformUsers.IntegrationEvents.Outgoing;
 using Hiscary.Stories.IntegrationEvents.Outgoing;

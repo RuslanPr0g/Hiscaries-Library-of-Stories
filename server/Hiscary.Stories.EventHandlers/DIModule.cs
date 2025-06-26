@@ -1,10 +1,11 @@
 ﻿using Hiscary.Media.IntegrationEvents.Outgoing;
 using Hiscary.Stories.EventHandlers.IntegrationEvents;
-using Hiscary.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using Microsoft.Extensions.Hosting;
+using StackNucleus.DDD.Domain.EventHandlers;
+using StackNucleus.DDD.Events.WolverineFx;
+using System.Reflection;
 
 namespace Hiscary.Stories.EventHandlers;
 

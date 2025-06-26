@@ -1,4 +1,6 @@
-﻿namespace Hiscary.PlatformUsers.Domain;
+﻿using StackNucleus.DDD.Domain;
+
+namespace Hiscary.PlatformUsers.Domain;
 
 /// <summary>
 /// Represents a collection of stories published by a <see cref="PlatformUser"/>. Each story

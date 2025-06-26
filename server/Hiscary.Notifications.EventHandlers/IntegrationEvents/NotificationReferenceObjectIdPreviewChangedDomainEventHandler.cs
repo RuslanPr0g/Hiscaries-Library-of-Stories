@@ -1,7 +1,7 @@
-﻿using Hiscary.EventHandlers;
-using Hiscary.Notifications.Domain.DataAccess;
+﻿using Hiscary.Notifications.Domain.DataAccess;
 using Hiscary.Notifications.IntegrationEvents.Incoming;
 using Microsoft.Extensions.Logging;
+using StackNucleus.DDD.Domain.EventHandlers;
 using Wolverine;
 
 namespace Hiscary.Notifications.EventHandlers.IntegrationEvents;

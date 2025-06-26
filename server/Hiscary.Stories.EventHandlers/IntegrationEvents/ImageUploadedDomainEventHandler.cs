@@ -1,9 +1,9 @@
-﻿using StackNucleus.DDD.Domain.EventPublishers;
-using Hiscary.EventHandlers;
-using Hiscary.Media.IntegrationEvents.Outgoing;
+﻿using Hiscary.Media.IntegrationEvents.Outgoing;
 using Hiscary.Notifications.IntegrationEvents.Incoming;
 using Hiscary.Stories.Domain.DataAccess;
 using Microsoft.Extensions.Logging;
+using StackNucleus.DDD.Domain.EventHandlers;
+using StackNucleus.DDD.Domain.EventPublishers;
 using Wolverine;
 
 namespace Hiscary.Stories.EventHandlers.IntegrationEvents;

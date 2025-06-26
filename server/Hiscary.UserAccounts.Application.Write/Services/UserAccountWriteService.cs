@@ -1,6 +1,7 @@
 ﻿using Hiscary.Shared.Domain.Constants;
 using Hiscary.Shared.Domain.Jwt;
 using Hiscary.Shared.Domain.Options;
+using Hiscary.Shared.Domain.ResultModels.Response;
 using Hiscary.UserAccounts.Application.Write.Extensions;
 using Hiscary.UserAccounts.Domain;
 using Hiscary.UserAccounts.Domain.DataAccess;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using StackNucleus.DDD.Domain.EventPublishers;
 using StackNucleus.DDD.Domain.Generators;
+using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.UserAccounts.Application.Write.Services;
 

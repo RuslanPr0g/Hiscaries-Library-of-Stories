@@ -3,6 +3,7 @@ using Hiscary.Notifications.DomainEvents;
 using Hiscary.Notifications.SignalR.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using StackNucleus.DDD.Domain.EventHandlers;
 using Wolverine;
 
 namespace Hiscary.Notifications.EventHandlers.DomainEvents;

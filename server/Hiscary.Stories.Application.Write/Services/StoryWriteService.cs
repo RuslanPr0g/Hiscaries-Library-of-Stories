@@ -1,13 +1,14 @@
-﻿using StackNucleus.DDD.Domain.Constants;
-using StackNucleus.DDD.Domain.EventPublishers;
-using StackNucleus.DDD.Domain.Generators;
-using StackNucleus.DDD.Domain.ResultModels.Response;
-using Hiscary.Media.IntegrationEvents.Incoming;
+﻿using Hiscary.Media.IntegrationEvents.Incoming;
+using Hiscary.Shared.Domain.Constants;
+using Hiscary.Shared.Domain.ResultModels.Response;
 using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.Genres;
 using Hiscary.Stories.Domain.Stories;
 using Hiscary.Stories.IntegrationEvents.Outgoing;
 using Microsoft.Extensions.Logging;
+using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Domain.Generators;
+using StackNucleus.DDD.Domain.ResultModels;
 
 // TODO: this implementation is hideous please fix
 namespace Hiscary.Stories.Application.Write.Services;
