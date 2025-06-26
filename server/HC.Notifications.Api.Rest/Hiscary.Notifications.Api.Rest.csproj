@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>79286272-6d6a-49a5-a870-49140a2f775e</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.16">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Enterprise.Api.Rest\Enterprise.Api.Rest.csproj" />
+        <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Application.Read\Hiscary.Notifications.Application.Read.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Application.Write\Hiscary.Notifications.Application.Write.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Domain\Hiscary.Notifications.Domain.csproj" />
+        <ProjectReference Include="..\HC.Notifications.EventHandlers\Hiscary.Notifications.EventHandlers.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Jobs\Hiscary.Notifications.Jobs.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Persistence.Context\Hiscary.Notifications.Persistence.Context.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Persistence.Read\Hiscary.Notifications.Persistence.Read.csproj" />
+        <ProjectReference Include="..\HC.Notifications.Persistence.Write\Hiscary.Notifications.Persistence.Write.csproj" />
+        <ProjectReference Include="..\HC.Notifications.SignalR\Hiscary.Notifications.SignalR.csproj" />
+        <ProjectReference Include="..\HC.ServiceDefaults\HC.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>
