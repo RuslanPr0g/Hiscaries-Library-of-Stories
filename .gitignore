@@ -64,6 +64,8 @@ wwwroot/
 # StyleCop
 StyleCopReport.xml
 
+azurite-data/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c

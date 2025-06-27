@@ -1,8 +1,12 @@
-using Hiscary.Shared.Api.Rest;
+using Hiscary.Media.Api.Rest.Endpoints;
 using Hiscary.Media.EventHandlers;
 using Hiscary.Media.FileStorage;
 using Hiscary.Media.Images;
 using Hiscary.ServiceDefaults;
+using Hiscary.Shared.Api.Rest;
+using Hiscary.Shared.Application.Extensions;
+using Hiscary.Shared.Domain.Options;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +16,37 @@ builder.Services.AddSharedRestApi(builder.Configuration);
 
 builder.Services.AddMediaFileStorage();
 builder.Services.AddMediaImages();
-builder.Services.AddEndpointsApiExplorer();
 builder.AddEventHandlers(builder.Configuration);
-builder.Services.AddSwaggerGen();
+builder.Services.AddSerilog();
+builder.Services.AddLogging();
 
 builder.AddAzureBlobClient("azblobs", config => config.DisableHealthChecks = true);
+
+builder.Services.AddBoundSettingsWithSectionAsEntityName<ServiceUrls>(builder.Configuration, out var serviceUrls);
+builder.Services.AddSingleton(serviceUrls);
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = null;
+    options.SerializerOptions.DictionaryKeyPolicy = null;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+});
 
 var app = builder.Build();
 
@@ -28,8 +58,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
+app.UseRouting();
+
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapMediaEndpoints();
 
 app.Run();

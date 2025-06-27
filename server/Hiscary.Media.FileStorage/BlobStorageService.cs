@@ -1,17 +1,20 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Hiscary.Shared.Domain.FileStorage;
+using Hiscary.Shared.Domain.Options;
 
 namespace Hiscary.Media.FileStorage;
 
-public sealed class BlobStorageService : IBlobStorageService
+public sealed class BlobStorageService: IBlobStorageService
 {
+    private readonly ServiceUrls _serviceUrls;
     private readonly BlobServiceClient _blobServiceClient;
 
-    public BlobStorageService(BlobServiceClient blobServiceClient)
+    public BlobStorageService(BlobServiceClient blobServiceClient, ServiceUrls jwtSettings)
     {
         ArgumentNullException.ThrowIfNull(blobServiceClient);
         _blobServiceClient = blobServiceClient;
+        _serviceUrls = jwtSettings;
     }
 
     public async Task<string> UploadAsync(
@@ -34,7 +37,7 @@ public sealed class BlobStorageService : IBlobStorageService
             new BlobHttpHeaders { ContentType = contentType },
             cancellationToken: cancellationToken);
 
-        return blobClient.Uri.ToString();
+        return _serviceUrls.GetImagesUrl(blobName);
     }
 
     public async Task<(Stream content, string contentType)> DownloadAsync(

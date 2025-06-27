@@ -24,7 +24,10 @@ var azBlobs = builder.AddAzureStorage("azstorage")
                 "0.0.0.0",
                 "--debug",
                 "path/debug.log")
-                .WithDataVolume("hiscaryazurestorage")
+                .WithBindMount(
+                        source: "../azurite-data",
+                        target: "/data",
+                        isReadOnly: false)
     )
     .AddBlobs("azblobs");
 
@@ -55,6 +58,7 @@ var stories = builder.AddProject<Projects.Hiscary_Stories_Api_Rest>("hc-stories-
 var media = builder.AddProject<Projects.Hiscary_Media_Api_Rest>("hc-media-api-rest")
     .WithJwtAndSaltSettings(builder.Configuration)
     .WithHttpsEndpoint(name: "rest", port: 7014, targetPort: 7014, isProxied: false)
+    .WithEnvironment("ServiceUrls__MediaServiceUrl", "https://localhost:5001/api/v1/media")
     .WithReference(rabbitmq)
     .WithReference(azBlobs);
 
