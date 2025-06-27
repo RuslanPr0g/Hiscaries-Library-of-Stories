@@ -1,22 +1,83 @@
-.signin {
-    font-family: monospace, serif;
+$primary-color: #e0aaff;
+$glass-bg: rgba(255, 255, 255, 0.05);
+$glass-border: rgba(255, 255, 255, 0.2);
+$shadow: 0 8px 32px 0 rgba(34, 34, 46, 0.37);
+
+.login-container,
+.p-card {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    height: 96vh;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
 
-    &_mode {
-        position: absolute;
-        top: 0;
-        left: 0;
-        font-size: 5em;
-        text-align: center;
-        padding: 1%;
-        user-select: none;
-        color: #b3b3b3;
+    h2 {
+        color: #ffffffcc;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
     }
-}
 
-.error {
-    text-align: center;
+    .toggle-text {
+        color: #cccccc;
+        cursor: pointer;
+        margin-bottom: 1.5rem;
+        transition: color 0.3s;
+
+        &:hover {
+            color: #ffffff;
+        }
+    }
+
+    .glass-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        background: $glass-bg;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid $glass-border;
+        box-shadow: $shadow;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+
+            input,
+            .p-password-input {
+                padding: 0.75rem 1rem;
+                border-radius: 12px;
+                border: none;
+                background: rgba(255, 255, 255, 0.15);
+                color: #fff;
+                font-size: 1rem;
+
+                &::placeholder {
+                    color: #cccccc;
+                }
+
+                &:focus {
+                    outline: 2px solid $primary-color;
+                    background: rgba(255, 255, 255, 0.2);
+                }
+            }
+        }
+
+        .fancy-btn {
+            border: none;
+            color: #000;
+            font-weight: bold;
+            padding: 0.75rem 1rem;
+            border-radius: 20px;
+            transition: background 0.3s ease;
+        }
+    }
 }

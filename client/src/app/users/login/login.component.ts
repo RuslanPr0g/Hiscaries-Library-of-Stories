@@ -1,120 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthButtonComponent } from './auth-button/auth-button.component';
-import { AuthFormComponent } from './auth-form/auth-form.component';
-import { AuthInputComponent } from './auth-input/auth-input.component';
 import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs';
 import { NavigationConst } from '../../shared/constants/navigation.const';
 
-export interface ApiError {
-    Message: string;
-}
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     standalone: true,
-    imports: [AuthButtonComponent, AuthInputComponent, AuthFormComponent, FormsModule, ReactiveFormsModule],
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CardModule,
+        InputTextModule,
+        PasswordModule,
+        CheckboxModule,
+        ButtonModule,
+    ],
 })
 export class LoginComponent implements OnInit {
-    formlogin: FormGroup;
-    formregister: FormGroup;
+    formLogin: FormGroup;
+    formRegister: FormGroup;
     isLoginState = true;
-    errorMessage: string | null;
-
-    username: string;
-
-    submitted = false;
+    errorMessage: string | null = null;
 
     constructor(
-        private service: AuthService,
+        private fb: FormBuilder,
+        private authService: AuthService,
         private router: Router
     ) {
-        this.formlogin = new FormGroup({
-            Username: new FormControl('', Validators.required),
-            Password: new FormControl('', Validators.required),
+        this.formLogin = this.fb.group({
+            username: ['', [Validators.required]],
+            password: ['', [Validators.required]],
         });
 
-        this.formregister = new FormGroup({
-            Username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-            Password: new FormControl('', [Validators.required, Validators.minLength(3)]),
-            Email: new FormControl('', [Validators.required, Validators.email]),
-            Dob: new FormControl('', Validators.required),
+        this.formRegister = this.fb.group({
+            username: ['', [Validators.required, Validators.minLength(3)]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            email: ['', [Validators.required, Validators.email]],
         });
     }
 
     ngOnInit(): void {
-        if (this.service.isAuthenticated()) {
+        if (this.authService.isAuthenticated()) {
             this.router.navigateByUrl(NavigationConst.Home);
         }
     }
 
-    changeState(): void {
-        this.isLoginState = !this.isLoginState;
-        this.errorMessage = null;
-        this.formlogin.reset();
-        this.formregister.reset();
-    }
+    onSubmit(): void {
+        const form = this.isLoginState ? this.formLogin : this.formRegister;
 
-    logIn(): void {
-        if (this.formlogin?.invalid) {
-            this.errorMessage = 'All fields are required!';
+        if (form.invalid) {
+            this.errorMessage = 'Please fill all required fields!';
             return;
         }
 
-        this.submit();
-        this.service
-            .login(this.formlogin?.value)
-            .pipe(take(1))
-            .subscribe({
-                next: () => this.processAuth(),
-                error: (error) => this.processError(error),
-            });
-    }
+        const action = this.isLoginState ? this.authService.login(form.value) : this.authService.register(form.value);
 
-    signUp(): void {
-        if (this.formregister?.invalid) {
-            this.errorMessage = 'All fields are required and must be valid!';
-            return;
-        }
-
-        this.submit();
-        this.service.register(this.formregister?.value).subscribe({
-            next: () => this.processAuth(),
-            error: (error) => this.processError(error),
+        action.pipe(take(1)).subscribe({
+            next: () => this.router.navigateByUrl(NavigationConst.Home),
+            error: (err) => {
+                this.errorMessage = err.error.Message || (this.isLoginState ? 'Login failed' : 'Registration failed');
+            },
         });
     }
 
-    private processAuth(): void {
-        this.router
-            .navigateByUrl(NavigationConst.Home)
-            .then(() => {
-                this.processed();
-            })
-            .catch(() => {
-                this.processed();
-            });
-    }
-
-    private processError(error: { error: ApiError }): void {
-        this.processed();
-        this.handleError(error.error);
-    }
-
-    private handleError(error: ApiError): void {
-        this.errorMessage = error?.Message || 'An unexpected error occurred';
-    }
-
-    private submit(): void {
+    toggleState(): void {
+        this.isLoginState = !this.isLoginState;
         this.errorMessage = null;
-        this.submitted = true;
-    }
-
-    private processed(): void {
-        this.errorMessage = null;
-        this.submitted = false;
+        this.formLogin.reset();
+        this.formRegister.reset();
     }
 }

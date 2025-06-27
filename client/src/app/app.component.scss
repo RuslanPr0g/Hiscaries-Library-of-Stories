@@ -9,14 +9,9 @@ main {
         flex-direction: row;
     }
 
-    & .left-panel {
-        margin: 20px 0px;
-    }
+    & .left-panel {}
 
-    & .right-panel {
-        width: 80%;
-        margin: 16px auto;
-    }
+    & .right-panel {}
 }
 
 @media (max-width: 900px) {
