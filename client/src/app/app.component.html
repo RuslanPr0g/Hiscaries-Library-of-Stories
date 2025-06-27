@@ -35,7 +35,10 @@
             </div>
         </div>
     </div>
-    <div class="right-panel">
+    <div
+        class="right-panel"
+        [ngClass]="{ 'mt-16': authService.isAuthenticated() }"
+    >
         <router-outlet></router-outlet>
     </div>
 </main>

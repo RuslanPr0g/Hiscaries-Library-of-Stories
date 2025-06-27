@@ -10,13 +10,15 @@ main {
         flex-direction: row;
     }
 
-    & .right-panel {
-        margin-top: 16px;
-    }
+    & .right-panel {}
 
     &> :first-child {
         align-self: flex-start;
     }
+}
+
+.mt-16 {
+    margin-top: 16px;
 }
 
 @media (max-width: 900px) {
