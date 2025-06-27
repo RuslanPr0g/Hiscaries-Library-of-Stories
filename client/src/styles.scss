@@ -6,6 +6,7 @@
 @import '../node_modules/quill/dist/quill.snow.css';
 
 $primary-color: #c9a27e;
+// #c9a27d - extra
 $secondary-color: #a37c5b;
 $accent-color: #d1bfa3;
 
@@ -64,14 +65,14 @@ body.story-background-overlay::before {
     border: none;
     padding: 0 !important;
     font-family: arial, sans-serif;
-    color: #8b5cf6;
+    color: #c9a27d;
     text-decoration: underline;
     cursor: pointer;
     font-size: 1rem;
 }
 
 .text-main {
-    color: #8b5cf6;
+    color: #c9a27d;
 }
 
 .main-title {
