@@ -5,6 +5,22 @@
 @import '../node_modules/quill/dist/quill.core.css';
 @import '../node_modules/quill/dist/quill.snow.css';
 
+$primary-color: #c9a27e;
+$secondary-color: #a37c5b;
+$accent-color: #d1bfa3;
+
+$glass-bg: rgba(56, 41, 29, 0.4);
+$glass-border: rgba(255, 255, 255, 0.1);
+$input-bg: rgba(255, 255, 255, 0.08);
+$input-focus-bg: rgba(255, 255, 255, 0.12);
+$placeholder-color: #ccc;
+$text-color: #f5f0eb;
+$hover-color: #fff;
+$shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
+
+$background-gradient-start: #3a2e2a;
+$background-gradient-end: #645044;
+
 *,
 ::after,
 ::before {
@@ -121,5 +137,50 @@ body.story-background-overlay::before {
     .p-password,
     .p-password-input {
         width: 100%;
+    }
+}
+
+.p-password {
+    width: 100%;
+
+    .p-password-input {
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        border: none;
+        background: $input-bg;
+        color: $text-color;
+        font-size: 1rem;
+        width: 100%;
+
+        &::placeholder {
+            color: $placeholder-color;
+        }
+
+        &:focus {
+            outline: 2px solid $primary-color;
+            background: $input-focus-bg;
+        }
+    }
+}
+
+.p-button {
+    background: $secondary-color;
+    backdrop-filter: blur(6px);
+    border: 1px solid lighten($glass-border, 20%);
+    color: $text-color;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+
+    &:hover {
+        border-color: $accent-color;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 }

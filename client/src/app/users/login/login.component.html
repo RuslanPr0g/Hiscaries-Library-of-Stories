@@ -40,7 +40,7 @@
                     placeholder="Password"
                     [toggleMask]="true"
                     class="w-full"
-                    [feedback]="!isLoginState"
+                    [feedback]="false"
                 ></p-password>
             </div>
 
@@ -48,9 +48,7 @@
                 type="submit"
                 [label]="isLoginState ? 'Sign In' : 'Register'"
                 [disabled]="(isLoginState ? formLogin : formRegister).invalid"
-                class="w-full"
-                variant="outlined"
-                severity="secondary"
+                class="w-full fancy-btn"
             ></p-button>
         </form>
 
