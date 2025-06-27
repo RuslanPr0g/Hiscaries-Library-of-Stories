@@ -27,12 +27,12 @@ export class SearchStoryResultsComponent implements OnInit {
         this.responsiveOptions = [
             {
                 breakpoint: '1950px',
-                numVisible: 2,
-                numScroll: 1,
+                numVisible: 3,
+                numScroll: 2,
             },
             {
                 breakpoint: '1150px',
-                numVisible: 1,
+                numVisible: 2,
                 numScroll: 1,
             },
             {

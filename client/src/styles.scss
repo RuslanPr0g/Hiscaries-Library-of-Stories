@@ -88,6 +88,10 @@ body.story-background-overlay::before {
     font-size: 2rem;
 }
 
+.fs-1rem {
+    font-size: 1.5rem;
+}
+
 .error-message {
     color: red;
 }
@@ -217,6 +221,14 @@ body.story-background-overlay::before {
             background: $input-focus-bg;
         }
     }
+}
+
+.p-link {
+    background: $accent-color;
+}
+
+.p-highlight {
+    background: $secondary-color !important;
 }
 
 .p-button {
