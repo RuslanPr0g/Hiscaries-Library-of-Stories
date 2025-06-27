@@ -145,7 +145,7 @@ body {
 /* Active state */
 .search-bar input:focus+.search-btn,
 .search-bar input:valid+.search-btn {
-    background: #8b5cf6;
+    background: #a37c5b;
     border-radius: 0 0.375em 0.375em 0;
     transform: scale(1);
 }
@@ -160,7 +160,7 @@ body {
 .search-bar input:focus+.search-btn:hover,
 .search-bar input:valid+.search-btn:hover,
 .search-bar input:valid:not(:focus)+.search-btn:focus {
-    background: #8b5cf6;
+    background: #a37c5b;
 }
 
 .search-bar input:focus+.search-btn:active,

@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
     standalone: true,
@@ -28,6 +29,7 @@ import { CheckboxModule } from 'primeng/checkbox';
         PasswordModule,
         CheckboxModule,
         ButtonModule,
+        ProgressSpinnerModule,
     ],
 })
 export class LoginComponent implements OnInit {
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
     formRegister: FormGroup;
     isLoginState = true;
     errorMessage: string | null = null;
+    isLoading: boolean = true;
 
     constructor(
         private fb: FormBuilder,
@@ -57,6 +60,8 @@ export class LoginComponent implements OnInit {
         if (this.authService.isAuthenticated()) {
             this.router.navigateByUrl(NavigationConst.Home);
         }
+
+        setTimeout(() => (this.isLoading = false), 1000);
     }
 
     onSubmit(): void {

@@ -12,6 +12,7 @@
             [formGroup]="isLoginState ? formLogin : formRegister"
             (ngSubmit)="onSubmit()"
             autocomplete="off"
+            *ngIf="!isLoading"
         >
             <div class="form-field">
                 <input
@@ -55,9 +56,19 @@
         <p
             class="toggle-text"
             (click)="toggleState()"
+            *ngIf="!isLoading"
         >
             {{ !isLoginState ? 'Have an account?' : 'Need an account?' }}
         </p>
+
+        <div class="w-full center">
+            <p-progressSpinner
+                styleClass="w-4rem h-4rem"
+                strokeWidth="2"
+                animationDuration="0.5s"
+                *ngIf="isLoading"
+            />
+        </div>
     </p-card>
 
     <div

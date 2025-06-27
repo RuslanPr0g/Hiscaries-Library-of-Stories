@@ -1,5 +1,11 @@
 <app-loading-overlay *ngIf="loading"></app-loading-overlay>
 <main>
+    <div class="background-decor">
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-1"></div>
+    </div>
+
     <div
         class="left-panel"
         *ngIf="authService.isAuthenticated()"

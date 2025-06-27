@@ -14,50 +14,6 @@ $shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
 $background-gradient-start: #3a2e2a;
 $background-gradient-end: #645044;
 
-.background-decor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-    transition: all 2s;
-
-    .shape {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(100px);
-        opacity: 0.3;
-        mix-blend-mode: lighten;
-
-        &.shape-1 {
-            width: 300px;
-            height: 300px;
-            background: $accent-color;
-            top: -100px;
-            left: -100px;
-        }
-
-        &.shape-2 {
-            width: 400px;
-            height: 400px;
-            background: $secondary-color;
-            bottom: -150px;
-            right: -150px;
-        }
-
-        &.shape-3 {
-            width: 200px;
-            height: 200px;
-            background: $primary-color;
-            top: 50%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-        }
-    }
-}
-
 .login-container {
     position: relative;
     z-index: 1;
