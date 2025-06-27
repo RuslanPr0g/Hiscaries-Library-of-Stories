@@ -1,8 +1,9 @@
 <ng-container *ngIf="displayedStories.length > 0 || isLoading; else noStories">
-    <h1 class="fs-2rem main-title">Stories for you to read</h1>
+    <h1 class="fs-1rem main-title">Stories for you to read</h1>
     <app-search-story-results
         [stories]="displayedStories"
         [isLoading]="isLoading"
+        class="w-full"
     >
     </app-search-story-results>
     <app-button-one

@@ -7,7 +7,6 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { NavigationConst } from './shared/constants/navigation.const';
 import { AuthService } from './users/services/auth.service';
-import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 import { NotificationLifecycleManagerService } from './users/services/notification-lifecycle-manager.service';
 import { StoryPublishedHandler } from './users/notification-handlers/story-published-notification.handler';
 import { NotificationStateService } from './shared/services/statefull/notification-state.service';
@@ -17,15 +16,7 @@ import { filter, takeUntil } from 'rxjs';
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [
-        CommonModule,
-        RouterOutlet,
-        ButtonModule,
-        SidebarModule,
-        HeaderComponent,
-        LoadingOverlayComponent,
-        SearchBarComponent,
-    ],
+    imports: [CommonModule, RouterOutlet, ButtonModule, SidebarModule, HeaderComponent, LoadingOverlayComponent],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })

@@ -1,75 +1,80 @@
-<div class="signin">
-    @if (isLoginState) {
-        <app-auth-form
-            [formGroup]="formlogin"
-            (submitForm)="logIn()"
+<div class="login-container">
+    <div class="background-decor">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <h2>Welcome</h2>
+
+    <p-card class="glass-card">
+        <form
+            [formGroup]="isLoginState ? formLogin : formRegister"
+            (ngSubmit)="onSubmit()"
+            autocomplete="off"
+            *ngIf="!isLoading"
         >
-            <app-auth-input
-                formControlName="Username"
-                type="username"
-                placeholder="Username"
-            ></app-auth-input>
-            <app-auth-input
-                formControlName="Password"
-                type="password"
-                placeholder="Password"
-            ></app-auth-input>
-            <app-auth-button
+            <div class="form-field">
+                <input
+                    pInputText
+                    formControlName="username"
+                    placeholder="Username"
+                    class="w-full"
+                />
+            </div>
+
+            <ng-container *ngIf="!isLoginState">
+                <div class="form-field">
+                    <input
+                        pInputText
+                        formControlName="email"
+                        placeholder="Email"
+                        type="email"
+                        class="w-full"
+                    />
+                </div>
+            </ng-container>
+
+            <div class="form-field">
+                <p-password
+                    formControlName="password"
+                    placeholder="Password"
+                    [toggleMask]="true"
+                    class="w-full"
+                    [feedback]="false"
+                ></p-password>
+            </div>
+
+            <p-button
                 type="submit"
-                [disabled]="submitted"
-                >Log In</app-auth-button
-            >
-            <app-auth-button
-                type="button"
-                (clicked)="changeState()"
-                [disabled]="submitted"
-                >I need an account</app-auth-button
-            >
-        </app-auth-form>
-    } @else {
-        <app-auth-form
-            [formGroup]="formregister"
-            (submitForm)="signUp()"
+                [label]="isLoginState ? 'Sign In' : 'Register'"
+                [disabled]="(isLoginState ? formLogin : formRegister).invalid"
+                class="w-full fancy-btn"
+            ></p-button>
+        </form>
+
+        <p
+            class="toggle-text"
+            (click)="toggleState()"
+            *ngIf="!isLoading"
         >
-            <app-auth-input
-                formControlName="Username"
-                type="username"
-                placeholder="Username"
-            ></app-auth-input>
-            <app-auth-input
-                formControlName="Email"
-                type="email"
-                placeholder="Email"
-            ></app-auth-input>
-            <app-auth-input
-                formControlName="Dob"
-                type="date"
-                placeholder="Date of Birth"
-            ></app-auth-input>
-            <app-auth-input
-                formControlName="Password"
-                type="password"
-                placeholder="Password"
-            ></app-auth-input>
-            <app-auth-button
-                type="submit"
-                [disabled]="submitted"
-                >Sign Up</app-auth-button
-            >
-            <app-auth-button
-                type="button"
-                (clicked)="changeState()"
-                [disabled]="submitted"
-                >I have an account</app-auth-button
-            >
-        </app-auth-form>
-    }
-    @if (errorMessage) {
-        <div class="error">
-            <p>{{ errorMessage }}</p>
+            {{ !isLoginState ? 'Have an account?' : 'Need an account?' }}
+        </p>
+
+        <div class="w-full center">
+            <p-progressSpinner
+                styleClass="w-4rem h-4rem"
+                strokeWidth="2"
+                animationDuration="0.5s"
+                *ngIf="isLoading"
+            />
         </div>
-    }
-    <div class="signin_mode">
-        {{ isLoginState ? 'Log in' : 'Sign up' }}
+    </p-card>
+
+    <div
+        *ngIf="errorMessage"
+        class="error-message"
+    >
+        {{ errorMessage }}
     </div>
 </div>

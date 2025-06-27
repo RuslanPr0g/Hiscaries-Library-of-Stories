@@ -2,6 +2,7 @@ main {
     display: flex;
     flex-direction: column;
     min-height: 95vh;
+    justify-content: start !important;
 
     & .left-panel,
     .navigation {
@@ -9,14 +10,15 @@ main {
         flex-direction: row;
     }
 
-    & .left-panel {
-        margin: 20px 0px;
-    }
+    & .right-panel {}
 
-    & .right-panel {
-        width: 80%;
-        margin: 16px auto;
+    &> :first-child {
+        align-self: flex-start;
     }
+}
+
+.mt-16 {
+    margin-top: 16px;
 }
 
 @media (max-width: 900px) {

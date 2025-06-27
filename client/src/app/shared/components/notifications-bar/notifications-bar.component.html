@@ -21,14 +21,13 @@
             tabindex="0"
         >
             <div class="notification-content">
-                <p class="notification-message">
-                    {{ notification.Message }}
-                </p>
+                <p class="notification-message">{{ notification.Message }}</p>
                 <img
                     *ngIf="notification.PreviewUrl"
                     [src]="notification.PreviewUrl"
                     alt="{{ notification.Message }}"
                     class="notification-image"
+                    onerror="this.style.display='none'"
                 />
             </div>
         </li>

@@ -1,7 +1,16 @@
-.library-edit {
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+    color: #f5f0eb;
+}
+
+.center {
     display: flex;
     justify-content: center;
-    margin-top: 16px;
-    color: #c4c2c2;
-    font-size: 24px;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 2rem;
 }

@@ -4,7 +4,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
     &__content {
-        min-height: 70vh;
+        min-height: 60vh;
         max-height: 75vh;
         width: 100%;
         padding: 0.5rem 2rem;
@@ -16,8 +16,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1.2rem;
         user-select: none;
+        padding-bottom: 1rem;
 
         & .message {
             margin: auto 16px;
@@ -26,10 +26,12 @@
 
     &-maximized {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        top: 14px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        width: 87%;
+        height: 85vh;
 
         & .read-story-container__content {
             min-height: 90vh;
