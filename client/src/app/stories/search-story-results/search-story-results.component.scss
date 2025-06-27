@@ -1,14 +1,70 @@
-.story-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    margin-bottom: 24px;
+$primary-color: #c9a27e;
+$secondary-color: #a37c5b;
+$accent-color: #d1bfa3;
+
+$glass-bg: rgba(56, 41, 29, 0.4);
+$glass-border: rgba(255, 255, 255, 0.1);
+$text-color: #f5f0eb;
+$shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
+
+.item {
+    padding: 14px;
 }
 
-.stories {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.glassy-carousel {
+    background: $glass-bg;
+    border-radius: 20px;
+    border: 1px solid $glass-border;
+    box-shadow: $shadow;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: $text-color;
+    width: 100%;
+
+    .p-carousel-content {
+        gap: 1rem;
+    }
+
+    .p-carousel-item {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1rem;
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(201, 162, 126, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+
+    .p-carousel-header {
+        color: $accent-color;
+    }
+
+    .p-carousel-indicators {
+        button {
+            background: $secondary-color;
+            opacity: 0.6;
+
+            &.p-highlight {
+                opacity: 1;
+                box-shadow: 0 0 8px 2px $primary-color;
+            }
+        }
+    }
+
+    .p-carousel-prev,
+    .p-carousel-next {
+        color: $primary-color;
+        background: transparent;
+        font-size: 2rem;
+        transition: color 0.3s;
+
+        &:hover {
+            color: $accent-color;
+        }
+    }
 }

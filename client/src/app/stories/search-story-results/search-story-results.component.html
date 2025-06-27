@@ -1,30 +1,23 @@
 <app-skeleton-or-story-content [dataLoaded]="!isLoading">
     <ng-container *ngIf="stories.length > 0 || isLoading; else noStories">
-        <ng-container *ngIf="!isCarousel; else carousel">
-            <div class="stories">
-                <div class="story-list">
-                    <ng-container *ngFor="let story of stories">
-                        <app-story-search-item [story]="story"></app-story-search-item>
-                    </ng-container>
-                </div>
-            </div>
-        </ng-container>
-        <ng-template #carousel>
-            <p-carousel
-                [value]="stories"
-                [numVisible]="3"
-                [numScroll]="1"
-                [circular]="false"
-                [responsiveOptions]="responsiveOptions"
+        <p-carousel
+            [value]="stories"
+            [numVisible]="3"
+            [numScroll]="1"
+            [circular]="false"
+            [responsiveOptions]="responsiveOptions"
+            class="glassy-carousel"
+        >
+            <ng-template
+                let-story
+                pTemplate="item"
             >
-                <ng-template
-                    let-story
-                    pTemplate="item"
-                >
+                <div class="item">
                     <app-story-search-item [story]="story"></app-story-search-item>
-                </ng-template>
-            </p-carousel>
-        </ng-template>
+                </div>
+            </ng-template>
+        </p-carousel>
     </ng-container>
 </app-skeleton-or-story-content>
-<ng-template #noStories> 😕 No stories found matching your search. </ng-template>
+
+<ng-template #noStories>😕 No stories found matching your search.</ng-template>
