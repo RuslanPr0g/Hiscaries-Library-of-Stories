@@ -1,32 +1,89 @@
-$primary-color: #e0aaff;
-$glass-bg: rgba(255, 255, 255, 0.05);
-$glass-border: rgba(255, 255, 255, 0.2);
-$shadow: 0 8px 32px 0 rgba(34, 34, 46, 0.37);
+$primary-color: #c9a27e;
+$secondary-color: #a37c5b;
+$accent-color: #d1bfa3;
 
-.login-container,
-.p-card {
+$glass-bg: rgba(56, 41, 29, 0.4);
+$glass-border: rgba(255, 255, 255, 0.1);
+$input-bg: rgba(255, 255, 255, 0.08);
+$input-focus-bg: rgba(255, 255, 255, 0.12);
+$placeholder-color: #ccc;
+$text-color: #f5f0eb;
+$hover-color: #fff;
+$shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
+
+$background-gradient-start: #3a2e2a;
+$background-gradient-end: #645044;
+
+.background-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    transition: all 2s;
+
+    .shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.3;
+        mix-blend-mode: lighten;
+
+        &.shape-1 {
+            width: 300px;
+            height: 300px;
+            background: $accent-color;
+            top: -100px;
+            left: -100px;
+        }
+
+        &.shape-2 {
+            width: 400px;
+            height: 400px;
+            background: $secondary-color;
+            bottom: -150px;
+            right: -150px;
+        }
+
+        &.shape-3 {
+            width: 200px;
+            height: 200px;
+            background: $primary-color;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+.login-container {
+    position: relative;
+    z-index: 1;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     padding: 2rem;
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    background: linear-gradient(135deg, $background-gradient-start, $background-gradient-end);
 
     h2 {
-        color: #ffffffcc;
+        color: $text-color;
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
     }
 
     .toggle-text {
-        color: #cccccc;
+        color: lighten($text-color, 20%);
         cursor: pointer;
         margin-bottom: 1.5rem;
         transition: color 0.3s;
 
         &:hover {
-            color: #ffffff;
+            color: $hover-color;
         }
     }
 
@@ -56,28 +113,33 @@ $shadow: 0 8px 32px 0 rgba(34, 34, 46, 0.37);
                 padding: 0.75rem 1rem;
                 border-radius: 12px;
                 border: none;
-                background: rgba(255, 255, 255, 0.15);
-                color: #fff;
+                background: $input-bg;
+                color: $text-color;
                 font-size: 1rem;
 
                 &::placeholder {
-                    color: #cccccc;
+                    color: $placeholder-color;
                 }
 
                 &:focus {
                     outline: 2px solid $primary-color;
-                    background: rgba(255, 255, 255, 0.2);
+                    background: $input-focus-bg;
                 }
             }
         }
 
         .fancy-btn {
+            background: linear-gradient(135deg, $primary-color, $secondary-color);
             border: none;
             color: #000;
             font-weight: bold;
             padding: 0.75rem 1rem;
             border-radius: 20px;
             transition: background 0.3s ease;
+
+            &:hover {
+                background: linear-gradient(135deg, lighten($primary-color, 10%), lighten($secondary-color, 10%));
+            }
         }
     }
 }
