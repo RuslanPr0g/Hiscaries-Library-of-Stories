@@ -61,6 +61,10 @@ export class HeaderComponent {
         ];
     }
 
+    closeModal() {
+        this.commandExecuted.emit();
+    }
+
     get isUserPublisher(): boolean {
         return this.userService.isPublisher();
     }

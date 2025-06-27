@@ -1,5 +1,5 @@
 <app-loading-overlay *ngIf="loading"></app-loading-overlay>
-<main>
+<main [ngClass]="{ container: authService.isAuthenticated() }">
     <div class="background-decor">
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
@@ -11,32 +11,30 @@
         *ngIf="authService.isAuthenticated()"
     >
         <div class="navigation">
-            <p-button
-                icon="pi pi-arrow-left"
-                class="back-button"
-                (onClick)="goBack()"
-            ></p-button>
-            <p-sidebar [(visible)]="sidebarVisible">
-                <app-header (commandExecuted)="sidebarVisible = false"></app-header>
-            </p-sidebar>
-            <p-button
-                class="logo"
-                (click)="home()"
+            <div
+                *ngIf="sidebarVisible"
+                class="sidebar"
             >
-                HISCARIES
-            </p-button>
+                <app-header (commandExecuted)="sidebarVisible = false"></app-header>
+                <app-search-bar></app-search-bar>
+            </div>
+
             <div class="notification-wrapper">
                 <p-button
-                    (onClick)="sidebarVisible = true"
-                    icon="pi pi-arrow-right"
-                />
+                    class="logo"
+                    icon="pi pi-user"
+                    [rounded]="true"
+                    [text]="true"
+                    severity="info"
+                    (click)="sidebarVisible = !sidebarVisible"
+                >
+                </p-button>
                 <span
                     class="notification-wrapper__circle"
                     *ngIf="unreadCount > 0"
                 ></span>
             </div>
         </div>
-        <app-search-bar></app-search-bar>
     </div>
     <div class="right-panel">
         <router-outlet></router-outlet>

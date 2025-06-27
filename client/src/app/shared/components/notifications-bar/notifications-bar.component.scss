@@ -3,99 +3,119 @@
     width: 100%;
 }
 
-// Define color scheme
-$primary-color: #8b5cf6;
-$background-color: #1e1e2e;
-$secondary-background: #313244;
-$hover-background: #45475a;
-$text-color: #ffffff;
-$subtext-color: #cdd6f4;
+$primary-color: #c9a27e;
+$secondary-color: #a37c5b;
+$accent-color: #d1bfa3;
+
+$background-color: rgba(56, 41, 29, 0.4);
+$secondary-background: rgba(56, 41, 29, 0.6);
+$hover-background: rgba(56, 41, 29, 0.8);
+$text-color: #f5f0eb;
+$subtext-color: #d1bfa3;
+$shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
+$glass-border: rgba(255, 255, 255, 0.1);
+
+.notifications-bar {
+    max-width: 500px;
+    width: 100%;
+    margin: 24px auto;
+    padding: 16px;
+    background: $background-color;
+    border-radius: 16px;
+    color: $text-color;
+    border: 1px solid $glass-border;
+    box-shadow: $shadow;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.notifications-bar__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+}
+
+.notifications-bar__header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: $subtext-color;
+}
+
+.notifications-bar__header .link {
+    background: none;
+    border: none;
+    color: $accent-color;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.8rem !important;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: $primary-color;
+    }
+}
+
+.notifications-list {
+    list-style: none;
+    margin: 0;
+    padding: 16px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $accent-color transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $accent-color;
+        border-radius: 3px;
+    }
+}
+
+.notifications-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: $secondary-background;
+    color: $text-color;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    user-select: none;
+
+    &.unread {
+        background: $primary-color;
+        color: $background-color;
+    }
+
+    &:hover {
+        background: $hover-background;
+    }
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.notification-message {
+    font-size: 1rem;
+    margin: 0;
+    max-width: 60%;
+    color: inherit;
+}
 
 .notification-image {
     max-width: 150px;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.notifications-bar {
-    max-width: 500px;
-    min-width: 500px;
-
-    padding: 16px;
-    background-color: $background-color;
-    border-radius: 8px;
-    color: $text-color;
-    margin: auto;
-    margin-top: 24px;
-    width: 500px;
-
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 55px;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-        margin: 0;
-        color: $subtext-color;
-    }
-
-    .notifications-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        max-height: 500px;
-        overflow-y: auto;
-        padding-top: 16px;
-        padding-bottom: 16px;
-
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            background-color: $secondary-background;
-            transition: all 0.2s ease;
-
-            &.unread {
-                background-color: $primary-color;
-            }
-
-            &:hover {
-                background-color: $hover-background;
-            }
-
-            .notification-content {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-grow: 1;
-
-                .notification-message {
-                    font-size: 1rem;
-                    margin: 0;
-                    color: $text-color;
-                    max-width: 60%;
-                }
-
-                .notification-type {
-                    font-size: 0.875rem;
-                    color: $text-color;
-                }
-            }
-
-            .mark-read-btn {
-                background: none;
-                border: none;
-                color: $primary-color;
-                font-size: 0.875rem;
-                transition: color 0.2s ease;
-            }
-        }
-    }
 }

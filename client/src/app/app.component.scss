@@ -11,8 +11,12 @@ main {
 
     & .left-panel {}
 
-    & .right-panel {}
+    & .right-panel {
+        margin-top: 16px;
+    }
 }
+
+.sidebar {}
 
 @media (max-width: 900px) {
     .left-panel {
