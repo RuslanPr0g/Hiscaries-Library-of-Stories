@@ -64,13 +64,18 @@ $background-gradient-end: #645044;
     }
 }
 
+.search {
+    margin-top: 24px;
+}
+
 .header__options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1.25rem;
-    width: 100%;
+    gap: 1rem;
+    align-self: center;
+    width: 70%;
     padding: 0;
-    margin-top: 24px;
+    margin-top: 8px;
 
     @media (max-width: 480px) {
         grid-template-columns: 1fr 1fr;
