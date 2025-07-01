@@ -9,11 +9,11 @@ $shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
     display: flex;
     justify-content: center;
     width: 100%;
+    flex-direction: column;
 }
 
 .profile-card {
     width: 100%;
-    max-width: 900px;
     background: $glass-bg;
     border: 1px solid $glass-border;
     border-radius: 20px;

@@ -46,8 +46,9 @@ $shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
 .avatar-container {
     z-index: 2;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
+    flex-direction: column;
 
     .avatar img {
         width: 120px;
@@ -104,4 +105,8 @@ $shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
+}
+
+.library-edit {
+    margin-left: calc(60px - 12px);
 }
