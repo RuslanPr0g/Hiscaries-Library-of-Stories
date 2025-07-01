@@ -254,3 +254,116 @@ body.story-background-overlay::before {
         cursor: not-allowed;
     }
 }
+
+.p-inputtext,
+.p-dropdown,
+.p-multiselect,
+.p-calendar,
+.p-spinner,
+.p-message,
+.p-button {
+    border: 1px solid $glass-border;
+    color: $text-color;
+    border-radius: 10px;
+    background-color: $input-focus-bg;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+
+    &:hover,
+    &:focus {
+        background-color: $input-focus-bg;
+        border-color: $accent-color;
+    }
+
+    &::placeholder {
+        color: $placeholder-color;
+    }
+}
+
+.p-button {
+    background-color: $primary-color;
+    border: none;
+    color: #1e1e1e;
+    font-weight: 600;
+
+    &:hover {
+        background-color: $accent-color;
+        color: #000;
+    }
+}
+
+.p-progress-spinner-circle {
+    stroke: $primary-color;
+}
+
+.p-message-error {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid red;
+    color: $text-color;
+}
+
+.p-divider {
+    border-top-color: $glass-border;
+}
+
+.p-tabview {
+    background: transparent;
+    border: none;
+
+    .p-tabview-nav {
+        background: $glass-bg;
+        border-radius: 16px;
+        padding: 0.5rem;
+        border: 1px solid $glass-border;
+        backdrop-filter: blur(10px);
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+
+        .p-tabview-nav-link {
+            color: $text-color;
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: none;
+
+            &:hover {
+                background-color: $input-focus-bg;
+                color: $hover-color;
+                border: none;
+            }
+        }
+
+        .p-highlight {
+            background-color: $primary-color;
+            color: #1e1e1e !important;
+            font-weight: bold;
+            box-shadow: 0 0 0 2px $accent-color;
+        }
+    }
+
+    .p-tabview-panels {
+        background: transparent;
+        padding: 2rem 0 0 0;
+        border: none;
+
+        .p-tabview-panel {
+            animation: fadeIn 0.3s ease-in-out;
+            color: $text-color;
+            background: transparent;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
