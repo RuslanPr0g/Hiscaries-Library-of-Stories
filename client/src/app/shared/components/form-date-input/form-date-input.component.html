@@ -4,12 +4,14 @@
     [ngClass]="{ 'custom-form-field-centered': centered }"
 >
     <label [for]="controlName">{{ label }}</label>
+
     <p-calendar
         [formControlName]="controlName"
         [showIcon]="true"
         dateFormat="yy-mm-dd"
         [iconDisplay]="'input'"
     ></p-calendar>
+
     <p-message
         severity="error"
         [text]="errorMessage"

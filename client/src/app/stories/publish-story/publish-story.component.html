@@ -13,13 +13,22 @@
         [formGroup]="publishForm"
         (ngSubmit)="onSubmit()"
     >
-        <div class="form-controls half-width-form">
-            <app-form-input
-                [formGroup]="publishForm"
-                controlName="Title"
-                label="Title"
-                errorMessage="Title is required"
-            ></app-form-input>
+        <div class="form-controls">
+            <div class="form-controls__row">
+                <app-form-input
+                    [formGroup]="publishForm"
+                    controlName="Title"
+                    label="Title"
+                    errorMessage="Title is required"
+                ></app-form-input>
+
+                <app-form-input
+                    [formGroup]="publishForm"
+                    controlName="AuthorName"
+                    label="Author Name"
+                    errorMessage="Author Name is required"
+                ></app-form-input>
+            </div>
 
             <app-form-textarea
                 [formGroup]="publishForm"
@@ -29,14 +38,7 @@
                 [rows]="4"
             ></app-form-textarea>
 
-            <app-form-input
-                [formGroup]="publishForm"
-                controlName="AuthorName"
-                label="Author Name"
-                errorMessage="Author Name is required"
-            ></app-form-input>
-
-            <div class="form-controls__same-line">
+            <div class="form-controls__row">
                 <app-number-limit-control
                     [formGroup]="publishForm"
                     controlName="AgeLimit"
@@ -57,15 +59,17 @@
                 ></app-form-date-input>
             </div>
 
-            <ng-container *ngIf="genres && genres.length > 0">
-                <app-form-multiselect
-                    [formGroup]="publishForm"
-                    [items]="genres"
-                    controlName="Genres"
-                ></app-form-multiselect>
-            </ng-container>
+            <div class="form-controls__row">
+                <ng-container *ngIf="genres?.length">
+                    <app-form-multiselect
+                        [formGroup]="publishForm"
+                        [items]="genres"
+                        controlName="Genres"
+                    ></app-form-multiselect>
+                </ng-container>
 
-            <app-upload-file-control [control]="imageControl"></app-upload-file-control>
+                <app-upload-file-control [control]="imageControl"></app-upload-file-control>
+            </div>
 
             <p-divider layout="horizontal" />
 
@@ -80,19 +84,21 @@
                 *ngIf="globalError"
             />
 
-            <ng-container *ngIf="submitted; else submit">
-                <p-progressSpinner
-                    styleClass="w-4rem h-4rem"
-                    strokeWidth="8"
-                    animationDuration=".5s"
-                />
-            </ng-container>
-            <ng-template #submit>
-                <app-form-button
-                    label="Publish Story"
-                    (clicked)="onSubmit()"
-                ></app-form-button>
-            </ng-template>
+            <div class="center">
+                <ng-container *ngIf="submitted; else submit">
+                    <p-progressSpinner
+                        styleClass="w-4rem h-4rem"
+                        strokeWidth="8"
+                        animationDuration=".5s"
+                    />
+                </ng-container>
+                <ng-template #submit>
+                    <app-form-button
+                        label="Publish Story"
+                        (clicked)="onSubmit()"
+                    ></app-form-button>
+                </ng-template>
+            </div>
         </div>
     </form>
 </div>

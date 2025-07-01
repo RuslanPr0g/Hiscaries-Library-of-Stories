@@ -4,6 +4,7 @@
     [ngClass]="{ 'custom-form-field-centered': centered }"
 >
     <label [for]="controlName">{{ label }}</label>
+
     <p-inputNumber
         [formControlName]="controlName"
         [showButtons]="true"
@@ -17,6 +18,7 @@
         incrementButtonIcon="pi pi-plus"
         decrementButtonIcon="pi pi-minus"
     ></p-inputNumber>
+
     <p-message
         severity="error"
         [text]="errorMessage"

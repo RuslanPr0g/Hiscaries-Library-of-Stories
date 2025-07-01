@@ -1,3 +1,6 @@
-:host {
-    width: 100%;
+.custom-form-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
