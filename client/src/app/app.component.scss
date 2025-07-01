@@ -11,10 +11,6 @@ main {
     }
 
     & .right-panel {}
-
-    &> :first-child {
-        align-self: flex-start;
-    }
 }
 
 .mt-16 {

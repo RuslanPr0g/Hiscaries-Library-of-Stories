@@ -1,22 +1,13 @@
 <app-skeleton-or-story-content [dataLoaded]="!isLoading">
     <ng-container *ngIf="stories.length > 0 || isLoading; else noStories">
-        <p-carousel
-            [value]="stories"
-            [numVisible]="3"
-            [numScroll]="1"
-            [circular]="false"
-            [responsiveOptions]="responsiveOptions"
-            class="glassy-carousel"
-        >
-            <ng-template
-                let-story
-                pTemplate="item"
+        <div class="story-grid glassy-grid">
+            <div
+                *ngFor="let story of stories"
+                class="grid-item"
             >
-                <div class="item">
-                    <app-story-search-item [story]="story"></app-story-search-item>
-                </div>
-            </ng-template>
-        </p-carousel>
+                <app-story-search-item [story]="story"></app-story-search-item>
+            </div>
+        </div>
     </ng-container>
 </app-skeleton-or-story-content>
 
