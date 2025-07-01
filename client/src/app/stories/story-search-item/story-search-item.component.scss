@@ -19,9 +19,7 @@ $shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.4);
     overflow: hidden;
     cursor: pointer;
     user-select: none;
-    max-height: 160px;
-    min-width: 280px;
-    max-width: 350px;
+    min-width: 200px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     color: $text-color;
 
@@ -148,22 +146,4 @@ app-progress-bar {
     border-radius: 0 0 20px 20px;
     overflow: hidden;
     z-index: 3;
-}
-
-@media (max-width: 1200px) {
-    .story-card {
-        min-width: 220px;
-        max-height: 320px;
-    }
-}
-
-@media (max-width: 768px) {
-    .story-card {
-        min-width: 180px;
-        max-height: 280px;
-    }
-
-    .story-details-overlay .story-title {
-        font-size: 0.9rem;
-    }
 }

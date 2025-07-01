@@ -8,25 +8,22 @@ $text-color: #f5f0eb;
 $shadow: 0 8px 32px 0 rgba(34, 34, 26, 0.37);
 
 .glassy-grid {
-    color: $text-color;
+    color: #f5f0eb;
     padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.2rem;
     width: 100%;
 }
 
 .grid-item {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 0.5rem;
-    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+}
 
-    &:hover {
-        transform: scale(1.03);
-        box-shadow: 0 8px 24px rgba(201, 162, 126, 0.5);
-        background: rgba(255, 255, 255, 0.15);
+
+@media (max-width: 700px) {
+    .glassy-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
