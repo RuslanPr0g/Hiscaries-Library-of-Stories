@@ -72,7 +72,7 @@ export class PublisherLibraryComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.fetchLibrary(this.libraryId!);
-                    this.finishSubscribeLoading();
+                    this.finishSubscribeLoading(this.libraryInfo.SubscribersCount + 1);
                 },
                 error: () => {
                     this.finishSubscribeLoading();
@@ -89,7 +89,7 @@ export class PublisherLibraryComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.fetchLibrary(this.libraryId!);
-                    this.finishSubscribeLoading();
+                    this.finishSubscribeLoading(this.libraryInfo.SubscribersCount - 1);
                 },
                 error: () => {
                     this.finishSubscribeLoading();
@@ -97,8 +97,12 @@ export class PublisherLibraryComponent implements OnInit {
             });
     }
 
-    private finishSubscribeLoading(): void {
+    private finishSubscribeLoading(subCount: number = -1): void {
         setTimeout(() => {
+            if (subCount >= 0) {
+                this.libraryInfo.SubscribersCount = subCount;
+            }
+
             this.isSubscribeLoading = false;
         }, 1000);
     }
