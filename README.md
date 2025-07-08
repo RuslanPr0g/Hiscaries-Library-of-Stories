@@ -7,7 +7,7 @@ Warning: Still in TODO phase.
 
 ---
 
-## 🚀 Local Development Setup
+## 🚀 Local Development Setup!
 
 ### Prerequisites
 
