@@ -2,8 +2,8 @@
 
 ---
 
-[Open Draw.io File](https://drive.google.com/file/d/1YVpVJS43djNFkMbAwFCGF1CzXhPL_sf-/view?usp=sharing)
-Warning: Still in TODO phase.
+[C4 Diagram of the system](https://drive.google.com/file/d/1YVpVJS43djNFkMbAwFCGF1CzXhPL_sf-/view?usp=sharing)
+
 
 ---
 
