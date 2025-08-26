@@ -1,3 +1,5 @@
+Set-Location ../src
+
 dotnet workload update
 dotnet workload restore
 

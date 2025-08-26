@@ -2,6 +2,8 @@
 
 set -e
 
+cd ../src
+
 dotnet workload update
 dotnet workload restore
 
