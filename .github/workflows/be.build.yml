@@ -23,12 +23,12 @@ jobs:
 
       - name: Restore dependencies
         working-directory: server
-        run: dotnet restore server/src/Hiscary.sln
+        run: dotnet restore Hiscaries.sln
 
       - name: Build
         working-directory: server
-        run: dotnet build server/src/Hiscary.sln
+        run: dotnet build Hiscaries.sln
 
       - name: Test
         working-directory: server
-        run: dotnet test server/src/Hiscary.sln --no-build --verbosity normal
+        run: dotnet test Hiscaries.sln --no-build --verbosity normal
