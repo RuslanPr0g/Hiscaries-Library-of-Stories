@@ -22,13 +22,13 @@ jobs:
         run: dotnet workload install aspire
 
       - name: Restore dependencies
-        working-directory: server
-        run: dotnet restore Hiscaries.sln
+        working-directory: server/src
+        run: dotnet restore Hiscary.sln
 
       - name: Build
-        working-directory: server
-        run: dotnet build Hiscaries.sln
+        working-directory: server/src
+        run: dotnet build Hiscary.sln
 
       - name: Test
-        working-directory: server
-        run: dotnet test Hiscaries.sln --no-build --verbosity normal
+        working-directory: server/src
+        run: dotnet test Hiscary.sln --no-build --verbosity normal
