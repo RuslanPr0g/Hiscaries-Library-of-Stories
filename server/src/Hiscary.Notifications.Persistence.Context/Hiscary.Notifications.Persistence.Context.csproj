@@ -15,7 +15,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Npgsql" Version="8.0.5" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
-		<PackageReference Include="StackNucleus.DDD.Persistence.EF.Postgres" Version="1.0.3" />
+		<PackageReference Include="StackNucleus.DDD.Persistence.EF.Postgres" Version="1.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
