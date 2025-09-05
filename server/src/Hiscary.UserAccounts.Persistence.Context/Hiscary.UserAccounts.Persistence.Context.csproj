@@ -1,17 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="StackNucleus.DDD.Persistence.EF.Postgres" Version="1.1.0" />
+    <PackageReference Include="StackNucleus.DDD.Persistence.EF.Postgres" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Hiscary.UserAccounts.Domain\Hiscary.UserAccounts.Domain.csproj" />
   </ItemGroup>
-
 </Project>

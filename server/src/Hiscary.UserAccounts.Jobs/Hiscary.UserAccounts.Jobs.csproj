@@ -1,11 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Hiscary.Shared.Jobs.Quartz\Hiscary.Shared.Jobs.Quartz.csproj" />
     <ProjectReference Include="..\Hiscary.Shared.Outbox\Hiscary.Shared.Outbox.csproj" />
@@ -13,5 +11,4 @@
     <ProjectReference Include="..\Hiscary.UserAccounts.IntegrationEvents\Hiscary.UserAccounts.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Hiscary.UserAccounts.Persistence.Context\Hiscary.UserAccounts.Persistence.Context.csproj" />
   </ItemGroup>
-
 </Project>

@@ -1,24 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.8" />
-		<PackageReference Include="EntityFramework" Version="6.5.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
-		<PackageReference Include="Npgsql" Version="8.0.5" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
-		<PackageReference Include="StackNucleus.DDD.Persistence" Version="1.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Hiscary.Shared.Persistence\Hiscary.Shared.Persistence.csproj" />
-	  <ProjectReference Include="..\Hiscary.Stories.Domain\Hiscary.Stories.Domain.csproj" />
-	  <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
-	</ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="EntityFramework" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="StackNucleus.DDD.Persistence" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hiscary.Shared.Persistence\Hiscary.Shared.Persistence.csproj" />
+    <ProjectReference Include="..\Hiscary.Stories.Domain\Hiscary.Stories.Domain.csproj" />
+    <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
+  </ItemGroup>
 </Project>

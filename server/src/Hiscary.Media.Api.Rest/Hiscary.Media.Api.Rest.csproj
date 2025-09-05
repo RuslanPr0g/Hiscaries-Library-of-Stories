@@ -1,19 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Aspire.Azure.Storage.Blobs" Version="8.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.16" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
-    <PackageReference Include="StackNucleus.DDD.Api.Rest" Version="1.1.0" />
+    <PackageReference Include="Aspire.Azure.Storage.Blobs" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="StackNucleus.DDD.Api.Rest" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Hiscary.Shared.Api.Rest\Hiscary.Shared.Api.Rest.csproj" />
     <ProjectReference Include="..\Hiscary.Media.EventHandlers\Hiscary.Media.EventHandlers.csproj" />
@@ -21,5 +18,4 @@
     <ProjectReference Include="..\Hiscary.Media.Images\Hiscary.Media.Images.csproj" />
     <ProjectReference Include="..\Hiscary.ServiceDefaults\Hiscary.ServiceDefaults.csproj" />
   </ItemGroup>
-
 </Project>

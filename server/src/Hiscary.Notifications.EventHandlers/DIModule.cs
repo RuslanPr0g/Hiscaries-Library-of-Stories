@@ -27,6 +27,9 @@ public static class DIModule
         var rabbitMqConnectionString = configuration.GetConnectionString("rabbitmq");
         ArgumentException.ThrowIfNullOrWhiteSpace(rabbitMqConnectionString);
 
+        // TODO: remove this when apire team understands that we REALLY need to wait for some resources inside docker
+        Thread.Sleep(5000);
+
         builder.AddConfigurableEventHandlers([asm], rabbitMqConnectionString, "notification-events-queue");
     }
 }
