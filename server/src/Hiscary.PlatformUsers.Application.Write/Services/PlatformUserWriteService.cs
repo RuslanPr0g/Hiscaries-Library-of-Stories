@@ -36,6 +36,7 @@ public sealed class PlatformUserWriteService(
         var libraryId = _idGenerator.Generate((id) => new LibraryId(id));
         user.BecomePublisher(libraryId);
 
+        // TODO: integration events should have outbox too
         await _publisher.Publish(
             new UserBecamePublisherIntegrationEvent(
                 user.Id, user.UserAccountId));
