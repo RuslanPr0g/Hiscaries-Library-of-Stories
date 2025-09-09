@@ -50,7 +50,7 @@ export class UserRealTimeNotificationService {
         this.notificationStateService.notificationMarkedAsRead$.subscribe((notifications) => {
             this.notificationService
                 .readNotifications({
-                    NotificationIds: notifications.map((x) => x.Id),
+                    NotificationIds: notifications.map((x: any) => x.Id),
                 })
                 .pipe(take(1))
                 .subscribe(() => {
