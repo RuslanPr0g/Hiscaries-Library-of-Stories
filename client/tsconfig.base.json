@@ -20,12 +20,12 @@
         "module": "ES2022",
         "lib": ["ES2022", "dom"],
         "paths": {
-            "@admin/*": ["app/admin/*"],
-            "@environments/*": ["environments/*"],
-            "@shared/*": ["app/shared/*"],
-            "@stories/*": ["app/stories/*"],
-            "@user-to-story/*": ["app/user-to-story/*"],
-            "@users/*": ["app/users/*"]
+        "@admin/*": ["apps/hiscaries-client/src/app/admin/*"],
+        "@environments/*": ["apps/hiscaries-client/src/environments/*"],
+        "@shared/*": ["apps/hiscaries-client/src/app/shared/*"],
+        "@stories/*": ["apps/hiscaries-client/src/app/stories/*"],
+        "@user-to-story/*": ["apps/hiscaries-client/src/app/user-to-story/*"],
+        "@users/*": ["apps/hiscaries-client/src/app/users/*"]
         },
         "rootDir": "."
     },

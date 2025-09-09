@@ -2,16 +2,8 @@
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "outDir": "../../dist/out-tsc",
-        "types": [],
-        "paths": {
-            "@shared/*": ["app/shared/*"],
-            "@admin/*": ["app/admin/*"],
-            "@stories/*": ["app/stories/*"],
-            "@users/*": ["app/users/*"],
-            "@user-to-story/*": ["app/user-to-story/*"],
-            "@environments/*": ["environments/*"]
-        }
+        "types": []
     },
     "files": ["src/main.ts"],
-    "include": ["src/**/*.d.ts"]
+    "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }
