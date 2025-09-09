@@ -1,0 +1,39 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "strictPropertyInitialization": false,
+        "outDir": "./dist/out-tsc",
+        "baseUrl": ".",
+        "strict": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "declaration": false,
+        "experimentalDecorators": true,
+        "moduleResolution": "bundler",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "lib": ["ES2022", "dom"],
+        "paths": {
+            "@admin/*": ["app/admin/*"],
+            "@environments/*": ["environments/*"],
+            "@shared/*": ["app/shared/*"],
+            "@stories/*": ["app/stories/*"],
+            "@user-to-story/*": ["app/user-to-story/*"],
+            "@users/*": ["app/users/*"]
+        },
+        "rootDir": "."
+    },
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
+    },
+    "exclude": ["node_modules", "tmp"]
+}

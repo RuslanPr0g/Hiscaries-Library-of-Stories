@@ -1,0 +1,10 @@
+<ng-container *ngIf="libraryInfo; else emptyLibraryInfo">
+    <app-library
+        [library]="libraryInfo"
+        [stories]="(stories$ | async) ?? empty"
+        [isLoading]="isLoading$ | async"
+        [isAbleToEdit]="true"
+        (libraryEdited)="editLibrary($event)"
+    ></app-library>
+</ng-container>
+<ng-template #emptyLibraryInfo>This library doesn't exist</ng-template>

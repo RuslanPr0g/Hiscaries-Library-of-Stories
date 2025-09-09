@@ -1,0 +1,13 @@
+<ng-container *ngIf="libraryInfo; else emptyLibraryInfo">
+    <app-library
+        [isLoading]="isLoading$ | async"
+        [library]="libraryInfo"
+        [stories]="(stories$ | async) ?? empty"
+        [isAbleToSubscribe]="!!this.libraryInfo"
+        [isSubscribed]="isSubscribed"
+        [isSubscribeLoading]="isSubscribeLoading"
+        (subscribed)="subscribeAction()"
+        (unSubscribed)="unSubscribeAction()"
+    ></app-library>
+</ng-container>
+<ng-template #emptyLibraryInfo>This library doesn't exist</ng-template>

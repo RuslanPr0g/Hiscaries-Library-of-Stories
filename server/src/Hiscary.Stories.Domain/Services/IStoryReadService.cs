@@ -1,22 +1,22 @@
-﻿using Hiscary.Stories.Domain.ReadModels;
+﻿using Hiscary.Shared.Domain.ClientModels;
+using Hiscary.Stories.Domain;
+using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 
 public interface IStoryReadService
 {
-    HashSet<string> SortableProperties { get; }
-
     Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId);
 
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryByIds(
+    Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryByIds(
         StoryId[] storyIds,
-        string sortProperty = "CreatedAt",
-        bool sortAsc = true);
+        StoryClientQueryableModelWithSortableRules queryableModel);
 
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
 
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations();
+    Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryRecommendations(StoryClientQueryableModelWithSortableRules queryableModel);
 
-    Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
+    Task<ClientQueriedModel<StorySimpleReadModel>> SearchForStory(
+        StoryClientQueryableModelWithSortableRules queryableModel,
         Guid? storyId = null,
         Guid? libraryId = null,
         string? searchTerm = null,

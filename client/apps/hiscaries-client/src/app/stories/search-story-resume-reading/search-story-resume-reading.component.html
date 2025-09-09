@@ -1,0 +1,9 @@
+<ng-container *ngIf="(stories$ | async) && (isLoading$ | async) === false">
+    <h1 class="fs-1rem main-title">Resume reading</h1>
+    <app-search-story-results
+        [stories]="(stories$ | async) ?? empty"
+        [isLoading]="isLoading$ | async"
+        class="w-full"
+    >
+    </app-search-story-results>
+</ng-container>

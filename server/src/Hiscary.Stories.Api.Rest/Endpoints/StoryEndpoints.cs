@@ -1,6 +1,8 @@
-﻿using Hiscary.Shared.Domain.Extensions;
+﻿using Hiscary.Shared.Domain.ClientModels;
+using Hiscary.Shared.Domain.Extensions;
 using Hiscary.Stories.Api.Rest.Requests.Comments;
 using Hiscary.Stories.Api.Rest.Requests.Stories;
+using Hiscary.Stories.Domain;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 using Microsoft.AspNetCore.Mvc;
@@ -36,11 +38,11 @@ public static class StoryEndpoints
             .Produces<IEnumerable<GenreReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapGet("/recommendations", BestToRead)
+        group.MapPost("/recommendations", BestToRead)
             .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapGet("/", GetStoriesBy)
+        group.MapPost("/libraries/search", GetStoriesBy)
             .Produces<IEnumerable<StorySimpleReadModel>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
@@ -86,11 +88,11 @@ public static class StoryEndpoints
     }
 
     private static async Task<IResult> GetStoriesBy(
-        [FromQuery] Guid libraryId,
+        [FromBody] GetStoryByLibraryIdRequest request,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(user =>
-            service.SearchForStory(user.Id, libraryId));
+            service.SearchForStory(request.QueryableModel, user.Id, request.LibraryId));
 
     private static async Task<IResult> GetStories(
         [FromBody] GetStoryListRequest request,
@@ -98,6 +100,7 @@ public static class StoryEndpoints
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(user =>
             service.SearchForStory(
+                request.QueryableModel,
                 storyId: request.Id,
                 searchTerm: request.SearchTerm,
                 genre: request.Genre));
@@ -116,27 +119,30 @@ public static class StoryEndpoints
         await endpointHandler.WithUser(user =>
             service.GetStoryByIds(
                 request.Ids.Select(_ => (StoryId)_).ToArray(),
-                request.Sorting?.Property ?? "CreatedAt",
-                request.Sorting?.Ascending ?? true));
+                request.QueryableModel));
 
     private static IResult GetSortableProperties(
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
-            endpointHandler.WithUser(user => service.SortableProperties);
+            endpointHandler.WithUser(user => StoryClientQueryableModelWithSortableRules.SortablePropertyList);
 
     private static async Task<IResult> GetGenres(
         [FromServices] IStoryReadService service) =>
         (await service.GetAllGenres()).ToHttpResult();
 
     private static async Task<IResult> BestToRead(
+        [FromBody] StoryClientQueryableModelWithSortableRules model,
         IAuthorizedEndpointHandler endpointHandler,
         [FromServices] IStoryReadService service) =>
         await endpointHandler.WithUser(async user =>
         {
-            var result = await service.GetStoryRecommendations();
-            var response = result.ToList();
-            response.Shuffle();
-            return response;
+            var result = await service.GetStoryRecommendations(model);
+            // TODO: this is a temporary solution
+            var stories = result.Items.ToList();
+            return ClientQueriedModel<StorySimpleReadModel>.Create(
+                stories.Shuffle(),
+                result.TotalItemsCount,
+                result.ItemsPerCurrentPageCount ?? stories.Count);
         });
 
     private static async Task<IResult> PublishStory(

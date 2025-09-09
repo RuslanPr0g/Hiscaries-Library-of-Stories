@@ -1,0 +1,28 @@
+<ng-container *ngIf="stories$ | async as stories; else noStories">
+    <h1 class="fs-1rem main-title">Stories for you to read</h1>
+
+    <app-search-story-results
+        [stories]="stories"
+        [isLoading]="isLoading$ | async"
+        class="w-full"
+    >
+    </app-search-story-results>
+
+    <div class="flex gap-2 mt-4">
+        <app-button-one
+            [label]="'Previous'"
+            [disabled]="(isLoading$ | async) || pagination.snapshot.StartIndex === 0"
+            (clickAction)="prevPage()"
+        ></app-button-one>
+
+        <app-button-one
+            [label]="'Next'"
+            [disabled]="
+                (isLoading$ | async) || stories.Items.length + pagination.snapshot.StartIndex >= stories.TotalItemsCount
+            "
+            (clickAction)="nextPage()"
+        ></app-button-one>
+    </div>
+</ng-container>
+
+<ng-template #noStories> 🚫📖 No stories posted yet — be the first legend! </ng-template>
