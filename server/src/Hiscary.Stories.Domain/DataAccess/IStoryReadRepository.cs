@@ -1,18 +1,29 @@
-﻿using StackNucleus.DDD.Domain.Repositories;
+﻿using StackNucleus.DDD.Domain.ClientModels;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
+using StackNucleus.DDD.Domain.Repositories;
 
 namespace Hiscary.Stories.Domain.DataAccess;
 
 public interface IStoryReadRepository : IBaseReadRepository<StorySimpleReadModel>
 {
-    Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre);
-    Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions();
     Task<IEnumerable<GenreReadModel>> GetAllGenres();
+
     Task<StoryWithContentsReadModel?> GetStory(StoryId storyId);
-    Task<IEnumerable<StorySimpleReadModel>> GetStorySimpleInfo(
+
+    Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryReadingSuggestions(
+        StoryClientQueryableModelWithSortableRules queryableModel);
+
+    Task<ClientQueriedModel<StorySimpleReadModel>> GetStoriesBy(
+        string searchTerm,
+        string genre,
+        StoryClientQueryableModelWithSortableRules queryableModel);
+
+    Task<ClientQueriedModel<StorySimpleReadModel>> GetStorySimpleInfo(
         StoryId[] storyIds,
-        string sortProperty = "CreatedAt",
-        bool sortAsc = true);
-    Task<IEnumerable<StorySimpleReadModel>?> GetStorySimpleInfoByLibraryId(Guid libraryId);
+        StoryClientQueryableModelWithSortableRules queryableModel);
+
+    Task<ClientQueriedModel<StorySimpleReadModel>> GetStorySimpleInfoByLibraryId(
+        Guid libraryId,
+        StoryClientQueryableModelWithSortableRules queryableModel);
 }

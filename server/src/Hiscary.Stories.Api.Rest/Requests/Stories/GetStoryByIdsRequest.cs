@@ -1,9 +1,10 @@
-﻿using Hiscary.Shared.Api.Rest.Requests;
+﻿using Hiscary.Stories.Domain;
 
 namespace Hiscary.Stories.Api.Rest.Requests.Stories;
 
-public sealed class GetStoryByIdsRequest
+public sealed record GetStoryByIdsRequest
 {
     public Guid[] Ids { get; set; }
-    public SortableRequest Sorting { get; set; }
+
+    public StoryClientQueryableModelWithSortableRules QueryableModel { get; set; }
 }

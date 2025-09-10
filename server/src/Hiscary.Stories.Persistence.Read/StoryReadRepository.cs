@@ -1,4 +1,6 @@
-﻿using Hiscary.Shared.Persistence.Extensions;
+﻿using StackNucleus.DDD.Domain.ClientModels;
+using Hiscary.Shared.Persistence.Extensions;
+using Hiscary.Stories.Domain;
 using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
@@ -20,19 +22,20 @@ public class StoryReadRepository(StoriesContext context) :
             .Select(genre => GenreReadModel.FromDomainModel(genre))
             .ToListAsync();
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoriesBy(string searchTerm, string genre)
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> GetStoriesBy(
+        string searchTerm,
+        string genre,
+        StoryClientQueryableModelWithSortableRules queryableModel)
     {
-        var stories = (await Context.Stories
+        var query = Context.Stories
             .AsNoTracking()
             .Include(_ => _.Genres)
             .Where(story =>
                 (!string.IsNullOrWhiteSpace(genre) && story.Genres.Any(g => g.Name.Contains(genre))) ||
                 EF.Functions.ILike(story.Title, $"%{searchTerm}%") ||
-                EF.Functions.ILike(story.Description, $"%{searchTerm}%"))
-            .ToListAsync())
-            .Select(StoryDomainToSimpleReadDto);
+                EF.Functions.ILike(story.Description, $"%{searchTerm}%"));
 
-        return stories!;
+        return await GetStoryReadModelsPaginatedBy(query, queryableModel);
     }
 
     public async Task<StoryWithContentsReadModel?> GetStory(StoryId storyId)
@@ -53,43 +56,51 @@ public class StoryReadRepository(StoriesContext context) :
         return StoryDomainToReadDto(story);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStorySimpleInfo(
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> GetStorySimpleInfo(
         StoryId[] storyIds,
-        string sortProperty = "CreatedAt",
-        bool sortAsc = true)
+        StoryClientQueryableModelWithSortableRules queryableModel)
     {
         var query = Context.Stories
             .AsNoTracking()
             .Where(story => storyIds.Contains(story.Id))
-            .OrderByProperty(sortProperty, sortAsc);
+            .OrderByProperty(queryableModel.SortProperty, queryableModel.SortAsc);
 
-        var stories = await query.ToListAsync();
-
-        return stories.SelectSkipNulls(StoryDomainToSimpleReadDto);
+        return await GetStoryReadModelsPaginatedBy(query, queryableModel);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryReadingSuggestions()
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryReadingSuggestions(StoryClientQueryableModelWithSortableRules queryableModel)
     {
-        var stories = (await Context.Stories
+        var query = Context.Stories
             .AsNoTracking()
             .AsSplitQuery()
-            .Where(x => x.Contents.Any())
-            .ToListAsync())
-            .SelectSkipNulls(StoryDomainToSimpleReadDto);
+            .Where(x => x.Contents.Any());
 
-        return stories;
+        return await GetStoryReadModelsPaginatedBy(query, queryableModel);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>?> GetStorySimpleInfoByLibraryId(Guid libraryId)
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> GetStorySimpleInfoByLibraryId(
+        Guid libraryId,
+        StoryClientQueryableModelWithSortableRules queryableModel)
     {
-        var stories = (await Context.Stories
+        var query = Context.Stories
             .AsNoTracking()
             .AsSplitQuery()
-            .Where(x => x.LibraryId == libraryId)
-            .ToListAsync())
-            .Select(StoryDomainToSimpleReadDto);
+            .Where(x => x.LibraryId == libraryId);
 
-        return stories!;
+        return await GetStoryReadModelsPaginatedBy(query, queryableModel);
+    }
+
+    private static async Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryReadModelsPaginatedBy(
+        IQueryable<Story> query,
+        StoryClientQueryableModelWithSortableRules queryableModel)
+    {
+        var stories = await query.ApplyPagination(queryableModel).ToListAsync();
+        var storyReadModels = stories.SelectSkipNulls(StoryDomainToSimpleReadDto);
+
+        return ClientQueriedModel<StorySimpleReadModel>.Create(
+            storyReadModels,
+            await query.CountAsync(),
+            stories.Count());
     }
 
     private static StorySimpleReadModel? StoryDomainToSimpleReadDto(Story? story)

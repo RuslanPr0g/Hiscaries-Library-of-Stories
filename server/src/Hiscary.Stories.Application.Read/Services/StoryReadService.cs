@@ -1,4 +1,6 @@
-﻿using Hiscary.Stories.Domain.DataAccess;
+﻿using StackNucleus.DDD.Domain.ClientModels;
+using Hiscary.Stories.Domain;
+using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 
@@ -13,13 +15,6 @@ public sealed class StoryReadService : IStoryReadService
         _repository = repository;
     }
 
-    public HashSet<string> SortableProperties => new(StringComparer.OrdinalIgnoreCase)
-    {
-        "Title",
-        "CreatedAt",
-        "DateWritten",
-    };
-
     public async Task<IEnumerable<GenreReadModel>> GetAllGenres() => await _repository.GetAllGenres();
 
     public async Task<StoryWithContentsReadModel?> GetStoryById(Guid storyId)
@@ -27,25 +22,20 @@ public sealed class StoryReadService : IStoryReadService
         return await _repository.GetStory(storyId);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryByIds(
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryByIds(
         StoryId[] storyIds,
-        string sortProperty = "CreatedAt",
-        bool sortAsc = true)
+        StoryClientQueryableModelWithSortableRules queryableModel)
     {
-        if (!SortableProperties.Contains(sortProperty))
-        {
-            sortProperty = "CreatedAt";
-        }
-
-        return await _repository.GetStorySimpleInfo(storyIds, sortProperty, sortAsc);
+        return await _repository.GetStorySimpleInfo(storyIds, queryableModel);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> GetStoryRecommendations()
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> GetStoryRecommendations(StoryClientQueryableModelWithSortableRules queryableModel)
     {
-        return await _repository.GetStoryReadingSuggestions();
+        return await _repository.GetStoryReadingSuggestions(queryableModel);
     }
 
-    public async Task<IEnumerable<StorySimpleReadModel>> SearchForStory(
+    public async Task<ClientQueriedModel<StorySimpleReadModel>> SearchForStory(
+        StoryClientQueryableModelWithSortableRules queryableModel,
         Guid? storyId = null,
         Guid? libraryId = null,
         string? searchTerm = null,
@@ -53,22 +43,19 @@ public sealed class StoryReadService : IStoryReadService
     {
         if (libraryId.HasValue && Guid.Empty != storyId)
         {
-            var foundStories = await _repository.GetStorySimpleInfoByLibraryId(libraryId.Value);
-            return foundStories is null ? [] : foundStories;
+            return await _repository.GetStorySimpleInfoByLibraryId(libraryId.Value, queryableModel);
         }
 
         if (storyId.HasValue && Guid.Empty != storyId)
         {
-            var foundStories = await _repository.GetStorySimpleInfo([storyId.Value]);
-            var foundStory = foundStories.FirstOrDefault();
-            return foundStory is null ? [] : [foundStory];
+            return await _repository.GetStorySimpleInfo([storyId.Value], queryableModel);
         }
 
         if (searchTerm is null)
         {
-            return [];
+            return ClientQueriedModel<StorySimpleReadModel>.Empty;
         }
 
-        return await _repository.GetStoriesBy(searchTerm, genre ?? string.Empty);
+        return await _repository.GetStoriesBy(searchTerm, genre ?? string.Empty, queryableModel);
     }
 }

@@ -1,10 +1,23 @@
-﻿using System.Linq.Expressions;
+﻿using StackNucleus.DDD.Domain.ClientModels;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Hiscary.Shared.Persistence.Extensions;
 
 public static class LinqExtensions
 {
+    public static IQueryable<T> ApplyPagination<T>(this IQueryable<T> query, ClientQueryableModel queryModel)
+    {
+        if (queryModel is null || queryModel.ItemsCount <= 0)
+        {
+            return query;
+        }
+
+        return query
+            .Skip(queryModel.StartIndex)
+            .Take(queryModel.ItemsCount);
+    }
+
     public static IQueryable<T> OrderByProperty<T>(
         this IQueryable<T> source,
         string propertyName,
