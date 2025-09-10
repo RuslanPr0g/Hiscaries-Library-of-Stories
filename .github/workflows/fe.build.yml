@@ -2,9 +2,9 @@ name: Angular Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   angular:
@@ -21,22 +21,21 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: client/package-lock.json
 
       - name: Clean install dependencies
         working-directory: client
-        run: npm ci
-
+        run: npm install
 # TODO: enable tests
-      # - name: Run tests
-      #   working-directory: client
-      #   run: npm run test:ci -- --browsers=ChromeHeadless
-      #   env:
-      #     DISPLAY: :99
-      #     CHROME_BIN: /usr/bin/chromium-browser
-      #     CHROME_HEADLESS_NO_SANDBOX: true
+# - name: Run tests
+#   working-directory: client
+#   run: npm run test:ci -- --browsers=ChromeHeadless
+#   env:
+#     DISPLAY: :99
+#     CHROME_BIN: /usr/bin/chromium-browser
+#     CHROME_HEADLESS_NO_SANDBOX: true
 
-      # - name: Build the project
-      #   working-directory: client
-      #   run: npm run build
+# - name: Build the project
+#   working-directory: client
+#   run: npm run build
