@@ -1,4 +1,4 @@
-﻿using Hiscary.Shared.Domain.ClientModels;
+﻿using StackNucleus.DDD.Domain.ClientModels;
 using Hiscary.Shared.Domain.Extensions;
 using Hiscary.Stories.Api.Rest.Requests.Comments;
 using Hiscary.Stories.Api.Rest.Requests.Stories;

@@ -1,4 +1,4 @@
-﻿using Hiscary.Shared.Domain.ClientModels;
+﻿using StackNucleus.DDD.Domain.ClientModels;
 using Hiscary.Shared.Persistence.Extensions;
 using Hiscary.Stories.Domain;
 using Hiscary.Stories.Domain.DataAccess;

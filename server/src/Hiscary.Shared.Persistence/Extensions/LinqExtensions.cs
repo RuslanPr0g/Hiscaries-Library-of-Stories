@@ -1,4 +1,4 @@
-﻿using Hiscary.Shared.Domain.ClientModels;
+﻿using StackNucleus.DDD.Domain.ClientModels;
 using System.Linq.Expressions;
 using System.Reflection;
 

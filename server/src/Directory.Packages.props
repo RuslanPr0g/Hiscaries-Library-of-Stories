@@ -60,9 +60,9 @@
   </ItemGroup>
   <!-- StackNucleus DDD -->
   <ItemGroup>
-    <PackageVersion Include="StackNucleus.DDD.Api.Rest" Version="1.1.0" />
-    <PackageVersion Include="StackNucleus.DDD.Domain" Version="1.1.0" />
-    <PackageVersion Include="StackNucleus.DDD.Events.WolverineFx" Version="1.1.0" />
+    <PackageVersion Include="StackNucleus.DDD.Api.Rest" Version="1.2.0" />
+    <PackageVersion Include="StackNucleus.DDD.Domain" Version="1.2.0" />
+    <PackageVersion Include="StackNucleus.DDD.Events.WolverineFx" Version="1.2.0" />
   </ItemGroup>
   <!-- WolverineFx -->
   <ItemGroup>
