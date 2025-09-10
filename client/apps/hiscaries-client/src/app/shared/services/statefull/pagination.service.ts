@@ -5,7 +5,7 @@ import { QueryableModel } from '@shared/models/queryable.model';
 export class PaginationService {
     state: QueryableModel = {
         StartIndex: 0,
-        ItemsCount: 5,
+        ItemsCount: 15,
         SortProperty: 'CreatedAt',
         SortAsc: false,
     };
@@ -35,7 +35,7 @@ export class PaginationService {
     }
 
     reset() {
-        this.state = { StartIndex: 0, ItemsCount: 5, SortProperty: 'CreatedAt', SortAsc: false };
+        this.state = { StartIndex: 0, ItemsCount: 15, SortProperty: 'CreatedAt', SortAsc: false };
     }
 
     setLoading(v: boolean) {
