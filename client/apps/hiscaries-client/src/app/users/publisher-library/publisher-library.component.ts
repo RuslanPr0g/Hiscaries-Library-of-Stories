@@ -1,7 +1,7 @@
-import { Component, inject, effect, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { LibraryComponent } from '@users/library/library.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, take } from 'rxjs';
+import { take } from 'rxjs';
 import { NavigationConst } from '@shared/constants/navigation.const';
 import { UserService } from '@users/services/user.service';
 import { StoryWithMetadataService } from '@user-to-story/services/multiple-services-merged/story-with-metadata.service';
@@ -28,108 +28,91 @@ export class PublisherLibraryComponent {
 
     libraryId = this.route.snapshot.paramMap.get('id');
     libraryInfo: LibraryModel | null = null;
-
+    stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
+    isLoading = signal(false);
     isSubscribeLoading = false;
 
-    stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
-    isLoading = this.pagination.isLoading;
-
     constructor() {
-        if (!this.libraryId) {
+        if (!this.libraryId) this.router.navigate([NavigationConst.Home]);
+        else this.fetchLibrary(this.libraryId);
+    }
+
+    private fetchLibrary(libraryId: string | null) {
+        if (!libraryId) {
             this.router.navigate([NavigationConst.Home]);
             return;
         }
 
-        this.fetchLibrary(this.libraryId);
-
-        effect(() => {
-            if (!this.libraryInfo) return;
-            const q = this.pagination.query();
-            this.pagination.setLoading(true);
-            this.storyService
-                .getStoriesByLibrary({
-                    LibraryId: this.libraryId ?? '',
-                    QueryableModel: q,
-                })
-                .pipe(finalize(() => this.pagination.setLoading(false)))
-                .subscribe((data) => this.stories.set(data));
-        });
-    }
-
-    get isSubscribed(): boolean {
-        return this.libraryInfo?.IsSubscribed ?? false;
-    }
-
-    subscribeAction(): void {
-        this.updateSubscription(true);
-    }
-
-    unSubscribeAction(): void {
-        this.updateSubscription(false);
-    }
-
-    private updateSubscription(subscribe: boolean): void {
-        if (!this.libraryId) return;
-
-        this.isSubscribeLoading = true;
-        const action = subscribe
-            ? this.userService.subscribeToLibrary({ LibraryId: this.libraryId })
-            : this.userService.unsubscribeFromLibrary({ LibraryId: this.libraryId });
-
-        action.pipe(take(1)).subscribe({
-            next: () => {
-                const newCount = (this.libraryInfo?.SubscribersCount ?? 0) + (subscribe ? 1 : -1);
-                this.fetchLibrary(this.libraryId!);
-                this.finishSubscribeLoading(newCount);
-            },
-            error: () => {
-                this.finishSubscribeLoading();
-            },
-        });
-    }
-
-    private finishSubscribeLoading(subCount: number = -1): void {
-        setTimeout(() => {
-            if (subCount >= 0 && this.libraryInfo) {
-                this.libraryInfo.SubscribersCount = subCount;
-            }
-            this.isSubscribeLoading = false;
-        }, 1000);
-    }
-
-    private fetchLibrary(libraryId: string): void {
-        this.pagination.setLoading(true);
+        this.isLoading.set(true);
         this.userService
             .getLibrary(libraryId)
             .pipe(take(1))
             .subscribe({
-                next: (library) => this.processLibraryFetch(library),
+                next: (library) => this.processLibrary(library),
                 error: () => this.router.navigate([NavigationConst.Home]),
             });
     }
 
-    private processLibraryFetch(library: LibraryModel): void {
-        this.pagination.setLoading(false);
-
-        if (!library) {
-            this.router.navigate([NavigationConst.Home]);
-            return;
-        }
-
-        if (library.IsLibraryOwner) {
-            this.router.navigate([NavigationConst.MyLibrary]);
-            return;
-        }
-
+    private processLibrary(library: LibraryModel) {
+        if (!library) return this.router.navigate([NavigationConst.Home]);
+        if (library.IsLibraryOwner) return this.router.navigate([NavigationConst.MyLibrary]);
         this.libraryInfo = library;
         this.pagination.reset();
+        this.loadStories();
+        return null;
+    }
+
+    private loadStories() {
+        if (!this.libraryInfo) return;
+        this.isLoading.set(true);
+        this.storyService
+            .getStoriesByLibrary({ LibraryId: this.libraryId!, QueryableModel: this.pagination.snapshot })
+            .pipe(take(1))
+            .subscribe({
+                next: (data) => this.stories.set(data),
+                complete: () => this.isLoading.set(false),
+                error: () => this.isLoading.set(false),
+            });
+    }
+
+    get isSubscribed() {
+        return this.libraryInfo?.IsSubscribed ?? false;
+    }
+
+    subscribeAction() {
+        this.updateSubscription(true);
+    }
+
+    unSubscribeAction() {
+        this.updateSubscription(false);
+    }
+
+    private updateSubscription(subscribe: boolean) {
+        if (!this.libraryId) return;
+        this.isSubscribeLoading = true;
+        const action = subscribe
+            ? this.userService.subscribeToLibrary({ LibraryId: this.libraryId })
+            : this.userService.unsubscribeFromLibrary({ LibraryId: this.libraryId });
+        action.pipe(take(1)).subscribe({
+            next: () => {
+                const newCount = (this.libraryInfo?.SubscribersCount ?? 0) + (subscribe ? 1 : -1);
+                this.fetchLibrary(this.libraryId);
+                setTimeout(() => {
+                    if (this.libraryInfo) this.libraryInfo.SubscribersCount = newCount;
+                    this.isSubscribeLoading = false;
+                }, 1000);
+            },
+            error: () => (this.isSubscribeLoading = false),
+        });
     }
 
     nextPage() {
         this.pagination.nextPage();
+        this.loadStories();
     }
 
     prevPage() {
         this.pagination.prevPage();
+        this.loadStories();
     }
 }

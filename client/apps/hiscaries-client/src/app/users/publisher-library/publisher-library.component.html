@@ -1,8 +1,8 @@
 <ng-container *ngIf="libraryInfo; else emptyLibraryInfo">
     <app-library
-        [isLoading]="isLoading()"
         [library]="libraryInfo"
         [stories]="stories()"
+        [isLoading]="isLoading()"
         [isAbleToSubscribe]="!!libraryInfo"
         [isSubscribed]="isSubscribed"
         [isSubscribeLoading]="isSubscribeLoading"

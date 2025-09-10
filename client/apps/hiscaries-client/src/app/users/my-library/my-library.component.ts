@@ -1,7 +1,7 @@
-import { Component, inject, effect, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { LibraryComponent } from '@users/library/library.component';
 import { Router } from '@angular/router';
-import { finalize, take } from 'rxjs';
+import { take } from 'rxjs';
 import { AuthService } from '@users/services/auth.service';
 import { UserService } from '@users/services/user.service';
 import { StoryWithMetadataService } from '@user-to-story/services/multiple-services-merged/story-with-metadata.service';
@@ -26,11 +26,9 @@ export class MyLibraryComponent {
     private userService = inject(UserService);
     private storyService = inject(StoryWithMetadataService);
     pagination = inject(PaginationService);
-
     libraryInfo: LibraryModel | null = null;
-
     stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
-    isLoading = this.pagination.isLoading;
+    isLoading = signal(false);
 
     constructor() {
         if (!this.authService.isPublisher()) {
@@ -38,25 +36,45 @@ export class MyLibraryComponent {
             return;
         }
         this.fetchLibrary();
+    }
 
-        effect(() => {
-            if (!this.libraryInfo) return;
-            const q = this.pagination.query();
-            this.pagination.setLoading(true);
-            this.storyService
-                .getStoriesByLibrary({
-                    LibraryId: this.libraryInfo.Id,
-                    QueryableModel: q,
-                })
-                .pipe(finalize(() => this.pagination.setLoading(false)))
-                .subscribe((data) => this.stories.set(data));
-        });
+    private fetchLibrary() {
+        this.isLoading.set(true);
+        this.userService
+            .getLibrary()
+            .pipe(take(1))
+            .subscribe({
+                next: (library) => this.processLibrary(library),
+                error: () => this.router.navigate([NavigationConst.Home]),
+            });
+    }
+
+    private processLibrary(library: LibraryModel) {
+        if (!library) return this.router.navigate([NavigationConst.Home]);
+        if (!library.IsLibraryOwner || !this.authService.isTokenOwnerByUsername(library.PlatformUser.Username)) {
+            return this.router.navigate([NavigationConst.PublisherLibrary(library.Id)]);
+        }
+        this.libraryInfo = library;
+        this.pagination.reset();
+        this.loadStories();
+        return null;
+    }
+
+    private loadStories() {
+        if (!this.libraryInfo) return;
+        this.isLoading.set(true);
+        this.storyService
+            .getStoriesByLibrary({ LibraryId: this.libraryInfo.Id, QueryableModel: this.pagination.snapshot })
+            .pipe(take(1))
+            .subscribe({
+                next: (data) => this.stories.set(data),
+                complete: () => this.isLoading.set(false),
+                error: () => this.isLoading.set(false),
+            });
     }
 
     editLibrary(model: LibraryModel) {
-        const isBase64 = (v: string) => !v || v.startsWith('data');
-        const shouldUpdateAvatar = isBase64(model.AvatarUrl);
-
+        const shouldUpdateAvatar = !model.AvatarUrl || model.AvatarUrl.startsWith('data');
         this.userService
             .editLibrary({
                 LibraryId: model.Id,
@@ -69,35 +87,13 @@ export class MyLibraryComponent {
             .subscribe(() => this.fetchLibrary());
     }
 
-    private fetchLibrary(): void {
-        this.pagination.setLoading(true);
-        this.userService
-            .getLibrary()
-            .pipe(take(1))
-            .subscribe({
-                next: (library) => this.processLibraryFetch(library),
-                error: () => this.router.navigate([NavigationConst.Home]),
-            });
-    }
-
-    private processLibraryFetch(library: LibraryModel): void {
-        if (!library) {
-            this.router.navigate([NavigationConst.Home]);
-            return;
-        }
-        if (!library.IsLibraryOwner || !this.authService.isTokenOwnerByUsername(library.PlatformUser.Username)) {
-            this.router.navigate([NavigationConst.PublisherLibrary(library.Id)]);
-            return;
-        }
-        this.libraryInfo = library;
-        this.pagination.reset();
-    }
-
     nextPage() {
         this.pagination.nextPage();
+        this.loadStories();
     }
 
     prevPage() {
         this.pagination.prevPage();
+        this.loadStories();
     }
 }

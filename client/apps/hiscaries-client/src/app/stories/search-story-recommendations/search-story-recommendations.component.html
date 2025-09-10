@@ -1,12 +1,11 @@
-<ng-container *ngIf="stories() as stories; else noStories">
+<ng-container *ngIf="stories() as s; else noStories">
     <h1 class="fs-1rem main-title">Stories for you to read</h1>
 
     <app-search-story-results
-        [stories]="stories"
+        [stories]="s"
         [isLoading]="isLoading()"
         class="w-full"
-    >
-    </app-search-story-results>
+    ></app-search-story-results>
 
     <div class="flex gap-2 mt-4">
         <app-button-one
@@ -17,10 +16,10 @@
 
         <app-button-one
             [label]="'Next'"
-            [disabled]="isLoading() || stories.Items.length + pagination.snapshot.StartIndex >= stories.TotalItemsCount"
+            [disabled]="isLoading() || s.Items.length + pagination.snapshot.StartIndex >= s.TotalItemsCount"
             (clickAction)="nextPage()"
         ></app-button-one>
     </div>
 </ng-container>
 
-<ng-template #noStories> 🚫📖 No stories posted yet — be the first legend! </ng-template>
+<ng-template #noStories> 📚💨 No pages turned yet — your adventure awaits! </ng-template>

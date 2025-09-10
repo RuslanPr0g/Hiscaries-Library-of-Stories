@@ -1,4 +1,4 @@
-import { Component, inject, effect, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { SearchStoryResultsComponent } from '@stories/search-story-results/search-story-results.component';
@@ -18,27 +18,28 @@ import { emptyQueriedResult, QueriedModel } from '@shared/models/queried.model';
 export class ReadingHistoryComponent {
     private userStoryService = inject(UserStoryService);
     pagination = inject(PaginationService);
-
     stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
+    isLoading = signal(false);
 
     constructor() {
-        effect(() => {
-            const q = this.pagination.query();
-            this.pagination.setLoading(true);
-            this.userStoryService
-                .readingHistory(q)
-                .pipe(finalize(() => this.pagination.setLoading(false)))
-                .subscribe((data) => this.stories.set(data));
-        });
+        this.loadStories();
     }
 
-    isLoading = this.pagination.isLoading;
+    private loadStories() {
+        this.isLoading.set(true);
+        this.userStoryService
+            .readingHistory(this.pagination.snapshot)
+            .pipe(finalize(() => this.isLoading.set(false)))
+            .subscribe((data) => this.stories.set(data));
+    }
 
     nextPage() {
         this.pagination.nextPage();
+        this.loadStories();
     }
 
     prevPage() {
         this.pagination.prevPage();
+        this.loadStories();
     }
 }
