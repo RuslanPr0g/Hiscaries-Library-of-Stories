@@ -82,27 +82,6 @@
         "extract-i18n": {
             "executor": "@angular-devkit/build-angular:extract-i18n"
         },
-        "test": {
-            "executor": "@angular-devkit/build-angular:karma",
-            "options": {
-                "polyfills": [
-                    "zone.js",
-                    "zone.js/testing"
-                ],
-                "tsConfig": "apps/hiscaries-client/tsconfig.spec.json",
-                "inlineStyleLanguage": "scss",
-                "assets": [
-                    {
-                        "glob": "**/*",
-                        "input": "apps/hiscaries-client/public"
-                    }
-                ],
-                "styles": [
-                    "apps/hiscaries-client/src/styles.scss"
-                ],
-                "scripts": []
-            }
-        },
         "lint": {
             "executor": "@nx/eslint:lint",
             "options": {
