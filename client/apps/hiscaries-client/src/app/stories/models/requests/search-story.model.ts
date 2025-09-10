@@ -4,5 +4,5 @@ export interface SearchStoryRequest {
     Id?: string | null;
     SearchTerm?: string | null;
     Genre?: string | null;
-    QueryableModel?: QueryableModel;
+    QueryableModel: QueryableModel;
 }

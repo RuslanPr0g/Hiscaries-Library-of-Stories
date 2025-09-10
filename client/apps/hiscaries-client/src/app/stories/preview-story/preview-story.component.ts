@@ -7,6 +7,7 @@ import { FormButtonComponent } from '@shared/components/form-button/form-button.
 import { NavigationConst } from '@shared/constants/navigation.const';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { StoryWithMetadataService } from '@user-to-story/services/multiple-services-merged/story-with-metadata.service';
+import { defaultQueryableModel } from '@shared/models/queryable.model';
 
 @Component({
     selector: 'app-preview-story',
@@ -34,6 +35,7 @@ export class PreviewStoryComponent implements OnInit {
         this.storyService
             .searchStory({
                 Id: this.storyId,
+                QueryableModel: defaultQueryableModel,
             })
             .pipe(take(1))
             .subscribe((stories) => {

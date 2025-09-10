@@ -4,3 +4,10 @@ export interface QueryableModel {
     SortProperty: string;
     SortAsc: boolean;
 }
+
+export const defaultQueryableModel: QueryableModel = {
+    StartIndex: 0,
+    ItemsCount: 1,
+    SortProperty: 'CreatedAt',
+    SortAsc: false,
+};
