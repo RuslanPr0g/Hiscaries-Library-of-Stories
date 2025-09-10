@@ -1,4 +1,4 @@
-import { Component, inject, signal, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { Component, inject, signal, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { SearchStoryResultsComponent } from '@stories/search-story-results/search-story-results.component';
@@ -17,32 +17,36 @@ import { emptyQueriedResult, QueriedModel } from '@shared/models/queried.model';
 })
 export class SearchStoryRecommendationsComponent implements AfterViewInit {
     private storyService = inject(StoryWithMetadataService);
-    private ngZone = inject(NgZone);
     pagination = inject(PaginationService);
 
     stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
     isLoading = signal(false);
 
-    @ViewChild('loadMoreAnchor', { static: true }) loadMoreAnchor!: ElementRef<HTMLElement>;
+    @ViewChild('loadMoreAnchor', { static: true }) loadMoreAnchor!: ElementRef<HTMLDivElement>;
+
+    private observer!: IntersectionObserver;
 
     constructor() {
         this.loadStories(true);
     }
 
     ngAfterViewInit() {
-        const observer = new IntersectionObserver(
+        this.observer = new IntersectionObserver(
             (entries) => {
-                if (
-                    entries[0].isIntersecting &&
-                    !this.isLoading() &&
-                    this.stories().Items.length < this.stories().TotalItemsCount
-                ) {
-                    this.ngZone.run(() => this.nextPage());
-                }
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !this.isLoading()) {
+                        this.nextPage();
+                    }
+                });
             },
-            { rootMargin: '200px' }
+            {
+                threshold: 0,
+            }
         );
-        observer.observe(this.loadMoreAnchor.nativeElement);
+
+        if (this.loadMoreAnchor) {
+            this.observer.observe(this.loadMoreAnchor.nativeElement);
+        }
     }
 
     private loadStories(reset: boolean = false) {
@@ -52,9 +56,14 @@ export class SearchStoryRecommendationsComponent implements AfterViewInit {
         }
 
         this.isLoading.set(true);
+
         this.storyService
             .recommendations(this.pagination.snapshot)
-            .pipe(finalize(() => this.isLoading.set(false)))
+            .pipe(
+                finalize(() => {
+                    this.isLoading.set(false);
+                })
+            )
             .subscribe((data) => {
                 const current = reset ? emptyQueriedResult : this.stories();
                 this.stories.set({
