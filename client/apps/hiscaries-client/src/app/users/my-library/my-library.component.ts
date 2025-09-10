@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { LibraryComponent } from '@users/library/library.component';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
@@ -20,15 +20,19 @@ import { StoryModel } from '@stories/models/domain/story-model';
     styleUrls: ['./my-library.component.scss'],
     providers: [PaginationService],
 })
-export class MyLibraryComponent {
+export class MyLibraryComponent implements AfterViewInit {
     private router = inject(Router);
     private authService = inject(AuthService);
     private userService = inject(UserService);
     private storyService = inject(StoryWithMetadataService);
     pagination = inject(PaginationService);
+
     libraryInfo: LibraryModel | null = null;
     stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
     isLoading = signal(false);
+
+    @ViewChild('loadMoreAnchor', { static: true }) loadMoreAnchor!: ElementRef<HTMLDivElement>;
+    private observer!: IntersectionObserver;
 
     constructor() {
         if (!this.authService.isPublisher()) {
@@ -36,6 +40,21 @@ export class MyLibraryComponent {
             return;
         }
         this.fetchLibrary();
+    }
+
+    ngAfterViewInit() {
+        this.observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !this.isLoading()) {
+                        this.nextPage();
+                    }
+                });
+            },
+            { threshold: 0 }
+        );
+
+        if (this.loadMoreAnchor) this.observer.observe(this.loadMoreAnchor.nativeElement);
     }
 
     private fetchLibrary() {
@@ -56,18 +75,29 @@ export class MyLibraryComponent {
         }
         this.libraryInfo = library;
         this.pagination.reset();
-        this.loadStories();
+        this.loadStories(true);
         return null;
     }
 
-    private loadStories() {
+    private loadStories(reset: boolean = false) {
         if (!this.libraryInfo) return;
+        if (reset) {
+            this.pagination.reset();
+            this.stories.set(emptyQueriedResult);
+        }
+
         this.isLoading.set(true);
         this.storyService
             .getStoriesByLibrary({ LibraryId: this.libraryInfo.Id, QueryableModel: this.pagination.snapshot })
             .pipe(take(1))
             .subscribe({
-                next: (data) => this.stories.set(data),
+                next: (data) => {
+                    const current = reset ? emptyQueriedResult : this.stories();
+                    this.stories.set({
+                        Items: [...current.Items, ...data.Items],
+                        TotalItemsCount: data.TotalItemsCount,
+                    });
+                },
                 complete: () => this.isLoading.set(false),
                 error: () => this.isLoading.set(false),
             });
@@ -93,6 +123,7 @@ export class MyLibraryComponent {
     }
 
     prevPage() {
+        if (this.pagination.snapshot.StartIndex === 0) return;
         this.pagination.prevPage();
         this.loadStories();
     }

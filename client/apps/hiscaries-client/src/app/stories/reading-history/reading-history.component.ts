@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { SearchStoryResultsComponent } from '@stories/search-story-results/search-story-results.component';
@@ -15,22 +15,54 @@ import { emptyQueriedResult, QueriedModel } from '@shared/models/queried.model';
     styleUrls: ['./reading-history.component.scss'],
     providers: [PaginationService],
 })
-export class ReadingHistoryComponent {
+export class ReadingHistoryComponent implements AfterViewInit {
     private userStoryService = inject(UserStoryService);
     pagination = inject(PaginationService);
+
     stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
     isLoading = signal(false);
 
+    @ViewChild('loadMoreAnchor', { static: true }) loadMoreAnchor!: ElementRef<HTMLDivElement>;
+    private observer!: IntersectionObserver;
+
     constructor() {
-        this.loadStories();
+        this.loadStories(true);
     }
 
-    private loadStories() {
+    ngAfterViewInit() {
+        this.observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !this.isLoading()) {
+                        this.nextPage();
+                    }
+                });
+            },
+            { threshold: 0 }
+        );
+
+        if (this.loadMoreAnchor) {
+            this.observer.observe(this.loadMoreAnchor.nativeElement);
+        }
+    }
+
+    private loadStories(reset: boolean = false) {
+        if (reset) {
+            this.pagination.reset();
+            this.stories.set(emptyQueriedResult);
+        }
+
         this.isLoading.set(true);
         this.userStoryService
             .readingHistory(this.pagination.snapshot)
             .pipe(finalize(() => this.isLoading.set(false)))
-            .subscribe((data) => this.stories.set(data));
+            .subscribe((data) => {
+                const current = reset ? emptyQueriedResult : this.stories();
+                this.stories.set({
+                    Items: [...current.Items, ...data.Items],
+                    TotalItemsCount: data.TotalItemsCount,
+                });
+            });
     }
 
     nextPage() {
@@ -39,6 +71,7 @@ export class ReadingHistoryComponent {
     }
 
     prevPage() {
+        if (this.pagination.snapshot.StartIndex === 0) return;
         this.pagination.prevPage();
         this.loadStories();
     }
