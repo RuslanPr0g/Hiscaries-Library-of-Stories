@@ -50,6 +50,10 @@ export class SearchStoryRecommendationsComponent implements AfterViewInit {
     }
 
     private loadStories(reset: boolean = false) {
+        if (this.pagination.snapshot.StartIndex > 300) {
+            return;
+        }
+
         if (reset) {
             this.pagination.reset();
             this.stories.set(emptyQueriedResult);
