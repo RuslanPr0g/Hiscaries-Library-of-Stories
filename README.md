@@ -4,7 +4,6 @@
 
 [C4 Diagram of the system](https://drive.google.com/file/d/1YVpVJS43djNFkMbAwFCGF1CzXhPL_sf-/view?usp=sharing)
 
-
 ---
 
 ## 🚀 Local Development Setup
@@ -76,7 +75,7 @@ Navigate to the frontend (client) directory, then run:
 
 ```bash
 npm install
-ng serve
+npm run start
 ```
 
 ---

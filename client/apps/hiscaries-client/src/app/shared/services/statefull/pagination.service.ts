@@ -1,36 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { QueryableModel } from '@shared/models/queryable.model';
-import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 
 @Injectable()
 export class PaginationService {
-    private state$ = new BehaviorSubject<QueryableModel>({
+    private state = signal<QueryableModel>({
         StartIndex: 0,
         ItemsCount: 5,
         SortProperty: 'CreatedAt',
         SortAsc: false,
     });
 
-    private loading$ = new BehaviorSubject<boolean>(false);
+    private loading = signal<boolean>(false);
 
-    get query$() {
-        return this.state$.asObservable().pipe(distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)));
+    get query() {
+        return this.state;
     }
 
-    get isLoading$() {
-        return this.loading$.asObservable();
+    get isLoading() {
+        return this.loading;
     }
 
     get snapshot() {
-        return this.state$.value;
+        return this.state();
     }
 
     setPage(start: number, count: number) {
-        this.state$.next({ ...this.snapshot, StartIndex: start, ItemsCount: count });
+        this.state.update((current) => ({ ...current, StartIndex: start, ItemsCount: count }));
     }
 
     setSort(property: string, asc: boolean) {
-        this.state$.next({ ...this.snapshot, SortProperty: property, SortAsc: asc });
+        this.state.update((current) => ({ ...current, SortProperty: property, SortAsc: asc }));
     }
 
     nextPage() {
@@ -44,7 +43,7 @@ export class PaginationService {
     }
 
     reset() {
-        this.state$.next({
+        this.state.set({
             StartIndex: 0,
             ItemsCount: 5,
             SortProperty: 'CreatedAt',
@@ -53,6 +52,6 @@ export class PaginationService {
     }
 
     setLoading(isLoading: boolean) {
-        this.loading$.next(isLoading);
+        this.loading.set(isLoading);
     }
 }

@@ -4,12 +4,14 @@
     "scripts": {
         "ng": "ng",
         "start": "nx serve hiscaries-client --proxy-config proxy.conf.json",
-        "watch": "nx build --watch --configuration development",
+        "watch": "nx build hiscaries-client --watch --configuration development",
         "test": "nx test",
+        "reset": "nx reset",
         "lintall": "npx eslint . --ignore-pattern \".angular/*\"",
-        "lint": "nx lint",
+        "lint": "nx lint hiscaries-client",
         "test:ci": "nx test --watch=false",
-        "build": "nx build"
+        "build": "nx build hiscaries-client",
+        "show-config": "cd apps/hiscaries-client & tsc --showConfig"
     },
     "private": true,
     "dependencies": {
