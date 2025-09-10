@@ -1,6 +1,12 @@
 <ng-container *ngIf="stories() as s; else noStories">
-    <h1 class="fs-1rem main-title">Resume reading</h1>
+    <h1
+        class="fs-1rem main-title"
+        *ngIf="stories().Items.length > 0"
+    >
+        Resume reading
+    </h1>
     <app-search-story-results
+        *ngIf="stories().Items.length > 0 || isLoading()"
         [stories]="s"
         [isLoading]="isLoading()"
         class="w-full"
