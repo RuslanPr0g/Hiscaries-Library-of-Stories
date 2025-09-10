@@ -1,14 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, effect, signal } from '@angular/core';
 import { LibraryComponent } from '@users/library/library.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, finalize, take, tap } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { NavigationConst } from '@shared/constants/navigation.const';
 import { UserService } from '@users/services/user.service';
 import { StoryWithMetadataService } from '@user-to-story/services/multiple-services-merged/story-with-metadata.service';
 import { PaginationService } from '@shared/services/statefull/pagination.service';
 import { LibraryModel } from '@users/models/domain/library.model';
 import { CommonModule } from '@angular/common';
-import { emptyQueriedResult } from '@shared/models/queried.model';
+import { emptyQueriedResult, QueriedModel } from '@shared/models/queried.model';
+import { StoryModel } from '@stories/models/domain/story-model';
 
 @Component({
     selector: 'app-publisher-library',
@@ -24,26 +25,14 @@ export class PublisherLibraryComponent {
     private userService = inject(UserService);
     private storyService = inject(StoryWithMetadataService);
     pagination = inject(PaginationService);
-    empty = emptyQueriedResult;
 
     libraryId = this.route.snapshot.paramMap.get('id');
     libraryInfo: LibraryModel | null = null;
 
     isSubscribeLoading = false;
 
-    stories$ = this.pagination.query$.pipe(
-        // tap(() => this.pagination.setLoading(true)),
-        switchMap((q) => {
-            return this.storyService
-                .getStoriesByLibrary({
-                    LibraryId: this.libraryId ?? '',
-                    QueryableModel: q,
-                })
-                .pipe(finalize(() => this.pagination.setLoading(false)));
-        })
-    );
-
-    isLoading$ = this.pagination.isLoading$;
+    stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
+    isLoading = this.pagination.isLoading;
 
     constructor() {
         if (!this.libraryId) {
@@ -52,6 +41,19 @@ export class PublisherLibraryComponent {
         }
 
         this.fetchLibrary(this.libraryId);
+
+        effect(() => {
+            if (!this.libraryInfo) return;
+            const q = this.pagination.query();
+            this.pagination.setLoading(true);
+            this.storyService
+                .getStoriesByLibrary({
+                    LibraryId: this.libraryId ?? '',
+                    QueryableModel: q,
+                })
+                .pipe(finalize(() => this.pagination.setLoading(false)))
+                .subscribe((data) => this.stories.set(data));
+        });
     }
 
     get isSubscribed(): boolean {
@@ -97,7 +99,6 @@ export class PublisherLibraryComponent {
 
     private fetchLibrary(libraryId: string): void {
         this.pagination.setLoading(true);
-
         this.userService
             .getLibrary(libraryId)
             .pipe(take(1))

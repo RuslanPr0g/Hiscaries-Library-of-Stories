@@ -1,7 +1,7 @@
 <ng-container *ngIf="!isLoading()">
     <h1 class="fs-1rem main-title">Resume reading</h1>
     <app-search-story-results
-        [stories]="stories() ?? empty"
+        [stories]="stories()"
         [isLoading]="isLoading()"
         class="w-full"
     >

@@ -1,9 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { switchMap, finalize, tap } from 'rxjs';
+import { finalize } from 'rxjs';
 import { SearchStoryResultsComponent } from '@stories/search-story-results/search-story-results.component';
 import { UserStoryService } from '@user-to-story/services/multiple-services-merged/user-story.service';
 import { PaginationService } from '@shared/services/statefull/pagination.service';
+import { StoryModel } from '@stories/models/domain/story-model';
+import { emptyQueriedResult, QueriedModel } from '@shared/models/queried.model';
 
 @Component({
     selector: 'app-reading-history',
@@ -17,14 +19,20 @@ export class ReadingHistoryComponent {
     private userStoryService = inject(UserStoryService);
     pagination = inject(PaginationService);
 
-    stories$ = this.pagination.query$.pipe(
-        // tap(() => this.pagination.setLoading(true)),
-        switchMap((q) => {
-            return this.userStoryService.readingHistory(q).pipe(finalize(() => this.pagination.setLoading(false)));
-        })
-    );
+    stories = signal<QueriedModel<StoryModel>>(emptyQueriedResult);
 
-    isLoading$ = this.pagination.isLoading$;
+    constructor() {
+        effect(() => {
+            const q = this.pagination.query();
+            this.pagination.setLoading(true);
+            this.userStoryService
+                .readingHistory(q)
+                .pipe(finalize(() => this.pagination.setLoading(false)))
+                .subscribe((data) => this.stories.set(data));
+        });
+    }
+
+    isLoading = this.pagination.isLoading;
 
     nextPage() {
         this.pagination.nextPage();
