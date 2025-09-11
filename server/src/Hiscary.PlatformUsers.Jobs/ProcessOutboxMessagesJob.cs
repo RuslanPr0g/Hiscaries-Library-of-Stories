@@ -2,8 +2,8 @@
 using Hiscary.PlatformUsers.DomainEvents;
 using Hiscary.PlatformUsers.IntegrationEvents;
 using Hiscary.PlatformUsers.Persistence.Context;
-using Hiscary.Shared.Outbox;
 using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Outbox.Jobs;
 using System.Reflection;
 
 namespace Hiscary.PlatformUsers.Jobs;

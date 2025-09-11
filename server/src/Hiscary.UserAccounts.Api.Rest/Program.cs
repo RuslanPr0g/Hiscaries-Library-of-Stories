@@ -1,6 +1,5 @@
 using Hiscary.ServiceDefaults;
 using Hiscary.Shared.Api.Rest;
-using Hiscary.Shared.Application.Filters;
 using Hiscary.UserAccounts.Api.Rest.Endpoints;
 using Hiscary.UserAccounts.Application.Write;
 using Hiscary.UserAccounts.EventHandlers;
@@ -8,6 +7,7 @@ using Hiscary.UserAccounts.Jobs;
 using Hiscary.UserAccounts.Persistence.Context;
 using Hiscary.UserAccounts.Persistence.Write;
 using Serilog;
+using StackNucleus.DDD.Api.Rest.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

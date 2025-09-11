@@ -1,5 +1,5 @@
 ﻿using Hiscary.PlatformUsers.Persistence.Context;
-using Hiscary.Shared.Outbox;
+using StackNucleus.DDD.Outbox.Jobs;
 
 namespace Hiscary.PlatformUsers.Jobs;
 

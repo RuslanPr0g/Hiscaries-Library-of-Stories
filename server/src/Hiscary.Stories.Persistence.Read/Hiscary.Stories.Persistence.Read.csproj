@@ -13,7 +13,6 @@
     <PackageReference Include="StackNucleus.DDD.Persistence" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hiscary.Shared.Persistence\Hiscary.Shared.Persistence.csproj" />
     <ProjectReference Include="..\Hiscary.Stories.Domain\Hiscary.Stories.Domain.csproj" />
     <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
   </ItemGroup>

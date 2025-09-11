@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StackNucleus.DDD.Api.Rest" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hiscary.Shared.Application\Hiscary.Shared.Application.csproj" />
-    <ProjectReference Include="..\Hiscary.Shared.Images\Hiscary.Shared.Images.csproj" />
-    <ProjectReference Include="..\Hiscary.Shared.Jwt\Hiscary.Shared.Jwt.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="StackNucleus.DDD.Api.Rest" />
+        <PackageReference Include="StackNucleus.DDD.Images" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Hiscary.Shared.Application\Hiscary.Shared.Application.csproj" />
+        <ProjectReference Include="..\Hiscary.Shared.Jwt\Hiscary.Shared.Jwt.csproj" />
+    </ItemGroup>
 </Project>

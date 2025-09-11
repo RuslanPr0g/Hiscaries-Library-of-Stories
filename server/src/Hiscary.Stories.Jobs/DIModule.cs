@@ -1,5 +1,5 @@
-﻿using Hiscary.Shared.Jobs.Quartz.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using StackNucleus.DDD.Jobs.Quartz.Extensions;
 
 namespace Hiscary.Stories.Jobs;
 

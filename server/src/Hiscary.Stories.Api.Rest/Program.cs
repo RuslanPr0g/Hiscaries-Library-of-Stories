@@ -1,6 +1,5 @@
 using Hiscary.ServiceDefaults;
 using Hiscary.Shared.Api.Rest;
-using Hiscary.Shared.Application.Filters;
 using Hiscary.Stories.Api.Rest.Endpoints;
 using Hiscary.Stories.Application.Read;
 using Hiscary.Stories.Application.Write;
@@ -10,6 +9,7 @@ using Hiscary.Stories.Persistence.Context;
 using Hiscary.Stories.Persistence.Read;
 using Hiscary.Stories.Persistence.Write;
 using Serilog;
+using StackNucleus.DDD.Api.Rest.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

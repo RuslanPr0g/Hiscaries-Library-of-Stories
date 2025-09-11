@@ -4,9 +4,9 @@ using Hiscary.Media.FileStorage;
 using Hiscary.Media.Images;
 using Hiscary.ServiceDefaults;
 using Hiscary.Shared.Api.Rest;
-using Hiscary.Shared.Application.Extensions;
 using Hiscary.Shared.Domain.Options;
 using Serilog;
+using StackNucleus.DDD.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

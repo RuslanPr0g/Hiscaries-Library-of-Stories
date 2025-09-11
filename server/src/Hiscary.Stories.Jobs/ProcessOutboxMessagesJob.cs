@@ -1,8 +1,8 @@
 ﻿using Hiscary.Media.IntegrationEvents;
-using Hiscary.Shared.Outbox;
 using Hiscary.Stories.IntegrationEvents;
 using Hiscary.Stories.Persistence.Context;
 using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Outbox.Jobs;
 using System.Reflection;
 
 namespace Hiscary.Stories.Jobs;

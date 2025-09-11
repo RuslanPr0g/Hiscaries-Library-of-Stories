@@ -1,7 +1,7 @@
-﻿using Hiscary.Shared.Outbox;
-using Hiscary.UserAccounts.IntegrationEvents;
+﻿using Hiscary.UserAccounts.IntegrationEvents;
 using Hiscary.UserAccounts.Persistence.Context;
 using StackNucleus.DDD.Domain.EventPublishers;
+using StackNucleus.DDD.Outbox.Jobs;
 using System.Reflection;
 
 namespace Hiscary.UserAccounts.Jobs;

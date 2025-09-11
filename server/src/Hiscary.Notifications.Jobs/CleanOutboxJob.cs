@@ -1,5 +1,5 @@
 ﻿using Hiscary.Notifications.Persistence.Context;
-using Hiscary.Shared.Outbox;
+using StackNucleus.DDD.Outbox.Jobs;
 
 namespace Hiscary.Notifications.Jobs;
 

@@ -47,8 +47,6 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.16" />
     <PackageVersion Include="Npgsql" Version="9.0.3" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageVersion Include="StackNucleus.DDD.Persistence" Version="1.1.0" />
-    <PackageVersion Include="StackNucleus.DDD.Persistence.EF.Postgres" Version="1.1.0" />
   </ItemGroup>
   <!-- OpenTelemetry & Monitoring -->
   <ItemGroup>
@@ -60,9 +58,15 @@
   </ItemGroup>
   <!-- StackNucleus DDD -->
   <ItemGroup>
-    <PackageVersion Include="StackNucleus.DDD.Api.Rest" Version="1.2.0" />
-    <PackageVersion Include="StackNucleus.DDD.Domain" Version="1.2.0" />
-    <PackageVersion Include="StackNucleus.DDD.Events.WolverineFx" Version="1.2.0" />
+    <PackageVersion Include="StackNucleus.DDD.Domain" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Application" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Events.WolverineFx" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Outbox" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Persistence" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Persistence.EF.Postgres" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Jobs.Quartz" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Images" Version="2.0.0" />
+    <PackageVersion Include="StackNucleus.DDD.Api.Rest" Version="2.0.0" />
   </ItemGroup>
   <!-- WolverineFx -->
   <ItemGroup>

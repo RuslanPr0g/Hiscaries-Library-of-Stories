@@ -1,15 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hiscary.Media.IntegrationEvents\Hiscary.Media.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\Hiscary.Shared.Jobs.Quartz\Hiscary.Shared.Jobs.Quartz.csproj" />
-    <ProjectReference Include="..\Hiscary.Shared.Outbox\Hiscary.Shared.Outbox.csproj" />
-    <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
-    <ProjectReference Include="..\Hiscary.Stories.IntegrationEvents\Hiscary.Stories.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="StackNucleus.DDD.Jobs.Quartz" />
+        <PackageReference Include="StackNucleus.DDD.Outbox" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Hiscary.Media.IntegrationEvents\Hiscary.Media.IntegrationEvents.csproj" />
+        <ProjectReference Include="..\Hiscary.Shared.Domain\Hiscary.Shared.Domain.csproj" />
+        <ProjectReference Include="..\Hiscary.Stories.IntegrationEvents\Hiscary.Stories.IntegrationEvents.csproj" />
+        <ProjectReference Include="..\Hiscary.Stories.Persistence.Context\Hiscary.Stories.Persistence.Context.csproj" />
+    </ItemGroup>
 </Project>

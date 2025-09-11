@@ -1,8 +1,8 @@
 ﻿using Hiscary.Notifications.Api.Rest.Requests;
 using Hiscary.Notifications.Domain.Services;
-using Hiscary.Shared.Domain.ResultModels.Response;
 using Microsoft.AspNetCore.Mvc;
 using StackNucleus.DDD.Api.Rest;
+using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.Notifications.Api.Rest.Endpoints;
 

@@ -1,9 +1,9 @@
 ﻿using Hiscary.Shared.Application;
-using Hiscary.Shared.Images;
 using Hiscary.Shared.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackNucleus.DDD.Api.Rest;
+using StackNucleus.DDD.Images;
 
 namespace Hiscary.Shared.Api.Rest;
 
@@ -14,7 +14,7 @@ public static class DIModule
         services.AddNucleusRestApi();
 
         services.AddSharedApplicationServices(configuration);
-        services.AddSharedImages();
+        services.AddNucleusImages();
         services.AddSharedJwt();
 
         return services;

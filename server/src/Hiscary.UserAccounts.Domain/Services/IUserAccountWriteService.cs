@@ -1,5 +1,4 @@
-﻿using Hiscary.Shared.Domain.ResultModels.Response;
-using StackNucleus.DDD.Domain.ResultModels;
+﻿using StackNucleus.DDD.Domain.ResultModels;
 
 namespace Hiscary.UserAccounts.Domain.Services;
 

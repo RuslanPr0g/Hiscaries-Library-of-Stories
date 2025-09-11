@@ -1,6 +1,5 @@
 ﻿using Hiscary.Media.IntegrationEvents.Incoming;
 using Hiscary.Shared.Domain.Constants;
-using Hiscary.Shared.Domain.ResultModels.Response;
 using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.Genres;
 using Hiscary.Stories.Domain.Stories;

@@ -10,8 +10,8 @@ using Hiscary.Notifications.SignalR;
 using Hiscary.Notifications.SignalR.Hubs;
 using Hiscary.ServiceDefaults;
 using Hiscary.Shared.Api.Rest;
-using Hiscary.Shared.Application.Filters;
 using Serilog;
+using StackNucleus.DDD.Api.Rest.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

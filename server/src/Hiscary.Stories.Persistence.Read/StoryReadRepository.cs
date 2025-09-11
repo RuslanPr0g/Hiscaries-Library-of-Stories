@@ -1,13 +1,13 @@
-﻿using StackNucleus.DDD.Domain.ClientModels;
-using Hiscary.Shared.Persistence.Extensions;
-using Hiscary.Stories.Domain;
+﻿using Hiscary.Stories.Domain;
 using Hiscary.Stories.Domain.DataAccess;
 using Hiscary.Stories.Domain.ReadModels;
 using Hiscary.Stories.Domain.Stories;
 using Hiscary.Stories.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using StackNucleus.DDD.Domain.ClientModels;
 using StackNucleus.DDD.Persistence;
 using StackNucleus.DDD.Persistence.EF.Postgres;
+using StackNucleus.DDD.Persistence.Extensions;
 
 namespace Hiscary.Stories.Persistence.Read;
 

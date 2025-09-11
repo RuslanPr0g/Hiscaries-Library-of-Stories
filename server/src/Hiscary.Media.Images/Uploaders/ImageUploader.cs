@@ -1,5 +1,5 @@
 ﻿using Hiscary.Shared.Domain.FileStorage;
-using Hiscary.Shared.Domain.Images;
+using StackNucleus.DDD.Domain.Images;
 
 namespace Hiscary.Media.Images.Uploaders;
 
